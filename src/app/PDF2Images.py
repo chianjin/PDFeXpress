@@ -10,10 +10,8 @@ from app.Progress import Progress
 from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT
 from modules import pdf2images
 from ui.UiPDF2Images import UiPDF2Images
-from utils import split_iterable
 
 IMAGE_DPI = '96 144 192 288 384 480 576'
-
 PROGRESS_BAR_DELAY = 80
 
 
@@ -93,10 +91,14 @@ class PDF2Images(UiPDF2Images):
                 self._toggle_buttons()
 
     def process(self):
-        sub_process_list = []
-        page_range_list = split_iterable(range(self._page_count), PHYSICAL_CPU_COUNT)
         queue = Queue()
-        for page_range in page_range_list:
+        sub_process_list = []
+
+        pdf_range = range(self._page_count)
+        for start in range(PHYSICAL_CPU_COUNT):
+            # if PHYSICAL_CPU_COUNT == 4
+            # [0, 4, 8, ...], [1, 5, 9, ...], [2, 6, 10, ...], [3, 7, 11, ...]
+            page_range = pdf_range[start::PHYSICAL_CPU_COUNT]
             sub_process = Process(
                     target=pdf2images,
                     args=(queue, self._pdf_file, self._images_dir, self._image_quality, self._image_dpi, page_range)

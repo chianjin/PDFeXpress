@@ -1,3 +1,4 @@
+from constants import APP_ICON
 from ui.UiProgress import UiProgress
 from utils import get_geometry
 
@@ -7,8 +8,9 @@ PROGRESS_BAR_DELAY = 20
 class Progress(UiProgress):
     def __init__(self, master=None, process_list=[], queue=None, maximum=100, **kw):
         super(Progress, self).__init__(master, **kw)
-        self.grab_set()
         self.geometry(get_geometry(self, None))
+        self.grab_set()
+        self.iconbitmap(APP_ICON)
 
         self._process_list = process_list
         self._queue = queue
