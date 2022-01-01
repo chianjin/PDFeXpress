@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.1">
+  <object class="tk.Toplevel" id="Progress">
+    <property name="height">200</property>
+    <property name="title" translatable="yes">请等待……</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="Frame">
+        <property name="height">400</property>
+        <property name="width">500</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="FrameInfo">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="padx">20</property>
+              <property name="pady">20</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="LabelAppInfo">
+                <property name="text" translatable="yes">正在处理：</property>
+                <layout manager="pack">
+                  <property name="propagate">True</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="LabelProcessInfo">
+                <property name="textvariable">string:process_info</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="propagate">True</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Progressbar" id="Progressbar">
+            <property name="length">400</property>
+            <property name="orient">horizontal</property>
+            <property name="variable">int:progress</property>
+            <layout manager="pack">
+              <property name="fill">y</property>
+              <property name="padx">20</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="ButtonStop">
+            <property name="command" type="command" cbtype="simple">stop_process</property>
+            <property name="text" translatable="yes">停止</property>
+            <layout manager="pack">
+              <property name="pady">20</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

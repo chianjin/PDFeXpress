@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.1">
+    <object class="tk.Menu" id="UiFrameMenu">
+        <child>
+            <object class="tk.Menuitem.Submenu" id="MenuFile">
+                <property name="label" translatable="yes">文件</property>
+                <property name="tearoff">false</property>
+                <child>
+                    <object class="tk.Menuitem.Command" id="CommandQuit">
+                        <property name="command" type="command" cbtype="simple">quit</property>
+                        <property name="label" translatable="yes">退出</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="tk.Menuitem.Submenu" id="MenuHelp">
+                <property name="label" translatable="yes">帮助</property>
+                <property name="tearoff">false</property>
+                <child>
+                    <object class="tk.Menuitem.Command" id="CommandAbout">
+                        <property name="command" type="command" cbtype="simple">about</property>
+                        <property name="label" translatable="yes">关于</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
+</interface>

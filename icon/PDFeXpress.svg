@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+        width="105mm"
+        height="105mm"
+        viewBox="0 0 105 105"
+        version="1.1"
+        id="svg5"
+        sodipodi:docname="PDFExpress.svg"
+        inkscape:export-filename="C:\Users\chian\Desktop\PDFExpress.png"
+        inkscape:export-xdpi="16.256001"
+        inkscape:export-ydpi="16.256001"
+        inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+        xmlns="http://www.w3.org/2000/svg"
+>
+    <sodipodi:namedview
+            id="namedview7"
+            pagecolor="#ffffff"
+            bordercolor="#666666"
+            borderopacity="1.0"
+            inkscape:pageshadow="2"
+            inkscape:pageopacity="0.0"
+            inkscape:pagecheckerboard="0"
+            inkscape:document-units="mm"
+            showgrid="false"
+            width="105mm"
+            inkscape:zoom="2.0452292"
+            inkscape:cx="188.73191"
+            inkscape:cy="187.99849"
+            inkscape:window-width="1920"
+            inkscape:window-height="991"
+            inkscape:window-x="-9"
+            inkscape:window-y="-9"
+            inkscape:window-maximized="1"
+            inkscape:current-layer="layer1"/>
+    <defs
+            id="defs2"/>
+    <g
+            inkscape:label="图层 1"
+            inkscape:groupmode="layer"
+            id="layer1">
+        <path
+                sodipodi:type="star"
+                style="fill:#ea0d0c;fill-opacity:1;stroke:none;stroke-width:0.266295"
+                id="path28348"
+                inkscape:flatsided="true"
+                sodipodi:sides="4"
+                sodipodi:cx="66.985161"
+                sodipodi:cy="82.631325"
+                sodipodi:r1="114.34572"
+                sodipodi:r2="80.854637"
+                sodipodi:arg1="0.78539816"
+                sodipodi:arg2="1.5707963"
+                inkscape:rounded="-0.85"
+                inkscape:randomized="0"
+                d="m 147.83979,163.48596 c 97.19386,-97.193864 -258.90312,-97.193862 -161.709262,0 97.193861,97.19386 97.19386,-258.903129 0,-161.7092678 -97.193858,97.1938608 258.903122,97.1938598 161.709262,-6e-7 -97.193858,-97.1938606 -97.193856,258.9031284 0,161.7092684 z"
+                transform="matrix(0.49678618,0,0,0.49678618,19.222698,11.4499)"
+                inkscape:export-filename="C:\Users\chian\Desktop\PDFExpress.png"
+                inkscape:export-xdpi="16.256001"
+                inkscape:export-ydpi="16.256001"/>
+    </g>
+</svg>
