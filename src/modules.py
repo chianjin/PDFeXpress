@@ -39,6 +39,14 @@ def split_pdf(
             queue.put(count)
 
 
+def rotate_pdf(queue: Queue, pdf_file: Path, rotated_pdf_file: Path, rotation: int):
+    with fitz.Document(pdf_file) as pdf:
+        for page_no, page in enumerate(pdf):
+            page.set_rotation(rotation=rotation)
+            queue.put(page_no)
+        pdf.save(rotated_pdf_file)
+
+
 def extract_images(queue: Queue, pdf_file: Path, image_dir: Path):
     with fitz.Document(pdf_file) as pdf:
         page_no_width = len(str(pdf.page_count))

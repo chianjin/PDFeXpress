@@ -126,19 +126,6 @@
         <child>
           <object class="ttk.Radiobutton" id="RadiobuttonCW90">
             <property name="text" translatable="yes">顺时针90°</property>
-            <property name="value">-90</property>
-            <property name="variable">int:rotate_degree</property>
-            <layout manager="pack">
-              <property name="padx">4</property>
-              <property name="pady">4</property>
-              <property name="propagate">True</property>
-              <property name="side">left</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Radiobutton" id="RadiobuttonCCW90">
-            <property name="text" translatable="yes">逆时针90°</property>
             <property name="value">90</property>
             <property name="variable">int:rotate_degree</property>
             <layout manager="pack">
@@ -153,6 +140,19 @@
           <object class="ttk.Radiobutton" id="Radiobutton180">
             <property name="text" translatable="yes">180°</property>
             <property name="value">180</property>
+            <property name="variable">int:rotate_degree</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Radiobutton" id="RadiobuttonCCW90">
+            <property name="text" translatable="yes">逆时针90°</property>
+            <property name="value">270</property>
             <property name="variable">int:rotate_degree</property>
             <layout manager="pack">
               <property name="padx">4</property>

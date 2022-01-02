@@ -1,7 +1,10 @@
 from pathlib import Path
+from multiprocessing import Process, Queue
 from tkinter.filedialog import asksaveasfilename
 
 from constants import FILE_TYPES_PDF
+from modules import rotate_pdf
+from app.Progress import Progress
 from ui.UiRotatePDF import UiRotatePDF
 from utils import get_pdf_info
 
@@ -12,7 +15,6 @@ class RotatePDF(UiRotatePDF):
 
         self._pdf_file: Path | str = ''
         self._rotated_pdf_file: Path | str = ''
-        self._rotate_degree: int = self.rotate_degree.get()
         self._page_count = 0
 
     def get_pdf_file(self):
@@ -43,7 +45,14 @@ class RotatePDF(UiRotatePDF):
         self._toggle_buttons()
 
     def process(self):
-        pass
+        queue = Queue()
+        sub_process = Process(
+                target=rotate_pdf,
+                args=(queue, self._pdf_file, self._rotated_pdf_file, self.rotate_degree.get())
+                )
+        sub_process_list = [sub_process]
+        sub_process.start()
+        Progress(process_list=sub_process_list, queue=queue, maximum=self._page_count)
 
     def _toggle_buttons(self):
         if self._pdf_file and self._rotated_pdf_file:
