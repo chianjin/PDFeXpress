@@ -2,16 +2,14 @@ import math
 from itertools import zip_longest
 from multiprocessing import Process, Queue
 from pathlib import Path
-from tkinter.filedialog import askdirectory, askopenfilename
+from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
 from typing import Union
 
-import fitz
-
 from app.Progress import Progress
-from constants import FILE_TYPES_PDF
 from modules import split_pdf
 from ui.UiSplitPDF import UiSplitPDF
+from utils import get_pdf_info
 
 
 class SplitPDF(UiSplitPDF):
@@ -24,76 +22,57 @@ class SplitPDF(UiSplitPDF):
         self._pdf_file: Union[str, Path] = ''
         self._split_pdf_dir: Union[str, Path] = ''
         self._split_mode = self.split_mode.get()
-        self._use_src_dir = 0
-        self.use_src_dir.set(self._use_src_dir)
 
     def get_pdf_file(self):
-        old_pdf_file = self._pdf_file
-        self._pdf_file = askopenfilename(title='选择 PDF 文件', filetypes=FILE_TYPES_PDF)
-        if self._pdf_file:
-            self._pdf_file = Path(self._pdf_file)
-            if old_pdf_file != self._pdf_file:
-                self.pdf_file.set(self._pdf_file)
-                self.set_use_src_dir()
-                with fitz.Document(str(self._pdf_file)) as pdf:
-                    self._page_count = pdf.page_count
-                # Set split options
-                # Pages per split pdf in page split mode
-                self.split_page.set(2)
-                # Count of split pdf in count split mode
-                self._set_split_count()
-                # First page number of split pdf in range split mode
-                self.split_range_start.set(1)
-                # Last page number of split pdf in range split mode
-                self.split_range_stop.set(self._page_count)
-                # Width of split pdf suffix page number
-                self._page_no_width = len(str(self._page_count))
-                self.app_info.set(f'共 {self._page_count} 页。')
-                self.process_info.set('')
-                self._toggle_buttons()
+        self._pdf_file, self._page_count, self._page_no_width = get_pdf_info()
+        if self._page_count > 0:
+            self.pdf_file.set(self._pdf_file)
+            self.app_info.set(f'共 {self._page_count} 页')
+
+            # Set split options
+            # Pages per split pdf in page split mode
+            self.split_page.set(2)
+            # Count of split pdf in count split mode
+            self._set_split_count()
+            # First page number of split pdf in range split mode
+            self.split_range_start.set(1)
+            # Last page number of split pdf in range split mode
+            self.split_range_stop.set(self._page_count)
+
+        self._toggle_buttons()
 
     def set_split_pdf_dir(self):
-        old_split_pdf_dir = self._split_pdf_dir
-        self._split_pdf_dir = askdirectory(title='选择分割 PDF 文件保存目录', mustexist=True)
+        self._split_pdf_dir = askdirectory(title='选择图像输出目录')
         if self._split_pdf_dir:
             self._split_pdf_dir = Path(self._split_pdf_dir)
-            if old_split_pdf_dir != self._split_pdf_dir:
-                self.split_pdf_dir.set(self._split_pdf_dir)
-                if self._split_pdf_dir:
-                    if self._split_pdf_dir == self._pdf_file.parent:
-                        self._use_src_dir = 1
-                    else:
-                        self._use_src_dir = 0
-                self.use_src_dir.set(self._use_src_dir)
-                self.process_info.set('')
-                self._toggle_buttons()
+            self.split_pdf_dir.set(self._split_pdf_dir)
+        self._toggle_buttons()
 
     def set_split_mode(self):
-        self._split_mode = self.split_mode.get()
-        self.process_info.set('')
-        if self._split_mode == 'single':
+        if self._pdf_file:
+            self._split_mode = self.split_mode.get()
+            if self._split_mode == 'page':
+                self.EntrySplitPage.configure(state='normal')
+                self.ComboboxSplitCount.configure(state='disabled')
+                self.EntrySplitRangeStart.configure(state='disabled')
+                self.EntrySplitRangeStop.configure(state='disabled')
+            elif self._split_mode == 'count':
+                self.EntrySplitPage.configure(state='disable')
+                self.ComboboxSplitCount.configure(state='readonly')
+                self.EntrySplitRangeStart.configure(state='disabled')
+                self.EntrySplitRangeStop.configure(state='disabled')
+            elif self._split_mode == 'range':
+                self.EntrySplitPage.configure(state='disabled')
+                self.ComboboxSplitCount.configure(state='disabled')
+                self.EntrySplitRangeStart.configure(state='normal')
+                self.EntrySplitRangeStop.configure(state='normal')
+        else:
+            self._split_mode = 'single'
+            self.split_mode.set(self._split_mode)
             self.EntrySplitPage.configure(state='disabled')
             self.ComboboxSplitCount.configure(state='disabled')
             self.EntrySplitRangeStart.configure(state='disabled')
             self.EntrySplitRangeStop.configure(state='disabled')
-        elif self._split_mode == 'page':
-            self.EntrySplitPage.configure(state='normal')
-            self.ComboboxSplitCount.configure(state='disabled')
-            self.EntrySplitRangeStart.configure(state='disabled')
-            self.EntrySplitRangeStop.configure(state='disabled')
-        elif self._split_mode == 'count':
-            self.EntrySplitPage.configure(state='disable')
-            self.ComboboxSplitCount.configure(state='readonly')
-            self.split_count.set(2)
-            self.EntrySplitRangeStart.configure(state='disabled')
-            self.EntrySplitRangeStop.configure(state='disabled')
-        elif self._split_mode == 'range':
-            self.EntrySplitPage.configure(state='disabled')
-            self.ComboboxSplitCount.configure(state='disabled')
-            self.EntrySplitRangeStart.configure(state='normal')
-            self.split_range_start.set(1)
-            self.EntrySplitRangeStop.configure(state='normal')
-            self.split_range_stop.set(self._page_count)
 
     def valid_page(self):
         pages = self.EntrySplitPage.get()
@@ -121,16 +100,6 @@ class SplitPDF(UiSplitPDF):
             showerror(title='错误', message=f'请输入 1 到 {self._page_count} 的整数')
             self.EntrySplitRangeStop.focus()
             return False
-
-    def set_use_src_dir(self):
-        old_split_pdf_dir = self._split_pdf_dir
-        self._use_src_dir = self.use_src_dir.get()
-        if self._pdf_file and self._use_src_dir:
-            self._split_pdf_dir = self._pdf_file.parent
-            if old_split_pdf_dir != self._split_pdf_dir:
-                self.split_pdf_dir.set(self._split_pdf_dir)
-                self.process_info.set('')
-                self._toggle_buttons()
 
     def process(self):
         if self._split_mode == 'range':
@@ -162,6 +131,7 @@ class SplitPDF(UiSplitPDF):
         count = [str(a) for a in count]
         values = ' '.join(count)
         self.ComboboxSplitCount.configure(values=values)
+        self.ComboboxSplitCount.set(2)
 
     def _toggle_buttons(self):
         pdf_file = self.pdf_file.get()

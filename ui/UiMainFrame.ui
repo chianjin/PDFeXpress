@@ -1,120 +1,135 @@
 <?xml version='1.0' encoding='utf-8'?>
 <interface version="1.1">
-    <object class="ttk.Frame" id="UiMainFrame">
+  <object class="ttk.Frame" id="UiMainFrame">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <layout manager="pack">
+      <property name="propagate">True</property>
+      <property name="side">top</property>
+    </layout>
+    <child>
+      <object class="ttk.Labelframe" id="LabelframeOperate">
+        <property name="height">200</property>
+        <property name="text" translatable="yes">操作</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="fill">y</property>
+          <property name="padx">4</property>
+          <property name="pady">4</property>
+          <property name="propagate">True</property>
+          <property name="side">left</property>
+        </layout>
+        <child>
+          <object class="ttk.Button" id="ButtonMergePDF">
+            <property name="command" type="command" cbtype="with_wid">set_operate</property>
+            <property name="style">Toolbutton</property>
+            <property name="text" translatable="yes">合并 PDF</property>
+            <property name="width">10</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="ButtonSplitPDF">
+            <property name="command" type="command" cbtype="with_wid">set_operate</property>
+            <property name="style">Toolbutton</property>
+            <property name="text" translatable="yes">分割 PDF</property>
+            <property name="width">10</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="ButtonRotatePDF">
+            <property name="command" type="command" cbtype="with_wid">set_operate</property>
+            <property name="style">Toolbutton</property>
+            <property name="text" translatable="yes">旋转 PDF</property>
+            <property name="width">10</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="ButtonExtractImages">
+            <property name="command" type="command" cbtype="with_wid">set_operate</property>
+            <property name="style">Toolbutton</property>
+            <property name="text" translatable="yes">提取图像</property>
+            <property name="width">10</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="ButtonExtractText">
+            <property name="command" type="command" cbtype="with_wid">set_operate</property>
+            <property name="style">Toolbutton</property>
+            <property name="text" translatable="yes">提取文本</property>
+            <property name="width">10</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="ButtonPDF2Images">
+            <property name="command" type="command" cbtype="with_wid">set_operate</property>
+            <property name="style">Toolbutton</property>
+            <property name="text" translatable="yes">PDF 转图像</property>
+            <property name="width">10</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="ButtonImages2PDF">
+            <property name="command" type="command" cbtype="with_wid">set_operate</property>
+            <property name="style">Toolbutton</property>
+            <property name="text" translatable="yes">图像转 PDF</property>
+            <property name="width">10</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="FrameOperate">
         <property name="height">200</property>
         <property name="width">200</property>
         <layout manager="pack">
-            <property name="propagate">True</property>
-            <property name="side">top</property>
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="propagate">True</property>
+          <property name="side">left</property>
         </layout>
-        <child>
-            <object class="ttk.Labelframe" id="LabelframeOperate">
-                <property name="height">200</property>
-                <property name="width">200</property>
-                <layout manager="pack">
-                    <property name="fill">y</property>
-                    <property name="padx">4</property>
-                    <property name="pady">4</property>
-                    <property name="propagate">True</property>
-                    <property name="side">left</property>
-                </layout>
-                <child>
-                    <object class="ttk.Button" id="ButtonMergePDF">
-                        <property name="command" type="command" cbtype="with_wid">set_operate</property>
-                        <property name="style">Toolbutton</property>
-                        <property name="text" translatable="yes">合并 PDF</property>
-                        <property name="width">10</property>
-                        <layout manager="pack">
-                            <property name="padx">4</property>
-                            <property name="pady">4</property>
-                            <property name="propagate">True</property>
-                            <property name="side">top</property>
-                        </layout>
-                    </object>
-                </child>
-                <child>
-                    <object class="ttk.Button" id="ButtonSplitPDF">
-                        <property name="command" type="command" cbtype="with_wid">set_operate</property>
-                        <property name="style">Toolbutton</property>
-                        <property name="text" translatable="yes">分割 PDF</property>
-                        <property name="width">10</property>
-                        <layout manager="pack">
-                            <property name="padx">4</property>
-                            <property name="pady">4</property>
-                            <property name="propagate">True</property>
-                            <property name="side">top</property>
-                        </layout>
-                    </object>
-                </child>
-                <child>
-                    <object class="ttk.Button" id="ButtonExtractImages">
-                        <property name="command" type="command" cbtype="with_wid">set_operate</property>
-                        <property name="style">Toolbutton</property>
-                        <property name="text" translatable="yes">提取图像</property>
-                        <property name="width">10</property>
-                        <layout manager="pack">
-                            <property name="padx">4</property>
-                            <property name="pady">4</property>
-                            <property name="propagate">True</property>
-                            <property name="side">top</property>
-                        </layout>
-                    </object>
-                </child>
-                <child>
-                    <object class="ttk.Button" id="ButtonExtractText">
-                        <property name="command" type="command" cbtype="with_wid">set_operate</property>
-                        <property name="style">Toolbutton</property>
-                        <property name="text" translatable="yes">提取文本</property>
-                        <property name="width">10</property>
-                        <layout manager="pack">
-                            <property name="padx">4</property>
-                            <property name="pady">4</property>
-                            <property name="propagate">True</property>
-                            <property name="side">top</property>
-                        </layout>
-                    </object>
-                </child>
-                <child>
-                    <object class="ttk.Button" id="ButtonPDF2Images">
-                        <property name="command" type="command" cbtype="with_wid">set_operate</property>
-                        <property name="style">Toolbutton</property>
-                        <property name="text" translatable="yes">PDF 转图像</property>
-                        <property name="width">10</property>
-                        <layout manager="pack">
-                            <property name="padx">4</property>
-                            <property name="pady">4</property>
-                            <property name="propagate">True</property>
-                            <property name="side">top</property>
-                        </layout>
-                    </object>
-                </child>
-                <child>
-                    <object class="ttk.Button" id="ButtonImages2PDF">
-                        <property name="command" type="command" cbtype="with_wid">set_operate</property>
-                        <property name="style">Toolbutton</property>
-                        <property name="text" translatable="yes">图像转 PDF</property>
-                        <property name="width">10</property>
-                        <layout manager="pack">
-                            <property name="padx">4</property>
-                            <property name="pady">4</property>
-                            <property name="propagate">True</property>
-                            <property name="side">top</property>
-                        </layout>
-                    </object>
-                </child>
-            </object>
-        </child>
-        <child>
-            <object class="ttk.Frame" id="FrameOperate">
-                <property name="height">500</property>
-                <property name="width">680</property>
-                <layout manager="pack">
-                    <property name="expand">true</property>
-                    <property name="fill">both</property>
-                    <property name="propagate">True</property>
-                    <property name="side">left</property>
-                </layout>
-            </object>
-        </child>
-    </object>
+      </object>
+    </child>
+  </object>
 </interface>

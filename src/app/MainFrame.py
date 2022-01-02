@@ -7,6 +7,7 @@ from app.FrameMenu import FrameMenu
 from app.Images2PDF import Images2PDF
 from app.MergePDF import MergePDF
 from app.PDF2Images import PDF2Images
+from app.RotatePDF import RotatePDF
 from app.SplitPDF import SplitPDF
 from ui.UiMainFrame import UiMainFrame
 
@@ -20,6 +21,7 @@ class MainFrame(UiMainFrame):
         self._operates = {
                 'ButtonMergePDF': operate(MergePDF(master=self.FrameOperate), self.ButtonMergePDF),
                 'ButtonSplitPDF': operate(SplitPDF(master=self.FrameOperate), self.ButtonSplitPDF),
+                'ButtonRotatePDF': operate(RotatePDF(master=self.FrameOperate), self.ButtonRotatePDF),
                 'ButtonExtractImages': operate(ExtractImages(master=self.FrameOperate), self.ButtonExtractImages),
                 'ButtonExtractText': operate(ExtractText(master=self.FrameOperate), self.ButtonExtractText),
                 'ButtonPDF2Images': operate(PDF2Images(master=self.FrameOperate), self.ButtonPDF2Images),

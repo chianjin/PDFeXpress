@@ -13,8 +13,8 @@ class UiPDF2Images(ttk.Frame):
         self.LabelFrameName = ttk.Label(self.FrameTitle)
         self.frame_name = tk.StringVar(value='PDF 转换为图像')
         self.LabelFrameName.configure(
-                font='{Microsoft YaHei UI} 16 {bold}', text='PDF 转换为图像', textvariable=self.frame_name
-                )
+            font='{Microsoft YaHei UI} 16 {bold}', text='PDF 转换为图像', textvariable=self.frame_name
+            )
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -32,7 +32,7 @@ class UiPDF2Images(ttk.Frame):
         self.FrameImagesDir = ttk.Labelframe(self)
         self.EntryImagesDir = ttk.Entry(self.FrameImagesDir)
         self.images_dir = tk.StringVar(value='')
-        self.EntryImagesDir.configure(textvariable=self.images_dir)
+        self.EntryImagesDir.configure(state='readonly', textvariable=self.images_dir)
         self.EntryImagesDir.pack(expand='true', fill='x', padx='4', pady='4', side='left')
         self.ButtonImagesDir = ttk.Button(self.FrameImagesDir)
         self.ButtonImagesDir.configure(text='浏览')
@@ -47,9 +47,9 @@ class UiPDF2Images(ttk.Frame):
         self.ComboboxImageDPI = ttk.Combobox(self.FrameOptions)
         self.image_dpi = tk.IntVar(value='')
         self.ComboboxImageDPI.configure(
-                justify='center', textvariable=self.image_dpi, validate='focusout',
-                values='96 144 192 240 288 336 384 432 480 528 576 624'
-                )
+            justify='center', textvariable=self.image_dpi, validate='focusout',
+            values='96 144 192 240 288 336 384 432 480 528 576 624'
+            )
         self.ComboboxImageDPI.configure(width='4')
         self.ComboboxImageDPI.pack(padx='4', pady='4', side='left')
         self.ComboboxImageDPI.configure(validatecommand=self.valid_image_dpi)
@@ -65,8 +65,8 @@ class UiPDF2Images(ttk.Frame):
         self.EntryImageQuality = ttk.Entry(self.FrameOptions)
         self.image_quality = tk.IntVar(value='')
         self.EntryImageQuality.configure(
-                justify='center', textvariable=self.image_quality, validate='focusout', width='3'
-                )
+            justify='center', textvariable=self.image_quality, validate='focusout', width='3'
+            )
         self.EntryImageQuality.pack(pady='4', side='left')
         self.EntryImageQuality.configure(validatecommand=self.valid_image_quality)
         self.ScaleImageQuality = ttk.Scale(self.FrameOptions)
@@ -74,14 +74,6 @@ class UiPDF2Images(ttk.Frame):
         self.ScaleImageQuality.configure(variable=self.image_quality)
         self.ScaleImageQuality.pack(padx='4', pady='4', side='left')
         self.ScaleImageQuality.configure(command=self.set_image_quality)
-        self.Frame3 = ttk.Frame(self.FrameOptions)
-        self.Frame3.configure(height='1', width='20')
-        self.Frame3.pack(side='left')
-        self.CheckbuttonUseSrcDir = ttk.Checkbutton(self.FrameOptions)
-        self.use_src_dir = tk.IntVar(value='')
-        self.CheckbuttonUseSrcDir.configure(offvalue='0', onvalue='1', text='输出到源目录', variable=self.use_src_dir)
-        self.CheckbuttonUseSrcDir.pack(padx='6', pady='4', side='left')
-        self.CheckbuttonUseSrcDir.configure(command=self.set_use_src_dir)
         self.FrameOptions.configure(height='200', text='选项', width='200')
         self.FrameOptions.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameProcess = ttk.Labelframe(self)
@@ -112,9 +104,6 @@ class UiPDF2Images(ttk.Frame):
         pass
 
     def set_image_quality(self, scale_value):
-        pass
-
-    def set_use_src_dir(self):
         pass
 
     def process(self):

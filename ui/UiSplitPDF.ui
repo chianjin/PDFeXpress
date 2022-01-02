@@ -85,6 +85,7 @@
         </layout>
         <child>
           <object class="ttk.Entry" id="EntrySplitPDFDir">
+            <property name="state">readonly</property>
             <property name="textvariable">string:split_pdf_dir</property>
             <layout manager="pack">
               <property name="expand">true</property>
@@ -289,32 +290,6 @@
               <object class="ttk.Label" id="LabelSplitRangeUnit">
                 <property name="state">disabled</property>
                 <property name="text" translatable="yes">页</property>
-                <layout manager="pack">
-                  <property name="padx">4</property>
-                  <property name="pady">4</property>
-                  <property name="propagate">True</property>
-                  <property name="side">left</property>
-                </layout>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Frame" id="FrameUseSrcDir">
-            <property name="height">200</property>
-            <property name="width">200</property>
-            <layout manager="pack">
-              <property name="fill">x</property>
-              <property name="propagate">True</property>
-              <property name="side">top</property>
-            </layout>
-            <child>
-              <object class="ttk.Checkbutton" id="CheckbuttonUseSrcDir">
-                <property name="command" type="command" cbtype="simple">set_use_src_dir</property>
-                <property name="offvalue">0</property>
-                <property name="onvalue">1</property>
-                <property name="text" translatable="yes">输出到源目录</property>
-                <property name="variable">int:use_src_dir</property>
                 <layout manager="pack">
                   <property name="padx">4</property>
                   <property name="pady">4</property>

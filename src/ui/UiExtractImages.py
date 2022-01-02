@@ -30,7 +30,7 @@ class UiExtractImages(ttk.Frame):
         self.FrameImagesDir = ttk.Labelframe(self)
         self.EntryImagesDir = ttk.Entry(self.FrameImagesDir)
         self.images_dir = tk.StringVar(value='')
-        self.EntryImagesDir.configure(textvariable=self.images_dir)
+        self.EntryImagesDir.configure(state='readonly', textvariable=self.images_dir)
         self.EntryImagesDir.pack(expand='true', fill='x', padx='4', pady='4', side='left')
         self.ButtonImagesDir = ttk.Button(self.FrameImagesDir)
         self.ButtonImagesDir.configure(text='浏览')
@@ -38,22 +38,12 @@ class UiExtractImages(ttk.Frame):
         self.ButtonImagesDir.configure(command=self.set_images_dir)
         self.FrameImagesDir.configure(height='200', text='输出目录', width='200')
         self.FrameImagesDir.pack(fill='x', padx='4', pady='4', side='top')
-        self.FrameOptions = ttk.Labelframe(self)
-        self.CheckbuttonUseSrcDir = ttk.Checkbutton(self.FrameOptions)
-        self.use_src_dir = tk.IntVar(value='')
-        self.CheckbuttonUseSrcDir.configure(offvalue='0', onvalue='1', text='输出到源目录', variable=self.use_src_dir)
-        self.CheckbuttonUseSrcDir.pack(padx='4', pady='4', side='left')
-        self.CheckbuttonUseSrcDir.configure(command=self.set_use_src_dir)
-        self.FrameOptions.configure(height='200', text='选项', width='200')
-        self.FrameOptions.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameProcess = ttk.Labelframe(self)
         self.LabelAppInfo = ttk.Label(self.FrameProcess)
         self.app_info = tk.StringVar(value='')
         self.LabelAppInfo.configure(textvariable=self.app_info)
         self.LabelAppInfo.pack(padx='4', pady='4', side='left')
         self.LabelProcessInfo = ttk.Label(self.FrameProcess)
-        self.process_info = tk.StringVar(value='')
-        self.LabelProcessInfo.configure(textvariable=self.process_info)
         self.LabelProcessInfo.pack(expand='true', fill='x', padx='4', pady='4', side='left')
         self.ButtonProcess = ttk.Button(self.FrameProcess)
         self.ButtonProcess.configure(state='disabled', text='提取')
@@ -66,9 +56,6 @@ class UiExtractImages(ttk.Frame):
         pass
 
     def set_images_dir(self):
-        pass
-
-    def set_use_src_dir(self):
         pass
 
     def process(self):

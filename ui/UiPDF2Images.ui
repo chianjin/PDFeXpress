@@ -85,6 +85,7 @@
         </layout>
         <child>
           <object class="ttk.Entry" id="EntryImagesDir">
+            <property name="state">readonly</property>
             <property name="textvariable">string:images_dir</property>
             <layout manager="pack">
               <property name="expand">true</property>
@@ -205,31 +206,6 @@
             <property name="variable">int:image_quality</property>
             <layout manager="pack">
               <property name="padx">4</property>
-              <property name="pady">4</property>
-              <property name="propagate">True</property>
-              <property name="side">left</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Frame" id="Frame3">
-            <property name="height">1</property>
-            <property name="width">20</property>
-            <layout manager="pack">
-              <property name="propagate">True</property>
-              <property name="side">left</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Checkbutton" id="CheckbuttonUseSrcDir">
-            <property name="command" type="command" cbtype="simple">set_use_src_dir</property>
-            <property name="offvalue">0</property>
-            <property name="onvalue">1</property>
-            <property name="text" translatable="yes">输出到源目录</property>
-            <property name="variable">int:use_src_dir</property>
-            <layout manager="pack">
-              <property name="padx">6</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
               <property name="side">left</property>

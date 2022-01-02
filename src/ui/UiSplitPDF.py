@@ -13,8 +13,8 @@ class UiSplitPDF(ttk.Frame):
         self.LabelFrameName = ttk.Label(self.FrameTitle)
         self.frame_name = tk.StringVar(value='分割 PDF')
         self.LabelFrameName.configure(
-                font='{Microsoft YaHei UI} 16 {bold}', text='分割 PDF', textvariable=self.frame_name
-                )
+            font='{Microsoft YaHei UI} 16 {bold}', text='分割 PDF', textvariable=self.frame_name
+            )
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -32,7 +32,7 @@ class UiSplitPDF(ttk.Frame):
         self.FrameSplitPDFDir = ttk.Labelframe(self)
         self.EntrySplitPDFDir = ttk.Entry(self.FrameSplitPDFDir)
         self.split_pdf_dir = tk.StringVar(value='')
-        self.EntrySplitPDFDir.configure(textvariable=self.split_pdf_dir)
+        self.EntrySplitPDFDir.configure(state='readonly', textvariable=self.split_pdf_dir)
         self.EntrySplitPDFDir.pack(expand='true', fill='x', padx='4', pady='4', side='left')
         self.ButtonSplitPDFDir = ttk.Button(self.FrameSplitPDFDir)
         self.ButtonSplitPDFDir.configure(text='浏览')
@@ -54,8 +54,8 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitPage = ttk.Entry(self.FrameSplitMode)
         self.split_page = tk.IntVar(value='')
         self.EntrySplitPage.configure(
-                justify='center', state='disabled', textvariable=self.split_page, validate='focusout'
-                )
+            justify='center', state='disabled', textvariable=self.split_page, validate='focusout'
+            )
         self.EntrySplitPage.configure(width='4')
         self.EntrySplitPage.pack(pady='4', side='left')
         self.EntrySplitPage.configure(validatecommand=self.valid_page)
@@ -80,8 +80,8 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitRangeStart = ttk.Entry(self.FrameSplitMode)
         self.split_range_start = tk.IntVar(value='')
         self.EntrySplitRangeStart.configure(
-                justify='center', state='disabled', textvariable=self.split_range_start, validate='focusout'
-                )
+            justify='center', state='disabled', textvariable=self.split_range_start, validate='focusout'
+            )
         self.EntrySplitRangeStart.configure(width='5')
         self.EntrySplitRangeStart.pack(pady='4', side='left')
         self.EntrySplitRangeStart.configure(validatecommand=self.valid_start)
@@ -91,8 +91,8 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitRangeStop = ttk.Entry(self.FrameSplitMode)
         self.split_range_stop = tk.IntVar(value='')
         self.EntrySplitRangeStop.configure(
-                justify='center', state='disabled', textvariable=self.split_range_stop, validate='focusout'
-                )
+            justify='center', state='disabled', textvariable=self.split_range_stop, validate='focusout'
+            )
         self.EntrySplitRangeStop.configure(width='5')
         self.EntrySplitRangeStop.pack(pady='4', side='left')
         self.EntrySplitRangeStop.configure(validatecommand=self.valid_stop)
@@ -101,14 +101,6 @@ class UiSplitPDF(ttk.Frame):
         self.LabelSplitRangeUnit.pack(padx='4', pady='4', side='left')
         self.FrameSplitMode.configure(height='200', width='200')
         self.FrameSplitMode.pack(fill='x', side='top')
-        self.FrameUseSrcDir = ttk.Frame(self.FrameOptions)
-        self.CheckbuttonUseSrcDir = ttk.Checkbutton(self.FrameUseSrcDir)
-        self.use_src_dir = tk.IntVar(value='')
-        self.CheckbuttonUseSrcDir.configure(offvalue='0', onvalue='1', text='输出到源目录', variable=self.use_src_dir)
-        self.CheckbuttonUseSrcDir.pack(padx='4', pady='4', side='left')
-        self.CheckbuttonUseSrcDir.configure(command=self.set_use_src_dir)
-        self.FrameUseSrcDir.configure(height='200', width='200')
-        self.FrameUseSrcDir.pack(fill='x', side='top')
         self.FrameOptions.configure(height='200', text='选项', width='200')
         self.FrameOptions.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameProcess = ttk.Labelframe(self)
@@ -143,9 +135,6 @@ class UiSplitPDF(ttk.Frame):
         pass
 
     def valid_stop(self):
-        pass
-
-    def set_use_src_dir(self):
         pass
 
     def process(self):

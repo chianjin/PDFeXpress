@@ -1,15 +1,14 @@
 from multiprocessing import Process, Queue
 from pathlib import Path
-from tkinter.filedialog import askdirectory, askopenfilename
+from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
 from typing import Union
 
-import fitz
-
 from app.Progress import Progress
-from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT
+from constants import PHYSICAL_CPU_COUNT
 from modules import pdf2images
 from ui.UiPDF2Images import UiPDF2Images
+from utils import get_pdf_info
 
 IMAGE_DPI = '96 144 192 288 384 480 576'
 PROGRESS_BAR_DELAY = 80
@@ -25,37 +24,23 @@ class PDF2Images(UiPDF2Images):
         self.ComboboxImageDPI.configure(values=IMAGE_DPI)
         self._image_dpi = 144
         self.image_dpi.set(self._image_dpi)
-        self._image_quality = 75
+        self._image_quality = 85
         self.image_quality.set(self._image_quality)
-        self._use_src_dir = 0
-        self.use_src_dir.set(self._use_src_dir)
 
     def get_pdf_file(self):
-        old_pdf_file = self._pdf_file
-        self._pdf_file = askopenfilename(title='选择 PDF 文件', filetypes=FILE_TYPES_PDF)
-        if self._pdf_file:
+        self._pdf_file, self._page_count, self._page_no_width = get_pdf_info()
+        if self._page_count > 0:
             self._pdf_file = Path(self._pdf_file)
-            if old_pdf_file != self._pdf_file:
-                self.pdf_file.set(self._pdf_file)
-                with fitz.Document(str(self._pdf_file)) as pdf:
-                    self._page_count = pdf.page_count
-                    self._page_no_width = len(str(self._page_count))
-                self.app_info.set(f'共 {self._page_count} 页。')
-                self._toggle_buttons()
+            self.pdf_file.set(self._pdf_file)
+            self.app_info.set(f'共 {self._page_count} 页。')
+        self._toggle_buttons()
 
     def set_images_dir(self):
-        old_images_dir = self._images_dir
-        self._images_dir = askdirectory(title='选择图像保存目录')
+        self._images_dir = askdirectory(title='选择图像输出目录')
         if self._images_dir:
             self._images_dir = Path(self._images_dir)
-            if old_images_dir != self._images_dir:
-                self.images_dir.set(self._images_dir)
-                if self._images_dir == self._pdf_file.parent:
-                    self._use_src_dir = 1
-                else:
-                    self._use_src_dir = 0
-                self.use_src_dir.set(self._use_src_dir)
-                self._toggle_buttons()
+            self.images_dir.set(self._images_dir)
+        self._toggle_buttons()
 
     def valid_image_dpi(self):
         image_dpi = self.ComboboxImageDPI.get()
@@ -80,15 +65,6 @@ class PDF2Images(UiPDF2Images):
         image_quality = self.ScaleImageQuality.get()
         self._image_quality = int(image_quality / 5) * 5
         self.image_quality.set(self._image_quality)
-
-    def set_use_src_dir(self):
-        old_images_dir = self._images_dir
-        self._use_src_dir = self.use_src_dir.get()
-        if self._pdf_file and self._use_src_dir:
-            self._images_dir = self._pdf_file.parent
-            if old_images_dir != self._images_dir:
-                self.images_dir.set(self._images_dir)
-                self._toggle_buttons()
 
     def process(self):
         queue = Queue()

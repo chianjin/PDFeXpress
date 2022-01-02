@@ -13,8 +13,8 @@ class UiImages2PDF(ttk.Frame):
         self.LabelFrameName = ttk.Label(self.FrameTitle)
         self.frame_name = tk.StringVar(value='图像转换为 PDF')
         self.LabelFrameName.configure(
-                font='{Microsoft YaHei UI} 16 {bold}', text='图像转换为 PDF', textvariable=self.frame_name
-                )
+            font='{Microsoft YaHei UI} 16 {bold}', text='图像转换为 PDF', textvariable=self.frame_name
+            )
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -23,13 +23,16 @@ class UiImages2PDF(ttk.Frame):
         self.TreeViewImageList_cols = ['ColumnDirname', 'ColumnFilename']
         self.TreeViewImageList_dcols = ['ColumnDirname', 'ColumnFilename']
         self.TreeViewImageList.configure(
-                columns=self.TreeViewImageList_cols, displaycolumns=self.TreeViewImageList_dcols
-                )
+            columns=self.TreeViewImageList_cols, displaycolumns=self.TreeViewImageList_dcols
+            )
         self.TreeViewImageList.column('ColumnDirname', anchor='w', stretch='true', width='150', minwidth='20')
         self.TreeViewImageList.column('ColumnFilename', anchor='w', stretch='true', width='300', minwidth='20')
         self.TreeViewImageList.heading('ColumnDirname', anchor='w', text='目录名')
         self.TreeViewImageList.heading('ColumnFilename', anchor='w', text='文件名')
         self.TreeViewImageList.pack(expand='true', fill='both', padx='4', pady='4', side='left')
+        self.ScrollbarImagesList = ttk.Scrollbar(self.FrameImageList)
+        self.ScrollbarImagesList.configure(orient='vertical')
+        self.ScrollbarImagesList.pack(fill='y', side='left')
         self.ButtonAddImages = ttk.Button(self.FrameImageList)
         self.ButtonAddImages.configure(text='添加图像')
         self.ButtonAddImages.pack(padx='4', pady='4', side='top')
@@ -63,13 +66,13 @@ class UiImages2PDF(ttk.Frame):
         self.FramePDFFile = ttk.Labelframe(self)
         self.EntryPDFFile = ttk.Entry(self.FramePDFFile)
         self.pdf_file = tk.StringVar(value='')
-        self.EntryPDFFile.configure(textvariable=self.pdf_file)
+        self.EntryPDFFile.configure(state='readonly', textvariable=self.pdf_file)
         self.EntryPDFFile.pack(expand='true', fill='x', padx='4', pady='4', side='left')
         self.ButtonPDFFile = ttk.Button(self.FramePDFFile)
         self.ButtonPDFFile.configure(text='浏览')
         self.ButtonPDFFile.pack(padx='4', pady='4', side='left')
         self.ButtonPDFFile.configure(command=self.set_pdf_file)
-        self.FramePDFFile.configure(height='200', text='输出 PDF 文件', width='200')
+        self.FramePDFFile.configure(height='200', text='PDF 文件', width='200')
         self.FramePDFFile.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameProcess = ttk.Labelframe(self)
         self.LabelAppInfo = ttk.Label(self.FrameProcess)

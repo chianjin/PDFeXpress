@@ -84,6 +84,16 @@
           </object>
         </child>
         <child>
+          <object class="ttk.Scrollbar" id="ScrollbarPDFList">
+            <property name="orient">vertical</property>
+            <layout manager="pack">
+              <property name="fill">y</property>
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
           <object class="ttk.Button" id="ButtonAddPDF">
             <property name="command" type="command" cbtype="simple">add_pdf</property>
             <property name="text" translatable="yes">添加 PDF</property>
@@ -172,7 +182,7 @@
     <child>
       <object class="ttk.Labelframe" id="FrameMergedPDFFile">
         <property name="height">200</property>
-        <property name="text" translatable="yes">输出 PDF 文件</property>
+        <property name="text" translatable="yes">输出文件</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="fill">x</property>
@@ -183,6 +193,7 @@
         </layout>
         <child>
           <object class="ttk.Entry" id="EntryMergedPDFFile">
+            <property name="state">readonly</property>
             <property name="textvariable">string:merged_pdf_file</property>
             <layout manager="pack">
               <property name="expand">true</property>

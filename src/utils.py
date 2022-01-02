@@ -1,13 +1,23 @@
 from pathlib import Path
-import tkinter as tk
-from tkinter.filedialog import askopenfilenames
+from tkinter import Tk, BaseWidget
+from tkinter.filedialog import askopenfilenames, askopenfilename
 from tkinter.ttk import Treeview
 from typing import Union
 
-from constants import BYTE_UNIT, SCREEN_RATIO
+import fitz
+
+from constants import BYTE_UNIT, SCREEN_RATIO, FILE_TYPES_PDF
 
 
-def get_geometry(win: tk.Tk | tk.BaseWidget, screen_ratio: Union[float, tuple[int, int], None] = SCREEN_RATIO):
+def int2byte_unit(value: int):
+    index = 0
+    while value > 1024 and index < 8:
+        value /= 1024
+        index += 1
+    return f'{round(value)}{BYTE_UNIT[index]}B'
+
+
+def get_geometry(win: Tk | BaseWidget, screen_ratio: Union[float, tuple[int, int], None] = SCREEN_RATIO):
     screen_width = win.winfo_screenwidth()
     screen_height = win.winfo_screenheight() - 64
 
@@ -29,22 +39,24 @@ def get_geometry(win: tk.Tk | tk.BaseWidget, screen_ratio: Union[float, tuple[in
     return f'{wm_width}x{wm_height}+{left_padding}+{top_padding}'
 
 
-def int2byte_unit(value: int):
-    index = 0
-    while value > 1024 and index < 8:
-        value /= 1024
-        index += 1
-    return f'{round(value)}{BYTE_UNIT[index]}B'
+def get_pdf_info(title='选择 PDF 文件', filetypes=FILE_TYPES_PDF):
+    page_count = 0
+    pdf_file = askopenfilename(title=title, filetypes=filetypes)
+    if pdf_file:
+        with fitz.Document(pdf_file) as pdf:
+            page_count = pdf.page_count
+        pdf_file = Path(pdf_file)
+    return pdf_file, page_count, len(str(page_count))
 
 
-def add_treeview_files(treeview: Treeview, title, filetypes):
+def treeview_add_files(treeview: Treeview, title, filetypes):
     file_list = askopenfilenames(title=title, filetypes=filetypes)
     for file in file_list:
         file_path = Path(file)
         treeview.insert('', 'end', values=(file_path.parent, file_path.name))
 
 
-def move_treeview_item(treeview: Treeview, position: str):
+def treeview_move_item(treeview: Treeview, position: str):
     item_list = treeview.get_children()
     item_count = len(item_list)
     selected_list = treeview.selection()
@@ -69,7 +81,7 @@ def move_treeview_item(treeview: Treeview, position: str):
     treeview.selection_set(inserted_item)
 
 
-def remove_treeview_items(treeview, remove_all=False):
+def treeview_remove_items(treeview, remove_all=False):
     if remove_all:
         item_list = treeview.get_children()
     else:
@@ -78,9 +90,19 @@ def remove_treeview_items(treeview, remove_all=False):
         treeview.delete(item)
 
 
-def get_treeview_files(treeview: Treeview):
+def treeview_get_file_list(treeview: Treeview):
     file_list = []
     for item in treeview.get_children():
         dir_name, file_name = treeview.item(item).get('values')
         file_list.append(Path(dir_name) / Path(file_name))
     return file_list
+
+
+def treeview_get_first_file(treeview: Treeview):
+    item_list = treeview.get_children()
+    item_count = len(item_list)
+    if item_count > 0:
+        dirname, filename = treeview.item(item_list[0]).get('values')
+        return Path(dirname) / Path(filename)
+    else:
+        return ''
