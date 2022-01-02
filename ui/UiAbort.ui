@@ -1,79 +1,89 @@
 <?xml version='1.0' encoding='utf-8'?>
 <interface version="1.1">
-    <object class="tk.Toplevel" id="UiAbout">
+  <object class="tk.Toplevel" id="UiAbout">
+    <property name="height">200</property>
+    <property name="title" translatable="yes">关于</property>
+    <property name="width">400</property>
+    <child>
+      <object class="ttk.Frame" id="FrameAbout">
         <property name="height">200</property>
-        <property name="title" translatable="yes">关于</property>
-        <property name="width">400</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
         <child>
-            <object class="ttk.Frame" id="FrameAbout">
-                <property name="height">200</property>
-                <property name="width">200</property>
-                <layout manager="pack">
-                    <property name="propagate">True</property>
-                    <property name="side">top</property>
-                </layout>
-                <child>
-                    <object class="ttk.Label" id="LabelAppName">
-                        <property name="font">{Arial} 36 {bold}</property>
-                        <property name="text" translatable="yes">PDF Express</property>
-                        <property name="textvariable">string:app_name</property>
-                        <layout manager="pack">
-                            <property name="padx">40</property>
-                            <property name="pady">40</property>
-                            <property name="propagate">True</property>
-                            <property name="side">top</property>
-                        </layout>
-                    </object>
-                </child>
-                <child>
-                    <object class="ttk.Frame" id="FrameVersion">
-                        <property name="height">200</property>
-                        <property name="width">200</property>
-                        <layout manager="pack">
-                            <property name="propagate">True</property>
-                            <property name="side">top</property>
-                        </layout>
-                        <child>
-                            <object class="ttk.Label" id="LabelAppVersionText">
-                                <property name="font">{Arial} 14 {}</property>
-                                <property name="text" translatable="yes">Version</property>
-                                <layout manager="pack">
-                                    <property name="padx">5</property>
-                                    <property name="propagate">True</property>
-                                    <property name="side">left</property>
-                                </layout>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="ttk.Label" id="LabelAppVersion">
-                                <property name="font">{Arial} 14 {}</property>
-                                <property name="text" translatable="yes">0.1-BETA-1</property>
-                                <property name="textvariable">string:app_version</property>
-                                <layout manager="pack">
-                                    <property name="padx">5</property>
-                                    <property name="propagate">True</property>
-                                    <property name="side">top</property>
-                                </layout>
-                            </object>
-                        </child>
-                    </object>
-                </child>
-                <child>
-                    <object class="ttk.Label" id="LabelUrl">
-                        <property name="cursor">hand2</property>
-                        <property name="font">{Arial} 10 {underline}</property>
-                        <property name="foreground">#0000ff</property>
-                        <property name="text" translatable="yes">https://github.com/chianjin/PDFExpress</property>
-                        <property name="textvariable">string:app_url</property>
-                        <bind sequence="&lt;Button-1&gt;" handler="open_url" add=""/>
-                        <layout manager="pack">
-                            <property name="pady">40</property>
-                            <property name="propagate">True</property>
-                            <property name="side">top</property>
-                        </layout>
-                    </object>
-                </child>
-            </object>
+          <object class="ttk.Label" id="LabelAppName">
+            <property name="font">{Arial} 36 {bold}</property>
+            <property name="text" translatable="yes">PDF eXpress</property>
+            <property name="textvariable">string:app_name</property>
+            <layout manager="pack">
+              <property name="padx">60</property>
+              <property name="pady">40</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
         </child>
-    </object>
+        <child>
+          <object class="ttk.Frame" id="FrameVersion">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="LabelAppVersionText">
+                <property name="font">{Arial} 14 {bold}</property>
+                <property name="text" translatable="yes">Version</property>
+                <layout manager="pack">
+                  <property name="padx">5</property>
+                  <property name="propagate">True</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="LabelAppVersion">
+                <property name="font">{Arial} 14 {bold}</property>
+                <property name="text" translatable="yes">0.1-BETA</property>
+                <property name="textvariable">string:app_version</property>
+                <layout manager="pack">
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="LabelUrl">
+            <property name="cursor">hand2</property>
+            <property name="font">{Arial} 10 {underline}</property>
+            <property name="foreground">#0000ff</property>
+            <property name="text" translatable="yes">https://github.com/chianjin/PDFExpress</property>
+            <property name="textvariable">string:app_url</property>
+            <bind sequence="&lt;Button-1&gt;" handler="open_url" add="" />
+            <layout manager="pack">
+              <property name="pady">20</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="ButtonOK">
+            <property name="command" type="command" cbtype="simple">close_about</property>
+            <property name="text" translatable="yes">确定</property>
+            <layout manager="pack">
+              <property name="pady">30</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>

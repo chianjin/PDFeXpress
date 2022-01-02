@@ -1,24 +1,13 @@
-from math import ceil
 from pathlib import Path
-from tkinter import BaseWidget
+import tkinter as tk
 from tkinter.filedialog import askopenfilenames
 from tkinter.ttk import Treeview
-from typing import Iterable, Sized, Union
+from typing import Union
 
 from constants import BYTE_UNIT, SCREEN_RATIO
 
 
-def split_iterable(iterable: Union[Sized, Iterable], count: int):
-    chunks = []
-    while len(iterable) > 0:
-        chunk_size = ceil(len(iterable) / count)
-        chunks.append(iterable[:chunk_size])
-        iterable = iterable[chunk_size:]
-        count -= 1
-    return chunks
-
-
-def get_geometry(win: BaseWidget, screen_ratio: Union[float, tuple[int, int], None] = SCREEN_RATIO):
+def get_geometry(win: tk.Tk | tk.BaseWidget, screen_ratio: Union[float, tuple[int, int], None] = SCREEN_RATIO):
     screen_width = win.winfo_screenwidth()
     screen_height = win.winfo_screenheight() - 64
 

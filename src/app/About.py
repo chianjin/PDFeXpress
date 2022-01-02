@@ -17,3 +17,6 @@ class About(UiAbout):
 
     def open_url(self, event=None):
         webbrowser.open_new_tab(APP_URL)
+
+    def close_about(self):
+        self.destroy()
