@@ -1,7 +1,9 @@
+import os
 from io import BytesIO
 from multiprocessing import Queue
 from pathlib import Path
-from typing import Iterable
+from tempfile import mkstemp
+from typing import Iterable, Union
 
 import fitz
 from PIL import Image
@@ -17,7 +19,7 @@ def merge_pdf(queue: Queue, pdf_list: list[Path], merged_pdf_file: Path):
 
 
 def split_pdf(
-        queue: Queue, pdf_file: Path, split_pdf_dir: Path, split_mode: str,
+        queue: Queue, pdf_file: Union[str, Path, None], split_pdf_dir: Union[str, Path], split_mode: str,
         split_range_list: tuple[tuple[int]]
         ):
     count = 0
@@ -39,7 +41,7 @@ def split_pdf(
             queue.put(count)
 
 
-def rotate_pdf(queue: Queue, pdf_file: Path, rotated_pdf_file: Path, rotation: int):
+def rotate_pdf(queue: Queue, pdf_file: Union[str, Path, None], rotated_pdf_file: Union[str, Path], rotation: int):
     with fitz.Document(pdf_file) as pdf:
         for page_no, page in enumerate(pdf):
             page.set_rotation(rotation=rotation)
@@ -47,7 +49,7 @@ def rotate_pdf(queue: Queue, pdf_file: Path, rotated_pdf_file: Path, rotation: i
         pdf.save(rotated_pdf_file)
 
 
-def extract_images(queue: Queue, pdf_file: Path, image_dir: Path):
+def extract_images(queue: Queue, pdf_file: Union[str, Path, None], image_dir: Union[str, Path]):
     with fitz.Document(pdf_file) as pdf:
         page_no_width = len(str(pdf.page_count))
         image_filename = f'{image_dir}/{pdf_file.stem}'
@@ -64,7 +66,7 @@ def extract_images(queue: Queue, pdf_file: Path, image_dir: Path):
             queue.put(page_no)
 
 
-def extract_text(queue: Queue, pdf_file: Path, text_file: Path):
+def extract_text(queue: Queue, pdf_file: Union[str, Path, None], text_file: Union[str, Path]):
     contents = []
     with fitz.Document(pdf_file) as pdf:
         for page_no, page in enumerate(pdf, start=1):
@@ -74,8 +76,11 @@ def extract_text(queue: Queue, pdf_file: Path, text_file: Path):
         text.write(''.join(contents))
 
 
-def pdf2images(queue: Queue, pdf_file: Path, image_dir: Path, image_quality: int, image_dpi: int, page_range: Iterable):
-    zoom = image_dpi / 96
+def pdf2images(
+        queue: Queue, pdf_file: Union[str, Path, None], image_dir: Union[str, Path],
+        image_quality: int, image_dpi: int, page_range: Iterable
+        ):
+    zoom = image_dpi / 96 * 4 / 3   # actually 72
     matrix = fitz.Matrix(zoom, zoom)
     with fitz.Document(pdf_file) as pdf:
         page_no_width = len(str(pdf.page_count))
@@ -91,7 +96,7 @@ def pdf2images(queue: Queue, pdf_file: Path, image_dir: Path, image_quality: int
             queue.put(page_no)
 
 
-def images2pdf(queue: Queue, image_list: list[str, Path], pdf_file: Path, ):
+def images2pdf(queue: Queue, image_list: list[str, Path], pdf_file: Union[str, Path]):
     with fitz.Document() as pdf:
         for image_no, image_file in enumerate(image_list, start=1):
             with fitz.Document(image_file) as image_doc:
@@ -100,3 +105,51 @@ def images2pdf(queue: Queue, image_list: list[str, Path], pdf_file: Path, ):
                     pdf.insert_pdf(image_pdf)
             queue.put(image_no)
         pdf.save(pdf_file)
+
+
+def compress_pdf(queue: Queue, pdf_file: Union[str, Path, None], quality=85, max_dpi=192):
+    compressed_pdf_file = pdf_file.with_suffix('.Compressed.pdf')
+
+    with fitz.Document(pdf_file) as pdf:
+        for page_no, page in enumerate(pdf):
+            for image_info in page.get_images():
+                # xref, smask, width, height, bpc, colorspace, alt.colorspace, name, filter
+                xref, _, width, height, _, _, _, name, _ = image_info
+                rect = page.get_image_bbox(name)
+                size, dpi = _calculate_size(size=(width, height), rect=rect, max_dpi=max_dpi)
+                image_data = pdf.extract_image(xref)
+                temp_image = _reduce_image(BytesIO(image_data.get('image')), size=size, quality=quality, dpi=dpi)
+                contents = page.read_contents()
+                contents = contents.replace(bytes(f'/{name} Do', encoding='utf8'), b'')  # remove image invocation
+                pdf.update_stream(xref, contents)  # write back contents object
+                page.clean_contents()
+                # insert new image
+                page.insert_image(rect, filename=temp_image)
+                os.unlink(temp_image)
+            queue.put(page_no)
+
+        pdf.save(compressed_pdf_file, deflate=True)
+
+
+def _reduce_image(image_file, size, quality, dpi):
+    image = Image.open(image_file)
+    resize_image = image.resize(size)
+    fd, temp_file = mkstemp(suffix='.jpg')
+    resize_image.save(temp_file, format='jpeg', quality=quality, dpi=(dpi, dpi))
+    os.close(fd)
+    resize_image.close()
+    image.close()
+    return temp_file
+
+
+def _calculate_size(size, rect, max_dpi):
+    width, height = size
+    rect_width, rect_height = rect.br - rect.tl
+    x_dpi = width / rect_width * 72
+    y_dpi = height / rect_height * 72
+    dpi = min(x_dpi, y_dpi)
+    if dpi > max_dpi:
+        dpi = max_dpi
+    width = int(dpi * rect_width / 72)
+    height = int(dpi * rect_height / 72)
+    return (width, height), int(dpi)

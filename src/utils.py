@@ -17,6 +17,14 @@ def int2byte_unit(value: int):
     return f'{round(value)}{BYTE_UNIT[index]}B'
 
 
+def mm2inch(mm):
+    return mm / 25.4
+
+
+def pt2inch(pt):
+    return pt / 72
+
+
 def get_geometry(win: Tk | BaseWidget, screen_ratio: Union[float, tuple[int, int], None] = SCREEN_RATIO):
     screen_width = win.winfo_screenwidth()
     screen_height = win.winfo_screenheight() - 64

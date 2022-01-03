@@ -89,7 +89,7 @@ class Images2PDF(UiImages2PDF):
         self.app_info.set(info)
 
     def _toggle_buttons(self):
-        if self._image_count > 1 and self._pdf_file:
+        if self._image_count > 0 and self._pdf_file:
             self.ButtonProcess.configure(state='normal')
         else:
             self.ButtonProcess.configure(state='disabled')
