@@ -22,7 +22,7 @@ class PDF2Images(UiPDF2Images):
         self._page_no_width = 1
         self._images_dir: Union[str, Path] = ''
         self.ComboboxImageDPI.configure(values=IMAGE_DPI)
-        self._image_dpi = 144
+        self._image_dpi = 192
         self.image_dpi.set(self._image_dpi)
         self._image_quality = 85
         self.image_quality.set(self._image_quality)

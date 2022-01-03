@@ -25,7 +25,7 @@ def split_pdf(
         page_no_width = len(str(pdf.page_count))
         for start, stop in split_range_list:
             if split_mode == 'single':
-                _split_pdf_file = f'{split_pdf_dir / pdf_file.stem}-split-P0{start + 1:{page_no_width}d}.pdf'
+                _split_pdf_file = f'{split_pdf_dir / pdf_file.stem}-split-P{start + 1:0{page_no_width}d}.pdf'
             else:
                 if not stop:
                     stop = pdf.page_count - 1
