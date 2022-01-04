@@ -22,6 +22,8 @@ class ExtractImages(UiExtractImages):
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
             self.app_info.set(f'共 {self._page_count} 页')
+            self._images_dir = self._pdf_file.parent
+            self.images_dir.set(self._images_dir)
         self._toggle_buttons()
 
     def set_images_dir(self):

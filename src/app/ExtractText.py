@@ -17,16 +17,17 @@ class ExtractText(UiExtractText):
         self._text_file: str | Path = ''
 
     def get_pdf_file(self):
-        self._pdf_file, self._page_count = get_pdf_info()
+        self._pdf_file, self._page_count, _ = get_pdf_info()
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
             self.app_info.set(f'共 {self._page_count} 页。')
+            self._text_file = self._pdf_file.with_suffix('.txt')
+            self.text_file.set(self._text_file)
         self._toggle_buttons()
 
     def set_text_file(self):
-        if self._pdf_file:
-            initial_file = self._pdf_file.with_suffix('.txt')
-            initial_file = initial_file.name
+        if self._text_file:
+            initial_file = self._text_file.name
         else:
             initial_file = ''
         self._text_file = asksaveasfilename(

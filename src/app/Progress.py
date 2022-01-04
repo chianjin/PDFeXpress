@@ -6,7 +6,7 @@ PROGRESS_BAR_DELAY = 20
 
 
 class Progress(UiProgress):
-    def __init__(self, master=None, process_list=[], queue=None, maximum=100, **kw):
+    def __init__(self, master=None, process_list=[], queue=None, maximum=100, auto_destroy=False, **kw):
         super(Progress, self).__init__(master, **kw)
         self.geometry(get_geometry(self, None))
         self.grab_set()
@@ -16,6 +16,7 @@ class Progress(UiProgress):
         self._queue = queue
         self._maximum = maximum
         self._count = 0
+        self._auto_destroy = auto_destroy
 
         self.Progressbar.configure(maximum=maximum)
         self.Progressbar.after(PROGRESS_BAR_DELAY, self._get_progress)
@@ -27,14 +28,17 @@ class Progress(UiProgress):
 
         if self._count:
             self.progress.set(self._count)
-            self.process_info.set(f'{self._count}/{self._maximum}')
+            self.process_info.set(f'{self._count} / {self._maximum}')
 
         if self._process_list:
             alive_list = [process.is_alive() for process in self._process_list]
             if True in alive_list:
                 self.Progressbar.after(PROGRESS_BAR_DELAY, self._get_progress)
             else:
-                self.ButtonStop.configure(text='确定', command=self.destroy)
+                if self._auto_destroy:
+                    self.destroy()
+                else:
+                    self.ButtonStop.configure(text='确定', command=self.destroy)
 
     def stop_process(self):
         for process in self._process_list:

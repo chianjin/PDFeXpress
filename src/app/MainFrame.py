@@ -1,6 +1,7 @@
 import tkinter as tk
 from collections import namedtuple
 
+from app.CompressPDF import CompressPDF
 from app.ExtractImages import ExtractImages
 from app.ExtractText import ExtractText
 from app.FrameMenu import FrameMenu
@@ -22,6 +23,7 @@ class MainFrame(UiMainFrame):
                 'ButtonMergePDF': operate(MergePDF(master=self.FrameOperate), self.ButtonMergePDF),
                 'ButtonSplitPDF': operate(SplitPDF(master=self.FrameOperate), self.ButtonSplitPDF),
                 'ButtonRotatePDF': operate(RotatePDF(master=self.FrameOperate), self.ButtonRotatePDF),
+                'ButtonCompressPDF': operate(CompressPDF(master=self.FrameOperate), self.ButtonCompressPDF),
                 'ButtonExtractImages': operate(ExtractImages(master=self.FrameOperate), self.ButtonExtractImages),
                 'ButtonExtractText': operate(ExtractText(master=self.FrameOperate), self.ButtonExtractText),
                 'ButtonPDF2Images': operate(PDF2Images(master=self.FrameOperate), self.ButtonPDF2Images),

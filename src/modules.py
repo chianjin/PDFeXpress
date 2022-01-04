@@ -80,7 +80,7 @@ def pdf2images(
         queue: Queue, pdf_file: Union[str, Path, None], image_dir: Union[str, Path],
         image_quality: int, image_dpi: int, page_range: Iterable
         ):
-    zoom = image_dpi / 96 * 4 / 3   # actually 72
+    zoom = image_dpi / 96 * 4 / 3  # actually 72
     matrix = fitz.Matrix(zoom, zoom)
     with fitz.Document(pdf_file) as pdf:
         page_no_width = len(str(pdf.page_count))
@@ -107,28 +107,31 @@ def images2pdf(queue: Queue, image_list: list[str, Path], pdf_file: Union[str, P
         pdf.save(pdf_file)
 
 
-def compress_pdf(queue: Queue, pdf_file: Union[str, Path, None], quality=85, max_dpi=192):
-    compressed_pdf_file = pdf_file.with_suffix('.Compressed.pdf')
-
+def compress_pdf(
+        queue: Queue, pdf_file: Union[str, Path], compressed_pdf_file: Union[str, Path],
+        image_quality: int, max_dpi: int, page_range: Iterable, process_id: int
+        ):
     with fitz.Document(pdf_file) as pdf:
-        for page_no, page in enumerate(pdf):
+        for page_no in page_range:
+            page = pdf[page_no]
             for image_info in page.get_images():
                 # xref, smask, width, height, bpc, colorspace, alt.colorspace, name, filter
                 xref, _, width, height, _, _, _, name, _ = image_info
                 rect = page.get_image_bbox(name)
                 size, dpi = _calculate_size(size=(width, height), rect=rect, max_dpi=max_dpi)
                 image_data = pdf.extract_image(xref)
-                temp_image = _reduce_image(BytesIO(image_data.get('image')), size=size, quality=quality, dpi=dpi)
+                temp_image = _reduce_image(BytesIO(image_data.get('image')), size=size, quality=image_quality, dpi=dpi)
                 contents = page.read_contents()
                 contents = contents.replace(bytes(f'/{name} Do', encoding='utf8'), b'')  # remove image invocation
                 pdf.update_stream(xref, contents)  # write back contents object
-                page.clean_contents()
                 # insert new image
                 page.insert_image(rect, filename=temp_image)
                 os.unlink(temp_image)
+            # clean unused contents
+            page.clean_contents()
             queue.put(page_no)
-
-        pdf.save(compressed_pdf_file, deflate=True)
+        sub_compressed_pdf_file = compressed_pdf_file.parent / f'{process_id}-{compressed_pdf_file.name}'
+        pdf.save(sub_compressed_pdf_file, deflate=True)
 
 
 def _reduce_image(image_file, size, quality, dpi):
@@ -153,3 +156,14 @@ def _calculate_size(size, rect, max_dpi):
     width = int(dpi * rect_width / 72)
     height = int(dpi * rect_height / 72)
     return (width, height), int(dpi)
+
+
+def merge_compressed_pdf(queue: Queue, compressed_pdf_file: Union[str, Path], page_range_list: Iterable):
+    with fitz.Document() as pdf:
+        for file_no, page_range in enumerate(page_range_list):
+            sub_compressed_pdf_file = compressed_pdf_file.parent / f'{file_no}-{compressed_pdf_file.name}'
+            with fitz.Document(sub_compressed_pdf_file) as sub_compressed_pdf:
+                pdf.insert_pdf(sub_compressed_pdf, from_page=page_range[0], to_page=page_range[-1])
+            # os.unlink(sub_compressed_pdf_file)
+            queue.put(file_no)
+        pdf.save(compressed_pdf_file, deflate=True)

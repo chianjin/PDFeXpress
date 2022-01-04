@@ -62,6 +62,20 @@
           </object>
         </child>
         <child>
+          <object class="ttk.Button" id="ButtonCompressPDF">
+            <property name="command" type="command" cbtype="with_wid">set_operate</property>
+            <property name="style">Toolbutton</property>
+            <property name="text" translatable="yes">压缩 PDF</property>
+            <property name="width">10</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
           <object class="ttk.Button" id="ButtonExtractImages">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
             <property name="style">Toolbutton</property>

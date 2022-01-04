@@ -1,84 +1,102 @@
 import os.path
+import math
+from multiprocessing import Process, Queue
 from pathlib import Path
-from tkinter.filedialog import askopenfilename, asksaveasfilename
+from tkinter.filedialog import asksaveasfilename
+from typing import Union
 
-import fitz
-
-from constants import FILE_TYPES_PDF
+from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT
+from modules import compress_pdf, merge_compressed_pdf
+from app.Progress import Progress
 from ui.UiCompressPDF import UiCompressPDF
-from utils import int2byte_unit
+from utils import int2byte_unit, get_pdf_info
 
 
 class CompressPDF(UiCompressPDF):
     def __init__(self, master=None, **kw):
         super(CompressPDF, self).__init__(master, **kw)
-        self.image_quality.set(80)
-        self.image_dpi.set(144)
-        self.use_src_dir.set(0)
+        self._pdf_file: Union[str, Path] = ''
+        self._page_count = 0
+        self._compressed_pdf_file: Union[str, Path] = ''
+        self._image_quality = 75
+        self._max_dpi = 144
+        self.image_quality.set(self._image_quality)
+        self.image_dpi.set(self._max_dpi)
 
     def get_pdf_file(self):
-        pdf_file = askopenfilename(filetypes=FILE_TYPES_PDF, title='选择 PDF 文件')
-        if pdf_file:
-            pdf_path = Path(pdf_file)
-            self.pdf_file.set(pdf_path)
-            self.set_use_src_dir()
-            file_size = int2byte_unit(os.path.getsize(pdf_file))
-            self.pdf_info.set(f'原文件大小 {file_size}。')
+        self._pdf_file, self._page_count, _ = get_pdf_info()
+        if self._page_count > 0:
+            self.pdf_file.set(self._pdf_file)
+            file_size = int2byte_unit(os.path.getsize(self._pdf_file))
+            self.pdf_info.set(f'共 {self._page_count} 页  {file_size}')
+            self._compressed_pdf_file = self._pdf_file.with_suffix('.Compressed.pdf')
+            self.compressed_pdf_file.set(self._compressed_pdf_file)
+        self._toggle_buttons()
 
     def set_compressed_pdf_file(self):
-        pdf_file = self.pdf_file.get()
-        pdf_path = Path(pdf_file)
-        compressed_pdf_filename = f'{pdf_path.stem}-compressed.pdf' if pdf_file else ''
-        compressed_pdf_file = asksaveasfilename(
+        if self._compressed_pdf_file:
+            initial_file = self._compressed_pdf_file.name
+        else:
+            initial_file = ''
+        rotated_pdf_file = asksaveasfilename(
                 filetypes=FILE_TYPES_PDF,
                 defaultextension='.pdf',
-                title='选择输出文本文件名',
-                initialfile=compressed_pdf_filename
+                title='选择旋转的 PDF 文件名',
+                initialfile=initial_file
                 )
-        if compressed_pdf_file:
-            self.compressed_pdf_file.set(Path(compressed_pdf_file))
-            self.use_src_dir.set(0)
+        if rotated_pdf_file:
+            self._compressed_pdf_file = Path(rotated_pdf_file)
+            self.compressed_pdf_file.set(self._compressed_pdf_file)
+
         self._toggle_buttons()
 
     def set_image_quality(self, scale_value):
         value = int(round(float(scale_value) * 2, -1)) // 2  # Scale step: 5
-        self.image_quality.set(value)
-
-    def set_use_src_dir(self):
-        pdf_file = self.pdf_file.get()
-        use_src_dir = self.use_src_dir.get()
-        if pdf_file and use_src_dir:
-            pdf_path = Path(pdf_file)
-            text_path = f'{pdf_path.parent / pdf_path.stem}-compressed.pdf'
-            self.compressed_pdf_file.set(text_path)
-        self._toggle_buttons()
+        self._image_quality = value
+        self.image_quality.set(self._image_quality)
 
     def process(self):
-        pdf_file = self.pdf_file.get()
-        compressed_pdf_file = self.compressed_pdf_file.get()
-        compressed_mode = self.compress_mode.get()
-        image_quality = self.image_quality.get()
-        image_dpi = self.image_dpi.get()
-        if compressed_mode == 'image':
-            self._compress_image(pdf_file, compressed_pdf_file, image_quality, image_dpi)
-        else:
-            self._compress_page(pdf_file, compressed_pdf_file, image_quality, image_dpi)
+        # split pdf range
+        page_range_list = []
+        process_count = PHYSICAL_CPU_COUNT
+        pdf_page_range = list(range(self._page_count))
+        while process_count > 0:
+            chunk_size = math.ceil(len(pdf_page_range) / process_count)
+            page_range_list.append(pdf_page_range[:chunk_size])
+            pdf_page_range = pdf_page_range[chunk_size:]
+            process_count -= 1
+        page_range_list = [page_range for page_range in page_range_list if len(page_range)]
 
-    def _compress_image(self, input_pdf, output_pdf, image_quality, image_dpi):
-        pass
-
-    def _compress_page(self, input_pdf, output_pdf, image_quality, image_dpi):
-        zoom = image_dpi // 96
-        matrix = fitz.Matrix(zoom, zoom)
-        with fitz.Document(input_pdf) as in_pdf:
-            with fitz.Document() as out_pdf:
-                for in_page in in_pdf:
-                    in_page.get_pixmap(matrix=matrix)
+        queue = Queue()
+        sub_process_list = []
+        for process_id, page_range in enumerate(page_range_list):
+            print(page_range)
+            sub_process = Process(
+                    target=compress_pdf,
+                    args=(
+                            queue, self._pdf_file, self._compressed_pdf_file, self._image_quality,
+                            self._max_dpi, page_range, process_id
+                            )
+                    )
+            sub_process_list.append(sub_process)
+        for sub_process in sub_process_list:
+            sub_process.start()
+        Progress(process_list=sub_process_list, queue=queue, maximum=self._page_count)
+        # TODO
+        #
+        sub_process = Process(
+                target=merge_compressed_pdf,
+                args=(queue, self._compressed_pdf_file, page_range_list)
+                )
+        sub_process_list = [sub_process]
+        sub_process.start()
+        Progress(process_list=sub_process_list, queue=queue, maximum=len(page_range_list))
+        for file_no in range(len(page_range_list)):
+            sub_compressed_pdf_file = self._compressed_pdf_file.parent / f'{file_no}-{self._compressed_pdf_file.name}'
+            # os.unlink(sub_compressed_pdf_file)
 
     def _toggle_buttons(self):
-        pdf_file = self.pdf_file.get()
-        compressed_pdf_file = self.compressed_pdf_file.get()
-        if pdf_file and compressed_pdf_file:
+        if self._pdf_file and self._compressed_pdf_file:
             self.ButtonProcess['state'] = 'normal'
         else:
             self.ButtonProcess['state'] = 'disabled'

@@ -84,7 +84,7 @@
         </layout>
         <child>
           <object class="ttk.Entry" id="EntryTextFile">
-            <property name="state">disabled</property>
+            <property name="state">readonly</property>
             <property name="textvariable">string:text_file</property>
             <layout manager="pack">
               <property name="expand">true</property>

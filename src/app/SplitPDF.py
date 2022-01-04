@@ -28,6 +28,8 @@ class SplitPDF(UiSplitPDF):
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
             self.app_info.set(f'共 {self._page_count} 页')
+            self._split_pdf_dir = self._pdf_file.parent
+            self.split_pdf_dir.set(self._split_pdf_dir)
 
             # Set split options
             # Pages per split pdf in page split mode
@@ -134,9 +136,7 @@ class SplitPDF(UiSplitPDF):
         self.ComboboxSplitCount.set(2)
 
     def _toggle_buttons(self):
-        pdf_file = self.pdf_file.get()
-
-        if pdf_file:
+        if self._pdf_file and self._page_count > 1:
             self.RadiobuttonSplitSingle.configure(state='normal')
             self.RadiobuttonSplitPage.configure(state='normal')
             self.LabelSplitPageUnit.configure(state='normal')
@@ -146,9 +146,7 @@ class SplitPDF(UiSplitPDF):
             self.LabelSplitRangeTo.configure(state='normal')
             self.LabelSplitRangeUnit.configure(state='normal')
 
-        split_pdf_dir = self.split_pdf_dir.get()
-
-        if pdf_file and split_pdf_dir:
+        if self._pdf_file and self._page_count > 1 and self._split_pdf_dir:
             self.ButtonProcess['state'] = 'normal'
         else:
             self.ButtonProcess['state'] = 'disabled'

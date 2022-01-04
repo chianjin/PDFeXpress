@@ -22,16 +22,15 @@ class RotatePDF(UiRotatePDF):
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
             self.app_info.set(f'共 {self._page_count} 页')
+            self._rotated_pdf_file = self._pdf_file.with_suffix('.Rotated.pdf')
+            self.rotated_pdf_file.set(self._rotated_pdf_file)
         self._toggle_buttons()
 
     def set_rotated_pdf_file(self):
         if self._rotated_pdf_file:
             initial_file = self._rotated_pdf_file.name
         else:
-            if self._pdf_file:
-                initial_file = self._pdf_file.with_suffix('.Rotated.pdf')
-            else:
-                initial_file = ''
+            initial_file = ''
         rotated_pdf_file = asksaveasfilename(
                 filetypes=FILE_TYPES_PDF,
                 defaultextension='.pdf',

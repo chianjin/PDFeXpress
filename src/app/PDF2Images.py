@@ -33,6 +33,8 @@ class PDF2Images(UiPDF2Images):
             self._pdf_file = Path(self._pdf_file)
             self.pdf_file.set(self._pdf_file)
             self.app_info.set(f'共 {self._page_count} 页。')
+            self._images_dir = self._pdf_file.parent
+            self.images_dir.set(self._images_dir)
         self._toggle_buttons()
 
     def set_images_dir(self):
@@ -75,11 +77,12 @@ class PDF2Images(UiPDF2Images):
             # if PHYSICAL_CPU_COUNT == 4
             # [0, 4, 8, ...], [1, 5, 9, ...], [2, 6, 10, ...], [3, 7, 11, ...]
             page_range = pdf_range[start::PHYSICAL_CPU_COUNT]
-            sub_process = Process(
-                    target=pdf2images,
-                    args=(queue, self._pdf_file, self._images_dir, self._image_quality, self._image_dpi, page_range)
-                    )
-            sub_process_list.append(sub_process)
+            if len(page_range) > 0:
+                sub_process = Process(
+                        target=pdf2images,
+                        args=(queue, self._pdf_file, self._images_dir, self._image_quality, self._image_dpi, page_range)
+                        )
+                sub_process_list.append(sub_process)
         for sub_process in sub_process_list:
             sub_process.start()
         Progress(None, sub_process_list, queue, self._page_count)

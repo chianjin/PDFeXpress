@@ -30,7 +30,7 @@ class UiExtractText(ttk.Frame):
         self.FrameTextFile = ttk.Labelframe(self)
         self.EntryTextFile = ttk.Entry(self.FrameTextFile)
         self.text_file = tk.StringVar(value='')
-        self.EntryTextFile.configure(state='disabled', textvariable=self.text_file)
+        self.EntryTextFile.configure(state='readonly', textvariable=self.text_file)
         self.EntryTextFile.pack(expand='true', fill='x', padx='4', pady='4', side='left')
         self.ButtonTextFile = ttk.Button(self.FrameTextFile)
         self.ButtonTextFile.configure(text='浏览')
