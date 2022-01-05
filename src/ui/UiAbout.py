@@ -27,9 +27,9 @@ class UiAbout(tk.Toplevel):
         self.LabelUrl = ttk.Label(self.FrameAbout)
         self.app_url = tk.StringVar(value='https://github.com/chianjin/PDFExpress')
         self.LabelUrl.configure(
-            cursor='hand2', font='{Arial} 10 {underline}', foreground='#0000ff',
-            text='https://github.com/chianjin/PDFExpress'
-            )
+                cursor='hand2', font='{Arial} 10 {underline}', foreground='#0000ff',
+                text='https://github.com/chianjin/PDFExpress'
+                )
         self.LabelUrl.configure(textvariable=self.app_url)
         self.LabelUrl.pack(pady='20', side='top')
         self.LabelUrl.bind('<Button-1>', self.open_url, add='')

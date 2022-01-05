@@ -22,9 +22,7 @@
         <child>
           <object class="ttk.Button" id="ButtonMergePDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="style">Toolbutton</property>
             <property name="text" translatable="yes">合并 PDF</property>
-            <property name="width">10</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -36,9 +34,7 @@
         <child>
           <object class="ttk.Button" id="ButtonSplitPDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="style">Toolbutton</property>
             <property name="text" translatable="yes">分割 PDF</property>
-            <property name="width">10</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -50,9 +46,7 @@
         <child>
           <object class="ttk.Button" id="ButtonRotatePDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="style">Toolbutton</property>
             <property name="text" translatable="yes">旋转 PDF</property>
-            <property name="width">10</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -64,9 +58,7 @@
         <child>
           <object class="ttk.Button" id="ButtonCompressPDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="style">Toolbutton</property>
             <property name="text" translatable="yes">压缩 PDF</property>
-            <property name="width">10</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -78,9 +70,7 @@
         <child>
           <object class="ttk.Button" id="ButtonExtractImages">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="style">Toolbutton</property>
             <property name="text" translatable="yes">提取图像</property>
-            <property name="width">10</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -92,9 +82,7 @@
         <child>
           <object class="ttk.Button" id="ButtonExtractText">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="style">Toolbutton</property>
             <property name="text" translatable="yes">提取文本</property>
-            <property name="width">10</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -106,9 +94,7 @@
         <child>
           <object class="ttk.Button" id="ButtonPDF2Images">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="style">Toolbutton</property>
             <property name="text" translatable="yes">PDF 转图像</property>
-            <property name="width">10</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -120,9 +106,7 @@
         <child>
           <object class="ttk.Button" id="ButtonImages2PDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="style">Toolbutton</property>
             <property name="text" translatable="yes">图像转 PDF</property>
-            <property name="width">10</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>

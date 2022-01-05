@@ -88,6 +88,9 @@ class UiCompressPDF(ttk.Frame):
         self.FrameProcess.configure(height='200', text='压缩 PDF', width='200')
         self.FrameProcess.pack(fill='x', padx='4', pady='4', side='top')
 
+    def help(self):
+        pass
+
     def get_pdf_file(self):
         pass
 

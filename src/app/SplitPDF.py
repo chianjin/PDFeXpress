@@ -6,8 +6,9 @@ from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
 from typing import Union
 
+import fitz
+
 from app.Progress import Progress
-from modules import split_pdf
 from ui.UiSplitPDF import UiSplitPDF
 from utils import get_pdf_info
 
@@ -150,3 +151,26 @@ class SplitPDF(UiSplitPDF):
             self.ButtonProcess['state'] = 'normal'
         else:
             self.ButtonProcess['state'] = 'disabled'
+
+
+def split_pdf(
+        queue: Queue, pdf_file: Union[str, Path, None], split_pdf_dir: Union[str, Path], split_mode: str,
+        split_range_list: tuple[tuple[int]]
+        ):
+    count = 0
+    with fitz.Document(pdf_file) as pdf:
+        page_no_width = len(str(pdf.page_count))
+        for start, stop in split_range_list:
+            if split_mode == 'single':
+                _split_pdf_file = f'{split_pdf_dir / pdf_file.stem}-split-P{start + 1:0{page_no_width}d}.pdf'
+            else:
+                if not stop:
+                    stop = pdf.page_count - 1
+                _split_pdf_file = f'{split_pdf_dir / pdf_file.stem}-split-' \
+                                  f'P{start + 1:0{page_no_width}d}-{stop + 1:0{page_no_width}d}.pdf'
+
+            with fitz.Document() as _split_pdf:
+                _split_pdf.insert_pdf(pdf, from_page=start, to_page=stop)
+                _split_pdf.save(_split_pdf_file)
+            count += 1
+            queue.put(count)

@@ -1,10 +1,12 @@
 from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import asksaveasfilename
+from typing import Union
+
+import fitz
 
 from app.Progress import Progress
 from constants import FILE_TYPES_TEXT
-from modules import extract_text
 from ui.UiExtractText import UiExtractText
 from utils import get_pdf_info
 
@@ -56,3 +58,13 @@ class ExtractText(UiExtractText):
             self.ButtonProcess['state'] = 'normal'
         else:
             self.ButtonProcess['state'] = 'disabled'
+
+
+def extract_text(queue: Queue, pdf_file: Union[str, Path, None], text_file: Union[str, Path]):
+    contents = []
+    with fitz.Document(pdf_file) as pdf:
+        for page_no, page in enumerate(pdf, start=1):
+            contents.append(page.get_text())
+            queue.put(page_no)
+    with open(text_file, 'w', encoding='UTF-8') as text:
+        text.write(''.join(contents))

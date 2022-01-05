@@ -3,8 +3,9 @@ from pathlib import Path
 from tkinter.filedialog import askdirectory
 from typing import Union
 
+import fitz
+
 from app.Progress import Progress
-from modules import extract_images
 from ui.UiExtractImages import UiExtractImages
 from utils import get_pdf_info
 
@@ -48,3 +49,20 @@ class ExtractImages(UiExtractImages):
             self.ButtonProcess['state'] = 'normal'
         else:
             self.ButtonProcess['state'] = 'disabled'
+
+
+def extract_images(queue: Queue, pdf_file: Union[str, Path, None], image_dir: Union[str, Path]):
+    with fitz.Document(pdf_file) as pdf:
+        page_no_width = len(str(pdf.page_count))
+        image_filename = f'{image_dir}/{pdf_file.stem}'
+        for page_no, page in enumerate(pdf, start=1):
+            image_list = page.get_images()
+            for image_no, image_info in enumerate(image_list):
+                xref, *_info = image_info
+                image_data = pdf.extract_image(xref)
+                ext = image_data['ext']
+                image = image_data['image']
+                image_file = f'{image_filename}-P{page_no:0{page_no_width}d}-{image_no:02d}.{ext}'
+                with open(image_file, 'wb') as f:
+                    f.write(image)
+            queue.put(page_no)

@@ -1,12 +1,15 @@
+from io import BytesIO
 from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
-from typing import Union
+from typing import Iterable, Union
+
+import fitz
+from PIL import Image
 
 from app.Progress import Progress
 from constants import PHYSICAL_CPU_COUNT
-from modules import pdf2images
 from ui.UiPDF2Images import UiPDF2Images
 from utils import get_pdf_info
 
@@ -92,3 +95,23 @@ class PDF2Images(UiPDF2Images):
             self.ButtonProcess.configure(state='normal')
         else:
             self.ButtonProcess.configure(state='disabled')
+
+
+def pdf2images(
+        queue: Queue, pdf_file: Union[str, Path, None], image_dir: Union[str, Path],
+        image_quality: int, image_dpi: int, page_range: Iterable
+        ):
+    zoom = image_dpi / 96 * 4 / 3  # actually 72
+    matrix = fitz.Matrix(zoom, zoom)
+    with fitz.Document(pdf_file) as pdf:
+        page_no_width = len(str(pdf.page_count))
+        image_file = f'{image_dir / pdf_file.stem}-P{{:0{page_no_width}d}}.jpg'
+        if not page_range:
+            page_range = range(pdf.page_count)
+
+        for page_no in page_range:
+            pixmap = pdf[page_no].get_pixmap(matrix=matrix)
+            image = Image.open(BytesIO(pixmap.tobytes()))
+            image.save(image_file.format(page_no + 1), quality=image_quality, dpi=(image_dpi, image_dpi))
+            image.close()
+            queue.put(page_no)

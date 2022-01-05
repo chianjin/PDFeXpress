@@ -13,8 +13,8 @@ class UiMergePDF(ttk.Frame):
         self.LabelFrameName = ttk.Label(self.FrameTitle)
         self.frame_name = tk.StringVar(value='合并 PDF')
         self.LabelFrameName.configure(
-            font='{Microsoft YaHei UI} 16 {bold}', text='合并 PDF', textvariable=self.frame_name
-            )
+                font='{Microsoft YaHei UI} 16 {bold}', text='合并 PDF', textvariable=self.frame_name
+                )
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -85,6 +85,9 @@ class UiMergePDF(ttk.Frame):
         self.ButtonProcess.configure(command=self.process)
         self.FrameProcess.configure(height='200', text='合并 PDF', width='200')
         self.FrameProcess.pack(fill='x', padx='4', pady='4', side='top')
+
+    def help(self):
+        pass
 
     def add_pdf(self):
         pass

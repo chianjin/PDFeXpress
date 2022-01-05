@@ -3,12 +3,13 @@ from pathlib import Path
 from tkinter.filedialog import asksaveasfilename
 from typing import Union
 
+import fitz
+
 from app.Progress import Progress
 from constants import FILE_TYPES_PDF
-from modules import merge_pdf
 from ui.UiMergePDF import UiMergePDF
-from utils import treeview_add_files, treeview_get_file_list, \
-    treeview_move_item, treeview_remove_items, treeview_get_first_file
+from utils import treeview_add_files, treeview_get_file_list, treeview_get_first_file, treeview_move_item, \
+    treeview_remove_items
 
 
 class MergePDF(UiMergePDF):
@@ -86,3 +87,12 @@ class MergePDF(UiMergePDF):
             self.ButtonProcess.configure(state='normal')
         else:
             self.ButtonProcess.configure(state='disabled')
+
+
+def merge_pdf(queue: Queue, pdf_list: list[Path], merged_pdf_file: Path):
+    with fitz.Document() as merged_pdf:
+        for pdf_no, pdf_file in enumerate(pdf_list, start=1):
+            with fitz.Document(str(pdf_file)) as pdf:
+                merged_pdf.insert_pdf(pdf)
+            queue.put(pdf_no)
+        merged_pdf.save(merged_pdf_file)

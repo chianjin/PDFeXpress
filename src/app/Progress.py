@@ -17,6 +17,7 @@ class Progress(UiProgress):
         self._maximum = maximum
         self._count = 0
         self._auto_destroy = auto_destroy
+        self.status = False
 
         self.Progressbar.configure(maximum=maximum)
         self.Progressbar.after(PROGRESS_BAR_DELAY, self._get_progress)
@@ -35,6 +36,7 @@ class Progress(UiProgress):
             if True in alive_list:
                 self.Progressbar.after(PROGRESS_BAR_DELAY, self._get_progress)
             else:
+                self.status = True
                 if self._auto_destroy:
                     self.destroy()
                 else:

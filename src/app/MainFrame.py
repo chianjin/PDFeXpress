@@ -32,15 +32,18 @@ class MainFrame(UiMainFrame):
 
         self._current_operate = 'ButtonMergePDF'
         current_operate = self._operates.get(self._current_operate)
+        current_operate.button.configure(state='disabled')
         current_operate.frame.pack(side='top', expand=True, fill='both')
 
-        self.master.configure(menu=FrameMenu(self.master))
-
     def set_operate(self, widget_id):
-        if widget_id != self._current_operate:
-            self._operates.get(self._current_operate).frame.pack_forget()
-            self._current_operate = widget_id
-            self._operates.get(self._current_operate).frame.pack(side='top', expand=True, fill='both')
+        old_operate = self._operates.get(self._current_operate)
+        old_operate.frame.pack_forget()
+        old_operate.button.configure(state='normal')
+
+        self._current_operate = widget_id
+        current_operate = self._operates.get(self._current_operate)
+        current_operate.frame.pack(side='top', expand=True, fill='both')
+        current_operate.button.configure(state='disabled')
 
 
 if __name__ == '__main__':

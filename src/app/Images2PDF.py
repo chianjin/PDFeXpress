@@ -3,12 +3,13 @@ from pathlib import Path
 from tkinter.filedialog import asksaveasfilename
 from typing import Union
 
+import fitz
+
 from app.Progress import Progress
 from constants import FILE_TYPES_IMAGE, FILE_TYPES_PDF
-from modules import images2pdf
 from ui.UiImages2PDF import UiImages2PDF
-from utils import treeview_add_files, treeview_get_file_list, \
-    treeview_move_item, treeview_remove_items, treeview_get_first_file
+from utils import treeview_add_files, treeview_get_file_list, treeview_get_first_file, treeview_move_item, \
+    treeview_remove_items
 
 
 class Images2PDF(UiImages2PDF):
@@ -93,3 +94,14 @@ class Images2PDF(UiImages2PDF):
             self.ButtonProcess.configure(state='normal')
         else:
             self.ButtonProcess.configure(state='disabled')
+
+
+def images2pdf(queue: Queue, image_list: list[str, Path], pdf_file: Union[str, Path]):
+    with fitz.Document() as pdf:
+        for image_no, image_file in enumerate(image_list, start=1):
+            with fitz.Document(image_file) as image_doc:
+                pdf_bytes = image_doc.convert_to_pdf()
+                with fitz.Document('images_pdf', pdf_bytes) as image_pdf:
+                    pdf.insert_pdf(image_pdf)
+            queue.put(image_no)
+        pdf.save(pdf_file)

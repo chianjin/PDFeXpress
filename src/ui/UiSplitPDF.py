@@ -13,8 +13,8 @@ class UiSplitPDF(ttk.Frame):
         self.LabelFrameName = ttk.Label(self.FrameTitle)
         self.frame_name = tk.StringVar(value='分割 PDF')
         self.LabelFrameName.configure(
-            font='{Microsoft YaHei UI} 16 {bold}', text='分割 PDF', textvariable=self.frame_name
-            )
+                font='{Microsoft YaHei UI} 16 {bold}', text='分割 PDF', textvariable=self.frame_name
+                )
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -54,8 +54,8 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitPage = ttk.Entry(self.FrameSplitMode)
         self.split_page = tk.IntVar(value='')
         self.EntrySplitPage.configure(
-            justify='center', state='disabled', textvariable=self.split_page, validate='focusout'
-            )
+                justify='center', state='disabled', textvariable=self.split_page, validate='focusout'
+                )
         self.EntrySplitPage.configure(width='4')
         self.EntrySplitPage.pack(pady='4', side='left')
         self.EntrySplitPage.configure(validatecommand=self.valid_page)
@@ -80,8 +80,8 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitRangeStart = ttk.Entry(self.FrameSplitMode)
         self.split_range_start = tk.IntVar(value='')
         self.EntrySplitRangeStart.configure(
-            justify='center', state='disabled', textvariable=self.split_range_start, validate='focusout'
-            )
+                justify='center', state='disabled', textvariable=self.split_range_start, validate='focusout'
+                )
         self.EntrySplitRangeStart.configure(width='5')
         self.EntrySplitRangeStart.pack(pady='4', side='left')
         self.EntrySplitRangeStart.configure(validatecommand=self.valid_start)
@@ -91,8 +91,8 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitRangeStop = ttk.Entry(self.FrameSplitMode)
         self.split_range_stop = tk.IntVar(value='')
         self.EntrySplitRangeStop.configure(
-            justify='center', state='disabled', textvariable=self.split_range_stop, validate='focusout'
-            )
+                justify='center', state='disabled', textvariable=self.split_range_stop, validate='focusout'
+                )
         self.EntrySplitRangeStop.configure(width='5')
         self.EntrySplitRangeStop.pack(pady='4', side='left')
         self.EntrySplitRangeStop.configure(validatecommand=self.valid_stop)
@@ -118,6 +118,9 @@ class UiSplitPDF(ttk.Frame):
         self.ButtonProcess.configure(command=self.process)
         self.FrameProcess.configure(height='200', text='分割 PDF', width='200')
         self.FrameProcess.pack(fill='x', padx='4', pady='4', side='top')
+
+    def help(self):
+        pass
 
     def get_pdf_file(self):
         pass

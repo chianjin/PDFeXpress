@@ -13,8 +13,8 @@ class UiImages2PDF(ttk.Frame):
         self.LabelFrameName = ttk.Label(self.FrameTitle)
         self.frame_name = tk.StringVar(value='图像转换为 PDF')
         self.LabelFrameName.configure(
-            font='{Microsoft YaHei UI} 16 {bold}', text='图像转换为 PDF', textvariable=self.frame_name
-            )
+                font='{Microsoft YaHei UI} 16 {bold}', text='图像转换为 PDF', textvariable=self.frame_name
+                )
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -23,8 +23,8 @@ class UiImages2PDF(ttk.Frame):
         self.TreeViewImageList_cols = ['ColumnDirname', 'ColumnFilename']
         self.TreeViewImageList_dcols = ['ColumnDirname', 'ColumnFilename']
         self.TreeViewImageList.configure(
-            columns=self.TreeViewImageList_cols, displaycolumns=self.TreeViewImageList_dcols
-            )
+                columns=self.TreeViewImageList_cols, displaycolumns=self.TreeViewImageList_dcols
+                )
         self.TreeViewImageList.column('ColumnDirname', anchor='w', stretch='true', width='150', minwidth='20')
         self.TreeViewImageList.column('ColumnFilename', anchor='w', stretch='true', width='300', minwidth='20')
         self.TreeViewImageList.heading('ColumnDirname', anchor='w', text='目录名')
@@ -89,6 +89,9 @@ class UiImages2PDF(ttk.Frame):
         self.ButtonProcess.configure(command=self.process)
         self.FrameProcess.configure(height='200', text='转换图像', width='200')
         self.FrameProcess.pack(fill='x', padx='4', pady='4', side='top')
+
+    def help(self):
+        pass
 
     def add_images(self):
         pass

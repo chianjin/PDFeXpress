@@ -1,6 +1,6 @@
 import webbrowser
 
-from constants import APP_NAME, APP_URL, APP_VERSION, APP_ICON
+from constants import APP_ICON, APP_NAME, APP_URL, APP_VERSION
 from ui.UiAbout import UiAbout
 from utils import get_geometry
 

@@ -1,10 +1,12 @@
-from pathlib import Path
 from multiprocessing import Process, Queue
+from pathlib import Path
 from tkinter.filedialog import asksaveasfilename
+from typing import Union
 
-from constants import FILE_TYPES_PDF
-from modules import rotate_pdf
+import fitz
+
 from app.Progress import Progress
+from constants import FILE_TYPES_PDF
 from ui.UiRotatePDF import UiRotatePDF
 from utils import get_pdf_info
 
@@ -58,3 +60,11 @@ class RotatePDF(UiRotatePDF):
             self.ButtonProcess['state'] = 'normal'
         else:
             self.ButtonProcess['state'] = 'disabled'
+
+
+def rotate_pdf(queue: Queue, pdf_file: Union[str, Path, None], rotated_pdf_file: Union[str, Path], rotation: int):
+    with fitz.Document(pdf_file) as pdf:
+        for page_no, page in enumerate(pdf):
+            page.set_rotation(rotation=rotation)
+            queue.put(page_no)
+        pdf.save(rotated_pdf_file)

@@ -12,7 +12,9 @@ class UiRotatePDF(ttk.Frame):
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
         self.frame_name = tk.StringVar(value='旋转 PDF')
-        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 16 {bold}', text='旋转 PDF', textvariable=self.frame_name)
+        self.LabelFrameName.configure(
+                font='{Microsoft YaHei UI} 16 {bold}', text='旋转 PDF', textvariable=self.frame_name
+                )
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -65,6 +67,9 @@ class UiRotatePDF(ttk.Frame):
         self.FrameProcess.configure(height='200', text='旋转 PDF', width='200')
         self.FrameProcess.pack(fill='x', padx='4', pady='4', side='top')
 
+    def help(self):
+        pass
+
     def get_pdf_file(self):
         pass
 
@@ -80,4 +85,3 @@ if __name__ == '__main__':
     widget = UiRotatePDF(root)
     widget.pack(expand=True, fill='both')
     root.mainloop()
-
