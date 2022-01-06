@@ -9,7 +9,7 @@ from app.Progress import Progress
 from constants import FILE_TYPES_PDF
 from ui.UiMergePDF import UiMergePDF
 from utils import treeview_add_files, treeview_get_file_list, treeview_get_first_file, treeview_move_item, \
-    treeview_remove_items
+    treeview_remove_items, check_file_exist, check_dir
 
 
 class MergePDF(UiMergePDF):
@@ -71,11 +71,17 @@ class MergePDF(UiMergePDF):
 
     def process(self):
         pdf_list = treeview_get_file_list(self.TreeViewPDFList)
+        for pdf_file in pdf_list:
+            if not check_file_exist(pdf_file):
+                return None
+        check_dir(self._merged_pdf_file.parent)
+
         queue = Queue()
         sub_process = Process(target=merge_pdf, args=(queue, pdf_list, self._merged_pdf_file))
         sub_process_list = [sub_process]
         sub_process.start()
-        Progress(process_list=sub_process_list, queue=queue, maximum=self._pdf_count)
+        progress = Progress(process_list=sub_process_list, queue=queue, maximum=self._pdf_count)
+        self.wait_window(progress)
 
     def _set_app_info(self):
         self._pdf_count = len(self.TreeViewPDFList.get_children())

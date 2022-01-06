@@ -3,7 +3,7 @@ import os
 from io import BytesIO
 from multiprocessing import Process, Queue
 from pathlib import Path
-from tempfile import mkstemp
+from tempfile import mkstemp, gettempdir
 from tkinter.filedialog import asksaveasfilename
 from typing import Iterable, Union
 
@@ -13,7 +13,9 @@ from PIL import Image
 from app.Progress import Progress
 from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT
 from ui.UiCompressPDF import UiCompressPDF
-from utils import get_pdf_info, int2byte_unit
+from utils import get_pdf_info, int2byte_unit, check_file_exist, check_dir
+
+TEMP_DIR = Path(gettempdir())
 
 
 class CompressPDF(UiCompressPDF):
@@ -62,6 +64,10 @@ class CompressPDF(UiCompressPDF):
         self.image_quality.set(self._image_quality)
 
     def process(self):
+        if not check_file_exist(self._pdf_file):
+            return None
+        check_dir(self._compressed_pdf_file.parent)
+
         # split pdf range
         page_range_list = []
         process_count = PHYSICAL_CPU_COUNT
@@ -105,7 +111,6 @@ class CompressPDF(UiCompressPDF):
             pdf_info = f'{self.pdf_info.get()}  -  压缩后：{int2byte_unit(self._compressed_pdf_file_size)}    ' \
                        f'压缩率：{compressed_ratio}%'
             self.pdf_info.set(pdf_info)
-            self.update()
 
         for file_no in range(len(page_range_list)):
             sub_compressed_pdf_file = self._compressed_pdf_file.parent / f'{file_no}-{self._compressed_pdf_file.name}'
@@ -125,7 +130,7 @@ def compress_pdf(
         queue: Queue, pdf_file: Union[str, Path], compressed_pdf_file: Union[str, Path],
         image_quality: int, max_dpi: int, page_range: Iterable, process_id: int
         ):
-    sub_compressed_pdf_file = compressed_pdf_file.parent / f'{process_id}-{compressed_pdf_file.name}'
+    sub_compressed_pdf_file = TEMP_DIR / f'{process_id}-{compressed_pdf_file.name}'
     with fitz.Document(pdf_file) as pdf:
         for page_no in page_range:
             reduced_images_list = _get_reduced_images_list(pdf, page_no, image_quality, max_dpi)
@@ -197,7 +202,7 @@ def merge_compressed_pdf(
         ):
     with fitz.Document() as pdf:
         for file_no, page_range in enumerate(page_range_list):
-            sub_compressed_pdf_file = compressed_pdf_file.parent / f'{file_no}-{compressed_pdf_file.name}'
+            sub_compressed_pdf_file = TEMP_DIR / f'{file_no}-{compressed_pdf_file.name}'
             with fitz.Document(sub_compressed_pdf_file) as sub_compressed_pdf:
                 pdf.insert_pdf(sub_compressed_pdf, from_page=page_range[0], to_page=page_range[-1])
             queue.put(file_no)

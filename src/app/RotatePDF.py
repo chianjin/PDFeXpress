@@ -8,7 +8,7 @@ import fitz
 from app.Progress import Progress
 from constants import FILE_TYPES_PDF
 from ui.UiRotatePDF import UiRotatePDF
-from utils import get_pdf_info
+from utils import get_pdf_info, check_dir, check_file_exist
 
 
 class RotatePDF(UiRotatePDF):
@@ -46,6 +46,10 @@ class RotatePDF(UiRotatePDF):
         self._toggle_buttons()
 
     def process(self):
+        if not check_file_exist(self._pdf_file):
+            return None
+        check_dir(self._rotated_pdf_file.parent)
+
         queue = Queue()
         sub_process = Process(
                 target=rotate_pdf,
@@ -53,7 +57,8 @@ class RotatePDF(UiRotatePDF):
                 )
         sub_process_list = [sub_process]
         sub_process.start()
-        Progress(process_list=sub_process_list, queue=queue, maximum=self._page_count)
+        progress = Progress(process_list=sub_process_list, queue=queue, maximum=self._page_count)
+        self.wait_window(progress)
 
     def _toggle_buttons(self):
         if self._pdf_file and self._rotated_pdf_file:

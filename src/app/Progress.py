@@ -40,6 +40,7 @@ class Progress(UiProgress):
                 if self._auto_destroy:
                     self.destroy()
                 else:
+                    self.app_info.set(f'全部完成：')
                     self.ButtonStop.configure(text='确定', command=self.destroy)
 
     def stop_process(self):

@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import BaseWidget, Tk
 from tkinter.filedialog import askopenfilename, askopenfilenames
+from tkinter.messagebox import showerror
 from tkinter.ttk import Treeview
 from typing import Union
 
@@ -58,6 +59,21 @@ def get_pdf_info(title='选择 PDF 文件', filetypes=FILE_TYPES_PDF):
     return pdf_file, page_count, len(str(page_count))
 
 
+def check_file_exist(file_path: Path):
+    if not file_path.exists():
+        showerror(
+                title='文件不存在',
+                message=f'{file_path}\n文件不存在，请检查。'
+                )
+        return False
+    return True
+
+
+def check_dir(dir_path: Path):
+    if not dir_path.exists():
+        dir_path.mkdir()
+
+
 def treeview_add_files(treeview: Treeview, title, filetypes):
     file_list = askopenfilenames(title=title, filetypes=filetypes)
     for file in file_list:
@@ -111,7 +127,7 @@ def treeview_get_first_file(treeview: Treeview):
     item_list = treeview.get_children()
     item_count = len(item_list)
     if item_count > 0:
-        dirname, filename = treeview.item(item_list[0]).get('values')
-        return Path(dirname) / Path(filename)
+        dir_name, file_name = treeview.item(item_list[0]).get('values')
+        return Path(dir_name) / Path(file_name)
     else:
         return ''

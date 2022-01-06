@@ -11,7 +11,7 @@ from PIL import Image
 from app.Progress import Progress
 from constants import PHYSICAL_CPU_COUNT
 from ui.UiPDF2Images import UiPDF2Images
-from utils import get_pdf_info
+from utils import get_pdf_info, check_dir, check_file_exist
 
 IMAGE_DPI = '96 144 192 288 384 480 576'
 PROGRESS_BAR_DELAY = 80
@@ -72,6 +72,10 @@ class PDF2Images(UiPDF2Images):
         self.image_quality.set(self._image_quality)
 
     def process(self):
+        if not check_file_exist(self._pdf_file):
+            return None
+        check_dir(self._images_dir)
+
         queue = Queue()
         sub_process_list = []
 
@@ -88,7 +92,8 @@ class PDF2Images(UiPDF2Images):
                 sub_process_list.append(sub_process)
         for sub_process in sub_process_list:
             sub_process.start()
-        Progress(None, sub_process_list, queue, self._page_count)
+        progress = Progress(None, sub_process_list, queue, self._page_count)
+        self.wait_window(progress)
 
     def _toggle_buttons(self):
         if self._pdf_file and self._images_dir:

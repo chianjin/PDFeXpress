@@ -10,7 +10,7 @@ import fitz
 
 from app.Progress import Progress
 from ui.UiSplitPDF import UiSplitPDF
-from utils import get_pdf_info
+from utils import get_pdf_info, check_dir, check_file_exist
 
 
 class SplitPDF(UiSplitPDF):
@@ -105,6 +105,10 @@ class SplitPDF(UiSplitPDF):
             return False
 
     def process(self):
+        if not check_file_exist(self._pdf_file):
+            return None
+        check_dir(self._split_pdf_dir)
+
         if self._split_mode == 'range':
             split_range_list = ((self.split_range_start.get() - 1, self.split_range_stop.get() - 1),)
         elif self._split_mode in ('page', 'count'):
@@ -125,7 +129,8 @@ class SplitPDF(UiSplitPDF):
                 )
         sub_process_list = [sub_process]
         sub_process.start()
-        Progress(process_list=sub_process_list, queue=queue, maximum=len(split_range_list))
+        progress = Progress(process_list=sub_process_list, queue=queue, maximum=len(split_range_list))
+        self.wait_window(progress)
 
     def _set_split_count(self):
         """Set valid values of count in count split mod"""

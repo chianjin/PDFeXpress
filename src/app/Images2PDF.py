@@ -9,7 +9,7 @@ from app.Progress import Progress
 from constants import FILE_TYPES_IMAGE, FILE_TYPES_PDF
 from ui.UiImages2PDF import UiImages2PDF
 from utils import treeview_add_files, treeview_get_file_list, treeview_get_first_file, treeview_move_item, \
-    treeview_remove_items
+    treeview_remove_items, check_file_exist, check_dir
 
 
 class Images2PDF(UiImages2PDF):
@@ -71,6 +71,11 @@ class Images2PDF(UiImages2PDF):
 
     def process(self):
         image_list = treeview_get_file_list(self.TreeViewImageList)
+        for image_file in image_list:
+            if check_file_exist(image_file):
+                return None
+        check_dir(self._pdf_file.parent)
+
         queue = Queue()
         sub_process = Process(
                 target=images2pdf,
@@ -78,7 +83,8 @@ class Images2PDF(UiImages2PDF):
                 )
         sub_process_list = [sub_process]
         sub_process.start()
-        Progress(process_list=sub_process_list, queue=queue, maximum=len(image_list))
+        progress = Progress(process_list=sub_process_list, queue=queue, maximum=len(image_list))
+        self.wait_window(progress)
 
     def _set_app_info(self):
         self._image_count = len(self.TreeViewImageList.get_children())

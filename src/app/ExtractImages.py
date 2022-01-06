@@ -6,8 +6,9 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
+from constants import PHYSICAL_CPU_COUNT
 from ui.UiExtractImages import UiExtractImages
-from utils import get_pdf_info
+from utils import get_pdf_info, check_file_exist, check_dir
 
 
 class ExtractImages(UiExtractImages):
@@ -35,14 +36,26 @@ class ExtractImages(UiExtractImages):
         self._toggle_buttons()
 
     def process(self):
+        if not check_file_exist(self._pdf_file):
+            return None
+        check_dir(self._images_dir)
+
         queue = Queue()
-        sub_process = Process(
-                target=extract_images,
-                args=(queue, self._pdf_file, self._images_dir)
-                )
-        sub_process_list = [sub_process]
-        sub_process.start()
-        Progress(process_list=sub_process_list, queue=queue, maximum=self._page_count)
+        sub_process_list = []
+
+        pdf_range = range(self._page_count)
+        for start in range(PHYSICAL_CPU_COUNT):
+            page_range = pdf_range[start::PHYSICAL_CPU_COUNT]
+            if len(page_range):
+                sub_process = Process(
+                        target=extract_images,
+                        args=(queue, self._pdf_file, self._images_dir, page_range)
+                        )
+                sub_process_list.append(sub_process)
+        for sub_process in sub_process_list:
+            sub_process.start()
+        progress = Progress(process_list=sub_process_list, queue=queue, maximum=self._page_count)
+        self.wait_window(progress)
 
     def _toggle_buttons(self):
         if self._pdf_file and self._images_dir:
@@ -51,18 +64,18 @@ class ExtractImages(UiExtractImages):
             self.ButtonProcess['state'] = 'disabled'
 
 
-def extract_images(queue: Queue, pdf_file: Union[str, Path, None], image_dir: Union[str, Path]):
+def extract_images(queue: Queue, pdf_file: Union[str, Path, None], image_dir: Union[str, Path], page_range):
     with fitz.Document(pdf_file) as pdf:
-        page_no_width = len(str(pdf.page_count))
+        page_no_width = len(str(pdf.page_count + 1))
         image_filename = f'{image_dir}/{pdf_file.stem}'
-        for page_no, page in enumerate(pdf, start=1):
-            image_list = page.get_images()
+        for page_no in page_range:
+            image_list = pdf[page_no].get_images()
             for image_no, image_info in enumerate(image_list):
                 xref, *_info = image_info
                 image_data = pdf.extract_image(xref)
                 ext = image_data['ext']
                 image = image_data['image']
-                image_file = f'{image_filename}-P{page_no:0{page_no_width}d}-{image_no:02d}.{ext}'
+                image_file = f'{image_filename}-P{page_no + 1:0{page_no_width}d}-{image_no:d}.{ext}'
                 with open(image_file, 'wb') as f:
                     f.write(image)
             queue.put(page_no)

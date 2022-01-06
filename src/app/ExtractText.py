@@ -8,7 +8,7 @@ import fitz
 from app.Progress import Progress
 from constants import FILE_TYPES_TEXT
 from ui.UiExtractText import UiExtractText
-from utils import get_pdf_info
+from utils import get_pdf_info, check_dir, check_file_exist
 
 
 class ExtractText(UiExtractText):
@@ -44,6 +44,10 @@ class ExtractText(UiExtractText):
         self._toggle_buttons()
 
     def process(self):
+        if not check_file_exist(self._pdf_file):
+            return None
+        check_dir(self._text_file.parent)
+
         queue = Queue()
         sub_process = Process(
                 target=extract_text,
@@ -51,7 +55,8 @@ class ExtractText(UiExtractText):
                 )
         sub_process_list = [sub_process]
         sub_process.start()
-        Progress(process_list=sub_process_list, queue=queue, maximum=self._page_count)
+        progress = Progress(process_list=sub_process_list, queue=queue, maximum=self._page_count)
+        self.wait_window(progress)
 
     def _toggle_buttons(self):
         if self._pdf_file and self._text_file:
