@@ -8,8 +8,8 @@ import fitz
 from app.Progress import Progress
 from constants import FILE_TYPES_PDF
 from ui.UiMergePDF import UiMergePDF
-from utils import treeview_add_files, treeview_get_file_list, treeview_get_first_file, treeview_move_item, \
-    treeview_remove_items, check_file_exist, check_dir
+from utils import check_dir, check_file_exist, treeview_add_files, treeview_get_file_list, treeview_get_first_file, \
+    treeview_move_item, treeview_remove_items
 
 
 class MergePDF(UiMergePDF):

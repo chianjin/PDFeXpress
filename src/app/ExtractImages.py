@@ -8,7 +8,7 @@ import fitz
 from app.Progress import Progress
 from constants import PHYSICAL_CPU_COUNT
 from ui.UiExtractImages import UiExtractImages
-from utils import get_pdf_info, check_file_exist, check_dir
+from utils import check_dir, check_file_exist, get_pdf_info
 
 
 class ExtractImages(UiExtractImages):

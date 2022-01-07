@@ -8,7 +8,7 @@ import fitz
 from app.Progress import Progress
 from constants import FILE_TYPES_PDF
 from ui.UiRotatePDF import UiRotatePDF
-from utils import get_pdf_info, check_dir, check_file_exist
+from utils import check_dir, check_file_exist, get_pdf_info
 
 
 class RotatePDF(UiRotatePDF):

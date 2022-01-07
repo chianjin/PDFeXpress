@@ -3,7 +3,7 @@ import os
 from io import BytesIO
 from multiprocessing import Process, Queue
 from pathlib import Path
-from tempfile import mkstemp, gettempdir
+from tempfile import gettempdir, mkstemp
 from tkinter.filedialog import asksaveasfilename
 from typing import Iterable, Union
 
@@ -13,7 +13,7 @@ from PIL import Image
 from app.Progress import Progress
 from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT
 from ui.UiCompressPDF import UiCompressPDF
-from utils import get_pdf_info, int2byte_unit, check_file_exist, check_dir
+from utils import check_dir, check_file_exist, get_pdf_info, int2byte_unit
 
 TEMP_DIR = Path(gettempdir())
 
@@ -108,9 +108,9 @@ class CompressPDF(UiCompressPDF):
 
             self._compressed_pdf_file_size = os.path.getsize(self._compressed_pdf_file)
             compressed_ratio = int(self._compressed_pdf_file_size / self._pdf_file_size * 100)
-            pdf_info = f'{self.pdf_info.get()}  -  压缩后：{int2byte_unit(self._compressed_pdf_file_size)}    ' \
-                       f'压缩率：{compressed_ratio}%'
-            self.pdf_info.set(pdf_info)
+            process_info = f'-  压缩后：{int2byte_unit(self._compressed_pdf_file_size)}    ' \
+                           f'压缩率：{compressed_ratio}%'
+            self.process_info.set(process_info)
 
         for file_no in range(len(page_range_list)):
             sub_compressed_pdf_file = self._compressed_pdf_file.parent / f'{file_no}-{self._compressed_pdf_file.name}'
@@ -175,11 +175,15 @@ def _get_reduced_images_list(pdf, page_no, image_quality, max_dpi):
 
 def _reduce_image(image_file, size, quality, dpi):
     image = Image.open(image_file)
-    resize_image = image.resize(size)
+    try:
+        resized_image = image.resize(size)
+    except OSError:
+        resized_image = image.resize(size)
+
     fd, temp_file = mkstemp(prefix='pdf_express_tmp', suffix='.jpg')
-    resize_image.save(temp_file, format='jpeg', quality=quality, dpi=(dpi, dpi))
+    resized_image.save(temp_file, format='jpeg', quality=quality, dpi=(dpi, dpi))
     os.close(fd)
-    resize_image.close()
+    resized_image.close()
     image.close()
     return temp_file
 

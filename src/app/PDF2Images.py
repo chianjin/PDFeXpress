@@ -11,7 +11,7 @@ from PIL import Image
 from app.Progress import Progress
 from constants import PHYSICAL_CPU_COUNT
 from ui.UiPDF2Images import UiPDF2Images
-from utils import get_pdf_info, check_dir, check_file_exist
+from utils import check_dir, check_file_exist, get_pdf_info
 
 IMAGE_DPI = '96 144 192 288 384 480 576'
 PROGRESS_BAR_DELAY = 80

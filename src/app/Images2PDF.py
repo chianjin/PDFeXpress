@@ -8,8 +8,8 @@ import fitz
 from app.Progress import Progress
 from constants import FILE_TYPES_IMAGE, FILE_TYPES_PDF
 from ui.UiImages2PDF import UiImages2PDF
-from utils import treeview_add_files, treeview_get_file_list, treeview_get_first_file, treeview_move_item, \
-    treeview_remove_items, check_file_exist, check_dir
+from utils import check_dir, check_file_exist, treeview_add_files, treeview_get_file_list, treeview_get_first_file, \
+    treeview_move_item, treeview_remove_items
 
 
 class Images2PDF(UiImages2PDF):

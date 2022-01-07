@@ -10,7 +10,7 @@ import fitz
 
 from app.Progress import Progress
 from ui.UiSplitPDF import UiSplitPDF
-from utils import get_pdf_info, check_dir, check_file_exist
+from utils import check_dir, check_file_exist, get_pdf_info
 
 
 class SplitPDF(UiSplitPDF):
