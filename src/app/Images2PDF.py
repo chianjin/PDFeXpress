@@ -6,7 +6,7 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
-from constants import FILE_TYPES_IMAGE, FILE_TYPES_PDF
+from constants import FILE_TYPES_IMAGE, FILE_TYPES_PDF, TRANSLATER as _
 from ui.UiImages2PDF import UiImages2PDF
 from utils import check_dir, check_file_exist, treeview_add_files, treeview_get_file_list, treeview_get_first_file, \
     treeview_move_item, treeview_remove_items
@@ -15,7 +15,25 @@ from utils import check_dir, check_file_exist, treeview_add_files, treeview_get_
 class Images2PDF(UiImages2PDF):
     def __init__(self, master=None, **kw):
         super(Images2PDF, self).__init__(master, **kw)
-        self.TreeViewImageList['show'] = 'headings'
+
+        self.LabelFrameName.configure(text=_('Images to PDF'))
+        self.FrameImageList.configure(text=_('Image List'))
+        self.ButtonAddImages.configure(text=_('Add Images'))
+        self.ButtonRemoveImage.configure(text=_('Remove Image'))
+        self.ButtonRemoveAll.configure(text=_('Remove All'))
+        self.ButtonMoveTop.configure(text=_('Move to First'))
+        self.ButtonMoveUp.configure(text=_('Move Up'))
+        self.ButtonMoveDown.configure(text=_('Move Down'))
+        self.ButtonMoveBottom.configure(text=_('Move to Last'))
+        self.FramePDFFile.configure(text=_('PDF File'))
+        self.ButtonPDFFile.configure(text=_('Browser'))
+        self.FrameProcess.configure(text=_('Images to PDF'))
+        self.ButtonProcess.configure(text=_('Convert'))
+
+        self.TreeViewImageList.heading('ColumnDirName', anchor='w', text=_('Folder'))
+        self.TreeViewImageList.heading('ColumnFileName', anchor='w', text=_('File Name'))
+
+        self.TreeViewImageList.configure(show='headings')
         self._image_count = 0
         self._pdf_file: Union[str, Path] = ''
 
@@ -23,7 +41,7 @@ class Images2PDF(UiImages2PDF):
         self.ScrollbarImagesList.configure(command=self.TreeViewImageList.yview)
 
     def add_images(self):
-        treeview_add_files(self.TreeViewImageList, title='选择图像文件', filetypes=FILE_TYPES_IMAGE)
+        treeview_add_files(self.TreeViewImageList, title=_('Select images files'), filetypes=FILE_TYPES_IMAGE)
         self._set_app_info()
         self._toggle_buttons()
 
@@ -60,7 +78,7 @@ class Images2PDF(UiImages2PDF):
         pdf_file = asksaveasfilename(
                 filetypes=FILE_TYPES_PDF,
                 defaultextension='.pdf',
-                title='选择输出文件名',
+                title=_('Select PDF file'),
                 initialfile=initial_file
                 )
         if pdf_file:
@@ -70,9 +88,10 @@ class Images2PDF(UiImages2PDF):
         self._toggle_buttons()
 
     def process(self):
+        print('OK')
         image_list = treeview_get_file_list(self.TreeViewImageList)
         for image_file in image_list:
-            if check_file_exist(image_file):
+            if not check_file_exist(image_file):
                 return None
         check_dir(self._pdf_file.parent)
 
@@ -84,12 +103,13 @@ class Images2PDF(UiImages2PDF):
         sub_process_list = [sub_process]
         sub_process.start()
         progress = Progress(process_list=sub_process_list, queue=queue, maximum=len(image_list))
+        print(progress)
         self.wait_window(progress)
 
     def _set_app_info(self):
         self._image_count = len(self.TreeViewImageList.get_children())
         if self._image_count:
-            info = f'共 {self._image_count} 个图像文件。'
+            info = _('Total Images: {}').format(self._image_count)
         else:
             info = ''
         self.process_info.set('')

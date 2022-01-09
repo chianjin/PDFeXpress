@@ -9,6 +9,7 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
+from constants import TRANSLATER as _
 from ui.UiSplitPDF import UiSplitPDF
 from utils import check_dir, check_file_exist, get_pdf_info
 
@@ -16,6 +17,19 @@ from utils import check_dir, check_file_exist, get_pdf_info
 class SplitPDF(UiSplitPDF):
     def __init__(self, master=None, **kw):
         super(SplitPDF, self).__init__(master, **kw)
+
+        self.LabelFrameName.configure(text=_('Split PDF'))
+        self.FramePDFFile.configure(text=_('PDF File'))
+        self.ButtonPDFFile.configure(text=_('Browser'))
+        self.FrameSplitPDFDir.configure(text=_('Split PDF Folder'))
+        self.ButtonSplitPDFDir.configure(text=_('Browser'))
+        self.FrameOption.configure(text=_('Option'))
+        self.RadiobuttonSplitSingle.configure(text=_('Per Page'))
+        self.RadiobuttonSplitPage.configure(text=_('By Pages'))
+        self.RadiobuttonSplitCount.configure(text=_('By Count'))
+        self.RadiobuttonSplitRange.configure(text=_('By Range'))
+        self.FrameProcess.configure(text=_('PDF to Images'))
+        self.ButtonProcess.configure(text=_('Split'))
 
         self._page_count = 0
         # string width of page number
@@ -28,7 +42,7 @@ class SplitPDF(UiSplitPDF):
         self._pdf_file, self._page_count, self._page_no_width = get_pdf_info()
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
-            self.app_info.set(f'共 {self._page_count} 页')
+            self.app_info.set(_('Total Pages: {}').format(self._page_count))
             self._split_pdf_dir = self._pdf_file.parent
             self.split_pdf_dir.set(self._split_pdf_dir)
 
@@ -45,7 +59,7 @@ class SplitPDF(UiSplitPDF):
         self._toggle_buttons()
 
     def set_split_pdf_dir(self):
-        self._split_pdf_dir = askdirectory(title='选择图像输出目录')
+        self._split_pdf_dir = askdirectory(title=_('Select split PDF folder'))
         if self._split_pdf_dir:
             self._split_pdf_dir = Path(self._split_pdf_dir)
             self.split_pdf_dir.set(self._split_pdf_dir)
@@ -82,7 +96,10 @@ class SplitPDF(UiSplitPDF):
         if pages.isdigit() and 1 < int(pages) < self._page_count:
             return True
         else:
-            showerror(title='错误', message=f'请输入介于 2 与 {self._page_count} 之间的整数。')
+            showerror(
+                    title=_('Error'),
+                    message=_('Pages must between 2 and {}. Please enter again').format(self._page_count)
+                    )
             self.EntrySplitPage.focus()
             return False
 
@@ -91,7 +108,10 @@ class SplitPDF(UiSplitPDF):
         if start.isdigit() and 1 <= int(start) <= self._page_count:
             return True
         else:
-            showerror(title='错误', message=f'请输入 1 到 {self._page_count} 的整数')
+            showerror(
+                    title=_('Error'),
+                    message=_('Range start must between 1 and {}. Please enter again.').format(self._page_count)
+                    )
             self.EntrySplitRangeStart.focus()
             return False
 
@@ -100,7 +120,10 @@ class SplitPDF(UiSplitPDF):
         if stop.isdigit() and 1 <= int(stop) <= self._page_count:
             return True
         else:
-            showerror(title='错误', message=f'请输入 1 到 {self._page_count} 的整数')
+            showerror(
+                    title=_('Error'),
+                    message=_('Range stop must between 1 and {}. Please enter again.').format(self._page_count)
+                    )
             self.EntrySplitRangeStop.focus()
             return False
 
@@ -145,12 +168,9 @@ class SplitPDF(UiSplitPDF):
         if self._pdf_file and self._page_count > 1:
             self.RadiobuttonSplitSingle.configure(state='normal')
             self.RadiobuttonSplitPage.configure(state='normal')
-            self.LabelSplitPageUnit.configure(state='normal')
             self.RadiobuttonSplitCount.configure(state='normal')
-            self.LabelSplitCountUnit.configure(state='normal')
             self.RadiobuttonSplitRange.configure(state='normal')
             self.LabelSplitRangeTo.configure(state='normal')
-            self.LabelSplitRangeUnit.configure(state='normal')
 
         if self._pdf_file and self._page_count > 1 and self._split_pdf_dir:
             self.ButtonProcess['state'] = 'normal'

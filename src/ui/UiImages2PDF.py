@@ -11,55 +11,52 @@ class UiImages2PDF(ttk.Frame):
         super(UiImages2PDF, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.frame_name = tk.StringVar(value='图像转换为 PDF')
-        self.LabelFrameName.configure(
-                font='{Microsoft YaHei UI} 16 {bold}', text='图像转换为 PDF', textvariable=self.frame_name
-                )
+        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 16 {bold}', text='图像转换为 PDF')
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
         self.FrameImageList = ttk.Labelframe(self)
         self.TreeViewImageList = ttk.Treeview(self.FrameImageList)
-        self.TreeViewImageList_cols = ['ColumnDirname', 'ColumnFilename']
-        self.TreeViewImageList_dcols = ['ColumnDirname', 'ColumnFilename']
+        self.TreeViewImageList_cols = ['ColumnDirName', 'ColumnFileName']
+        self.TreeViewImageList_dcols = ['ColumnDirName', 'ColumnFileName']
         self.TreeViewImageList.configure(
-                columns=self.TreeViewImageList_cols, displaycolumns=self.TreeViewImageList_dcols
-                )
-        self.TreeViewImageList.column('ColumnDirname', anchor='w', stretch='true', width='150', minwidth='20')
-        self.TreeViewImageList.column('ColumnFilename', anchor='w', stretch='true', width='300', minwidth='20')
-        self.TreeViewImageList.heading('ColumnDirname', anchor='w', text='目录名')
-        self.TreeViewImageList.heading('ColumnFilename', anchor='w', text='文件名')
+            columns=self.TreeViewImageList_cols, displaycolumns=self.TreeViewImageList_dcols
+            )
+        self.TreeViewImageList.column('ColumnDirName', anchor='w', stretch='true', width='150', minwidth='20')
+        self.TreeViewImageList.column('ColumnFileName', anchor='w', stretch='true', width='300', minwidth='20')
+        self.TreeViewImageList.heading('ColumnDirName', anchor='w', text='目录名')
+        self.TreeViewImageList.heading('ColumnFileName', anchor='w', text='文件名')
         self.TreeViewImageList.pack(expand='true', fill='both', padx='4', pady='4', side='left')
         self.ScrollbarImagesList = ttk.Scrollbar(self.FrameImageList)
         self.ScrollbarImagesList.configure(orient='vertical')
         self.ScrollbarImagesList.pack(fill='y', side='left')
         self.ButtonAddImages = ttk.Button(self.FrameImageList)
         self.ButtonAddImages.configure(text='添加图像')
-        self.ButtonAddImages.pack(padx='4', pady='4', side='top')
+        self.ButtonAddImages.pack(fill='x', padx='4', pady='4', side='top')
         self.ButtonAddImages.configure(command=self.add_images)
         self.ButtonRemoveImage = ttk.Button(self.FrameImageList)
         self.ButtonRemoveImage.configure(text='移除图像')
-        self.ButtonRemoveImage.pack(padx='4', pady='4', side='top')
+        self.ButtonRemoveImage.pack(fill='x', padx='4', pady='4', side='top')
         self.ButtonRemoveImage.configure(command=self.remove_images)
         self.ButtonRemoveAll = ttk.Button(self.FrameImageList)
         self.ButtonRemoveAll.configure(text='全部移除')
-        self.ButtonRemoveAll.pack(padx='4', pady='4', side='top')
+        self.ButtonRemoveAll.pack(fill='x', padx='4', pady='4', side='top')
         self.ButtonRemoveAll.configure(command=self.remove_all)
         self.ButtonMoveTop = ttk.Button(self.FrameImageList)
         self.ButtonMoveTop.configure(text='移至顶部')
-        self.ButtonMoveTop.pack(padx='4', pady='4', side='top')
+        self.ButtonMoveTop.pack(fill='x', padx='4', pady='4', side='top')
         self.ButtonMoveTop.configure(command=self.move_top)
         self.ButtonMoveUp = ttk.Button(self.FrameImageList)
         self.ButtonMoveUp.configure(text='向上移动')
-        self.ButtonMoveUp.pack(padx='4', pady='4', side='top')
+        self.ButtonMoveUp.pack(fill='x', padx='4', pady='4', side='top')
         self.ButtonMoveUp.configure(command=self.move_up)
         self.ButtonMoveDown = ttk.Button(self.FrameImageList)
         self.ButtonMoveDown.configure(text='向下移动')
-        self.ButtonMoveDown.pack(padx='4', pady='4', side='top')
+        self.ButtonMoveDown.pack(fill='x', padx='4', pady='4', side='top')
         self.ButtonMoveDown.configure(command=self.move_down)
         self.ButtonMoveBottom = ttk.Button(self.FrameImageList)
         self.ButtonMoveBottom.configure(text='移至底部')
-        self.ButtonMoveBottom.pack(padx='4', pady='4', side='top')
+        self.ButtonMoveBottom.pack(fill='x', padx='4', pady='4', side='top')
         self.ButtonMoveBottom.configure(command=self.move_bottom)
         self.FrameImageList.configure(height='200', text='图像列表', width='200')
         self.FrameImageList.pack(expand='true', fill='both', padx='4', pady='4', side='top')
@@ -89,9 +86,6 @@ class UiImages2PDF(ttk.Frame):
         self.ButtonProcess.configure(command=self.process)
         self.FrameProcess.configure(height='200', text='转换图像', width='200')
         self.FrameProcess.pack(fill='x', padx='4', pady='4', side='top')
-
-    def help(self):
-        pass
 
     def add_images(self):
         pass

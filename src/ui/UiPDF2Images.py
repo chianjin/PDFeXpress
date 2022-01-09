@@ -11,10 +11,7 @@ class UiPDF2Images(ttk.Frame):
         super(UiPDF2Images, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.frame_name = tk.StringVar(value='PDF 转换为图像')
-        self.LabelFrameName.configure(
-                font='{Microsoft YaHei UI} 16 {bold}', text='PDF 转换为图像', textvariable=self.frame_name
-                )
+        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 16 {bold}', text='PDF 转换为图像')
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -40,42 +37,39 @@ class UiPDF2Images(ttk.Frame):
         self.ButtonImagesDir.configure(command=self.set_images_dir)
         self.FrameImagesDir.configure(height='200', text='输出目录', width='200')
         self.FrameImagesDir.pack(fill='x', padx='4', pady='4', side='top')
-        self.FrameOptions = ttk.Labelframe(self)
-        self.LabelImageQuality = ttk.Label(self.FrameOptions)
+        self.FrameOption = ttk.Labelframe(self)
+        self.LabelImageQuality = ttk.Label(self.FrameOption)
         self.LabelImageQuality.configure(text='图像质量')
         self.LabelImageQuality.pack(padx='4', pady='4', side='left')
-        self.EntryImageQuality = ttk.Entry(self.FrameOptions)
+        self.EntryImageQuality = ttk.Entry(self.FrameOption)
         self.image_quality = tk.IntVar(value='')
         self.EntryImageQuality.configure(
-                justify='center', textvariable=self.image_quality, validate='focusout', width='3'
-                )
-        self.EntryImageQuality.pack(pady='4', side='left')
+            justify='center', textvariable=self.image_quality, validate='focusout', width='3'
+            )
+        self.EntryImageQuality.pack(padx='4', pady='4', side='left')
         self.EntryImageQuality.configure(validatecommand=self.valid_image_quality)
-        self.ScaleImageQuality = ttk.Scale(self.FrameOptions)
+        self.ScaleImageQuality = ttk.Scale(self.FrameOption)
         self.ScaleImageQuality.configure(from_='0', orient='horizontal', to='100', value='75')
         self.ScaleImageQuality.configure(variable=self.image_quality)
         self.ScaleImageQuality.pack(padx='4', pady='4', side='left')
         self.ScaleImageQuality.configure(command=self.set_image_quality)
-        self.Frame2 = ttk.Frame(self.FrameOptions)
+        self.Frame2 = ttk.Frame(self.FrameOption)
         self.Frame2.configure(height='1', width='20')
         self.Frame2.pack(side='left')
-        self.LabelImageDPI = ttk.Label(self.FrameOptions)
-        self.LabelImageDPI.configure(text='分辨率')
+        self.LabelImageDPI = ttk.Label(self.FrameOption)
+        self.LabelImageDPI.configure(text='DPI')
         self.LabelImageDPI.pack(padx='4', pady='4', side='left')
-        self.ComboboxImageDPI = ttk.Combobox(self.FrameOptions)
+        self.ComboboxImageDPI = ttk.Combobox(self.FrameOption)
         self.image_dpi = tk.IntVar(value='')
         self.ComboboxImageDPI.configure(
-                justify='center', textvariable=self.image_dpi, validate='focusout',
-                values='96 144 192 240 288 336 384 432 480 528 576 624'
-                )
+            justify='center', textvariable=self.image_dpi, validate='focusout',
+            values='96 144 192 240 288 336 384 432 480 528 576 624'
+            )
         self.ComboboxImageDPI.configure(width='4')
-        self.ComboboxImageDPI.pack(pady='4', side='left')
+        self.ComboboxImageDPI.pack(padx='4', pady='4', side='left')
         self.ComboboxImageDPI.configure(validatecommand=self.valid_image_dpi)
-        self.LabelImageDPIUnit = ttk.Label(self.FrameOptions)
-        self.LabelImageDPIUnit.configure(text='dpi')
-        self.LabelImageDPIUnit.pack(padx='4', pady='4', side='left')
-        self.FrameOptions.configure(height='200', text='选项', width='200')
-        self.FrameOptions.pack(fill='x', padx='4', pady='4', side='top')
+        self.FrameOption.configure(height='200', text='选项', width='200')
+        self.FrameOption.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameProcess = ttk.Labelframe(self)
         self.LabelAppInfo = ttk.Label(self.FrameProcess)
         self.app_info = tk.StringVar(value='')
@@ -90,9 +84,6 @@ class UiPDF2Images(ttk.Frame):
         self.ButtonProcess.configure(command=self.process)
         self.FrameProcess.configure(height='200', text='转换 PDF', width='200')
         self.FrameProcess.pack(fill='x', padx='4', pady='4', side='top')
-
-    def help(self):
-        pass
 
     def get_pdf_file(self):
         pass

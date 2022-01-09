@@ -22,7 +22,6 @@
           <object class="ttk.Label" id="LabelFrameName">
             <property name="font">{Microsoft YaHei UI} 16 {bold}</property>
             <property name="text" translatable="yes">分割 PDF</property>
-            <property name="textvariable">string:frame_name</property>
             <layout manager="pack">
               <property name="propagate">True</property>
               <property name="side">left</property>
@@ -112,7 +111,7 @@
       </object>
     </child>
     <child>
-      <object class="ttk.Labelframe" id="FrameOptions">
+      <object class="ttk.Labelframe" id="FrameOption">
         <property name="height">200</property>
         <property name="text" translatable="yes">选项</property>
         <property name="width">200</property>
@@ -171,17 +170,6 @@
                 <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_page</property>
                 <property name="width">4</property>
                 <layout manager="pack">
-                  <property name="pady">4</property>
-                  <property name="propagate">True</property>
-                  <property name="side">left</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="ttk.Label" id="LabelSplitPageUnit">
-                <property name="state">disabled</property>
-                <property name="text" translatable="yes">页/份</property>
-                <layout manager="pack">
                   <property name="padx">4</property>
                   <property name="pady">4</property>
                   <property name="propagate">True</property>
@@ -210,17 +198,6 @@
                 <property name="state">disabled</property>
                 <property name="textvariable">int:split_count</property>
                 <property name="width">4</property>
-                <layout manager="pack">
-                  <property name="pady">4</property>
-                  <property name="propagate">True</property>
-                  <property name="side">left</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="ttk.Label" id="LabelSplitCountUnit">
-                <property name="state">disabled</property>
-                <property name="text" translatable="yes">份</property>
                 <layout manager="pack">
                   <property name="padx">4</property>
                   <property name="pady">4</property>
@@ -253,6 +230,7 @@
                 <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_start</property>
                 <property name="width">5</property>
                 <layout manager="pack">
+                  <property name="padx">4</property>
                   <property name="pady">4</property>
                   <property name="propagate">True</property>
                   <property name="side">left</property>
@@ -279,17 +257,6 @@
                 <property name="validate">focusout</property>
                 <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_stop</property>
                 <property name="width">5</property>
-                <layout manager="pack">
-                  <property name="pady">4</property>
-                  <property name="propagate">True</property>
-                  <property name="side">left</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="ttk.Label" id="LabelSplitRangeUnit">
-                <property name="state">disabled</property>
-                <property name="text" translatable="yes">页</property>
                 <layout manager="pack">
                   <property name="padx">4</property>
                   <property name="pady">4</property>

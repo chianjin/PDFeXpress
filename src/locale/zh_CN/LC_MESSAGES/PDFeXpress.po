@@ -1,0 +1,304 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2022-01-09 19:04+0800\n"
+"PO-Revision-Date: 2022-01-09 19:37+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: app\About.py:17 app\Progress.py:48
+msgid "OK"
+msgstr "确定"
+
+#: app\CompressPDF.py:25 app\CompressPDF.py:33 app\MainFrame.py:28
+msgid "Compress PDF"
+msgstr "压缩 PDF"
+
+#: app\CompressPDF.py:26 app\ExtractImages.py:19 app\ExtractText.py:19
+#: app\Images2PDF.py:28 app\MergePDF.py:28 app\RotatePDF.py:19
+#: app\PDF2Images.py:25 app\SplitPDF.py:22
+msgid "PDF File"
+msgstr "PDF 文件"
+
+#: app\CompressPDF.py:27 app\CompressPDF.py:29 app\ExtractImages.py:20
+#: app\ExtractImages.py:22 app\ExtractText.py:20 app\ExtractText.py:22
+#: app\Images2PDF.py:29 app\MergePDF.py:29 app\PDF2Images.py:26
+#: app\PDF2Images.py:28 app\RotatePDF.py:20 app\RotatePDF.py:22
+#: app\SplitPDF.py:23 app\SplitPDF.py:25
+msgid "Browser"
+msgstr "浏览"
+
+#: app\CompressPDF.py:28
+msgid "Compressed PDF File"
+msgstr "压缩的 PDF"
+
+#: app\CompressPDF.py:30 app\PDF2Images.py:29 app\RotatePDF.py:23
+#: app\SplitPDF.py:26
+msgid "Option"
+msgstr "选项"
+
+#: app\CompressPDF.py:31
+msgid "Image Quality"
+msgstr "图像质量"
+
+#: app\CompressPDF.py:32
+msgid "Max DPI"
+msgstr "最高 DPI"
+
+#: app\CompressPDF.py:34
+msgid "Compress"
+msgstr "压缩"
+
+#: app\CompressPDF.py:51
+msgid "Total Pages: {}, Size: {}. "
+msgstr "共 {} 页，文件大小：{}。"
+
+#: app\CompressPDF.py:65
+msgid "Select compressed PDF file"
+msgstr "选择压缩后的 PDF 文件"
+
+#: app\CompressPDF.py:124
+msgid "Compressed Size: {}, Compress Ratio: {}%"
+msgstr "压缩后大小：{}，压缩率：{}%"
+
+#: app\ExtractImages.py:18 app\ExtractImages.py:23 app\MainFrame.py:31
+msgid "Extract Images"
+msgstr "提取图像"
+
+#: app\ExtractImages.py:21 app\PDF2Images.py:27
+msgid "Images Folder"
+msgstr "图像文件夹"
+
+#: app\ExtractImages.py:24 app\ExtractText.py:24
+msgid "Extract"
+msgstr "提取"
+
+#: app\ExtractImages.py:35 app\ExtractText.py:34 app\PDF2Images.py:49
+#: app\RotatePDF.py:38 app\SplitPDF.py:45
+msgid "Total Pages: {}"
+msgstr "共 {} 页"
+
+#: app\ExtractImages.py:41 app\PDF2Images.py:55
+msgid "Select images saving folder"
+msgstr "选择图像保存文件夹"
+
+#: app\ExtractText.py:18 app\ExtractText.py:23 app\MainFrame.py:34
+msgid "Extract Text"
+msgstr "提取文本"
+
+#: app\ExtractText.py:21
+msgid "Text File"
+msgstr "文本文件"
+
+#: app\ExtractText.py:45
+msgid "Select text file"
+msgstr "选择文本文件"
+
+#: app\FrameMenu.py:11
+msgid "File"
+msgstr "文件"
+
+#: app\FrameMenu.py:13
+msgid "Exit"
+msgstr "退出"
+
+#: app\FrameMenu.py:16
+msgid "Help"
+msgstr "帮助"
+
+#: app\FrameMenu.py:18
+msgid "About"
+msgstr "关于"
+
+#: app\Images2PDF.py:19 app\Images2PDF.py:30 app\MainFrame.py:40
+#: app\MergePDF.py:30
+msgid "Images to PDF"
+msgstr "图像转 PDF"
+
+#: app\Images2PDF.py:20
+msgid "Image List"
+msgstr "图像列表"
+
+#: app\Images2PDF.py:21
+msgid "Add Images"
+msgstr "添加图像"
+
+#: app\Images2PDF.py:22
+msgid "Remove Image"
+msgstr "移除图像"
+
+#: app\Images2PDF.py:23 app\MergePDF.py:23
+msgid "Remove All"
+msgstr "全部移除"
+
+#: app\Images2PDF.py:24 app\MergePDF.py:24
+msgid "Move to First"
+msgstr "移至开头"
+
+#: app\Images2PDF.py:25 app\MergePDF.py:25
+msgid "Move Up"
+msgstr "向上移动"
+
+#: app\Images2PDF.py:26 app\MergePDF.py:26
+msgid "Move Down"
+msgstr "向下移动"
+
+#: app\Images2PDF.py:27 app\MergePDF.py:27
+msgid "Move to Last"
+msgstr "移至末尾"
+
+#: app\Images2PDF.py:31 app\MergePDF.py:31 app\PDF2Images.py:32
+msgid "Convert"
+msgstr "转换"
+
+#: app\Images2PDF.py:33 app\MergePDF.py:33
+msgid "Folder"
+msgstr "文件夹"
+
+#: app\Images2PDF.py:34 app\MergePDF.py:34
+msgid "File Name"
+msgstr "文件名"
+
+#: app\Images2PDF.py:44
+msgid "Select images files"
+msgstr "选择图像文件"
+
+#: app\Images2PDF.py:81
+msgid "Select PDF file"
+msgstr "选择 PDF 文件"
+
+#: app\Images2PDF.py:112
+msgid "Total Images: {}"
+msgstr "共 {} 个图像文件"
+
+#: app\MainFrame.py:21
+msgid "Operate"
+msgstr "操作"
+
+#: app\MainFrame.py:24 app\MergePDF.py:19
+msgid "Merge PDF"
+msgstr "合并 PDF"
+
+#: app\MainFrame.py:25 app\SplitPDF.py:21
+msgid "Split PDF"
+msgstr "分割 PDF"
+
+#: app\MainFrame.py:26 app\RotatePDF.py:18 app\RotatePDF.py:27
+msgid "Rotate PDF"
+msgstr "旋转 PDF"
+
+#: app\MainFrame.py:37 app\PDF2Images.py:24 app\PDF2Images.py:31
+#: app\SplitPDF.py:31
+msgid "PDF to Images"
+msgstr "PDF 转图像"
+
+#: app\MergePDF.py:20
+msgid "PDF List"
+msgstr "PDF 列表"
+
+#: app\MergePDF.py:21
+msgid "Add PDF"
+msgstr "添加 PDF"
+
+#: app\MergePDF.py:22
+msgid "Remove PDF"
+msgstr "移除 PDF"
+
+#: app\MergePDF.py:44
+msgid "Select PDF files"
+msgstr "选择 PDF 文件"
+
+#: app\MergePDF.py:79
+msgid "Select merged PDF file"
+msgstr "选择合并后的 PDF 文件"
+
+#: app\MergePDF.py:107
+msgid "Total PDF: {}"
+msgstr "共 {} 个 PDF 文件"
+
+#: app\PDF2Images.py:67 app\PDF2Images.py:77 app\SplitPDF.py:100
+#: app\SplitPDF.py:112 app\SplitPDF.py:124
+msgid "Error"
+msgstr "错误"
+
+#: app\Progress.py:12
+msgid "Processing..."
+msgstr "正在处理……"
+
+#: app\Progress.py:13
+msgid "Stop"
+msgstr "停止"
+
+#: app\Progress.py:47
+msgid "Completed."
+msgstr "全部完成"
+
+#: app\RotatePDF.py:21
+msgid "Rotated PDF File"
+msgstr "旋转 PDF"
+
+#: app\RotatePDF.py:24
+msgid "Clockwise 90°"
+msgstr "顺时针 90°"
+
+#: app\RotatePDF.py:26
+msgid "Anticlockwise 90°"
+msgstr "逆时针 90°"
+
+#: app\RotatePDF.py:28
+msgid "Rotate"
+msgstr "选择"
+
+#: app\RotatePDF.py:51
+msgid "Select rotated PDF file"
+msgstr "选择旋转后的 PDF 文件"
+
+#: app\SplitPDF.py:24
+msgid "Split PDF Folder"
+msgstr "分割的 PDF 文件夹"
+
+#: app\SplitPDF.py:27
+msgid "Per Page"
+msgstr "单页"
+
+#: app\SplitPDF.py:28
+msgid "By Pages"
+msgstr "按页数"
+
+#: app\SplitPDF.py:29
+msgid "By Count"
+msgstr "按份数"
+
+#: app\SplitPDF.py:30
+msgid "By Range"
+msgstr "范围"
+
+#: app\SplitPDF.py:32
+msgid "Split"
+msgstr "分割"
+
+#: app\SplitPDF.py:62
+msgid "Select split PDF folder"
+msgstr "选择分割后的 PDF 保存文件夹"
+
+#: app\SplitPDF.py:101
+msgid "Pages must between 2 and {}. Please enter again"
+msgstr "页数应当在 2 和 {} 之间，请重新输入。"
+
+#: app\SplitPDF.py:113
+msgid "Range start must between 1 and {}. Please enter again."
+msgstr "范围开始页应当在 1 和 {} 之间，请重新输入。"
+
+#: app\SplitPDF.py:125
+msgid "Range stop must between 1 and {}. Please enter again."
+msgstr "范围结束页应当在 1 和 {} 之间，请重新输入。"

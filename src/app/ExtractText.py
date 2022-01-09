@@ -6,7 +6,7 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
-from constants import FILE_TYPES_TEXT
+from constants import FILE_TYPES_TEXT, TRANSLATER as _
 from ui.UiExtractText import UiExtractText
 from utils import check_dir, check_file_exist, get_pdf_info
 
@@ -14,15 +14,24 @@ from utils import check_dir, check_file_exist, get_pdf_info
 class ExtractText(UiExtractText):
     def __init__(self, master=None, **kw):
         super(ExtractText, self).__init__(master, **kw)
+
+        self.LabelFrameName.configure(text=_('Extract Text'))
+        self.FramePDFFile.configure(text=_('PDF File'))
+        self.ButtonPDFFile.configure(text=_('Browser'))
+        self.FrameTextFile.configure(text=_('Text File'))
+        self.ButtonTextFile.configure(text=_('Browser'))
+        self.FrameProcess.configure(text=_('Extract Text'))
+        self.ButtonProcess.configure(text=_('Extract'))
+
         self._page_count = 0
         self._pdf_file: str | Path = ''
         self._text_file: str | Path = ''
 
     def get_pdf_file(self):
-        self._pdf_file, self._page_count, _ = get_pdf_info()
+        self._pdf_file, self._page_count, _other = get_pdf_info()
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
-            self.app_info.set(f'共 {self._page_count} 页。')
+            self.app_info.set(_('Total Pages: {}').format(self._page_count))
             self._text_file = self._pdf_file.with_suffix('.txt')
             self.text_file.set(self._text_file)
         self._toggle_buttons()
@@ -33,7 +42,7 @@ class ExtractText(UiExtractText):
         else:
             initial_file = ''
         self._text_file = asksaveasfilename(
-                title='选择输出文件名',
+                title=_('Select text file'),
                 filetypes=FILE_TYPES_TEXT,
                 defaultextension='.txt',
                 initialfile=initial_file

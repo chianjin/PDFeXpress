@@ -22,7 +22,6 @@
           <object class="ttk.Label" id="LabelFrameName">
             <property name="font">{Microsoft YaHei UI} 16 {bold}</property>
             <property name="text" translatable="yes">PDF 转换为图像</property>
-            <property name="textvariable">string:frame_name</property>
             <layout manager="pack">
               <property name="propagate">True</property>
               <property name="side">left</property>
@@ -112,7 +111,7 @@
       </object>
     </child>
     <child>
-      <object class="ttk.Labelframe" id="FrameOptions">
+      <object class="ttk.Labelframe" id="FrameOption">
         <property name="height">200</property>
         <property name="text" translatable="yes">选项</property>
         <property name="width">200</property>
@@ -142,6 +141,7 @@
             <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_image_quality</property>
             <property name="width">3</property>
             <layout manager="pack">
+              <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
               <property name="side">left</property>
@@ -176,7 +176,7 @@
         </child>
         <child>
           <object class="ttk.Label" id="LabelImageDPI">
-            <property name="text" translatable="yes">分辨率</property>
+            <property name="text" translatable="yes">DPI</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -193,16 +193,6 @@
             <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_image_dpi</property>
             <property name="values">96 144 192 240 288 336 384 432 480 528 576 624</property>
             <property name="width">4</property>
-            <layout manager="pack">
-              <property name="pady">4</property>
-              <property name="propagate">True</property>
-              <property name="side">left</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Label" id="LabelImageDPIUnit">
-            <property name="text" translatable="yes">dpi</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>

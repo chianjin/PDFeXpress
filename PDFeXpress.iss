@@ -23,7 +23,7 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=D:\GitHub\PDFeXpress\build
-OutputBaseFilename=PDFeXpress-{#MyAppVersion}-setup
+OutputBaseFilename=PDFeXpress-{#MyAppVersion}-setup-x64
 SetupIconFile=D:\GitHub\PDFeXpress\build\PDFeXpress.dist\icon\PDFeXpress.ico
 Compression=lzma
 SolidCompression=yes

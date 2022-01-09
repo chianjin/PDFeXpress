@@ -1,4 +1,4 @@
-from constants import APP_ICON
+from constants import APP_ICON, TRANSLATER as _
 from ui.UiProgress import UiProgress
 from utils import get_geometry
 
@@ -8,9 +8,13 @@ PROGRESS_BAR_DELAY = 20
 class Progress(UiProgress):
     def __init__(self, master=None, process_list=[], queue=None, maximum=100, auto_destroy=False, **kw):
         super(Progress, self).__init__(master, **kw)
-        self.geometry(get_geometry(self, None))
+
+        self.app_info.set(_('Processing...'))
+        self.ButtonStop.configure(text=_('Stop'))
+
         self.grab_set()
         self.iconbitmap(APP_ICON)
+        self.geometry(get_geometry(self, None))
 
         self._process_list = process_list
         self._queue = queue
@@ -40,8 +44,8 @@ class Progress(UiProgress):
                 if self._auto_destroy:
                     self.destroy()
                 else:
-                    self.app_info.set(f'全部完成：')
-                    self.ButtonStop.configure(text='确定', command=self.destroy)
+                    self.app_info.set(_('Completed.'))
+                    self.ButtonStop.configure(text=_('OK'), command=self.destroy)
 
     def stop_process(self):
         for process in self._process_list:

@@ -7,7 +7,7 @@ from typing import Union
 
 import fitz
 
-from constants import BYTE_UNIT, FILE_TYPES_PDF, SCREEN_RATIO
+from constants import BYTE_UNIT, FILE_TYPES_PDF, SCREEN_RATIO, TRANSLATER as _
 
 
 def int2byte_unit(value: int):
@@ -49,7 +49,7 @@ def get_geometry(win: Tk | BaseWidget, screen_ratio: Union[float, tuple[int, int
     return f'{wm_width}x{wm_height}+{left_padding}+{top_padding}'
 
 
-def get_pdf_info(title='选择 PDF 文件', filetypes=FILE_TYPES_PDF):
+def get_pdf_info(title=_('Select PDF file'), filetypes=FILE_TYPES_PDF):
     page_count = 0
     pdf_file = askopenfilename(title=title, filetypes=filetypes)
     if pdf_file:
@@ -62,8 +62,8 @@ def get_pdf_info(title='选择 PDF 文件', filetypes=FILE_TYPES_PDF):
 def check_file_exist(file_path: Path):
     if not file_path.exists():
         showerror(
-                title='文件不存在',
-                message=f'{file_path}\n文件不存在，请检查。'
+                title=_('File not exist.'),
+                message=_('{}\nFile not exist, please check.').format(file_path)
                 )
         return False
     return True

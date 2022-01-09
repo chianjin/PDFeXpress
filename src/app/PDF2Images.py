@@ -9,7 +9,7 @@ import fitz
 from PIL import Image
 
 from app.Progress import Progress
-from constants import PHYSICAL_CPU_COUNT
+from constants import PHYSICAL_CPU_COUNT, TRANSLATER as _
 from ui.UiPDF2Images import UiPDF2Images
 from utils import check_dir, check_file_exist, get_pdf_info
 
@@ -20,6 +20,17 @@ PROGRESS_BAR_DELAY = 80
 class PDF2Images(UiPDF2Images):
     def __init__(self, master=None, **kw):
         super(PDF2Images, self).__init__(master, **kw)
+
+        self.LabelFrameName.configure(text=_('PDF to Images'))
+        self.FramePDFFile.configure(text=_('PDF File'))
+        self.ButtonPDFFile.configure(text=_('Browser'))
+        self.FrameImagesDir.configure(text=_('Images Folder'))
+        self.ButtonImagesDir.configure(text=_('Browser'))
+        self.FrameOption.configure(text=_('Option'))
+        self.LabelImageQuality.configure(text=_('Image Quality'))
+        self.FrameProcess.configure(text=_('PDF to Images'))
+        self.ButtonProcess.configure(text=_('Convert'))
+
         self._pdf_file: Union[str, Path] = ''
         self._page_count = 0
         self._page_no_width = 1
@@ -35,13 +46,13 @@ class PDF2Images(UiPDF2Images):
         if self._page_count > 0:
             self._pdf_file = Path(self._pdf_file)
             self.pdf_file.set(self._pdf_file)
-            self.app_info.set(f'共 {self._page_count} 页。')
+            self.app_info.set(_('Total Pages: {}').format(self._page_count))
             self._images_dir = self._pdf_file.parent
             self.images_dir.set(self._images_dir)
         self._toggle_buttons()
 
     def set_images_dir(self):
-        self._images_dir = askdirectory(title='选择图像输出目录')
+        self._images_dir = askdirectory(title=_('Select images saving folder'))
         if self._images_dir:
             self._images_dir = Path(self._images_dir)
             self.images_dir.set(self._images_dir)
@@ -53,7 +64,7 @@ class PDF2Images(UiPDF2Images):
             self._image_dpi = self.image_dpi.get()
             return True
         else:
-            showerror(title='错误', message='请输入大于 0 的整数。')
+            showerror(title=_('Error'), message='DPI must greater than 0, Please enter again.')
             self.ComboboxImageDPI.focus()
             return False
 
@@ -63,7 +74,7 @@ class PDF2Images(UiPDF2Images):
             self._image_quality = self.image_quality.get()
             return True
         else:
-            showerror(title='错误', message='请输入 0 到 100 的整数。')
+            showerror(title=_('Error'), message='Quality must between 0 and 100, Please enter again')
             return False
 
     def set_image_quality(self, scale_value):

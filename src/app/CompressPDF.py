@@ -11,7 +11,7 @@ import fitz
 from PIL import Image
 
 from app.Progress import Progress
-from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT
+from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT, TRANSLATER as _
 from ui.UiCompressPDF import UiCompressPDF
 from utils import check_dir, check_file_exist, get_pdf_info, int2byte_unit
 
@@ -21,22 +21,35 @@ TEMP_DIR = Path(gettempdir())
 class CompressPDF(UiCompressPDF):
     def __init__(self, master=None, **kw):
         super(CompressPDF, self).__init__(master, **kw)
+
+        self.LabelFrameName.configure(text=_('Compress PDF'))
+        self.FramePDFFile.configure(text=_('PDF File'))
+        self.ButtonPDFFile.configure(text=_('Browser'))
+        self.FrameCompressedPDFFile.configure(text=_('Compressed PDF File'))
+        self.ButtonCompressedPDFFile.configure(text=_('Browser'))
+        self.FrameOption.configure(text=_('Option'))
+        self.LabelImageQuality.configure(text=_('Image Quality'))
+        self.LabelImageMaxDPI.configure(text=_('Max DPI'))
+        self.FrameProcess.configure(text=_('Compress PDF'))
+        self.ButtonProcess.configure(text=_('Compress'))
+
         self._pdf_file: Union[str, Path] = ''
         self._page_count = 0
         self._pdf_file_size = 0
         self._compressed_pdf_file: Union[str, Path] = ''
         self._compressed_pdf_file_size = 0
         self._image_quality = 80
-        self._max_dpi = 144
+        self._image_max_dpi = 144
         self.image_quality.set(self._image_quality)
-        self.image_dpi.set(self._max_dpi)
+        self.image_max_dpi.set(self._image_max_dpi)
 
     def get_pdf_file(self):
-        self._pdf_file, self._page_count, _ = get_pdf_info()
+        self._pdf_file, self._page_count, _other = get_pdf_info()
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
             self._pdf_file_size = os.path.getsize(self._pdf_file)
-            self.pdf_info.set(f'共 {self._page_count} 页：{int2byte_unit(self._pdf_file_size)}')
+            pdf_info = _('Total Pages: {}, Size: {}. ').format(self._page_count, int2byte_unit(self._pdf_file_size))
+            self.pdf_info.set(pdf_info)
             self._compressed_pdf_file = self._pdf_file.with_suffix('.Compressed.pdf')
             self.compressed_pdf_file.set(self._compressed_pdf_file)
         self._toggle_buttons()
@@ -49,7 +62,7 @@ class CompressPDF(UiCompressPDF):
         rotated_pdf_file = asksaveasfilename(
                 filetypes=FILE_TYPES_PDF,
                 defaultextension='.pdf',
-                title='选择旋转的 PDF 文件名',
+                title=_('Select compressed PDF file'),
                 initialfile=initial_file
                 )
         if rotated_pdf_file:
@@ -86,7 +99,7 @@ class CompressPDF(UiCompressPDF):
                     target=compress_pdf,
                     args=(
                             queue, self._pdf_file, self._compressed_pdf_file, self._image_quality,
-                            self._max_dpi, page_range, process_id
+                            self._image_max_dpi, page_range, process_id
                             )
                     )
             sub_process_list.append(sub_process)
@@ -108,8 +121,9 @@ class CompressPDF(UiCompressPDF):
 
             self._compressed_pdf_file_size = os.path.getsize(self._compressed_pdf_file)
             compressed_ratio = int(self._compressed_pdf_file_size / self._pdf_file_size * 100)
-            process_info = f'-  压缩后：{int2byte_unit(self._compressed_pdf_file_size)}    ' \
-                           f'压缩率：{compressed_ratio}%'
+            process_info = _('Compressed Size: {}, Compress Ratio: {}%').format(
+                    int2byte_unit(self._compressed_pdf_file_size), compressed_ratio
+                    )
             self.process_info.set(process_info)
 
         for file_no in range(len(page_range_list)):
@@ -157,7 +171,7 @@ def _remove_images(pdf, page_no):
     page.clean_contents()
 
 
-def _get_reduced_images_list(pdf, page_no, image_quality, max_dpi):
+def _get_reduced_images_list(pdf, page_no, image_quality, image_max_dpi):
     page = pdf[page_no]
     reduced_image_list = []
     for image_info in page.get_images():
@@ -166,7 +180,7 @@ def _get_reduced_images_list(pdf, page_no, image_quality, max_dpi):
         width, height = image_info[2:4]
         name = image_info[7]
         rect = page.get_image_bbox(name)
-        size, dpi = _calculate_size(size=(width, height), rect=rect, max_dpi=max_dpi)
+        size, dpi = _calculate_size(size=(width, height), rect=rect, max_dpi=image_max_dpi)
         image_data = pdf.extract_image(xref)
         temp_image = _reduce_image(BytesIO(image_data.get('image')), size=size, quality=image_quality, dpi=dpi)
         reduced_image_list.append((rect, temp_image))

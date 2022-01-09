@@ -6,7 +6,7 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
-from constants import FILE_TYPES_PDF
+from constants import FILE_TYPES_PDF, TRANSLATER as _
 from ui.UiMergePDF import UiMergePDF
 from utils import check_dir, check_file_exist, treeview_add_files, treeview_get_file_list, treeview_get_first_file, \
     treeview_move_item, treeview_remove_items
@@ -15,6 +15,24 @@ from utils import check_dir, check_file_exist, treeview_add_files, treeview_get_
 class MergePDF(UiMergePDF):
     def __init__(self, master=None, **kw):
         super(MergePDF, self).__init__(master, **kw)
+
+        self.LabelFrameName.configure(text=_('Merge PDF'))
+        self.FramePDFList.configure(text=_('PDF List'))
+        self.ButtonAddPDF.configure(text=_('Add PDF'))
+        self.ButtonRemovePDF.configure(text=_('Remove PDF'))
+        self.ButtonRemoveAll.configure(text=_('Remove All'))
+        self.ButtonMoveTop.configure(text=_('Move to First'))
+        self.ButtonMoveUp.configure(text=_('Move Up'))
+        self.ButtonMoveDown.configure(text=_('Move Down'))
+        self.ButtonMoveBottom.configure(text=_('Move to Last'))
+        self.FrameMergedPDFFile.configure(text=_('PDF File'))
+        self.ButtonMergedPDFFile.configure(text=_('Browser'))
+        self.FrameProcess.configure(text=_('Images to PDF'))
+        self.ButtonProcess.configure(text=_('Convert'))
+
+        self.TreeViewPDFList.heading('ColumnDirName', anchor='w', text=_('Folder'))
+        self.TreeViewPDFList.heading('ColumnFileName', anchor='w', text=_('File Name'))
+
         self.TreeViewPDFList['show'] = 'headings'
         self._pdf_count = 0
         self._merged_pdf_file: Union[Path, str] = ''
@@ -23,7 +41,7 @@ class MergePDF(UiMergePDF):
         self.ScrollbarPDFList.configure(command=self.TreeViewPDFList.yview)
 
     def add_pdf(self):
-        treeview_add_files(self.TreeViewPDFList, title='选择 PDF 文件', filetypes=FILE_TYPES_PDF)
+        treeview_add_files(self.TreeViewPDFList, title=_('Select PDF files'), filetypes=FILE_TYPES_PDF)
         self._set_app_info()
         self._toggle_buttons()
 
@@ -58,7 +76,7 @@ class MergePDF(UiMergePDF):
                 initial_file = initial_file.with_suffix('.Merged.pdf')
                 initial_file = initial_file.name
         merged_pdf_file = asksaveasfilename(
-                title='选择合并 PDF 文件名',
+                title=_('Select merged PDF file'),
                 filetypes=FILE_TYPES_PDF,
                 defaultextension='.pdf',
                 initialfile=initial_file
@@ -85,7 +103,10 @@ class MergePDF(UiMergePDF):
 
     def _set_app_info(self):
         self._pdf_count = len(self.TreeViewPDFList.get_children())
-        info = f'共 {self._pdf_count} 个 PDF 文件' if self._pdf_count else ''
+        if self._pdf_count:
+            info = _('Total PDF: {}').format(self._pdf_count)
+        else:
+            info = ''
         self.app_info.set(info)
 
     def _toggle_buttons(self):

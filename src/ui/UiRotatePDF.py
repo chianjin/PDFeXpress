@@ -11,10 +11,7 @@ class UiRotatePDF(ttk.Frame):
         super(UiRotatePDF, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.frame_name = tk.StringVar(value='旋转 PDF')
-        self.LabelFrameName.configure(
-                font='{Microsoft YaHei UI} 16 {bold}', text='旋转 PDF', textvariable=self.frame_name
-                )
+        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 16 {bold}', text='旋转 PDF')
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -40,19 +37,19 @@ class UiRotatePDF(ttk.Frame):
         self.ButtonRotatedPDFFile.configure(command=self.set_rotated_pdf_file)
         self.FrameRotatedPDFFile.configure(height='200', text='输出文件', width='200')
         self.FrameRotatedPDFFile.pack(fill='x', padx='4', pady='4', side='top')
-        self.FrameOptions = ttk.Labelframe(self)
-        self.RadiobuttonCW90 = ttk.Radiobutton(self.FrameOptions)
+        self.FrameOption = ttk.Labelframe(self)
+        self.RadiobuttonCW90 = ttk.Radiobutton(self.FrameOption)
         self.rotate_degree = tk.IntVar(value=90)
         self.RadiobuttonCW90.configure(text='顺时针90°', value='90', variable=self.rotate_degree)
         self.RadiobuttonCW90.pack(padx='4', pady='4', side='left')
-        self.Radiobutton180 = ttk.Radiobutton(self.FrameOptions)
+        self.Radiobutton180 = ttk.Radiobutton(self.FrameOption)
         self.Radiobutton180.configure(text='180°', value='180', variable=self.rotate_degree)
         self.Radiobutton180.pack(padx='4', pady='4', side='left')
-        self.RadiobuttonCCW90 = ttk.Radiobutton(self.FrameOptions)
+        self.RadiobuttonCCW90 = ttk.Radiobutton(self.FrameOption)
         self.RadiobuttonCCW90.configure(text='逆时针90°', value='270', variable=self.rotate_degree)
         self.RadiobuttonCCW90.pack(padx='4', pady='4', side='left')
-        self.FrameOptions.configure(height='200', text='选项', width='200')
-        self.FrameOptions.pack(fill='x', padx='4', pady='4', side='top')
+        self.FrameOption.configure(height='200', text='选项', width='200')
+        self.FrameOption.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameProcess = ttk.Labelframe(self)
         self.LabelAppInfo = ttk.Label(self.FrameProcess)
         self.app_info = tk.StringVar(value='')
@@ -66,9 +63,6 @@ class UiRotatePDF(ttk.Frame):
         self.ButtonProcess.configure(command=self.process)
         self.FrameProcess.configure(height='200', text='旋转 PDF', width='200')
         self.FrameProcess.pack(fill='x', padx='4', pady='4', side='top')
-
-    def help(self):
-        pass
 
     def get_pdf_file(self):
         pass

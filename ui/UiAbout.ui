@@ -26,35 +26,14 @@
           </object>
         </child>
         <child>
-          <object class="ttk.Frame" id="FrameVersion">
-            <property name="height">200</property>
-            <property name="width">200</property>
+          <object class="ttk.Label" id="LabelAppVersion">
+            <property name="font">{Arial} 14 {bold}</property>
+            <property name="text" translatable="yes">0.1-BETA</property>
+            <property name="textvariable">string:app_version</property>
             <layout manager="pack">
               <property name="propagate">True</property>
               <property name="side">top</property>
             </layout>
-            <child>
-              <object class="ttk.Label" id="LabelAppVersionText">
-                <property name="font">{Arial} 14 {bold}</property>
-                <property name="text" translatable="yes">Version</property>
-                <layout manager="pack">
-                  <property name="padx">5</property>
-                  <property name="propagate">True</property>
-                  <property name="side">left</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="ttk.Label" id="LabelAppVersion">
-                <property name="font">{Arial} 14 {bold}</property>
-                <property name="text" translatable="yes">0.1-BETA</property>
-                <property name="textvariable">string:app_version</property>
-                <layout manager="pack">
-                  <property name="propagate">True</property>
-                  <property name="side">top</property>
-                </layout>
-              </object>
-            </child>
           </object>
         </child>
         <child>

@@ -6,7 +6,7 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
-from constants import PHYSICAL_CPU_COUNT
+from constants import PHYSICAL_CPU_COUNT, TRANSLATER as _
 from ui.UiExtractImages import UiExtractImages
 from utils import check_dir, check_file_exist, get_pdf_info
 
@@ -14,6 +14,15 @@ from utils import check_dir, check_file_exist, get_pdf_info
 class ExtractImages(UiExtractImages):
     def __init__(self, master=None, **kw):
         super(ExtractImages, self).__init__(master, **kw)
+
+        self.LabelFrameName.configure(text=_('Extract Images'))
+        self.FramePDFFile.configure(text=_('PDF File'))
+        self.ButtonPDFFile.configure(text=_('Browser'))
+        self.FrameImagesDir.configure(text=_('Images Folder'))
+        self.ButtonImagesDir.configure(text=_('Browser'))
+        self.FrameProcess.configure(text=_('Extract Images'))
+        self.ButtonProcess.configure(text=_('Extract'))
+
         self._page_no_width = 1
         self._pdf_file: Union[str, Path] = ''
         self._images_dir: Union[str, Path] = ''
@@ -23,13 +32,13 @@ class ExtractImages(UiExtractImages):
         self._pdf_file, self._page_count, self._page_no_width = get_pdf_info()
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
-            self.app_info.set(f'共 {self._page_count} 页')
+            self.app_info.set(_('Total Pages: {}').format(self._page_count))
             self._images_dir = self._pdf_file.parent
             self.images_dir.set(self._images_dir)
         self._toggle_buttons()
 
     def set_images_dir(self):
-        self._images_dir = askdirectory(title='选择图像输出目录')
+        self._images_dir = askdirectory(title=_('Select images saving folder'))
         if self._images_dir:
             self._images_dir = Path(self._images_dir)
             self.images_dir.set(self._images_dir)

@@ -23,7 +23,6 @@
           <object class="ttk.Label" id="LabelFrameName">
             <property name="font">{Microsoft YaHei UI} 16 {bold}</property>
             <property name="text" translatable="yes">图像转换为 PDF</property>
-            <property name="textvariable">string:frame_name</property>
             <layout manager="pack">
               <property name="propagate">True</property>
               <property name="side">left</property>
@@ -58,7 +57,7 @@
               <property name="side">left</property>
             </layout>
             <child>
-              <object class="ttk.Treeview.Column" id="ColumnDirname">
+              <object class="ttk.Treeview.Column" id="ColumnDirName">
                 <property name="column_anchor">w</property>
                 <property name="heading_anchor">w</property>
                 <property name="minwidth">20</property>
@@ -70,7 +69,7 @@
               </object>
             </child>
             <child>
-              <object class="ttk.Treeview.Column" id="ColumnFilename">
+              <object class="ttk.Treeview.Column" id="ColumnFileName">
                 <property name="column_anchor">w</property>
                 <property name="heading_anchor">w</property>
                 <property name="minwidth">20</property>
@@ -98,6 +97,7 @@
             <property name="command" type="command" cbtype="simple">add_images</property>
             <property name="text" translatable="yes">添加图像</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -110,6 +110,7 @@
             <property name="command" type="command" cbtype="simple">remove_images</property>
             <property name="text" translatable="yes">移除图像</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -122,6 +123,7 @@
             <property name="command" type="command" cbtype="simple">remove_all</property>
             <property name="text" translatable="yes">全部移除</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -134,6 +136,7 @@
             <property name="command" type="command" cbtype="simple">move_top</property>
             <property name="text" translatable="yes">移至顶部</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -146,6 +149,7 @@
             <property name="command" type="command" cbtype="simple">move_up</property>
             <property name="text" translatable="yes">向上移动</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -158,6 +162,7 @@
             <property name="command" type="command" cbtype="simple">move_down</property>
             <property name="text" translatable="yes">向下移动</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -170,6 +175,7 @@
             <property name="command" type="command" cbtype="simple">move_bottom</property>
             <property name="text" translatable="yes">移至底部</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>

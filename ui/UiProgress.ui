@@ -20,16 +20,15 @@
             <property name="width">200</property>
             <layout manager="pack">
               <property name="fill">x</property>
-              <property name="padx">20</property>
               <property name="pady">20</property>
               <property name="propagate">True</property>
               <property name="side">top</property>
             </layout>
             <child>
               <object class="ttk.Label" id="LabelAppInfo">
-                <property name="text" translatable="yes">正在处理：</property>
                 <property name="textvariable">string:app_info</property>
                 <layout manager="pack">
+                  <property name="padx">20</property>
                   <property name="propagate">True</property>
                   <property name="side">left</property>
                 </layout>
@@ -39,8 +38,6 @@
               <object class="ttk.Label" id="LabelProcessInfo">
                 <property name="textvariable">string:process_info</property>
                 <layout manager="pack">
-                  <property name="expand">true</property>
-                  <property name="fill">x</property>
                   <property name="propagate">True</property>
                   <property name="side">left</property>
                 </layout>

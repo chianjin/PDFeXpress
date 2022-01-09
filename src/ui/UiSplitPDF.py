@@ -11,10 +11,7 @@ class UiSplitPDF(ttk.Frame):
         super(UiSplitPDF, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.frame_name = tk.StringVar(value='分割 PDF')
-        self.LabelFrameName.configure(
-                font='{Microsoft YaHei UI} 16 {bold}', text='分割 PDF', textvariable=self.frame_name
-                )
+        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 16 {bold}', text='分割 PDF')
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -40,8 +37,8 @@ class UiSplitPDF(ttk.Frame):
         self.ButtonSplitPDFDir.configure(command=self.set_split_pdf_dir)
         self.FrameSplitPDFDir.configure(height='200', text='输出目录', width='200')
         self.FrameSplitPDFDir.pack(fill='x', padx='4', pady='4', side='top')
-        self.FrameOptions = ttk.Labelframe(self)
-        self.FrameSplitMode = ttk.Frame(self.FrameOptions)
+        self.FrameOption = ttk.Labelframe(self)
+        self.FrameSplitMode = ttk.Frame(self.FrameOption)
         self.RadiobuttonSplitSingle = ttk.Radiobutton(self.FrameSplitMode)
         self.split_mode = tk.StringVar(value='single')
         self.RadiobuttonSplitSingle.configure(state='disabled', text='单页分割', value='single', variable=self.split_mode)
@@ -54,14 +51,11 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitPage = ttk.Entry(self.FrameSplitMode)
         self.split_page = tk.IntVar(value='')
         self.EntrySplitPage.configure(
-                justify='center', state='disabled', textvariable=self.split_page, validate='focusout'
-                )
+            justify='center', state='disabled', textvariable=self.split_page, validate='focusout'
+            )
         self.EntrySplitPage.configure(width='4')
-        self.EntrySplitPage.pack(pady='4', side='left')
+        self.EntrySplitPage.pack(padx='4', pady='4', side='left')
         self.EntrySplitPage.configure(validatecommand=self.valid_page)
-        self.LabelSplitPageUnit = ttk.Label(self.FrameSplitMode)
-        self.LabelSplitPageUnit.configure(state='disabled', text='页/份')
-        self.LabelSplitPageUnit.pack(padx='4', pady='4', side='left')
         self.RadiobuttonSplitCount = ttk.Radiobutton(self.FrameSplitMode)
         self.RadiobuttonSplitCount.configure(state='disabled', text='等份分割', value='count', variable=self.split_mode)
         self.RadiobuttonSplitCount.pack(padx='4', pady='4', side='left')
@@ -69,10 +63,7 @@ class UiSplitPDF(ttk.Frame):
         self.ComboboxSplitCount = ttk.Combobox(self.FrameSplitMode)
         self.split_count = tk.IntVar(value='')
         self.ComboboxSplitCount.configure(justify='center', state='disabled', textvariable=self.split_count, width='4')
-        self.ComboboxSplitCount.pack(pady='4', side='left')
-        self.LabelSplitCountUnit = ttk.Label(self.FrameSplitMode)
-        self.LabelSplitCountUnit.configure(state='disabled', text='份')
-        self.LabelSplitCountUnit.pack(padx='4', pady='4', side='left')
+        self.ComboboxSplitCount.pack(padx='4', pady='4', side='left')
         self.RadiobuttonSplitRange = ttk.Radiobutton(self.FrameSplitMode)
         self.RadiobuttonSplitRange.configure(state='disabled', text='范围分割', value='range', variable=self.split_mode)
         self.RadiobuttonSplitRange.pack(padx='4', pady='4', side='left')
@@ -80,10 +71,10 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitRangeStart = ttk.Entry(self.FrameSplitMode)
         self.split_range_start = tk.IntVar(value='')
         self.EntrySplitRangeStart.configure(
-                justify='center', state='disabled', textvariable=self.split_range_start, validate='focusout'
-                )
+            justify='center', state='disabled', textvariable=self.split_range_start, validate='focusout'
+            )
         self.EntrySplitRangeStart.configure(width='5')
-        self.EntrySplitRangeStart.pack(pady='4', side='left')
+        self.EntrySplitRangeStart.pack(padx='4', pady='4', side='left')
         self.EntrySplitRangeStart.configure(validatecommand=self.valid_start)
         self.LabelSplitRangeTo = ttk.Label(self.FrameSplitMode)
         self.LabelSplitRangeTo.configure(state='disabled', text='-')
@@ -91,18 +82,15 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitRangeStop = ttk.Entry(self.FrameSplitMode)
         self.split_range_stop = tk.IntVar(value='')
         self.EntrySplitRangeStop.configure(
-                justify='center', state='disabled', textvariable=self.split_range_stop, validate='focusout'
-                )
+            justify='center', state='disabled', textvariable=self.split_range_stop, validate='focusout'
+            )
         self.EntrySplitRangeStop.configure(width='5')
-        self.EntrySplitRangeStop.pack(pady='4', side='left')
+        self.EntrySplitRangeStop.pack(padx='4', pady='4', side='left')
         self.EntrySplitRangeStop.configure(validatecommand=self.valid_stop)
-        self.LabelSplitRangeUnit = ttk.Label(self.FrameSplitMode)
-        self.LabelSplitRangeUnit.configure(state='disabled', text='页')
-        self.LabelSplitRangeUnit.pack(padx='4', pady='4', side='left')
         self.FrameSplitMode.configure(height='200', width='200')
         self.FrameSplitMode.pack(fill='x', side='top')
-        self.FrameOptions.configure(height='200', text='选项', width='200')
-        self.FrameOptions.pack(fill='x', padx='4', pady='4', side='top')
+        self.FrameOption.configure(height='200', text='选项', width='200')
+        self.FrameOption.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameProcess = ttk.Labelframe(self)
         self.LabelAppInfo = ttk.Label(self.FrameProcess)
         self.app_info = tk.StringVar(value='')
@@ -118,9 +106,6 @@ class UiSplitPDF(ttk.Frame):
         self.ButtonProcess.configure(command=self.process)
         self.FrameProcess.configure(height='200', text='分割 PDF', width='200')
         self.FrameProcess.pack(fill='x', padx='4', pady='4', side='top')
-
-    def help(self):
-        pass
 
     def get_pdf_file(self):
         pass

@@ -6,7 +6,7 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
-from constants import FILE_TYPES_PDF
+from constants import FILE_TYPES_PDF, TRANSLATER as _
 from ui.UiRotatePDF import UiRotatePDF
 from utils import check_dir, check_file_exist, get_pdf_info
 
@@ -14,6 +14,17 @@ from utils import check_dir, check_file_exist, get_pdf_info
 class RotatePDF(UiRotatePDF):
     def __init__(self, master=None, **kw):
         super(RotatePDF, self).__init__(master, **kw)
+
+        self.LabelFrameName.configure(text=_('Rotate PDF'))
+        self.FramePDFFile.configure(text=_('PDF File'))
+        self.ButtonPDFFile.configure(text=_('Browser'))
+        self.FrameRotatedPDFFile.configure(text=_('Rotated PDF File'))
+        self.ButtonRotatedPDFFile.configure(text=_('Browser'))
+        self.FrameOption.configure(text=_('Option'))
+        self.RadiobuttonCW90.configure(text=_('Clockwise 90°'))
+        self.RadiobuttonCCW90.configure(text=_('Anticlockwise 90°'))
+        self.FrameProcess.configure(text=_('Rotate PDF'))
+        self.ButtonProcess.configure(text=_('Rotate'))
 
         self._pdf_file: Path | str = ''
         self._rotated_pdf_file: Path | str = ''
@@ -23,7 +34,7 @@ class RotatePDF(UiRotatePDF):
         self._pdf_file, self._page_count, _width = get_pdf_info()
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
-            self.app_info.set(f'共 {self._page_count} 页')
+            self.app_info.set(_('Total Pages: {}').format(self._page_count))
             self._rotated_pdf_file = self._pdf_file.with_suffix('.Rotated.pdf')
             self.rotated_pdf_file.set(self._rotated_pdf_file)
         self._toggle_buttons()
@@ -36,7 +47,7 @@ class RotatePDF(UiRotatePDF):
         rotated_pdf_file = asksaveasfilename(
                 filetypes=FILE_TYPES_PDF,
                 defaultextension='.pdf',
-                title='选择旋转的 PDF 文件名',
+                title=_('Select rotated PDF file'),
                 initialfile=initial_file
                 )
         if rotated_pdf_file:

@@ -22,7 +22,6 @@
           <object class="ttk.Label" id="LabelFrameName">
             <property name="font">{Microsoft YaHei UI} 16 {bold}</property>
             <property name="text" translatable="yes">提取图像</property>
-            <property name="textvariable">string:frame_name</property>
             <layout manager="pack">
               <property name="propagate">True</property>
               <property name="side">left</property>
