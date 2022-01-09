@@ -21,7 +21,7 @@
         <child>
           <object class="ttk.Label" id="LabelFrameName">
             <property name="font">{Microsoft YaHei UI} 16 {bold}</property>
-            <property name="text" translatable="yes">PDF 转换为图像</property>
+            <property name="text" translatable="yes">PDF to Images</property>
             <layout manager="pack">
               <property name="propagate">True</property>
               <property name="side">left</property>
@@ -33,7 +33,7 @@
     <child>
       <object class="ttk.Labelframe" id="FramePDFFile">
         <property name="height">200</property>
-        <property name="text" translatable="yes">PDF 文件</property>
+        <property name="text" translatable="yes">PDF File</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="fill">x</property>
@@ -59,7 +59,7 @@
         <child>
           <object class="ttk.Button" id="ButtonPDFFile">
             <property name="command" type="command" cbtype="simple">get_pdf_file</property>
-            <property name="text" translatable="yes">浏览</property>
+            <property name="text" translatable="yes">Browser</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -73,7 +73,7 @@
     <child>
       <object class="ttk.Labelframe" id="FrameImagesDir">
         <property name="height">200</property>
-        <property name="text" translatable="yes">输出目录</property>
+        <property name="text" translatable="yes">Images Folder</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="fill">x</property>
@@ -99,7 +99,7 @@
         <child>
           <object class="ttk.Button" id="ButtonImagesDir">
             <property name="command" type="command" cbtype="simple">set_images_dir</property>
-            <property name="text" translatable="yes">浏览</property>
+            <property name="text" translatable="yes">Browser</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -113,7 +113,7 @@
     <child>
       <object class="ttk.Labelframe" id="FrameOption">
         <property name="height">200</property>
-        <property name="text" translatable="yes">选项</property>
+        <property name="text" translatable="yes">Option</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="fill">x</property>
@@ -124,7 +124,7 @@
         </layout>
         <child>
           <object class="ttk.Label" id="LabelImageQuality">
-            <property name="text" translatable="yes">图像质量</property>
+            <property name="text" translatable="yes">Image Quality</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -206,7 +206,7 @@
     <child>
       <object class="ttk.Labelframe" id="FrameProcess">
         <property name="height">200</property>
-        <property name="text" translatable="yes">转换 PDF</property>
+        <property name="text" translatable="yes">PDF to Images</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="fill">x</property>
@@ -244,7 +244,7 @@
           <object class="ttk.Button" id="ButtonProcess">
             <property name="command" type="command" cbtype="simple">process</property>
             <property name="state">disabled</property>
-            <property name="text" translatable="yes">转换</property>
+            <property name="text" translatable="yes">Convert</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>

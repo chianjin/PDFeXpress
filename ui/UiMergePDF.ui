@@ -22,7 +22,7 @@
         <child>
           <object class="ttk.Label" id="LabelFrameName">
             <property name="font">{Microsoft YaHei UI} 16 {bold}</property>
-            <property name="text" translatable="yes">合并 PDF</property>
+            <property name="text" translatable="yes">Merge PDF</property>
             <layout manager="pack">
               <property name="propagate">True</property>
               <property name="side">left</property>
@@ -34,7 +34,7 @@
     <child>
       <object class="ttk.Labelframe" id="FramePDFList">
         <property name="height">200</property>
-        <property name="text" translatable="yes">PDF 列表</property>
+        <property name="text" translatable="yes">PDF List</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="expand">true</property>
@@ -62,7 +62,7 @@
                 <property name="heading_anchor">w</property>
                 <property name="minwidth">20</property>
                 <property name="stretch">true</property>
-                <property name="text" translatable="yes">目录名</property>
+                <property name="text" translatable="yes">Folder</property>
                 <property name="tree_column">false</property>
                 <property name="visible">true</property>
                 <property name="width">150</property>
@@ -74,7 +74,7 @@
                 <property name="heading_anchor">w</property>
                 <property name="minwidth">20</property>
                 <property name="stretch">true</property>
-                <property name="text" translatable="yes">文件名</property>
+                <property name="text" translatable="yes">File Name</property>
                 <property name="tree_column">false</property>
                 <property name="visible">true</property>
                 <property name="width">300</property>
@@ -95,8 +95,9 @@
         <child>
           <object class="ttk.Button" id="ButtonAddPDF">
             <property name="command" type="command" cbtype="simple">add_pdf</property>
-            <property name="text" translatable="yes">添加 PDF</property>
+            <property name="text" translatable="yes">Add PDF</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -107,8 +108,9 @@
         <child>
           <object class="ttk.Button" id="ButtonRemovePDF">
             <property name="command" type="command" cbtype="simple">remove_pdf</property>
-            <property name="text" translatable="yes">移除 PDF</property>
+            <property name="text" translatable="yes">Remove PDF</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -119,8 +121,9 @@
         <child>
           <object class="ttk.Button" id="ButtonRemoveAll">
             <property name="command" type="command" cbtype="simple">remove_all</property>
-            <property name="text" translatable="yes">全部移除</property>
+            <property name="text" translatable="yes">Remove All</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -131,8 +134,9 @@
         <child>
           <object class="ttk.Button" id="ButtonMoveTop">
             <property name="command" type="command" cbtype="simple">move_top</property>
-            <property name="text" translatable="yes">移至顶部</property>
+            <property name="text" translatable="yes">Move to First</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -143,8 +147,9 @@
         <child>
           <object class="ttk.Button" id="ButtonMoveUp">
             <property name="command" type="command" cbtype="simple">move_up</property>
-            <property name="text" translatable="yes">向上移动</property>
+            <property name="text" translatable="yes">Move Up</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -155,8 +160,9 @@
         <child>
           <object class="ttk.Button" id="ButtonMoveDown">
             <property name="command" type="command" cbtype="simple">move_down</property>
-            <property name="text" translatable="yes">向下移动</property>
+            <property name="text" translatable="yes">Move Down</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -167,8 +173,9 @@
         <child>
           <object class="ttk.Button" id="ButtonMoveBottom">
             <property name="command" type="command" cbtype="simple">move_bottom</property>
-            <property name="text" translatable="yes">移至底部</property>
+            <property name="text" translatable="yes">Move to Last</property>
             <layout manager="pack">
+              <property name="fill">x</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -181,7 +188,7 @@
     <child>
       <object class="ttk.Labelframe" id="FrameMergedPDFFile">
         <property name="height">200</property>
-        <property name="text" translatable="yes">输出文件</property>
+        <property name="text" translatable="yes">Merged PDF File</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="fill">x</property>
@@ -207,7 +214,7 @@
         <child>
           <object class="ttk.Button" id="ButtonMergedPDFFile">
             <property name="command" type="command" cbtype="simple">set_merged_pdf_file</property>
-            <property name="text" translatable="yes">浏览</property>
+            <property name="text" translatable="yes">Browser</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>
@@ -221,7 +228,7 @@
     <child>
       <object class="ttk.Labelframe" id="FrameProcess">
         <property name="height">200</property>
-        <property name="text" translatable="yes">合并 PDF</property>
+        <property name="text" translatable="yes">Merge PDF</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="fill">x</property>
@@ -257,7 +264,7 @@
           <object class="ttk.Button" id="ButtonProcess">
             <property name="command" type="command" cbtype="simple">process</property>
             <property name="state">disabled</property>
-            <property name="text" translatable="yes">合并</property>
+            <property name="text" translatable="yes">Merge</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>

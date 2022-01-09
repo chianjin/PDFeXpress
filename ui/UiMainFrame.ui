@@ -10,7 +10,7 @@
     <child>
       <object class="ttk.Labelframe" id="FrameOperateButtons">
         <property name="height">200</property>
-        <property name="text" translatable="yes">操作</property>
+        <property name="text" translatable="yes">Operate</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="fill">y</property>
@@ -22,7 +22,7 @@
         <child>
           <object class="ttk.Button" id="ButtonMergePDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="text" translatable="yes">合并 PDF</property>
+            <property name="text" translatable="yes">Merge PDF</property>
             <layout manager="pack">
               <property name="fill">x</property>
               <property name="padx">4</property>
@@ -35,7 +35,7 @@
         <child>
           <object class="ttk.Button" id="ButtonSplitPDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="text" translatable="yes">分割 PDF</property>
+            <property name="text" translatable="yes">Split PDF</property>
             <layout manager="pack">
               <property name="fill">x</property>
               <property name="padx">4</property>
@@ -48,7 +48,7 @@
         <child>
           <object class="ttk.Button" id="ButtonRotatePDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="text" translatable="yes">旋转 PDF</property>
+            <property name="text" translatable="yes">Ratote PDF</property>
             <layout manager="pack">
               <property name="fill">x</property>
               <property name="padx">4</property>
@@ -61,7 +61,7 @@
         <child>
           <object class="ttk.Button" id="ButtonCompressPDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="text" translatable="yes">压缩 PDF</property>
+            <property name="text" translatable="yes">Compress PDF</property>
             <layout manager="pack">
               <property name="fill">x</property>
               <property name="padx">4</property>
@@ -74,7 +74,7 @@
         <child>
           <object class="ttk.Button" id="ButtonExtractImages">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="text" translatable="yes">提取图像</property>
+            <property name="text" translatable="yes">Extract Images</property>
             <layout manager="pack">
               <property name="fill">x</property>
               <property name="padx">4</property>
@@ -87,7 +87,7 @@
         <child>
           <object class="ttk.Button" id="ButtonExtractText">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="text" translatable="yes">提取文本</property>
+            <property name="text" translatable="yes">Extract Text</property>
             <layout manager="pack">
               <property name="fill">x</property>
               <property name="padx">4</property>
@@ -100,7 +100,7 @@
         <child>
           <object class="ttk.Button" id="ButtonPDF2Images">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="text" translatable="yes">PDF 转图像</property>
+            <property name="text" translatable="yes">PDF to Images</property>
             <layout manager="pack">
               <property name="fill">x</property>
               <property name="padx">4</property>
@@ -113,7 +113,7 @@
         <child>
           <object class="ttk.Button" id="ButtonImages2PDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="text" translatable="yes">图像转 PDF</property>
+            <property name="text" translatable="yes">Images to PDF</property>
             <layout manager="pack">
               <property name="fill">x</property>
               <property name="padx">4</property>
@@ -123,18 +123,6 @@
             </layout>
           </object>
         </child>
-      </object>
-    </child>
-    <child>
-      <object class="ttk.Frame" id="FrameOperate">
-        <property name="height">200</property>
-        <property name="width">200</property>
-        <layout manager="pack">
-          <property name="expand">true</property>
-          <property name="fill">both</property>
-          <property name="propagate">True</property>
-          <property name="side">left</property>
-        </layout>
       </object>
     </child>
   </object>

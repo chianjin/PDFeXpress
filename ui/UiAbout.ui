@@ -54,7 +54,7 @@
         <child>
           <object class="ttk.Button" id="ButtonOK">
             <property name="command" type="command" cbtype="simple">close_about</property>
-            <property name="text" translatable="yes">确定</property>
+            <property name="text" translatable="yes">OK</property>
             <layout manager="pack">
               <property name="pady">30</property>
               <property name="propagate">True</property>

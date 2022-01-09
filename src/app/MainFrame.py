@@ -21,24 +21,16 @@ class MainFrame(UiMainFrame):
         self.FrameOperateButtons.configure(text=_('Operate'))
 
         self._operates = {
-                'ButtonMergePDF': operate(MergePDF(master=self.FrameOperate), self.ButtonMergePDF, _('Merge PDF')),
-                'ButtonSplitPDF': operate(SplitPDF(master=self.FrameOperate), self.ButtonSplitPDF, _('Split PDF')),
-                'ButtonRotatePDF': operate(RotatePDF(master=self.FrameOperate), self.ButtonRotatePDF, _('Rotate PDF')),
-                'ButtonCompressPDF': operate(
-                    CompressPDF(master=self.FrameOperate), self.ButtonCompressPDF, _('Compress PDF')
-                    ),
+                'ButtonMergePDF': operate(MergePDF(master=self), self.ButtonMergePDF, _('Merge PDF')),
+                'ButtonSplitPDF': operate(SplitPDF(master=self), self.ButtonSplitPDF, _('Split PDF')),
+                'ButtonRotatePDF': operate(RotatePDF(master=self), self.ButtonRotatePDF, _('Rotate PDF')),
+                'ButtonCompressPDF': operate(CompressPDF(master=self), self.ButtonCompressPDF, _('Compress PDF')),
                 'ButtonExtractImages': operate(
-                    ExtractImages(master=self.FrameOperate), self.ButtonExtractImages, _('Extract Images')
+                    ExtractImages(master=self), self.ButtonExtractImages, _('Extract Images')
                     ),
-                'ButtonExtractText': operate(
-                    ExtractText(master=self.FrameOperate), self.ButtonExtractText, _('Extract Text')
-                    ),
-                'ButtonPDF2Images': operate(
-                    PDF2Images(master=self.FrameOperate), self.ButtonPDF2Images, _('PDF to Images')
-                    ),
-                'ButtonImages2PDF': operate(
-                    Images2PDF(master=self.FrameOperate), self.ButtonImages2PDF, _('Images to PDF')
-                    )
+                'ButtonExtractText': operate(ExtractText(master=self), self.ButtonExtractText, _('Extract Text')),
+                'ButtonPDF2Images': operate(PDF2Images(master=self), self.ButtonPDF2Images, _('PDF to Images')),
+                'ButtonImages2PDF': operate(Images2PDF(master=self), self.ButtonImages2PDF, _('Images to PDF'))
                 }
 
         for _operate_name in self._operates:

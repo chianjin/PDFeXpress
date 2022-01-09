@@ -26,7 +26,7 @@ class UiProgress(tk.Toplevel):
         self.Progressbar.configure(length='400', orient='horizontal', variable=self.progress)
         self.Progressbar.pack(fill='y', padx='20', side='top')
         self.ButtonStop = ttk.Button(self.Frame)
-        self.ButtonStop.configure(text='停止')
+        self.ButtonStop.configure(text='Stop')
         self.ButtonStop.pack(pady='20', side='top')
         self.ButtonStop.configure(command=self.stop_process)
         self.Frame.configure(height='400', width='500')

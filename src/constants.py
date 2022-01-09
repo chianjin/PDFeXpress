@@ -8,7 +8,6 @@ DEFAULT_LANGUAGE = locale.getdefaultlocale()[0]
 BASE_DIR = Path(__file__).absolute().parent
 PHYSICAL_CPU_COUNT = psutil.cpu_count(logical=False)
 
-
 APP_NAME = 'PDF eXpress'
 APP_VERSION = '0.1-BETA'
 APP_URL = 'https://github.com/chianjin/PDFeXpress'
@@ -22,7 +21,6 @@ TRANSLATER = gettext.translation(
         languages=[DEFAULT_LANGUAGE, 'en_US']
         ).gettext
 _ = TRANSLATER
-
 
 SCREEN_RATIO = 3 / 5
 
