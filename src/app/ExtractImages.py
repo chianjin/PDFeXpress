@@ -38,7 +38,7 @@ class ExtractImages(UiExtractImages):
         self._toggle_buttons()
 
     def set_images_dir(self):
-        self._images_dir = askdirectory(title=_('Select images saving folder'))
+        self._images_dir = askdirectory(title=_('Select images folder'))
         if self._images_dir:
             self._images_dir = Path(self._images_dir)
             self.images_dir.set(self._images_dir)

@@ -21,8 +21,7 @@ class RotatePDF(UiRotatePDF):
         self.FrameRotatedPDFFile.configure(text=_('Rotated PDF File'))
         self.ButtonRotatedPDFFile.configure(text=_('Browser'))
         self.FrameOption.configure(text=_('Option'))
-        self.RadiobuttonCW90.configure(text=_('Clockwise 90°'))
-        self.RadiobuttonCCW90.configure(text=_('Anticlockwise 90°'))
+        self.LabelRatateDegree.configure(text=_('Rotation Degree(Clockwise)'))
         self.FrameProcess.configure(text=_('Rotate PDF'))
         self.ButtonProcess.configure(text=_('Rotate'))
 

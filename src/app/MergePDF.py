@@ -25,7 +25,7 @@ class MergePDF(UiMergePDF):
         self.ButtonMoveUp.configure(text=_('Move Up'))
         self.ButtonMoveDown.configure(text=_('Move Down'))
         self.ButtonMoveBottom.configure(text=_('Move to Last'))
-        self.FrameMergedPDFFile.configure(text=_('PDF File'))
+        self.FrameMergedPDFFile.configure(text=_('Merged PDF File'))
         self.ButtonMergedPDFFile.configure(text=_('Browser'))
         self.FrameProcess.configure(text=_('Images to PDF'))
         self.ButtonProcess.configure(text=_('Convert'))
