@@ -17,14 +17,14 @@ The current version is 0.1-BETA, tested on Windows 10 and 11. Planing to test on
 
 ## Main Functions
 
-**Merge**: Merge multiple PDF files into one PDF
-**Split**: Splits a PDF into multiple PDFs, supporting single page splitting, split by number of pages, by number of copies, and by range
-**Rotate** : Rotate each PDF page with 90° clockwise, counterclockwise, and 180°
-**Compression**: Reduces PDF file size by compressing the images contained in the page
-**Extract Images**: Extracts the images contained in the PDF file and saves them in the original data format
-**Extract Text**: Extracts plain text contained in a PDF file, without formatting
-**PDF to Image** : Converts the each entire pages of a PDF file to images
-**Image to PDF**: Converts images file to PDF
+- **Merge**: Merge multiple PDF files into one PDF
+- **Split**: Splits a PDF into multiple PDFs, supporting single page splitting, split by number of pages, by number of copies, and by range
+- **Rotate** : Rotate each PDF page with 90° clockwise, counterclockwise, and 180°
+- **Compression**: Reduces PDF file size by compressing the images contained in the page
+- **Extract Images**: Extracts the images contained in the PDF file and saves them in the original data format
+- **Extract Text**: Extracts plain text contained in a PDF file, without formatting
+- **PDF to Image** : Converts the each entire pages of a PDF file to images
+- **Image to PDF**: Converts images file to PDF
 
 ## Running Method
 
