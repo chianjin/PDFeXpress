@@ -157,15 +157,12 @@ def pdf2images(
         page_no_width = len(str(pdf.page_count))
         for page_no in page_range:
             image_file = f'{image_dir / pdf_file.stem}-P{page_no + 1:0{page_no_width}d}.{image_format}'
+            image_alpha = False if image_format == 'jpg' else image_alpha
+            pixmap = pdf[page_no].get_pixmap(matrix=matrix, alpha=image_alpha)
             if image_format == 'png':
-                pixmap = pdf[page_no].get_pixmap(matrix=matrix, alpha=image_alpha)
-                image_bytes = pixmap.tobytes()
-                with open(image_file, 'wb') as png:
-                    png.write(image_bytes)
+                pixmap.save(image_file)
             else:  # JPEG
-                pixmap = pdf[page_no].get_pixmap(matrix=matrix, alpha=False)
-                image_bytes = pixmap.tobytes()
-                image = Image.open(BytesIO(image_bytes))
+                image = Image.open(BytesIO(pixmap.tobytes()))
                 image.save(image_file, quality=image_quality, dpi=(image_dpi, image_dpi))
                 image.close()
             queue.put(page_no)

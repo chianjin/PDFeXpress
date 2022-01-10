@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "PDF eXpress"
-#define MyAppVersion "0.1BETA"
+#define MyAppVersion "0.1.1-BETA"
 #define MyAppPublisher "Chian Jin"
 #define MyAppURL "https://github.com/chianjin/PDFeXpress"
 #define MyAppExeName "PDFeXpress.exe"

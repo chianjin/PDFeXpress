@@ -123,7 +123,62 @@
           <property name="side">top</property>
         </layout>
         <child>
+          <object class="ttk.Label" id="LabelImageFormat">
+            <property name="text" translatable="yes">Image Format</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Radiobutton" id="RadioButtonPNG">
+            <property name="command" type="command" cbtype="simple">set_image_format</property>
+            <property name="text" translatable="yes">PNG</property>
+            <property name="value">png</property>
+            <property name="variable">string:image_format</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Checkbutton" id="CheckbuttonPNGAlpha">
+            <property name="command" type="command" cbtype="simple">set_image_alpha</property>
+            <property name="offvalue">0</property>
+            <property name="onvalue">1</property>
+            <property name="text" translatable="yes">Transparent Background</property>
+            <property name="variable">int:image_alpha</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Radiobutton" id="RadioButtonJPEG">
+            <property name="command" type="command" cbtype="simple">set_image_format</property>
+            <property name="text" translatable="yes">JPEG</property>
+            <property name="value">jpg</property>
+            <property name="variable">string:image_format</property>
+            <layout manager="pack">
+              <property name="padx">4</property>
+              <property name="pady">4</property>
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
           <object class="ttk.Label" id="LabelImageQuality">
+            <property name="state">disabled</property>
             <property name="text" translatable="yes">Image Quality</property>
             <layout manager="pack">
               <property name="padx">4</property>
@@ -136,6 +191,7 @@
         <child>
           <object class="ttk.Entry" id="EntryImageQuality">
             <property name="justify">center</property>
+            <property name="state">disabled</property>
             <property name="textvariable">int:image_quality</property>
             <property name="validate">focusout</property>
             <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_image_quality</property>
@@ -153,8 +209,9 @@
             <property name="command" type="command" cbtype="scale">set_image_quality</property>
             <property name="from_">0</property>
             <property name="orient">horizontal</property>
+            <property name="state">disabled</property>
             <property name="to">100</property>
-            <property name="value">75</property>
+            <property name="value">80</property>
             <property name="variable">int:image_quality</property>
             <layout manager="pack">
               <property name="padx">4</property>
@@ -165,17 +222,8 @@
           </object>
         </child>
         <child>
-          <object class="ttk.Frame" id="Frame2">
-            <property name="height">1</property>
-            <property name="width">20</property>
-            <layout manager="pack">
-              <property name="propagate">True</property>
-              <property name="side">left</property>
-            </layout>
-          </object>
-        </child>
-        <child>
           <object class="ttk.Label" id="LabelImageDPI">
+            <property name="state">disabled</property>
             <property name="text" translatable="yes">DPI</property>
             <layout manager="pack">
               <property name="padx">4</property>
@@ -188,6 +236,7 @@
         <child>
           <object class="ttk.Combobox" id="ComboboxImageDPI">
             <property name="justify">center</property>
+            <property name="state">disabled</property>
             <property name="textvariable">int:image_dpi</property>
             <property name="validate">focusout</property>
             <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_image_dpi</property>
