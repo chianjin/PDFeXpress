@@ -27,7 +27,7 @@ class MergePDF(UiMergePDF):
         self.ButtonMoveBottom.configure(text=_('Move to Last'))
         self.FrameMergedPDFFile.configure(text=_('Merged PDF File'))
         self.ButtonMergedPDFFile.configure(text=_('Browser'))
-        self.FrameProcess.configure(text=_('Images to PDF'))
+        self.FrameProcess.configure(text=_('Merge PDF'))
         self.ButtonProcess.configure(text=_('Convert'))
 
         self.TreeViewPDFList.heading('ColumnDirName', anchor='w', text=_('Folder'))

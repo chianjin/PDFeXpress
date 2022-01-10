@@ -28,7 +28,7 @@ class SplitPDF(UiSplitPDF):
         self.RadiobuttonSplitPage.configure(text=_('By Pages'))
         self.RadiobuttonSplitCount.configure(text=_('By Count'))
         self.RadiobuttonSplitRange.configure(text=_('By Range'))
-        self.FrameProcess.configure(text=_('PDF to Images'))
+        self.FrameProcess.configure(text=_('Split PDF'))
         self.ButtonProcess.configure(text=_('Split'))
 
         self._page_count = 0
