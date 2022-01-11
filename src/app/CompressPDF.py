@@ -22,17 +22,6 @@ class CompressPDF(UiCompressPDF):
     def __init__(self, master=None, **kw):
         super(CompressPDF, self).__init__(master, **kw)
 
-        self.LabelFrameName.configure(text=_('Compress PDF'))
-        self.FramePDFFile.configure(text=_('PDF File'))
-        self.ButtonPDFFile.configure(text=_('Browser'))
-        self.FrameCompressedPDFFile.configure(text=_('Compressed PDF File'))
-        self.ButtonCompressedPDFFile.configure(text=_('Browser'))
-        self.FrameOption.configure(text=_('Option'))
-        self.LabelImageQuality.configure(text=_('Image Quality'))
-        self.LabelImageMaxDPI.configure(text=_('Max DPI'))
-        self.FrameProcess.configure(text=_('Compress PDF'))
-        self.ButtonProcess.configure(text=_('Compress'))
-
         self._pdf_file: Union[str, Path] = ''
         self._page_count = 0
         self._pdf_file_size = 0

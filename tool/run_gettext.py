@@ -1,7 +1,7 @@
-import sys
-import pathlib
 import glob
 import os
+import pathlib
+import sys
 
 if sys.platform == 'win32':
     SYSTEM_PYTHON_BASE_DIR = pathlib.Path(sys.path[1]).parent

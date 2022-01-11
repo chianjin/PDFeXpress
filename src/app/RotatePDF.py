@@ -15,16 +15,6 @@ class RotatePDF(UiRotatePDF):
     def __init__(self, master=None, **kw):
         super(RotatePDF, self).__init__(master, **kw)
 
-        self.LabelFrameName.configure(text=_('Rotate PDF'))
-        self.FramePDFFile.configure(text=_('PDF File'))
-        self.ButtonPDFFile.configure(text=_('Browser'))
-        self.FrameRotatedPDFFile.configure(text=_('Rotated PDF File'))
-        self.ButtonRotatedPDFFile.configure(text=_('Browser'))
-        self.FrameOption.configure(text=_('Option'))
-        self.LabelRatateDegree.configure(text=_('Rotation Degree(Clockwise)'))
-        self.FrameProcess.configure(text=_('Rotate PDF'))
-        self.ButtonProcess.configure(text=_('Rotate'))
-
         self._pdf_file: Path | str = ''
         self._rotated_pdf_file: Path | str = ''
         self._page_count = 0

@@ -1,6 +1,6 @@
 import webbrowser
 
-from constants import APP_ICON, APP_NAME, APP_URL, APP_VERSION, TRANSLATER as _
+from constants import APP_ICON, APP_NAME, APP_URL, APP_VERSION
 from ui.UiAbout import UiAbout
 from utils import get_geometry
 
@@ -14,7 +14,6 @@ class About(UiAbout):
         self.app_version.set(APP_VERSION)
         self.app_url.set(APP_URL)
         self.iconbitmap(APP_ICON)
-        self.ButtonOK.configure(text=_('OK'))
 
         self.geometry(get_geometry(self, None))
 

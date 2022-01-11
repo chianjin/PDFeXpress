@@ -26,6 +26,7 @@
             </layout>
             <child>
               <object class="ttk.Label" id="LabelAppInfo">
+                <property name="compound">top</property>
                 <property name="textvariable">string:app_info</property>
                 <layout manager="pack">
                   <property name="padx">20</property>

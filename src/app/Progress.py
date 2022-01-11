@@ -9,12 +9,10 @@ class Progress(UiProgress):
     def __init__(self, master=None, process_list=[], queue=None, maximum=100, auto_destroy=False, **kw):
         super(Progress, self).__init__(master, **kw)
 
-        self.app_info.set(_('Processing...'))
-        self.ButtonStop.configure(text=_('Stop'))
-
         self.grab_set()
         self.iconbitmap(APP_ICON)
         self.geometry(get_geometry(self, None))
+        self.app_info.set(_('Processing...'))
 
         self._process_list = process_list
         self._queue = queue

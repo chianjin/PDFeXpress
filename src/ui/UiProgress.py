@@ -1,9 +1,7 @@
-import pathlib
 import tkinter as tk
 import tkinter.ttk as ttk
 
-PROJECT_PATH = pathlib.Path(__file__).parent
-PROJECT_UI = PROJECT_PATH / "UiProgress.ui"
+from constants import TRANSLATER as _
 
 
 class UiProgress(tk.Toplevel):
@@ -26,7 +24,7 @@ class UiProgress(tk.Toplevel):
         self.Progressbar.configure(length='400', orient='horizontal', variable=self.progress)
         self.Progressbar.pack(fill='y', padx='20', side='top')
         self.ButtonStop = ttk.Button(self.Frame)
-        self.ButtonStop.configure(text='Stop')
+        self.ButtonStop.configure(text=_('Stop'))
         self.ButtonStop.pack(pady='20', side='top')
         self.ButtonStop.configure(command=self.stop_process)
         self.Frame.configure(height='400', width='500')
@@ -34,10 +32,3 @@ class UiProgress(tk.Toplevel):
 
     def stop_process(self):
         pass
-
-
-if __name__ == '__main__':
-    root = tk.Tk()
-    widget = UiProgress(root)
-    widget.pack(expand=True, fill='both')
-    root.mainloop()

@@ -18,19 +18,6 @@ class SplitPDF(UiSplitPDF):
     def __init__(self, master=None, **kw):
         super(SplitPDF, self).__init__(master, **kw)
 
-        self.LabelFrameName.configure(text=_('Split PDF'))
-        self.FramePDFFile.configure(text=_('PDF File'))
-        self.ButtonPDFFile.configure(text=_('Browser'))
-        self.FrameSplitPDFDir.configure(text=_('Split PDF Folder'))
-        self.ButtonSplitPDFDir.configure(text=_('Browser'))
-        self.FrameOption.configure(text=_('Option'))
-        self.RadiobuttonSplitSingle.configure(text=_('Per Page'))
-        self.RadiobuttonSplitPage.configure(text=_('By Pages'))
-        self.RadiobuttonSplitCount.configure(text=_('By Count'))
-        self.RadiobuttonSplitRange.configure(text=_('By Range'))
-        self.FrameProcess.configure(text=_('Split PDF'))
-        self.ButtonProcess.configure(text=_('Split'))
-
         self._page_count = 0
         # string width of page number
         self._page_no_width = 1
@@ -98,7 +85,7 @@ class SplitPDF(UiSplitPDF):
         else:
             showerror(
                     title=_('Error'),
-                    message=_('Pages must between 2 and {}. Please enter again').format(self._page_count)
+                    message=_('Pages must between 2 and {}. Please enter again.').format(self._page_count)
                     )
             self.EntrySplitPage.focus()
             return False

@@ -11,7 +11,7 @@ from app.SplitPDF import SplitPDF
 from constants import TRANSLATER as _
 from ui.UiMainFrame import UiMainFrame
 
-operate = namedtuple('operate', ('frame', 'button', 'text'))
+operate = namedtuple('operate', ('frame', 'button'))
 
 
 class MainFrame(UiMainFrame):
@@ -21,21 +21,15 @@ class MainFrame(UiMainFrame):
         self.FrameOperateButtons.configure(text=_('Operate'))
 
         self._operates = {
-                'ButtonMergePDF': operate(MergePDF(master=self), self.ButtonMergePDF, _('Merge PDF')),
-                'ButtonSplitPDF': operate(SplitPDF(master=self), self.ButtonSplitPDF, _('Split PDF')),
-                'ButtonRotatePDF': operate(RotatePDF(master=self), self.ButtonRotatePDF, _('Rotate PDF')),
-                'ButtonCompressPDF': operate(CompressPDF(master=self), self.ButtonCompressPDF, _('Compress PDF')),
-                'ButtonExtractImages': operate(
-                    ExtractImages(master=self), self.ButtonExtractImages, _('Extract Images')
-                    ),
-                'ButtonExtractText': operate(ExtractText(master=self), self.ButtonExtractText, _('Extract Text')),
-                'ButtonPDF2Images': operate(PDF2Images(master=self), self.ButtonPDF2Images, _('PDF to Images')),
-                'ButtonImages2PDF': operate(Images2PDF(master=self), self.ButtonImages2PDF, _('Images to PDF'))
+                'ButtonMergePDF': operate(MergePDF(master=self), self.ButtonMergePDF),
+                'ButtonSplitPDF': operate(SplitPDF(master=self), self.ButtonSplitPDF),
+                'ButtonRotatePDF': operate(RotatePDF(master=self), self.ButtonRotatePDF),
+                'ButtonCompressPDF': operate(CompressPDF(master=self), self.ButtonCompressPDF),
+                'ButtonExtractImages': operate(ExtractImages(master=self), self.ButtonExtractImages),
+                'ButtonExtractText': operate(ExtractText(master=self), self.ButtonExtractText),
+                'ButtonPDF2Images': operate(PDF2Images(master=self), self.ButtonPDF2Images),
+                'ButtonImages2PDF': operate(Images2PDF(master=self), self.ButtonImages2PDF)
                 }
-
-        for _operate_name in self._operates:
-            _operate = self._operates.get(_operate_name)
-            _operate.button.configure(text=_operate.text)
 
         self._current_operate = 'ButtonMergePDF'
         current_operate = self._operates.get(self._current_operate)

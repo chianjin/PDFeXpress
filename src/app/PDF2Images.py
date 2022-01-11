@@ -21,18 +21,6 @@ class PDF2Images(UiPDF2Images):
     def __init__(self, master=None, **kw):
         super(PDF2Images, self).__init__(master, **kw)
 
-        self.LabelFrameName.configure(text=_('PDF to Images'))
-        self.FramePDFFile.configure(text=_('PDF File'))
-        self.ButtonPDFFile.configure(text=_('Browser'))
-        self.FrameImagesDir.configure(text=_('Images Folder'))
-        self.ButtonImagesDir.configure(text=_('Browser'))
-        self.FrameOption.configure(text=_('Option'))
-        self.LabelImageFormat.configure(text=_('Image Format'))
-        self.CheckbuttonPNGAlpha.configure(text=_('Transparent Background'))
-        self.LabelImageQuality.configure(text=_('Image Quality'))
-        self.FrameProcess.configure(text=_('PDF to Images'))
-        self.ButtonProcess.configure(text=_('Convert'))
-
         self.ComboboxImageDPI.configure(values=IMAGE_DPI)
 
         self._pdf_file: Union[str, Path] = ''
@@ -128,12 +116,12 @@ class PDF2Images(UiPDF2Images):
         sub_process_list = []
         for page_range in page_range_list:
             sub_process = Process(
-                        target=pdf2images,
-                        args=(
-                                queue, self._pdf_file, self._images_dir, self._image_format,
-                                bool(self._image_alpha), self._image_quality, self._image_dpi, page_range
-                                )
-                        )
+                    target=pdf2images,
+                    args=(
+                            queue, self._pdf_file, self._images_dir, self._image_format,
+                            bool(self._image_alpha), self._image_quality, self._image_dpi, page_range
+                            )
+                    )
             sub_process_list.append(sub_process)
         for sub_process in sub_process_list:
             sub_process.start()

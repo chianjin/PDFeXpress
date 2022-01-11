@@ -16,23 +16,6 @@ class MergePDF(UiMergePDF):
     def __init__(self, master=None, **kw):
         super(MergePDF, self).__init__(master, **kw)
 
-        self.LabelFrameName.configure(text=_('Merge PDF'))
-        self.FramePDFList.configure(text=_('PDF List'))
-        self.ButtonAddPDF.configure(text=_('Add PDF'))
-        self.ButtonRemovePDF.configure(text=_('Remove PDF'))
-        self.ButtonRemoveAll.configure(text=_('Remove All'))
-        self.ButtonMoveTop.configure(text=_('Move to First'))
-        self.ButtonMoveUp.configure(text=_('Move Up'))
-        self.ButtonMoveDown.configure(text=_('Move Down'))
-        self.ButtonMoveBottom.configure(text=_('Move to Last'))
-        self.FrameMergedPDFFile.configure(text=_('Merged PDF File'))
-        self.ButtonMergedPDFFile.configure(text=_('Browser'))
-        self.FrameProcess.configure(text=_('Merge PDF'))
-        self.ButtonProcess.configure(text=_('Convert'))
-
-        self.TreeViewPDFList.heading('ColumnDirName', anchor='w', text=_('Folder'))
-        self.TreeViewPDFList.heading('ColumnFileName', anchor='w', text=_('File Name'))
-
         self.TreeViewPDFList['show'] = 'headings'
         self._pdf_count = 0
         self._merged_pdf_file: Union[Path, str] = ''

@@ -213,7 +213,7 @@
           <object class="ttk.Button" id="ButtonProcess">
             <property name="command" type="command" cbtype="simple">process</property>
             <property name="state">disabled</property>
-            <property name="text" translatable="yes">Roate</property>
+            <property name="text" translatable="yes">Rotate</property>
             <layout manager="pack">
               <property name="padx">4</property>
               <property name="pady">4</property>

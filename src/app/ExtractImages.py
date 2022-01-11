@@ -15,14 +15,6 @@ class ExtractImages(UiExtractImages):
     def __init__(self, master=None, **kw):
         super(ExtractImages, self).__init__(master, **kw)
 
-        self.LabelFrameName.configure(text=_('Extract Images'))
-        self.FramePDFFile.configure(text=_('PDF File'))
-        self.ButtonPDFFile.configure(text=_('Browser'))
-        self.FrameImagesDir.configure(text=_('Images Folder'))
-        self.ButtonImagesDir.configure(text=_('Browser'))
-        self.FrameProcess.configure(text=_('Extract Images'))
-        self.ButtonProcess.configure(text=_('Extract'))
-
         self._page_no_width = 1
         self._pdf_file: Union[str, Path] = ''
         self._images_dir: Union[str, Path] = ''

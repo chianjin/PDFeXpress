@@ -15,14 +15,6 @@ class ExtractText(UiExtractText):
     def __init__(self, master=None, **kw):
         super(ExtractText, self).__init__(master, **kw)
 
-        self.LabelFrameName.configure(text=_('Extract Text'))
-        self.FramePDFFile.configure(text=_('PDF File'))
-        self.ButtonPDFFile.configure(text=_('Browser'))
-        self.FrameTextFile.configure(text=_('Text File'))
-        self.ButtonTextFile.configure(text=_('Browser'))
-        self.FrameProcess.configure(text=_('Extract Text'))
-        self.ButtonProcess.configure(text=_('Extract'))
-
         self._page_count = 0
         self._pdf_file: str | Path = ''
         self._text_file: str | Path = ''

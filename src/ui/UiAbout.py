@@ -1,9 +1,7 @@
-import pathlib
 import tkinter as tk
 import tkinter.ttk as ttk
 
-PROJECT_PATH = pathlib.Path(__file__).parent
-PROJECT_UI = PROJECT_PATH / "UiAbout.ui"
+from constants import TRANSLATER as _
 
 
 class UiAbout(tk.Toplevel):
@@ -28,7 +26,7 @@ class UiAbout(tk.Toplevel):
         self.LabelUrl.pack(pady='20', side='top')
         self.LabelUrl.bind('<Button-1>', self.open_url, add='')
         self.ButtonOK = ttk.Button(self.FrameAbout)
-        self.ButtonOK.configure(text='OK')
+        self.ButtonOK.configure(text=_('OK'))
         self.ButtonOK.pack(pady='30', side='top')
         self.ButtonOK.configure(command=self.close_about)
         self.FrameAbout.configure(height='200', width='200')
@@ -39,10 +37,3 @@ class UiAbout(tk.Toplevel):
 
     def close_about(self):
         pass
-
-
-if __name__ == '__main__':
-    root = tk.Tk()
-    widget = UiAbout(root)
-    widget.pack(expand=True, fill='both')
-    root.mainloop()

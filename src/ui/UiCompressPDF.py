@@ -1,9 +1,7 @@
-import pathlib
 import tkinter as tk
 import tkinter.ttk as ttk
 
-PROJECT_PATH = pathlib.Path(__file__).parent
-PROJECT_UI = PROJECT_PATH / "UiCompressPDF.ui"
+from constants import TRANSLATER as _
 
 
 class UiCompressPDF(ttk.Frame):
@@ -11,7 +9,7 @@ class UiCompressPDF(ttk.Frame):
         super(UiCompressPDF, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 16 {bold}', text='Compress PDF')
+        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 16 {bold}', text=_('Compress PDF'))
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
@@ -21,10 +19,10 @@ class UiCompressPDF(ttk.Frame):
         self.EntryPDFFile.configure(state='readonly', textvariable=self.pdf_file)
         self.EntryPDFFile.pack(expand='true', fill='x', padx='4', pady='4', side='left')
         self.ButtonPDFFile = ttk.Button(self.FramePDFFile)
-        self.ButtonPDFFile.configure(text='Borwser')
+        self.ButtonPDFFile.configure(text=_('Browser'))
         self.ButtonPDFFile.pack(padx='4', pady='4', side='right')
         self.ButtonPDFFile.configure(command=self.get_pdf_file)
-        self.FramePDFFile.configure(height='200', text='PDF File', width='200')
+        self.FramePDFFile.configure(height='200', text=_('PDF File'), width='200')
         self.FramePDFFile.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameCompressedPDFFile = ttk.Labelframe(self)
         self.EntryCompressedPDFFile = ttk.Entry(self.FrameCompressedPDFFile)
@@ -32,14 +30,14 @@ class UiCompressPDF(ttk.Frame):
         self.EntryCompressedPDFFile.configure(state='readonly', textvariable=self.compressed_pdf_file)
         self.EntryCompressedPDFFile.pack(expand='true', fill='x', padx='4', pady='4', side='left')
         self.ButtonCompressedPDFFile = ttk.Button(self.FrameCompressedPDFFile)
-        self.ButtonCompressedPDFFile.configure(text='Borwser')
+        self.ButtonCompressedPDFFile.configure(text=_('Browser'))
         self.ButtonCompressedPDFFile.pack(padx='4', pady='4', side='left')
         self.ButtonCompressedPDFFile.configure(command=self.set_compressed_pdf_file)
-        self.FrameCompressedPDFFile.configure(height='200', text='Compressed PDF', width='200')
+        self.FrameCompressedPDFFile.configure(height='200', text=_('Compressed PDF File'), width='200')
         self.FrameCompressedPDFFile.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameOption = ttk.Labelframe(self)
         self.LabelImageQuality = ttk.Label(self.FrameOption)
-        self.LabelImageQuality.configure(text='Image Quality')
+        self.LabelImageQuality.configure(text=_('Image Quality'))
         self.LabelImageQuality.pack(padx='4', pady='4', side='left')
         self.EntryImageQuality = ttk.Entry(self.FrameOption)
         self.image_quality = tk.IntVar(value='')
@@ -54,16 +52,17 @@ class UiCompressPDF(ttk.Frame):
         self.FrameSpacer.configure(height='1', width='20')
         self.FrameSpacer.pack(padx='4', pady='4', side='left')
         self.LabelImageMaxDPI = ttk.Label(self.FrameOption)
-        self.LabelImageMaxDPI.configure(text='Max DPI')
+        self.LabelImageMaxDPI.configure(text=_('Max DPI'))
         self.LabelImageMaxDPI.pack(padx='4', pady='4', side='left')
         self.ComboboxDPI = ttk.Combobox(self.FrameOption)
         self.image_max_dpi = tk.IntVar(value='')
         self.ComboboxDPI.configure(
-            justify='center', state='readonly', textvariable=self.image_max_dpi, values='96 144 192 244 288 384 480 576'
-            )
+                justify='center', state='readonly', textvariable=self.image_max_dpi,
+                values='96 144 192 244 288 384 480 576'
+                )
         self.ComboboxDPI.configure(width='3')
         self.ComboboxDPI.pack(padx='4', pady='4', side='left')
-        self.FrameOption.configure(height='200', text='Option', width='200')
+        self.FrameOption.configure(height='200', text=_('Option'), width='200')
         self.FrameOption.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameProcess = ttk.Labelframe(self)
         self.LabelPDFInfo = ttk.Label(self.FrameProcess)
@@ -75,10 +74,10 @@ class UiCompressPDF(ttk.Frame):
         self.LabelProcessInfo.configure(textvariable=self.process_info)
         self.LabelProcessInfo.pack(expand='true', fill='x', padx='4', pady='4', side='left')
         self.ButtonProcess = ttk.Button(self.FrameProcess)
-        self.ButtonProcess.configure(state='disabled', text='Compress')
+        self.ButtonProcess.configure(state='disabled', text=_('Compress'))
         self.ButtonProcess.pack(padx='4', pady='4', side='left')
         self.ButtonProcess.configure(command=self.process)
-        self.FrameProcess.configure(height='200', text='Compress PDF', width='200')
+        self.FrameProcess.configure(height='200', text=_('Compress PDF'), width='200')
         self.FrameProcess.pack(fill='x', padx='4', pady='4', side='top')
 
     def get_pdf_file(self):
@@ -92,10 +91,3 @@ class UiCompressPDF(ttk.Frame):
 
     def process(self):
         pass
-
-
-if __name__ == '__main__':
-    root = tk.Tk()
-    widget = UiCompressPDF(root)
-    widget.pack(expand=True, fill='both')
-    root.mainloop()

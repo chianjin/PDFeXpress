@@ -16,23 +16,6 @@ class Images2PDF(UiImages2PDF):
     def __init__(self, master=None, **kw):
         super(Images2PDF, self).__init__(master, **kw)
 
-        self.LabelFrameName.configure(text=_('Images to PDF'))
-        self.FrameImageList.configure(text=_('Image List'))
-        self.ButtonAddImages.configure(text=_('Add Images'))
-        self.ButtonRemoveImage.configure(text=_('Remove Image'))
-        self.ButtonRemoveAll.configure(text=_('Remove All'))
-        self.ButtonMoveTop.configure(text=_('Move to First'))
-        self.ButtonMoveUp.configure(text=_('Move Up'))
-        self.ButtonMoveDown.configure(text=_('Move Down'))
-        self.ButtonMoveBottom.configure(text=_('Move to Last'))
-        self.FramePDFFile.configure(text=_('PDF File'))
-        self.ButtonPDFFile.configure(text=_('Browser'))
-        self.FrameProcess.configure(text=_('Images to PDF'))
-        self.ButtonProcess.configure(text=_('Convert'))
-
-        self.TreeViewImageList.heading('ColumnDirName', anchor='w', text=_('Folder'))
-        self.TreeViewImageList.heading('ColumnFileName', anchor='w', text=_('File Name'))
-
         self.TreeViewImageList.configure(show='headings')
         self._image_count = 0
         self._pdf_file: Union[str, Path] = ''
