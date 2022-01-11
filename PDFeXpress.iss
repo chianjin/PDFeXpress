@@ -3,9 +3,10 @@
 
 #define MyAppName "PDF eXpress"
 #define MyAppVersion "0.1.1-BETA"
-#define MyAppPublisher "Chian Jin"
+#define MyAppPublisher "chian.jin@gmail.com"
 #define MyAppURL "https://github.com/chianjin/PDFeXpress"
 #define MyAppExeName "PDFeXpress.exe"
+#define MyProjectDir "D:\GitHub\PDFeXpress"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -22,9 +23,9 @@ DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=D:\GitHub\PDFeXpress\build
+OutputDir={#MyProjectDir}\build
 OutputBaseFilename=PDFeXpress-{#MyAppVersion}-setup-x64
-SetupIconFile=D:\GitHub\PDFeXpress\build\PDFeXpress.dist\icon\PDFeXpress.ico
+SetupIconFile={#MyProjectDir}\build\PDFeXpress.dist\icon\PDFeXpress.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -38,8 +39,8 @@ Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.i
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\GitHub\PDFeXpress\build\PDFeXpress.dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\GitHub\PDFeXpress\build\PDFeXpress.dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyProjectDir}\build\PDFeXpress.dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyProjectDir}\build\PDFeXpress.dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -48,4 +49,3 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
-
