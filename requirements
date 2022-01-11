@@ -1,4 +1,4 @@
-Nuitka==0.6.19
+Nuitka==0.6.19.1
 Pillow==9.0.0
 psutil==5.9.0
 PyMuPDF==1.19.4
