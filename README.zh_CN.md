@@ -6,15 +6,15 @@
 
 ## 开发环境
 
-- Python：3.10
-- PyMuPDF
-- Pillow
-- psutil
-- Nuitka
+- Python 3.10.1
+- Nuitka==0.6.19.1
+- Pillow==9.0.0
+- psutil==5.9.0
+- PyMuPDF==1.19.4
 
 ## 当前版本
 
-当前版本为 0.1-BETA，已经在64位的Windows 10和11上测试通过。未来计划测试Linux、FreeBSD系统。
+当前版本为 0.1.1-BETA，已经在64位的Windows 10和11上测试通过。未来计划测试Linux、FreeBSD系统。
 
 ## 主要功能
 

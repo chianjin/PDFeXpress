@@ -5,15 +5,15 @@
 
 ## Developing Environment
 
-- Python：3.10
-- PyMuPDF
-- Pillow
-- psutil
-- Nuitka, used to build binary application
+- Python 3.10.1
+- Nuitka==0.6.19.1
+- Pillow==9.0.0
+- psutil==5.9.0
+- PyMuPDF==1.19.4
 
 ## Current Version
 
-The current version is 0.1-BETA, tested on Windows 10 and 11. Planing to test on Linux/FreeBSD.
+The current version is 0.1.1-BETA, tested on Windows 10 and 11. Planing to test on Linux/FreeBSD.
 
 ## Main Functions
 

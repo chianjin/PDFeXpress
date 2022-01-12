@@ -11,7 +11,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{2DA5BF84-B973-4D88-B278-EC0474D4BF3A}
+AppId={{2DA5BF84-B973-4D88-B278-EC0474D4BF3A}}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -21,10 +21,12 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
+LicenseFile={#MyProjectDir}\LICENSE
+;InfoBeforeFile={#MyProjectDir}\README.md
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir={#MyProjectDir}\build
-OutputBaseFilename=PDFeXpress-{#MyAppVersion}-setup-x64
+OutputBaseFilename=PDFeXpress-{#MyAppVersion}-Setup-x64
 SetupIconFile={#MyProjectDir}\build\PDFeXpress.dist\icon\PDFeXpress.ico
 Compression=lzma
 SolidCompression=yes
