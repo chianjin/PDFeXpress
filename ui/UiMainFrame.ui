@@ -25,6 +25,7 @@
             <property name="text" translatable="yes">Merge PDF</property>
             <layout manager="pack">
               <property name="fill">x</property>
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -38,6 +39,7 @@
             <property name="text" translatable="yes">Split PDF</property>
             <layout manager="pack">
               <property name="fill">x</property>
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -48,9 +50,10 @@
         <child>
           <object class="ttk.Button" id="ButtonRotatePDF">
             <property name="command" type="command" cbtype="with_wid">set_operate</property>
-            <property name="text" translatable="yes">Ratote PDF</property>
+            <property name="text" translatable="yes">Rotate PDF</property>
             <layout manager="pack">
               <property name="fill">x</property>
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -64,6 +67,7 @@
             <property name="text" translatable="yes">Compress PDF</property>
             <layout manager="pack">
               <property name="fill">x</property>
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -77,6 +81,7 @@
             <property name="text" translatable="yes">Extract Images</property>
             <layout manager="pack">
               <property name="fill">x</property>
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -90,6 +95,7 @@
             <property name="text" translatable="yes">Extract Text</property>
             <layout manager="pack">
               <property name="fill">x</property>
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -103,6 +109,7 @@
             <property name="text" translatable="yes">PDF to Images</property>
             <layout manager="pack">
               <property name="fill">x</property>
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -116,6 +123,7 @@
             <property name="text" translatable="yes">Images to PDF</property>
             <layout manager="pack">
               <property name="fill">x</property>
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>

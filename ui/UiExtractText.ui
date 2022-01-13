@@ -60,6 +60,7 @@
             <property name="command" type="command" cbtype="simple">get_pdf_file</property>
             <property name="text" translatable="yes">Browser</property>
             <layout manager="pack">
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -100,6 +101,7 @@
             <property name="command" type="command" cbtype="simple">set_text_file</property>
             <property name="text" translatable="yes">Browser</property>
             <layout manager="pack">
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -148,6 +150,7 @@
             <property name="state">disabled</property>
             <property name="text" translatable="yes">Extract</property>
             <layout manager="pack">
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>

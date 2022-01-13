@@ -59,8 +59,9 @@
         <child>
           <object class="ttk.Button" id="ButtonPDFFile">
             <property name="command" type="command" cbtype="simple">get_pdf_file</property>
-            <property name="text" translatable="yes">Borwser</property>
+            <property name="text" translatable="yes">Browser</property>
             <layout manager="pack">
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -73,7 +74,7 @@
     <child>
       <object class="ttk.Labelframe" id="FrameCompressedPDFFile">
         <property name="height">200</property>
-        <property name="text" translatable="yes">Compressed PDF</property>
+        <property name="text" translatable="yes">Compressed PDF File</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="fill">x</property>
@@ -99,8 +100,9 @@
         <child>
           <object class="ttk.Button" id="ButtonCompressedPDFFile">
             <property name="command" type="command" cbtype="simple">set_compressed_pdf_file</property>
-            <property name="text" translatable="yes">Borwser</property>
+            <property name="text" translatable="yes">Browser</property>
             <layout manager="pack">
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>
@@ -244,6 +246,7 @@
             <property name="state">disabled</property>
             <property name="text" translatable="yes">Compress</property>
             <layout manager="pack">
+              <property name="ipadx">2</property>
               <property name="padx">4</property>
               <property name="pady">4</property>
               <property name="propagate">True</property>

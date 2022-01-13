@@ -1,8 +1,9 @@
 import gettext
-import locale
 from pathlib import Path
 
 import psutil
+
+import locale
 
 DEFAULT_LANGUAGE = locale.getdefaultlocale()[0]
 BASE_DIR = Path(__file__).absolute().parent

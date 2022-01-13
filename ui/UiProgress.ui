@@ -64,6 +64,7 @@
             <property name="command" type="command" cbtype="simple">stop_process</property>
             <property name="text" translatable="yes">Stop</property>
             <layout manager="pack">
+              <property name="ipadx">2</property>
               <property name="pady">20</property>
               <property name="propagate">True</property>
               <property name="side">top</property>

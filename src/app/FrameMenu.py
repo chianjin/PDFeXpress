@@ -9,14 +9,14 @@ class FrameMenu(tk.Menu):
         super(FrameMenu, self).__init__(master, **kw)
         self.MenuFile = tk.Menu(self, tearoff='false')
         self.add(tk.CASCADE, menu=self.MenuFile, label=_('File'))
-        self.mi_CommandQuit = 0
+        self.CommandQuit = 0
         self.MenuFile.add('command', label=_('Exit'))
-        self.MenuFile.entryconfigure(self.mi_CommandQuit, command=self.exit)
+        self.MenuFile.entryconfigure(self.CommandQuit, command=self.exit)
         self.MenuHelp = tk.Menu(self, tearoff='false')
         self.add(tk.CASCADE, menu=self.MenuHelp, label=_('Help'))
-        self.mi_CommandAbout = 0
+        self.CommandAbout = 0
         self.MenuHelp.add('command', label=_('About'))
-        self.MenuHelp.entryconfigure(self.mi_CommandAbout, command=self.about)
+        self.MenuHelp.entryconfigure(self.CommandAbout, command=self.about)
 
     def exit(self):
         self.master.quit()
