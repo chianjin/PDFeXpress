@@ -136,12 +136,12 @@
           </object>
         </child>
         <child>
-          <object class="ttk.Separator" id="Separator1">
+          <object class="ttk.Separator" id="Separator">
             <property name="orient">horizontal</property>
             <layout manager="pack">
               <property name="fill">x</property>
               <property name="padx">4</property>
-              <property name="pady">4</property>
+              <property name="pady">8</property>
               <property name="propagate">True</property>
               <property name="side">top</property>
             </layout>
