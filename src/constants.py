@@ -23,7 +23,7 @@ TRANSLATER = gettext.translation(
         ).gettext
 _ = TRANSLATER
 
-SCREEN_RATIO = 3 / 5
+SCREEN_RATIO = 1 / 2
 
 BYTE_UNIT = ('', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
 
