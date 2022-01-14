@@ -45,7 +45,7 @@ class UiPDF2Images(ttk.Frame):
         self.CheckbuttonPNGAlpha = ttk.Checkbutton(self.FrameOption)
         self.image_alpha = tk.IntVar(value='')
         self.CheckbuttonPNGAlpha.configure(
-                offvalue='0', onvalue='1', text=_('Transparent Background'), variable=self.image_alpha
+                offvalue='0', onvalue='1', text=_('Transparent'), variable=self.image_alpha
                 )
         self.CheckbuttonPNGAlpha.pack(padx='4', pady='4', side='left')
         self.CheckbuttonPNGAlpha.configure(command=self.set_image_alpha)

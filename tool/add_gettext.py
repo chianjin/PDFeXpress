@@ -2,9 +2,7 @@ def add_translater(ui_file):
     code_lines = []
     with open(ui_file) as ui:
         for line in ui.readlines():
-            if line.startswith('import pathlib'):
-                line = 'from constants import TRANSLATER as _\n'
-            if line.startswith('PROJECT'):
+            if line.startswith('import pathlib') or line.startswith('PROJECT'):
                 continue
             if line.startswith('if __name__'):
                 break

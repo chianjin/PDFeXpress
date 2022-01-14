@@ -154,7 +154,7 @@
             <property name="command" type="command" cbtype="simple">set_image_alpha</property>
             <property name="offvalue">0</property>
             <property name="onvalue">1</property>
-            <property name="text" translatable="yes">Transparent Background</property>
+            <property name="text" translatable="yes">Transparent</property>
             <property name="variable">int:image_alpha</property>
             <layout manager="pack">
               <property name="padx">4</property>
