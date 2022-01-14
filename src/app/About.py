@@ -9,14 +9,13 @@ from utils import get_geometry
 class About(UiAbout):
     def __init__(self, master, **kw):
         super(About, self).__init__(master, **kw)
-
+        self.geometry(get_geometry(self, None))
         self.grab_set()
         self.app_name.set(APP_NAME)
         self.app_version.set(APP_VERSION)
         self.app_url.set(APP_URL)
         self.iconphoto(False, tk.PhotoImage(file=APP_ICON))
 
-        self.geometry(get_geometry(self, None))
         self.focus_set()
 
     def open_url(self, event=None):

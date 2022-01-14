@@ -3,7 +3,7 @@ from tkinter import BaseWidget, Tk
 from tkinter.filedialog import askopenfilename, askopenfilenames
 from tkinter.messagebox import showerror
 from tkinter.ttk import Treeview
-from typing import Union
+from typing import Union, Tuple
 
 import fitz
 
@@ -18,7 +18,7 @@ def int2byte_unit(value: int):
     return f'{round(value)}{BYTE_UNIT[index]}B'
 
 
-def get_geometry(win: Union[Tk, BaseWidget], screen_ratio: Union[float, tuple[int, int], None] = SCREEN_RATIO):
+def get_geometry(win: Union[Tk, BaseWidget], screen_ratio: Union[float, Tuple[int], None] = SCREEN_RATIO):
     screen_width = win.winfo_screenwidth()
     screen_height = win.winfo_screenheight() - 64
 

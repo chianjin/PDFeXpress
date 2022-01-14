@@ -1,7 +1,7 @@
 from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import asksaveasfilename
-from typing import Union
+from typing import Union, List
 
 import fitz
 
@@ -99,7 +99,7 @@ class MergePDF(UiMergePDF):
             self.ButtonProcess.configure(state='disabled')
 
 
-def merge_pdf(queue: Queue, pdf_list: list[Path], merged_pdf_file: Path):
+def merge_pdf(queue: Queue, pdf_list: List[Path], merged_pdf_file: Path):
     with fitz.Document() as merged_pdf:
         for pdf_no, pdf_file in enumerate(pdf_list, start=1):
             with fitz.Document(str(pdf_file)) as pdf:

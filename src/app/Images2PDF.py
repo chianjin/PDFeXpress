@@ -1,7 +1,7 @@
 from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import asksaveasfilename
-from typing import Union
+from typing import Union, List
 
 import fitz
 
@@ -105,7 +105,7 @@ class Images2PDF(UiImages2PDF):
             self.ButtonProcess.configure(state='disabled')
 
 
-def images2pdf(queue: Queue, image_list: list[str, Path], pdf_file: Union[str, Path]):
+def images2pdf(queue: Queue, image_list: List[Union[str, Path]], pdf_file: Union[str, Path]):
     with fitz.Document() as pdf:
         for image_no, image_file in enumerate(image_list, start=1):
             with fitz.Document(image_file) as image_doc:

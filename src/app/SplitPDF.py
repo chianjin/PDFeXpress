@@ -4,7 +4,7 @@ from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
-from typing import Union
+from typing import Union, Tuple
 
 import fitz
 
@@ -166,7 +166,7 @@ class SplitPDF(UiSplitPDF):
 
 def split_pdf(
         queue: Queue, pdf_file: Union[str, Path, None], split_pdf_dir: Union[str, Path], split_mode: str,
-        split_range_list: tuple[tuple[int]]
+        split_range_list: Tuple[Tuple[int]]
         ):
     count = 0
     with fitz.Document(pdf_file) as pdf:
