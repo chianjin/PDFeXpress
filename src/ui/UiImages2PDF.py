@@ -1,8 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from constants import TRANSLATER as _
-
 
 class UiImages2PDF(ttk.Frame):
     def __init__(self, master=None, **kw):
@@ -18,8 +16,8 @@ class UiImages2PDF(ttk.Frame):
         self.TreeViewImageList_cols = ['ColumnDirName', 'ColumnFileName']
         self.TreeViewImageList_dcols = ['ColumnDirName', 'ColumnFileName']
         self.TreeViewImageList.configure(
-            columns=self.TreeViewImageList_cols, displaycolumns=self.TreeViewImageList_dcols
-            )
+                columns=self.TreeViewImageList_cols, displaycolumns=self.TreeViewImageList_dcols
+                )
         self.TreeViewImageList.column('ColumnDirName', anchor='w', stretch='true', width='150', minwidth='20')
         self.TreeViewImageList.column('ColumnFileName', anchor='w', stretch='true', width='300', minwidth='20')
         self.TreeViewImageList.heading('ColumnDirName', anchor='w', text=_('Folder'))

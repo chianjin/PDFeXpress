@@ -9,7 +9,6 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
-from constants import TRANSLATER as _
 from ui.UiSplitPDF import UiSplitPDF
 from utils import check_dir, check_file_exist, get_pdf_info
 

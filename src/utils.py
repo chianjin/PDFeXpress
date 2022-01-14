@@ -7,7 +7,7 @@ from typing import Union
 
 import fitz
 
-from constants import BYTE_UNIT, FILE_TYPES_PDF, SCREEN_RATIO, TRANSLATER as _
+from constants import BYTE_UNIT, FILE_TYPES_PDF, SCREEN_RATIO
 
 
 def int2byte_unit(value: int):

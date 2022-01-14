@@ -1,7 +1,8 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from constants import TRANSLATER as _
+
+# from constants import TRANSLATER as _
 
 
 class UiAbout(tk.Toplevel):

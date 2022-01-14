@@ -8,7 +8,6 @@ from app.MergePDF import MergePDF
 from app.PDF2Images import PDF2Images
 from app.RotatePDF import RotatePDF
 from app.SplitPDF import SplitPDF
-from constants import TRANSLATER as _
 from ui.UiMainFrame import UiMainFrame
 
 operate = namedtuple('operate', ('frame', 'button'))

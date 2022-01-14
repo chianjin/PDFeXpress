@@ -1,4 +1,4 @@
-from constants import APP_ICON, TRANSLATER as _
+from constants import APP_ICON
 from ui.UiProgress import UiProgress
 from utils import get_geometry
 

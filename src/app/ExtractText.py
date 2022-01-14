@@ -6,7 +6,7 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
-from constants import FILE_TYPES_TEXT, TRANSLATER as _
+from constants import FILE_TYPES_TEXT
 from ui.UiExtractText import UiExtractText
 from utils import check_dir, check_file_exist, get_pdf_info
 

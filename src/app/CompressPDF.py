@@ -11,7 +11,7 @@ import fitz
 from PIL import Image
 
 from app.Progress import Progress
-from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT, TRANSLATER as _
+from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT
 from ui.UiCompressPDF import UiCompressPDF
 from utils import check_dir, check_file_exist, get_pdf_info, int2byte_unit
 

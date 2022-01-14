@@ -9,7 +9,7 @@ import fitz
 from PIL import Image
 
 from app.Progress import Progress
-from constants import PHYSICAL_CPU_COUNT, TRANSLATER as _
+from constants import PHYSICAL_CPU_COUNT
 from ui.UiPDF2Images import UiPDF2Images
 from utils import check_dir, check_file_exist, get_pdf_info
 

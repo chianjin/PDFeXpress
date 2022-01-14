@@ -6,7 +6,7 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
-from constants import FILE_TYPES_PDF, TRANSLATER as _
+from constants import FILE_TYPES_PDF
 from ui.UiRotatePDF import UiRotatePDF
 from utils import check_dir, check_file_exist, get_pdf_info
 

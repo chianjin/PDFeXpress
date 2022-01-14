@@ -6,7 +6,7 @@ from typing import Union
 import fitz
 
 from app.Progress import Progress
-from constants import PHYSICAL_CPU_COUNT, TRANSLATER as _
+from constants import PHYSICAL_CPU_COUNT
 from ui.UiExtractImages import UiExtractImages
 from utils import check_dir, check_file_exist, get_pdf_info
 

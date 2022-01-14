@@ -1,7 +1,5 @@
 import tkinter.ttk as ttk
 
-from constants import TRANSLATER as _
-
 
 class UiMainFrame(ttk.Frame):
     def __init__(self, master=None, **kw):

@@ -1,8 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from constants import TRANSLATER as _
-
 
 class UiCompressPDF(ttk.Frame):
     def __init__(self, master=None, **kw):

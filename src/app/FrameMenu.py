@@ -1,7 +1,6 @@
 import tkinter as tk
 
 from app.About import About
-from constants import TRANSLATER as _
 
 
 class FrameMenu(tk.Menu):
