@@ -42,7 +42,7 @@
 > cd PDFeXpress
 > pip install -r requirements
 > python <Python Path>\Tools\i18n\msgfmt.py locale\zh_CN\LC_MESSAGES\PDFeXpress.po
-> build-win.cmd
+> nuitka-build.cmd
 ```
 
 编译后的可执行文件，保存在`build\PDFeXpress.dist`目录中，运行 `PDFeXpress.exe`.

@@ -41,10 +41,9 @@ If you want to build the application yourself. Please follow these steps below:
 > cd PDFeXpress
 > pip install -r requirements
 > python <Python Path>\Tools\i18n\msgfmt.py locale\zh_CN\LC_MESSAGES\PDFeXpress.po
-> build-win.cmd
+> nuitka-build.cmd
 ```
 
 The compiled binary files are saved in `build\PDFeXpress.dist`, run `PDFeXpress.exe`.
 
 Additionally, you may download and install **Inno Setup** , open the `PDFeXpress.iss` to build the installer.
-
