@@ -13,8 +13,7 @@ PHYSICAL_CPU_COUNT = psutil.cpu_count(logical=False)
 APP_NAME = 'PDF eXpress'
 APP_VERSION = '0.1.1-BETA'
 APP_URL = 'https://github.com/chianjin/PDFeXpress'
-APP_ICON = BASE_DIR / 'icon/PDFeXpress.ico'
-INFO_ICON = BASE_DIR / 'icon/info32.png'
+APP_ICON = BASE_DIR / 'icon/PDFeXpress32.png'
 
 if 'win' in sys.platform:
     os.environ['LANGUAGE'] = locale.getdefaultlocale()[0]

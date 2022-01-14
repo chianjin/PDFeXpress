@@ -1,3 +1,4 @@
+import tkinter as tk
 from constants import APP_ICON
 from ui.UiProgress import UiProgress
 from utils import get_geometry
@@ -10,7 +11,7 @@ class Progress(UiProgress):
         super(Progress, self).__init__(master, **kw)
 
         self.grab_set()
-        self.iconbitmap(APP_ICON)
+        self.iconphoto(False, tk.PhotoImage(file=APP_ICON))
         self.geometry(get_geometry(self, None))
         self.app_info.set(_('Processing...'))
 
@@ -23,6 +24,8 @@ class Progress(UiProgress):
 
         self.Progressbar.configure(maximum=maximum)
         self.Progressbar.after(PROGRESS_BAR_DELAY, self._get_progress)
+
+        self.focus_set()
 
     def _get_progress(self):
         while not self._queue.empty():

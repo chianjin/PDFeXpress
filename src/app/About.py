@@ -1,3 +1,4 @@
+import tkinter as tk
 import webbrowser
 
 from constants import APP_ICON, APP_NAME, APP_URL, APP_VERSION
@@ -13,9 +14,10 @@ class About(UiAbout):
         self.app_name.set(APP_NAME)
         self.app_version.set(APP_VERSION)
         self.app_url.set(APP_URL)
-        self.iconbitmap(APP_ICON)
+        self.iconphoto(False, tk.PhotoImage(file=APP_ICON))
 
         self.geometry(get_geometry(self, None))
+        self.focus_set()
 
     def open_url(self, event=None):
         webbrowser.open_new_tab(APP_URL)
