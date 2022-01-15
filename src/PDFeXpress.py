@@ -3,25 +3,32 @@ import tkinter as tk
 
 from app.FrameMenu import FrameMenu
 from app.MainFrame import MainFrame
-from constants import APP_ICON, APP_NAME, BASE_DIR
+from constants import APP_ICON, APP_NAME
 from utils import get_geometry
 
 
-def run():
-    if 'win' in sys.platform:
-        import ctypes
-        ctypes.windll.shcore.SetProcessDpiAwareness(1)
+class PDFeXpress(tk.Tk):
+    def __init__(self):
+        super(PDFeXpress, self).__init__()
 
-    root = tk.Tk()
-    root.wm_geometry(get_geometry(root))
-    root.title(APP_NAME)
-    root.iconphoto(False, tk.PhotoImage(file=APP_ICON))
-    menu = FrameMenu(root)
-    root.configure(menu=menu)
-    widget = MainFrame(root)
-    widget.pack(expand=True, fill='both')
-    root.mainloop()
+        self.wm_geometry(get_geometry(self))
+        self.title(APP_NAME)
+        self.iconphoto(False, tk.PhotoImage(file=APP_ICON))
+
+        self.FrameMenu = FrameMenu(self)
+        self.configure(menu=self.FrameMenu)
+
+        self.MainFrame = MainFrame(self)
+        self.MainFrame.pack(expand=True, fill='both')
+
+    def run(self):
+        self.mainloop()
 
 
 if __name__ == '__main__':
-    run()
+    if 'win' in sys.platform:
+        import ctypes
+
+        ctypes.windll.shcore.SetProcessDpiAwareness(1)
+
+    PDFeXpress().run()

@@ -20,17 +20,17 @@ class MainFrame(UiMainFrame):
         self.FrameOperateButtons.configure(text=_('Operate'))
 
         self._operates = {
-                'ButtonMergePDF': operate(MergePDF(master=self), self.ButtonMergePDF),
-                'ButtonSplitPDF': operate(SplitPDF(master=self), self.ButtonSplitPDF),
-                'ButtonRotatePDF': operate(RotatePDF(master=self), self.ButtonRotatePDF),
-                'ButtonCompressPDF': operate(CompressPDF(master=self), self.ButtonCompressPDF),
-                'ButtonExtractImages': operate(ExtractImages(master=self), self.ButtonExtractImages),
-                'ButtonExtractText': operate(ExtractText(master=self), self.ButtonExtractText),
-                'ButtonPDF2Images': operate(PDF2Images(master=self), self.ButtonPDF2Images),
-                'ButtonImages2PDF': operate(Images2PDF(master=self), self.ButtonImages2PDF)
+                'MergePDF': operate(MergePDF(master=self), self.ButtonMergePDF),
+                'SplitPDF': operate(SplitPDF(master=self), self.ButtonSplitPDF),
+                'RotatePDF': operate(RotatePDF(master=self), self.ButtonRotatePDF),
+                'CompressPDF': operate(CompressPDF(master=self), self.ButtonCompressPDF),
+                'ExtractImages': operate(ExtractImages(master=self), self.ButtonExtractImages),
+                'ExtractText': operate(ExtractText(master=self), self.ButtonExtractText),
+                'PDF2Images': operate(PDF2Images(master=self), self.ButtonPDF2Images),
+                'Images2PDF': operate(Images2PDF(master=self), self.ButtonImages2PDF)
                 }
 
-        self._current_operate = 'ButtonMergePDF'
+        self._current_operate = 'MergePDF'
         current_operate = self._operates.get(self._current_operate)
         current_operate.button.configure(state='disabled')
         current_operate.frame.pack(side='top', expand=True, fill='both')

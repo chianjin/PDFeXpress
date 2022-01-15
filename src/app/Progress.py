@@ -1,4 +1,5 @@
 import tkinter as tk
+
 from constants import APP_ICON
 from ui.UiProgress import UiProgress
 from utils import get_geometry
@@ -7,7 +8,7 @@ PROGRESS_BAR_DELAY = 20
 
 
 class Progress(UiProgress):
-    def __init__(self, master=None, process_list=[], queue=None, maximum=100, auto_destroy=False, **kw):
+    def __init__(self, master=None, process_list=None, queue=None, maximum=100, auto_destroy=False, **kw):
         super(Progress, self).__init__(master, **kw)
 
         self.grab_set()

@@ -42,6 +42,9 @@ class UiSplitPDF(ttk.Frame):
                 )
         self.RadiobuttonSplitSingle.pack(padx='4', pady='4', side='left')
         self.RadiobuttonSplitSingle.configure(command=self.set_split_mode)
+        spacer = ttk.Frame(self.FrameSplitMode)
+        spacer.configure(width=20)
+        spacer.pack(side='left')
         self.RadiobuttonSplitPage = ttk.Radiobutton(self.FrameSplitMode)
         self.RadiobuttonSplitPage.configure(
                 state='disabled', text=_('By Pages'), value='page', variable=self.split_mode
@@ -56,6 +59,9 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitPage.configure(width='4')
         self.EntrySplitPage.pack(padx='4', pady='4', side='left')
         self.EntrySplitPage.configure(validatecommand=self.valid_page)
+        spacer = ttk.Frame(self.FrameSplitMode)
+        spacer.configure(width=20)
+        spacer.pack(side='left')
         self.RadiobuttonSplitCount = ttk.Radiobutton(self.FrameSplitMode)
         self.RadiobuttonSplitCount.configure(
                 state='disabled', text=_('By Count'), value='count', variable=self.split_mode
@@ -66,6 +72,9 @@ class UiSplitPDF(ttk.Frame):
         self.split_count = tk.IntVar(value='')
         self.ComboboxSplitCount.configure(justify='center', state='disabled', textvariable=self.split_count, width='4')
         self.ComboboxSplitCount.pack(padx='4', pady='4', side='left')
+        spacer = ttk.Frame(self.FrameSplitMode)
+        spacer.configure(width=20)
+        spacer.pack(side='left')
         self.RadiobuttonSplitRange = ttk.Radiobutton(self.FrameSplitMode)
         self.RadiobuttonSplitRange.configure(
                 state='disabled', text=_('By Range'), value='range', variable=self.split_mode

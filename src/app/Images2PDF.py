@@ -1,7 +1,7 @@
 from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import asksaveasfilename
-from typing import Union, List
+from typing import List, Union
 
 import fitz
 

@@ -4,7 +4,7 @@ from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
-from typing import Union, Tuple
+from typing import Tuple, Union
 
 import fitz
 

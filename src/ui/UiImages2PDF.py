@@ -13,15 +13,13 @@ class UiImages2PDF(ttk.Frame):
         self.FrameTitle.pack(fill='x', side='top')
         self.FrameImageList = ttk.Labelframe(self)
         self.TreeViewImageList = ttk.Treeview(self.FrameImageList)
-        self.TreeViewImageList_cols = ['ColumnDirName', 'ColumnFileName']
-        self.TreeViewImageList_dcols = ['ColumnDirName', 'ColumnFileName']
-        self.TreeViewImageList.configure(
-                columns=self.TreeViewImageList_cols, displaycolumns=self.TreeViewImageList_dcols
-                )
-        self.TreeViewImageList.column('ColumnDirName', anchor='w', stretch='true', width='150', minwidth='20')
-        self.TreeViewImageList.column('ColumnFileName', anchor='w', stretch='true', width='300', minwidth='20')
-        self.TreeViewImageList.heading('ColumnDirName', anchor='w', text=_('Folder'))
-        self.TreeViewImageList.heading('ColumnFileName', anchor='w', text=_('File Name'))
+        _columns = ['dir_name', 'file_name', 'file_path']
+        _display_columns = ['dir_name', 'file_name']
+        self.TreeViewImageList.configure(columns=_columns, displaycolumns=_display_columns, show='headings')
+        self.TreeViewImageList.column('dir_name', anchor='w', stretch='true', width='150', minwidth='20')
+        self.TreeViewImageList.column('file_name', anchor='w', stretch='true', width='300', minwidth='20')
+        self.TreeViewImageList.heading('dir_name', anchor='w', text=_('Folder'))
+        self.TreeViewImageList.heading('file_name', anchor='w', text=_('File Name'))
         self.TreeViewImageList.pack(expand='true', fill='both', padx='4', pady='4', side='left')
         self.ScrollbarImagesList = ttk.Scrollbar(self.FrameImageList)
         self.ScrollbarImagesList.configure(orient='vertical')

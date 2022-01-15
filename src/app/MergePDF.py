@@ -1,7 +1,7 @@
 from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import asksaveasfilename
-from typing import Union, List
+from typing import List, Union
 
 import fitz
 
@@ -16,7 +16,7 @@ class MergePDF(UiMergePDF):
     def __init__(self, master=None, **kw):
         super(MergePDF, self).__init__(master, **kw)
 
-        self.TreeViewPDFList['show'] = 'headings'
+        # self.TreeViewPDFList['show'] = 'headings'
         self._pdf_count = 0
         self._merged_pdf_file: Union[Path, str] = ''
 

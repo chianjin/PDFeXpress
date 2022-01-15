@@ -3,7 +3,7 @@ from tkinter import BaseWidget, Tk
 from tkinter.filedialog import askopenfilename, askopenfilenames
 from tkinter.messagebox import showerror
 from tkinter.ttk import Treeview
-from typing import Union, Tuple
+from typing import Tuple, Union
 
 import fitz
 
@@ -70,7 +70,7 @@ def treeview_add_files(treeview: Treeview, title, filetypes):
     file_list = askopenfilenames(title=title, filetypes=filetypes)
     for file in file_list:
         file_path = Path(file)
-        treeview.insert('', 'end', values=(file_path.parent, file_path.name))
+        treeview.insert('', 'end', values=(file_path.parent, file_path.name, file_path))
 
 
 def treeview_move_item(treeview: Treeview, position: str):
@@ -110,16 +110,14 @@ def treeview_remove_items(treeview, remove_all=False):
 def treeview_get_file_list(treeview: Treeview):
     file_list = []
     for item in treeview.get_children():
-        dir_name, file_name = treeview.item(item).get('values')
-        file_list.append(Path(dir_name) / Path(file_name))
+        file_path = treeview.item(item, 'values')[2]
+        file_list.append(Path(file_path))
     return file_list
 
 
 def treeview_get_first_file(treeview: Treeview):
-    item_list = treeview.get_children()
-    item_count = len(item_list)
-    if item_count > 0:
-        dir_name, file_name = treeview.item(item_list[0]).get('values')
-        return Path(dir_name) / Path(file_name)
+    file_list = treeview_get_file_list(treeview)
+    if file_list:
+        return file_list[0]
     else:
         return ''

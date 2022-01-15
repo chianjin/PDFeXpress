@@ -13,13 +13,13 @@ class UiMergePDF(ttk.Frame):
         self.FrameTitle.pack(fill='x', side='top')
         self.FramePDFList = ttk.Labelframe(self)
         self.TreeViewPDFList = ttk.Treeview(self.FramePDFList)
-        self.TreeViewPDFList_cols = ['ColumnDirName', 'ColumnFileName']
-        self.TreeViewPDFList_dcols = ['ColumnDirName', 'ColumnFileName']
-        self.TreeViewPDFList.configure(columns=self.TreeViewPDFList_cols, displaycolumns=self.TreeViewPDFList_dcols)
-        self.TreeViewPDFList.column('ColumnDirName', anchor='w', stretch='true', width='150', minwidth='20')
-        self.TreeViewPDFList.column('ColumnFileName', anchor='w', stretch='true', width='300', minwidth='20')
-        self.TreeViewPDFList.heading('ColumnDirName', anchor='w', text=_('Folder'))
-        self.TreeViewPDFList.heading('ColumnFileName', anchor='w', text=_('File Name'))
+        _columns = ['dir_name', 'file_name', 'file_path']
+        _display_columns = ['dir_name', 'file_name']
+        self.TreeViewPDFList.configure(columns=_columns, displaycolumns=_display_columns, show='headings')
+        self.TreeViewPDFList.column('dir_name', anchor='w', stretch='true', width='150', minwidth='20')
+        self.TreeViewPDFList.column('file_name', anchor='w', stretch='true', width='300', minwidth='20')
+        self.TreeViewPDFList.heading('dir_name', anchor='w', text=_('Folder'))
+        self.TreeViewPDFList.heading('file_name', anchor='w', text=_('File Name'))
         self.TreeViewPDFList.pack(expand='true', fill='both', padx='4', pady='4', side='left')
         self.ScrollbarPDFList = ttk.Scrollbar(self.FramePDFList)
         self.ScrollbarPDFList.configure(orient='vertical')
