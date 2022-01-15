@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).absolute().parent
 PHYSICAL_CPU_COUNT = psutil.cpu_count(logical=False)
 
 APP_NAME = 'PDF eXpress'
-APP_VERSION = '0.1.1-BETA'
+APP_VERSION = '0.2-BETA'
 APP_URL = 'https://github.com/chianjin/PDFeXpress'
 APP_ICON = BASE_DIR / 'icon/PDFeXpress32.png'
 
