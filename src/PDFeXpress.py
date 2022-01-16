@@ -14,10 +14,8 @@ class PDFeXpress(tk.Tk):
 
         self._center()
 
-        if sys.platform not in ['win32', 'darwin']:
-            ttk.Style(self).theme_use('clam')
-            for font in tkfont.names(self):
-                tkfont.nametofont(font).configure(size=9)
+        for font in tkfont.names(self):
+            tkfont.nametofont(font).configure(size=9)
 
         self.FrameMenu = FrameMenu(self)
         self.configure(menu=self.FrameMenu)
