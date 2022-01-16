@@ -8,7 +8,7 @@ from typing import Tuple, Union
 
 import fitz
 
-from constants import BYTE_UNIT, FILE_TYPES_PDF, SCREEN_RATIO
+from constants import BYTE_UNIT, FILE_TYPES_PDF
 
 
 def int2byte_unit(value: int):
