@@ -2,7 +2,6 @@ import tkinter as tk
 
 from constants import APP_ICON
 from ui.UiProgress import UiProgress
-# from utils import get_geometry
 
 PROGRESS_BAR_DELAY = 20
 

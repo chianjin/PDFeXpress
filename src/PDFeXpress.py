@@ -1,6 +1,5 @@
 import sys
 import tkinter as tk
-import tkinter.ttk as ttk
 import tkinter.font as tkfont
 
 from app.FrameMenu import FrameMenu
@@ -35,7 +34,6 @@ class PDFeXpress(tk.Tk):
         self.wm_minsize(width, height)
         self.wm_resizable(True, True)
         self.wm_geometry(f'+{left}+{top}')
-        # self.update()
 
     def run(self):
         self.mainloop()
@@ -44,6 +42,7 @@ class PDFeXpress(tk.Tk):
 if __name__ == '__main__':
     if sys.platform == 'win32':
         import ctypes
+
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
     PDFeXpress().run()

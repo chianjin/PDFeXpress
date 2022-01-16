@@ -1,10 +1,7 @@
 from pathlib import Path
-import tkinter as tk
-import tkinter.ttk as ttk
 from tkinter.filedialog import askopenfilename, askopenfilenames
 from tkinter.messagebox import showerror
 from tkinter.ttk import Treeview
-from typing import Tuple, Union
 
 import fitz
 
