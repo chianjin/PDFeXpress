@@ -1,5 +1,6 @@
 from pathlib import Path
-from tkinter import BaseWidget, Tk
+import tkinter as tk
+import tkinter.ttk as ttk
 from tkinter.filedialog import askopenfilename, askopenfilenames
 from tkinter.messagebox import showerror
 from tkinter.ttk import Treeview
@@ -16,29 +17,6 @@ def int2byte_unit(value: int):
         value /= 1024
         index += 1
     return f'{round(value)}{BYTE_UNIT[index]}B'
-
-
-def get_geometry(win: Union[Tk, BaseWidget], screen_ratio: Union[float, Tuple[int], None] = SCREEN_RATIO):
-    screen_width = win.winfo_screenwidth()
-    screen_height = win.winfo_screenheight() - 64
-
-    if screen_ratio is None:
-        win.update()
-        wm_width = win.winfo_width()
-        wm_height = win.winfo_height()
-    elif type(screen_ratio) is float and screen_ratio <= 1:
-        wm_width = int(screen_width * screen_ratio)
-        wm_height = int(wm_width / 3 * 2)
-        # wm_height = int(screen_height * screen_ratio)
-    elif type(screen_ratio) is tuple:
-        wm_width, wm_height = screen_ratio
-    else:
-        wm_width = 900
-        wm_height = 600
-
-    left_padding = int((screen_width - wm_width) / 2)
-    top_padding = int((screen_height - wm_height) / 5)
-    return f'{wm_width}x{wm_height}+{left_padding}+{top_padding}'
 
 
 def get_pdf_info(title=_('Select PDF file'), filetypes=FILE_TYPES_PDF):

@@ -17,8 +17,6 @@ class MainFrame(UiMainFrame):
     def __init__(self, master=None, **kw):
         super(MainFrame, self).__init__(master=master, **kw)
 
-        self.FrameOperateButtons.configure(text=_('Operate'))
-
         self._operates = {
                 'MergePDF': operate(MergePDF(master=self), self.ButtonMergePDF),
                 'SplitPDF': operate(SplitPDF(master=self), self.ButtonSplitPDF),
