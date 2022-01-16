@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PDF eXpress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-15 00:05+0800\n"
-"PO-Revision-Date: 2022-01-16 21:18+0800\n"
+"POT-Creation-Date: 2022-01-16 21:18+0800\n"
+"PO-Revision-Date: 2022-01-16 22:26+0800\n"
 "Last-Translator: \n"
 "Language-Team: https://github.com/chianjin/PDFeXpress\n"
 "Language: zh_CN\n"
@@ -46,19 +46,23 @@ msgstr "选择图像文件夹"
 msgid "Select text file"
 msgstr "选择文本文件"
 
-#: app/FrameMenu.py:11
+#: app/FrameMenu.py:13
 msgid "Exit"
 msgstr "退出"
 
-#: app/FrameMenu.py:12
+#: app/FrameMenu.py:14
 msgid "File"
 msgstr "文件"
 
-#: app/FrameMenu.py:15
+#: app/FrameMenu.py:19
+msgid "Theme"
+msgstr "主题"
+
+#: app/FrameMenu.py:22
 msgid "About"
 msgstr "关于"
 
-#: app/FrameMenu.py:16
+#: app/FrameMenu.py:23
 msgid "Help"
 msgstr "帮助"
 
@@ -66,17 +70,13 @@ msgstr "帮助"
 msgid "Select images files"
 msgstr "选择图像文件"
 
-#: app/Images2PDF.py:64 utils.py:44
+#: app/Images2PDF.py:64 utils.py:22
 msgid "Select PDF file"
 msgstr "选择 PDF 文件"
 
 #: app/Images2PDF.py:95
 msgid "Total Images: {}"
 msgstr "共 {} 个图像文件"
-
-#: app/MainFrame.py:20 ui/UiMainFrame.py:48
-msgid "Operate"
-msgstr "操作"
 
 #: app/MergePDF.py:27
 msgid "Select PDF files"
@@ -95,15 +95,15 @@ msgstr "共 {} 个 PDF 文件"
 msgid "Error"
 msgstr "错误"
 
-#: app/Progress.py:15
+#: app/Progress.py:18
 msgid "Processing..."
 msgstr "正在处理……"
 
-#: app/Progress.py:45
+#: app/Progress.py:59
 msgid "Completed."
 msgstr "全部完成。"
 
-#: app/Progress.py:46 ui/UiAbout.py:30
+#: app/Progress.py:60 ui/UiAbout.py:30
 msgid "OK"
 msgstr "确定"
 
@@ -127,47 +127,47 @@ msgstr "范围开始页应当在 1 和 {} 之间，请重新输入。"
 msgid "Range stop must between 1 and {}. Please enter again."
 msgstr "范围结束页应当在 1 和 {} 之间，请重新输入。"
 
-#: constants.py:27 ui/UiCompressPDF.py:23 ui/UiExtractImages.py:23
-#: ui/UiExtractText.py:23 ui/UiImages2PDF.py:71 ui/UiPDF2Images.py:23
+#: constants.py:25 ui/UiCompressPDF.py:23 ui/UiExtractImages.py:23
+#: ui/UiExtractText.py:23 ui/UiImages2PDF.py:69 ui/UiPDF2Images.py:23
 #: ui/UiRotatePDF.py:23 ui/UiSplitPDF.py:23
 msgid "PDF File"
 msgstr "PDF 文件"
 
-#: constants.py:28 ui/UiExtractText.py:34
+#: constants.py:26 ui/UiExtractText.py:34
 msgid "Text File"
 msgstr "文本文件"
 
-#: constants.py:30
+#: constants.py:28
 msgid "Image File"
 msgstr "图像文件"
 
-#: constants.py:31
+#: constants.py:29
 msgid "JPEG Image"
 msgstr "JPEG 图像"
 
-#: constants.py:32
+#: constants.py:30
 msgid "PNG Image"
 msgstr "PNG 图像"
 
-#: constants.py:33
+#: constants.py:31
 msgid "GIF Image"
 msgstr "GIF 图像"
 
-#: constants.py:34
+#: constants.py:32
 msgid "TIFF Image"
 msgstr "TIFF 图像"
 
-#: constants.py:35
+#: constants.py:33
 msgid "BMP Image"
 msgstr "BMP 图像"
 
-#: ui/UiCompressPDF.py:10 ui/UiCompressPDF.py:78 ui/UiMainFrame.py:24
+#: ui/UiCompressPDF.py:10 ui/UiCompressPDF.py:78 ui/UiMainFrame.py:30
 msgid "Compress PDF"
 msgstr "压缩 PDF"
 
 #: ui/UiCompressPDF.py:20 ui/UiCompressPDF.py:31 ui/UiExtractImages.py:20
 #: ui/UiExtractImages.py:31 ui/UiExtractText.py:20 ui/UiExtractText.py:31
-#: ui/UiImages2PDF.py:68 ui/UiMergePDF.py:66 ui/UiPDF2Images.py:20
+#: ui/UiImages2PDF.py:66 ui/UiMergePDF.py:66 ui/UiPDF2Images.py:20
 #: ui/UiPDF2Images.py:31 ui/UiRotatePDF.py:20 ui/UiRotatePDF.py:31
 #: ui/UiSplitPDF.py:20 ui/UiSplitPDF.py:31
 msgid "Browser"
@@ -177,7 +177,7 @@ msgstr "浏览"
 msgid "Compressed PDF File"
 msgstr "压缩后的 PDF 文件"
 
-#: ui/UiCompressPDF.py:38 ui/UiPDF2Images.py:57
+#: ui/UiCompressPDF.py:38 ui/UiPDF2Images.py:60
 msgid "Image Quality"
 msgstr "图像质量"
 
@@ -185,8 +185,8 @@ msgstr "图像质量"
 msgid "Max DPI"
 msgstr "最高 DPI"
 
-#: ui/UiCompressPDF.py:63 ui/UiPDF2Images.py:83 ui/UiRotatePDF.py:50
-#: ui/UiSplitPDF.py:96
+#: ui/UiCompressPDF.py:63 ui/UiPDF2Images.py:86 ui/UiRotatePDF.py:50
+#: ui/UiSplitPDF.py:105
 msgid "Option"
 msgstr "选项"
 
@@ -194,7 +194,7 @@ msgstr "选项"
 msgid "Compress"
 msgstr "压缩"
 
-#: ui/UiExtractImages.py:10 ui/UiExtractImages.py:47 ui/UiMainFrame.py:29
+#: ui/UiExtractImages.py:10 ui/UiExtractImages.py:47 ui/UiMainFrame.py:37
 msgid "Extract Images"
 msgstr "提取图像"
 
@@ -206,55 +206,55 @@ msgstr "图像文件夹"
 msgid "Extract"
 msgstr "提取"
 
-#: ui/UiExtractText.py:10 ui/UiExtractText.py:47 ui/UiMainFrame.py:34
+#: ui/UiExtractText.py:10 ui/UiExtractText.py:47 ui/UiMainFrame.py:44
 msgid "Extract Text"
 msgstr "提取文本"
 
-#: ui/UiImages2PDF.py:10 ui/UiImages2PDF.py:86 ui/UiMainFrame.py:44
+#: ui/UiImages2PDF.py:10 ui/UiImages2PDF.py:84 ui/UiMainFrame.py:58
 msgid "Images to PDF"
 msgstr "图像转 PDF"
 
-#: ui/UiImages2PDF.py:23 ui/UiMergePDF.py:21
+#: ui/UiImages2PDF.py:21 ui/UiMergePDF.py:21
 msgid "Folder"
 msgstr "文件夹"
 
-#: ui/UiImages2PDF.py:24 ui/UiMergePDF.py:22
+#: ui/UiImages2PDF.py:22 ui/UiMergePDF.py:22
 msgid "File Name"
 msgstr "文件名"
 
-#: ui/UiImages2PDF.py:30
+#: ui/UiImages2PDF.py:28
 msgid "Add Images"
 msgstr "添加图像"
 
-#: ui/UiImages2PDF.py:34
+#: ui/UiImages2PDF.py:32
 msgid "Remove Image"
 msgstr "移除图像"
 
-#: ui/UiImages2PDF.py:38 ui/UiMergePDF.py:36
+#: ui/UiImages2PDF.py:36 ui/UiMergePDF.py:36
 msgid "Remove All"
 msgstr "全部移除"
 
-#: ui/UiImages2PDF.py:45 ui/UiMergePDF.py:43
+#: ui/UiImages2PDF.py:43 ui/UiMergePDF.py:43
 msgid "Move to First"
 msgstr "移至开头"
 
-#: ui/UiImages2PDF.py:49 ui/UiMergePDF.py:47
+#: ui/UiImages2PDF.py:47 ui/UiMergePDF.py:47
 msgid "Move Up"
 msgstr "向上移动"
 
-#: ui/UiImages2PDF.py:53 ui/UiMergePDF.py:51
+#: ui/UiImages2PDF.py:51 ui/UiMergePDF.py:51
 msgid "Move Down"
 msgstr "向下移动"
 
-#: ui/UiImages2PDF.py:57 ui/UiMergePDF.py:55
+#: ui/UiImages2PDF.py:55 ui/UiMergePDF.py:55
 msgid "Move to Last"
 msgstr "移至末尾"
 
-#: ui/UiImages2PDF.py:60
+#: ui/UiImages2PDF.py:58
 msgid "Image List"
 msgstr "图像列表"
 
-#: ui/UiImages2PDF.py:83 ui/UiPDF2Images.py:94
+#: ui/UiImages2PDF.py:81 ui/UiPDF2Images.py:97
 msgid "Convert"
 msgstr "转换"
 
@@ -262,17 +262,21 @@ msgstr "转换"
 msgid "Merge PDF"
 msgstr "合并 PDF"
 
-#: ui/UiMainFrame.py:14 ui/UiSplitPDF.py:10 ui/UiSplitPDF.py:111
+#: ui/UiMainFrame.py:16 ui/UiSplitPDF.py:10 ui/UiSplitPDF.py:120
 msgid "Split PDF"
 msgstr "分割 PDF"
 
-#: ui/UiMainFrame.py:19 ui/UiRotatePDF.py:10 ui/UiRotatePDF.py:63
+#: ui/UiMainFrame.py:23 ui/UiRotatePDF.py:10 ui/UiRotatePDF.py:63
 msgid "Rotate PDF"
 msgstr "旋转 PDF"
 
-#: ui/UiMainFrame.py:39 ui/UiPDF2Images.py:10 ui/UiPDF2Images.py:97
+#: ui/UiMainFrame.py:51 ui/UiPDF2Images.py:10 ui/UiPDF2Images.py:100
 msgid "PDF to Images"
 msgstr "PDF 转图像"
+
+#: ui/UiMainFrame.py:64
+msgid "Operate"
+msgstr "操作"
 
 #: ui/UiMergePDF.py:28
 msgid "Add PDF"
@@ -326,27 +330,27 @@ msgstr "分割后的 PDF 文件夹"
 msgid "Per Page"
 msgstr "单页"
 
-#: ui/UiSplitPDF.py:47
+#: ui/UiSplitPDF.py:50
 msgid "By Pages"
 msgstr "按页数"
 
-#: ui/UiSplitPDF.py:61
+#: ui/UiSplitPDF.py:67
 msgid "By Count"
 msgstr "按份数"
 
-#: ui/UiSplitPDF.py:71
+#: ui/UiSplitPDF.py:80
 msgid "By Range"
 msgstr "范围"
 
-#: ui/UiSplitPDF.py:108
+#: ui/UiSplitPDF.py:117
 msgid "Split"
 msgstr "分割"
 
-#: utils.py:57
+#: utils.py:35
 msgid "File not exist."
 msgstr "文件不存在。"
 
-#: utils.py:58
+#: utils.py:36
 msgid ""
 "{}\n"
 "File not exist, please check."
