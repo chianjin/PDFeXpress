@@ -168,8 +168,8 @@
                 <property name="justify">center</property>
                 <property name="state">disabled</property>
                 <property name="textvariable">int:split_page</property>
-                <property name="validate">focusout</property>
-                <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_page</property>
+                <property name="validate">all</property>
+                <property name="validatecommand" type="command" cbtype="entry_validate" args="%d %P %V">valid_split_pages</property>
                 <property name="width">4</property>
                 <layout manager="pack">
                   <property name="padx">4</property>
@@ -228,8 +228,8 @@
                 <property name="justify">center</property>
                 <property name="state">disabled</property>
                 <property name="textvariable">int:split_range_start</property>
-                <property name="validate">focusout</property>
-                <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_start</property>
+                <property name="validate">all</property>
+                <property name="validatecommand" type="command" cbtype="entry_validate" args="%d %P %V %W">valid_split_range</property>
                 <property name="width">5</property>
                 <layout manager="pack">
                   <property name="padx">4</property>
@@ -256,8 +256,8 @@
                 <property name="justify">center</property>
                 <property name="state">disabled</property>
                 <property name="textvariable">int:split_range_stop</property>
-                <property name="validate">focusout</property>
-                <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_stop</property>
+                <property name="validate">all</property>
+                <property name="validatecommand" type="command" cbtype="entry_validate" args="%d %P %V %W">valid_split_range</property>
                 <property name="width">5</property>
                 <layout manager="pack">
                   <property name="padx">4</property>

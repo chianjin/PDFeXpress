@@ -139,6 +139,8 @@
           <object class="ttk.Entry" id="EntryImageQuality">
             <property name="justify">center</property>
             <property name="textvariable">int:image_quality</property>
+            <property name="validate">all</property>
+            <property name="validatecommand" type="command" cbtype="entry_validate" args="%d %P %V">valid_image_quality</property>
             <property name="width">3</property>
             <layout manager="pack">
               <property name="padx">4</property>
@@ -190,8 +192,10 @@
         <child>
           <object class="ttk.Combobox" id="ComboboxDPI">
             <property name="justify">center</property>
-            <property name="state">readonly</property>
+            <property name="state">normal</property>
             <property name="textvariable">int:image_max_dpi</property>
+            <property name="validate">all</property>
+            <property name="validatecommand" type="command" cbtype="entry_validate" args="%d %P %V">valid_image_dpi</property>
             <property name="values">96 144 192 244 288 384 480 576</property>
             <property name="width">3</property>
             <layout manager="pack">

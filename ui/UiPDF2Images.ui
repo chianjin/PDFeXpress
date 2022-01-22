@@ -195,8 +195,8 @@
             <property name="justify">center</property>
             <property name="state">disabled</property>
             <property name="textvariable">int:image_quality</property>
-            <property name="validate">focusout</property>
-            <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_image_quality</property>
+            <property name="validate">all</property>
+            <property name="validatecommand" type="command" cbtype="entry_validate" args="%d %P %V">valid_image_quality</property>
             <property name="width">3</property>
             <layout manager="pack">
               <property name="padx">4</property>
@@ -240,8 +240,8 @@
             <property name="justify">center</property>
             <property name="state">disabled</property>
             <property name="textvariable">int:image_dpi</property>
-            <property name="validate">focusout</property>
-            <property name="validatecommand" type="command" cbtype="entry_validate" args="">valid_image_dpi</property>
+            <property name="validate">all</property>
+            <property name="validatecommand" type="command" cbtype="entry_validate" args="%d %P %V">valid_image_dpi</property>
             <property name="values">96 144 192 240 288 336 384 432 480 528 576 624</property>
             <property name="width">4</property>
             <layout manager="pack">

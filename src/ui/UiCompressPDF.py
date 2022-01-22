@@ -7,9 +7,9 @@ class UiCompressPDF(ttk.Frame):
         super(UiCompressPDF, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 20 {bold}', text=_('Compress PDF'))
+        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 16 {bold}', text=_('Compress PDF'))
         self.LabelFrameName.pack(side='left')
-        self.FrameTitle.configure(height='200', padding='20', width='200')
+        self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
         self.FramePDFFile = ttk.Labelframe(self)
         self.EntryPDFFile = ttk.Entry(self.FramePDFFile)
@@ -39,8 +39,10 @@ class UiCompressPDF(ttk.Frame):
         self.LabelImageQuality.pack(padx='4', pady='4', side='left')
         self.EntryImageQuality = ttk.Entry(self.FrameOption)
         self.image_quality = tk.IntVar(value='')
-        self.EntryImageQuality.configure(justify='center', textvariable=self.image_quality, width='3')
+        self.EntryImageQuality.configure(justify='center', textvariable=self.image_quality, validate='all', width='3')
         self.EntryImageQuality.pack(padx='4', pady='4', side='left')
+        _validatecmd = (self.EntryImageQuality.register(self.valid_image_quality), '%d', '%P', '%V')
+        self.EntryImageQuality.configure(validatecommand=_validatecmd)
         self.ScaleImageQuality = ttk.Scale(self.FrameOption)
         self.ScaleImageQuality.configure(from_='0', orient='horizontal', to='100', value='80')
         self.ScaleImageQuality.configure(variable=self.image_quality)
@@ -54,12 +56,11 @@ class UiCompressPDF(ttk.Frame):
         self.LabelImageMaxDPI.pack(padx='4', pady='4', side='left')
         self.ComboboxDPI = ttk.Combobox(self.FrameOption)
         self.image_max_dpi = tk.IntVar(value='')
-        self.ComboboxDPI.configure(
-                justify='center', state='readonly', textvariable=self.image_max_dpi,
-                values='96 144 192 244 288 384 480 576'
-                )
-        self.ComboboxDPI.configure(width='3')
+        self.ComboboxDPI.configure(justify='center', state='normal', textvariable=self.image_max_dpi, validate='all')
+        self.ComboboxDPI.configure(values='96 144 192 244 288 384 480 576', width='3')
         self.ComboboxDPI.pack(padx='4', pady='4', side='left')
+        _validatecmd = (self.ComboboxDPI.register(self.valid_image_dpi), '%d', '%P', '%V')
+        self.ComboboxDPI.configure(validatecommand=_validatecmd)
         self.FrameOption.configure(height='200', text=_('Option'), width='200')
         self.FrameOption.pack(fill='x', padx='4', pady='4', side='top')
         self.FrameProcess = ttk.Labelframe(self)
@@ -84,7 +85,13 @@ class UiCompressPDF(ttk.Frame):
     def set_compressed_pdf_file(self):
         pass
 
+    def valid_image_quality(self, d, P, V):
+        pass
+
     def set_image_quality(self, scale_value):
+        pass
+
+    def valid_image_dpi(self, d, P, V):
         pass
 
     def process(self):

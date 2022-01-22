@@ -7,9 +7,9 @@ class UiSplitPDF(ttk.Frame):
         super(UiSplitPDF, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 20 {bold}', text=_('Split PDF'))
+        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 16 {bold}', text=_('Split PDF'))
         self.LabelFrameName.pack(side='left')
-        self.FrameTitle.configure(height='200', padding='20', width='200')
+        self.FrameTitle.configure(height='200', padding='10', width='200')
         self.FrameTitle.pack(fill='x', side='top')
         self.FramePDFFile = ttk.Labelframe(self)
         self.EntryPDFFile = ttk.Entry(self.FramePDFFile)
@@ -42,9 +42,6 @@ class UiSplitPDF(ttk.Frame):
                 )
         self.RadiobuttonSplitSingle.pack(padx='4', pady='4', side='left')
         self.RadiobuttonSplitSingle.configure(command=self.set_split_mode)
-        spacer = ttk.Frame(self.FrameSplitMode)
-        spacer.configure(width=20)
-        spacer.pack(side='left')
         self.RadiobuttonSplitPage = ttk.Radiobutton(self.FrameSplitMode)
         self.RadiobuttonSplitPage.configure(
                 state='disabled', text=_('By Pages'), value='page', variable=self.split_mode
@@ -53,15 +50,11 @@ class UiSplitPDF(ttk.Frame):
         self.RadiobuttonSplitPage.configure(command=self.set_split_mode)
         self.EntrySplitPage = ttk.Entry(self.FrameSplitMode)
         self.split_page = tk.IntVar(value='')
-        self.EntrySplitPage.configure(
-                justify='center', state='disabled', textvariable=self.split_page, validate='focusout'
-                )
+        self.EntrySplitPage.configure(justify='center', state='disabled', textvariable=self.split_page, validate='all')
         self.EntrySplitPage.configure(width='4')
         self.EntrySplitPage.pack(padx='4', pady='4', side='left')
-        self.EntrySplitPage.configure(validatecommand=self.valid_page)
-        spacer = ttk.Frame(self.FrameSplitMode)
-        spacer.configure(width=20)
-        spacer.pack(side='left')
+        _validatecmd = (self.EntrySplitPage.register(self.valid_split_pages), '%d', '%P', '%V')
+        self.EntrySplitPage.configure(validatecommand=_validatecmd)
         self.RadiobuttonSplitCount = ttk.Radiobutton(self.FrameSplitMode)
         self.RadiobuttonSplitCount.configure(
                 state='disabled', text=_('By Count'), value='count', variable=self.split_mode
@@ -72,9 +65,6 @@ class UiSplitPDF(ttk.Frame):
         self.split_count = tk.IntVar(value='')
         self.ComboboxSplitCount.configure(justify='center', state='disabled', textvariable=self.split_count, width='4')
         self.ComboboxSplitCount.pack(padx='4', pady='4', side='left')
-        spacer = ttk.Frame(self.FrameSplitMode)
-        spacer.configure(width=20)
-        spacer.pack(side='left')
         self.RadiobuttonSplitRange = ttk.Radiobutton(self.FrameSplitMode)
         self.RadiobuttonSplitRange.configure(
                 state='disabled', text=_('By Range'), value='range', variable=self.split_mode
@@ -84,22 +74,24 @@ class UiSplitPDF(ttk.Frame):
         self.EntrySplitRangeStart = ttk.Entry(self.FrameSplitMode)
         self.split_range_start = tk.IntVar(value='')
         self.EntrySplitRangeStart.configure(
-                justify='center', state='disabled', textvariable=self.split_range_start, validate='focusout'
+                justify='center', state='disabled', textvariable=self.split_range_start, validate='all'
                 )
         self.EntrySplitRangeStart.configure(width='5')
         self.EntrySplitRangeStart.pack(padx='4', pady='4', side='left')
-        self.EntrySplitRangeStart.configure(validatecommand=self.valid_start)
+        _validatecmd = (self.EntrySplitRangeStart.register(self.valid_split_range), '%d', '%P', '%V', '%W')
+        self.EntrySplitRangeStart.configure(validatecommand=_validatecmd)
         self.LabelSplitRangeTo = ttk.Label(self.FrameSplitMode)
-        self.LabelSplitRangeTo.configure(state='disabled', text='-')
+        self.LabelSplitRangeTo.configure(state='disabled', text=_('-'))
         self.LabelSplitRangeTo.pack(padx='2', pady='4', side='left')
         self.EntrySplitRangeStop = ttk.Entry(self.FrameSplitMode)
         self.split_range_stop = tk.IntVar(value='')
         self.EntrySplitRangeStop.configure(
-                justify='center', state='disabled', textvariable=self.split_range_stop, validate='focusout'
+                justify='center', state='disabled', textvariable=self.split_range_stop, validate='all'
                 )
         self.EntrySplitRangeStop.configure(width='5')
         self.EntrySplitRangeStop.pack(padx='4', pady='4', side='left')
-        self.EntrySplitRangeStop.configure(validatecommand=self.valid_stop)
+        _validatecmd = (self.EntrySplitRangeStop.register(self.valid_split_range), '%d', '%P', '%V', '%W')
+        self.EntrySplitRangeStop.configure(validatecommand=_validatecmd)
         self.FrameSplitMode.configure(height='200', width='200')
         self.FrameSplitMode.pack(fill='x', side='top')
         self.FrameOption.configure(height='200', text=_('Option'), width='200')
@@ -129,13 +121,10 @@ class UiSplitPDF(ttk.Frame):
     def set_split_mode(self):
         pass
 
-    def valid_page(self):
+    def valid_split_pages(self, d, P, V):
         pass
 
-    def valid_start(self):
-        pass
-
-    def valid_stop(self):
+    def valid_split_range(self, d, P, V, W):
         pass
 
     def process(self):

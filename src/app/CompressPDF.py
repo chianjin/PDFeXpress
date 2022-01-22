@@ -60,10 +60,35 @@ class CompressPDF(UiCompressPDF):
 
         self._toggle_buttons()
 
+    def valid_image_quality(self, d, P, V):
+        if d == '0' \
+                or d == '1' and P == '0' \
+                or d == '1' and not P.startswith('0') and P.isdigit() and 0 <= int(P) <= 100 \
+                or V == 'focusout' and P.isdigit() and 0 <= int(P) <= 100:
+            if self.EntryImageQuality.grab_status():
+                self.EntryImageQuality.grab_release()
+            return True
+
+        self.EntryImageQuality.grab_set()
+        self.EntryImageQuality.focus()
+        return False
+
     def set_image_quality(self, scale_value):
         value = int(round(float(scale_value) * 2, -1)) // 2  # Scale step: 5
         self._image_quality = value
         self.image_quality.set(self._image_quality)
+
+    def valid_image_dpi(self, d, P, V):
+        if d == '0' \
+                or d == '1' and not P.startswith('0') and P.isdigit() and 0 < int(P) \
+                or V == 'focusout' and P.isdigit() and 0 < int(P):
+            if self.ComboboxDPI.grab_status():
+                self.ComboboxDPI.grab_release()
+            return True
+
+        self.ComboboxDPI.grab_set()
+        self.ComboboxDPI.focus()
+        return False
 
     def process(self):
         if not check_file_exist(self._pdf_file):

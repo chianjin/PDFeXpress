@@ -2,7 +2,6 @@ from io import BytesIO
 from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import askdirectory
-from tkinter.messagebox import showerror
 from typing import Iterable, Union
 
 import fitz
@@ -74,29 +73,35 @@ class PDF2Images(UiPDF2Images):
     def set_image_alpha(self):
         self._image_alpha = self.image_alpha.get()
 
-    def valid_image_quality(self):
-        image_quality = self.EntryImageQuality.get()
-        if image_quality.isdigit() and 0 <= int(image_quality) <= 100:
-            self._image_quality = self.image_quality.get()
+    def valid_image_quality(self, d, P, V):
+        if d == '0' \
+                or d == '1' and P == '0' \
+                or d == '1' and not P.startswith('0') and P.isdigit() and 0 <= int(P) <= 100 \
+                or V == 'focusout' and P.isdigit() and 0 <= int(P) <= 100:
+            if self.EntryImageQuality.grab_status():
+                self.EntryImageQuality.grab_release()
             return True
-        else:
-            showerror(title=_('Error'), message='Quality must between 0 and 100, Please enter again')
-            return False
+
+        self.EntryImageQuality.grab_set()
+        self.EntryImageQuality.focus()
+        return False
 
     def set_image_quality(self, scale_value):
         image_quality = self.ScaleImageQuality.get()
         self._image_quality = int(image_quality / 5) * 5
         self.image_quality.set(self._image_quality)
 
-    def valid_image_dpi(self):
-        image_dpi = self.ComboboxImageDPI.get()
-        if image_dpi.isdigit() and int(image_dpi) > 1:
-            self._image_dpi = self.image_dpi.get()
+    def valid_image_dpi(self, d, P, V):
+        if d == '0' \
+                or d == '1' and not P.startswith('0') and P.isdigit() and 0 < int(P) \
+                or V == 'focusout' and P.isdigit() and 0 < int(P):
+            if self.ComboboxImageDPI.grab_status():
+                self.ComboboxImageDPI.grab_release()
             return True
-        else:
-            showerror(title=_('Error'), message='DPI must greater than 0, Please enter again.')
-            self.ComboboxImageDPI.focus()
-            return False
+
+        self.ComboboxImageDPI.grab_set()
+        self.ComboboxImageDPI.focus()
+        return False
 
     def process(self):
         if not check_file_exist(self._pdf_file):

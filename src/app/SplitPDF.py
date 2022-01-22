@@ -3,7 +3,6 @@ from itertools import zip_longest
 from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import askdirectory
-from tkinter.messagebox import showerror
 from typing import Tuple, Union
 
 import fitz
@@ -77,41 +76,29 @@ class SplitPDF(UiSplitPDF):
             self.EntrySplitRangeStart.configure(state='disabled')
             self.EntrySplitRangeStop.configure(state='disabled')
 
-    def valid_page(self):
-        pages = self.EntrySplitPage.get()
-        if pages.isdigit() and 1 < int(pages) < self._page_count:
+    def valid_split_pages(self, d, P, V):
+        if d == '0' \
+                or d == '1' and not P.startswith('0') and P.isdigit() and 2 < int(P) < self._page_count \
+                or V == 'focusout' and P.isdigit() and 2 < int(P) < self._page_count:
+            if self.EntrySplitPage.grab_status():
+                self.EntrySplitPage.grab_release()
             return True
-        else:
-            showerror(
-                    title=_('Error'),
-                    message=_('Pages must between 2 and {}. Please enter again.').format(self._page_count)
-                    )
-            self.EntrySplitPage.focus()
-            return False
 
-    def valid_start(self):
-        start = self.EntrySplitRangeStart.get()
-        if start.isdigit() and 1 <= int(start) <= self._page_count:
-            return True
-        else:
-            showerror(
-                    title=_('Error'),
-                    message=_('Range start must between 1 and {}. Please enter again.').format(self._page_count)
-                    )
-            self.EntrySplitRangeStart.focus()
-            return False
+        self.EntrySplitPage.grab_set()
+        self.EntrySplitPage.focus()
+        return False
 
-    def valid_stop(self):
-        stop = self.EntrySplitRangeStop.get()
-        if stop.isdigit() and 1 <= int(stop) <= self._page_count:
+    def valid_split_range(self, d, P, V, W):
+        if d == '0' \
+                or d == '1' and not P.startswith('0') and P.isdigit() and 1 <= int(P) <= self._page_count \
+                or V == 'focusout' and P.isdigit() and 1 <= int(P) <= self._page_count:
+            if self.nametowidget(W).grab_status():
+                self.nametowidget(W).grab_release()
             return True
-        else:
-            showerror(
-                    title=_('Error'),
-                    message=_('Range stop must between 1 and {}. Please enter again.').format(self._page_count)
-                    )
-            self.EntrySplitRangeStop.focus()
-            return False
+
+        self.nametowidget(W).grab_set()
+        self.nametowidget(W).focus()
+        return False
 
     def process(self):
         if not check_file_exist(self._pdf_file):

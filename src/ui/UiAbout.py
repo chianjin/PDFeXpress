@@ -2,9 +2,6 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
-# from constants import TRANSLATER as _
-
-
 class UiAbout(tk.Toplevel):
     def __init__(self, master=None, **kw):
         super(UiAbout, self).__init__(master, **kw)
