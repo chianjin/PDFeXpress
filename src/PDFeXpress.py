@@ -26,9 +26,11 @@ class PDFeXpress(tk.Tk):
         self.iconphoto(False, tk.PhotoImage(file=APP_ICON))
 
     def _center(self):
-        width, height = 900, 600
         screen_width = self.winfo_screenwidth()
-        screen_height = self.winfo_screenheight() * 4 // 5
+        screen_height = self.winfo_screenheight()
+        width = screen_width * 2 // 3
+        height = screen_height * 3 // 4
+        screen_height = screen_height * 4 // 5
         left = (screen_width - width) // 2
         top = (screen_height - height) // 2
         self.wm_minsize(width, height)
