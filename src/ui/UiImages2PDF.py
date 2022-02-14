@@ -7,13 +7,13 @@ class UiImages2PDF(ttk.Frame):
         super(UiImages2PDF, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 20 {bold}', text=_('Images to PDF'))
+        self.LabelFrameName.configure(font='FrameLabelFont', text=_('Images to PDF'))
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='20', width='200')
         self.FrameTitle.pack(fill='x', side='top')
         self.FrameImageList = ttk.Labelframe(self)
         self.TreeViewImageList = ttk.Treeview(self.FrameImageList)
-        _columns = ['dir_name', 'file_name', 'file_path']
+        _columns = ['dir_name', 'file_name']
         _display_columns = ['dir_name', 'file_name']
         self.TreeViewImageList.configure(columns=_columns, displaycolumns=_display_columns, show='headings')
         self.TreeViewImageList.column('dir_name', anchor='w', stretch='true', width='150', minwidth='20')

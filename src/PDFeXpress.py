@@ -13,8 +13,16 @@ class PDFeXpress(tk.Tk):
 
         self._center()
 
-        for font in tkfont.names(self):
-            tkfont.nametofont(font).configure(size=9)
+        # for font in tkfont.names(self):
+        #     tkfont.nametofont(font).configure(size=9)
+
+        # FrameLabelFont: named font for frame label
+        _frame_label_font = tkfont.Font(
+                name='FrameLabelFont',
+                family=tkfont.nametofont('TkDefaultFont').cget('family'),
+                size=20,
+                weight='bold'
+                )
 
         self.FrameMenu = FrameMenu(self)
         self.configure(menu=self.FrameMenu)

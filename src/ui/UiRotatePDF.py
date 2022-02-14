@@ -7,7 +7,7 @@ class UiRotatePDF(ttk.Frame):
         super(UiRotatePDF, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 20 {bold}', text=_('Rotate PDF'))
+        self.LabelFrameName.configure(font='FrameLabelFont', text=_('Rotate PDF'))
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='20', width='200')
         self.FrameTitle.pack(fill='x', side='top')

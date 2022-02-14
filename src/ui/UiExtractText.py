@@ -7,7 +7,7 @@ class UiExtractText(ttk.Frame):
         super(UiExtractText, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 20 {bold}', text=_('Extract Text'))
+        self.LabelFrameName.configure(font='FrameLabelFont', text=_('Extract Text'))
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='20', width='200')
         self.FrameTitle.pack(fill='x', side='top')

@@ -45,7 +45,7 @@ def treeview_add_files(treeview: Treeview, title, filetypes):
     file_list = askopenfilenames(title=title, filetypes=filetypes)
     for file in file_list:
         file_path = Path(file)
-        treeview.insert('', 'end', values=(file_path.parent, file_path.name, file_path))
+        treeview.insert('', 'end', text=file_path, values=(file_path.parent, file_path.name))
 
 
 def treeview_move_item(treeview: Treeview, position: str):
@@ -64,13 +64,10 @@ def treeview_move_item(treeview: Treeview, position: str):
     elif position == 'up':
         new_index = index - 1
     elif position == 'down':
-        new_index = index + 2
+        new_index = index + 1
     else:
         return None
-    values = treeview.item(selected_item).get('values')
-    inserted_item = treeview.insert('', new_index, values=values)
-    treeview.delete(selected_item)
-    treeview.selection_set(inserted_item)
+    treeview.move(selected_item, '', new_index)
 
 
 def treeview_remove_items(treeview, remove_all=False):
@@ -78,14 +75,13 @@ def treeview_remove_items(treeview, remove_all=False):
         item_list = treeview.get_children()
     else:
         item_list = treeview.selection()
-    for item in item_list:
-        treeview.delete(item)
+    treeview.delete(*item_list)
 
 
 def treeview_get_file_list(treeview: Treeview):
     file_list = []
     for item in treeview.get_children():
-        file_path = treeview.item(item, 'values')[2]
+        file_path = treeview.item(item, 'text')
         file_list.append(Path(file_path))
     return file_list
 

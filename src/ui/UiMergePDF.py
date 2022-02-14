@@ -7,13 +7,13 @@ class UiMergePDF(ttk.Frame):
         super(UiMergePDF, self).__init__(master, **kw)
         self.FrameTitle = ttk.Frame(self)
         self.LabelFrameName = ttk.Label(self.FrameTitle)
-        self.LabelFrameName.configure(font='{Microsoft YaHei UI} 20 {bold}', text=_('Merge PDF'))
+        self.LabelFrameName.configure(font='FrameLabelFont', text=_('Merge PDF'))
         self.LabelFrameName.pack(side='left')
         self.FrameTitle.configure(height='200', padding='20', width='200')
         self.FrameTitle.pack(fill='x', side='top')
         self.FramePDFList = ttk.Labelframe(self)
         self.TreeViewPDFList = ttk.Treeview(self.FramePDFList)
-        _columns = ['dir_name', 'file_name', 'file_path']
+        _columns = ['dir_name', 'file_name']
         _display_columns = ['dir_name', 'file_name']
         self.TreeViewPDFList.configure(columns=_columns, displaycolumns=_display_columns, show='headings')
         self.TreeViewPDFList.column('dir_name', anchor='w', stretch='true', width='150', minwidth='20')
