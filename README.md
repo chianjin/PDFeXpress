@@ -5,11 +5,11 @@
 
 ## Developing Environment
 
-- Python 3.10.1
-- Nuitka==0.6.19.1
-- Pillow==9.0.0
-- psutil==5.9.0
-- PyMuPDF==1.19.4
+- Python 3.10
+- Nuitka
+- Pillow
+- psutil
+- PyMuPDF
 
 ## Current Version
 
@@ -28,9 +28,11 @@ The current version is 0.2-BETA, tested on Windows 10 and 11. Planing to test on
 
 ## Running Method
 
-[Download](https://www.aliyundrive.com/s/6sqqjkPFxKc) the compiled binary installer and install and run PDFeXpress.exe or click the shortcut on your system.
+[Download](https://github.com/chianjin/PDFeXpress/releases) the compiled binary installer and install and run PDFeXpress.exe or click the shortcut on your system.
 
-AliyunDrive: [PDFeXpress-0.1BETA-setup-x64.exe](https://www.aliyundrive.com/s/6sqqjkPFxKc)
+Can also download from:
+[Aliyun](https://www.aliyundrive.com/s/3HRssM66yVV)
+[Baidu](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
 
 ## Build
 

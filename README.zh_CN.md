@@ -6,15 +6,15 @@
 
 ## 开发环境
 
-- Python 3.10.1
-- Nuitka==0.6.19.1
-- Pillow==9.0.0
-- psutil==5.9.0
-- PyMuPDF==1.19.4
+- Python 3.10
+- Nuitka
+- Pillow
+- psutil
+- PyMuPDF
 
 ## 当前版本
 
-当前版本为 0.2-BETA，已经在64位的Windows 10和11上测试通过。未来计划测试Linux、FreeBSD系统。
+当前版本为 0.2.2-BETA，已经在64位的Windows 10和11上测试通过。未来计划测试Linux、FreeBSD系统。
 
 ## 主要功能
 
@@ -29,9 +29,11 @@
 
 ## 运行方式
 
-下载已经编译好的安装程序，运行安装即可。
+[下载](https://github.com/chianjin/PDFeXpress/releases) 已经编译好的安装程序，运行安装即可。
 
-阿里云盘：[PDFeXpress-0.1BETA-setup-x64.exe](https://www.aliyundrive.com/s/6sqqjkPFxKc)
+也可以从这里下载：
+[阿里云盘](https://www.aliyundrive.com/s/3HRssM66yVV)
+[百度网盘](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
 
 ## 构建
 
