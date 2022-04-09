@@ -1,4 +1,4 @@
-p# PDF eXpress
+# PDF eXpress
 
 [[English]](https://github.com/chianjin/PDFeXpress/blob/main/README.md)  [[简体中文]](https://github.com/chianjin/PDFeXpress/blob/main/README.zh_CN.md)
 
