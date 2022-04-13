@@ -13,7 +13,7 @@
 
 ## Current Version
 
-The current version is 0.2-BETA, tested on Windows 10 and 11. Planing to test on Linux/FreeBSD.
+The current version is 0.3-BETA, tested on Windows 10 and 11. Planing to test on Linux/FreeBSD.
 
 ## Main Functions
 

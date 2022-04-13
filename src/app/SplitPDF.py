@@ -44,7 +44,7 @@ class SplitPDF(UiSplitPDF):
         self._toggle_buttons()
 
     def set_split_pdf_dir(self):
-        self._split_pdf_dir = askdirectory(title=_('Select split PDF folder'))
+        self._split_pdf_dir = askdirectory(title=_('Select Split PDF folder'))
         if self._split_pdf_dir:
             self._split_pdf_dir = Path(self._split_pdf_dir)
             self.split_pdf_dir.set(self._split_pdf_dir)
