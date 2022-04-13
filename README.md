@@ -23,7 +23,7 @@ The current version is 0.3-BETA, tested on Windows 10 and 11. Planing to test on
 - **Compression**: Reduces PDF file size by compressing the images contained in the page
 - **Extract Images**: Extracts the images contained in the PDF file and saves them in the original data format
 - **Extract Text**: Extracts plain text contained in a PDF file, without formatting
-- **PDF to Image** : Converts the each entire pages of a PDF file to images
+- **PDF to Image** : Converts each entire pages of a PDF file to images
 - **Image to PDF**: Converts images file to PDF
 
 ## Running Method

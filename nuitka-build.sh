@@ -1,7 +1,7 @@
 #!/bin/sh
 if  [ "$1" != "" ] && [ "$1" != "--onefile" ]
 then
-  echo Usage: $0 [--onefile]
+  echo Usage: "$0" "[--onefile]"
   echo unkown option "$1"
   exit 1
 fi
