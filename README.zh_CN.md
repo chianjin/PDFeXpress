@@ -14,7 +14,7 @@
 
 ## 当前版本
 
-当前版本为 0.2.2-BETA，已经在64位的Windows 10和11上测试通过。未来计划测试Linux、FreeBSD系统。
+当前版本为 0.3-BETA，已经在64位的Windows 10和11上测试通过。未来计划测试Linux、FreeBSD系统。
 
 ## 主要功能
 

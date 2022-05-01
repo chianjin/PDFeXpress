@@ -81,7 +81,7 @@ class UiSplitPDF(ttk.Frame):
         _validatecmd = (self.EntrySplitRangeStart.register(self.valid_split_range), '%d', '%P', '%V', '%W')
         self.EntrySplitRangeStart.configure(validatecommand=_validatecmd)
         self.LabelSplitRangeTo = ttk.Label(self.FrameSplitMode)
-        self.LabelSplitRangeTo.configure(state='disabled', text=_('-'))
+        self.LabelSplitRangeTo.configure(state='disabled', text='-')
         self.LabelSplitRangeTo.pack(padx='2', pady='4', side='left')
         self.EntrySplitRangeStop = ttk.Entry(self.FrameSplitMode)
         self.split_range_stop = tk.IntVar(value='')
