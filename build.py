@@ -1,19 +1,21 @@
 import glob
-from pathlib import Path
+import os
 import platform
 import subprocess
-import os
-from zipfile import ZipFile, ZIP_DEFLATED
-from src.constants import EXEC_NAME, APP_VERSION
+from pathlib import Path
+from zipfile import ZIP_DEFLATED, ZipFile
+
+from src.constants import APP_VERSION, EXEC_NAME
 
 SYSTEM = platform.system()
 MACHINE = platform.machine().lower()
-if MACHINE == 'amd64': MACHINE = 'x64'
+if MACHINE == 'amd64':
+    MACHINE = 'x64'
 
 PROJECT_DIR = Path(__file__).parent
-BUILD_DIR = PROJECT_DIR / 'build'
-RELEASE_DIR = PROJECT_DIR / 'release'
-OUTPUT_DIR = BUILD_DIR / f'{SYSTEM}-{MACHINE}'
+BUILD_DIR = 'build'
+RELEASE_DIR = 'release'
+OUTPUT_DIR = f'{BUILD_DIR}/{SYSTEM}-{MACHINE}'
 
 
 def build():
@@ -37,25 +39,26 @@ def build():
                         '--windows-icon-from-ico=src/icon/PDFeXpress.ico',
                         '--clang',
                         '--mingw64'
-                 )
+                        )
                 )
     nuitka_cmd.append(f'src/{EXEC_NAME}.py')
 
     process = subprocess.run(nuitka_cmd, shell=True)
     if process.returncode != 0:
-        raise ChildProcessError('nuitka build failed.')
+        raise ChildProcessError('nuitka building failed.')
 
 
 def create_portable():
     root_dir = f'{OUTPUT_DIR}/{EXEC_NAME}.dist'
-    print(root_dir)
-    file_list = glob.glob('**', root_dir=root_dir)
+    file_list = glob.glob(f'{root_dir}/**', recursive=True)
     file_list.sort()
     portable_file = f'{RELEASE_DIR}/{EXEC_NAME}-{APP_VERSION}-Portable-{SYSTEM}-{MACHINE}.zip'
-    print(portable_file)
+
     with ZipFile(portable_file, 'w', compression=ZIP_DEFLATED) as zf:
         for file in file_list:
-            zf.write(f'{root_dir}/{file}', f'{EXEC_NAME}-{MACHINE}/{file}')
+            file = Path(file)
+            if file.is_file():
+                zf.write(file, f'{EXEC_NAME}-{MACHINE}/{"/".join(file.parts[3:])}')
 
 
 def update_iss():
@@ -85,7 +88,7 @@ def check_iss():
     else:
         program_files = os.environ.get('ProgramFiles')
     iss_compiler = Path(program_files) / 'Inno Setup 6' / 'Compil32.exe'
-    print(iss_compiler)
+
     if iss_compiler.exists():
         return iss_compiler
     return None
@@ -95,21 +98,19 @@ def creat_setup():
     iss_work = update_iss()
     iss_compiler = check_iss()
     if iss_compiler:
-        complier_cmd = [str(iss_compiler), '/cc', str(iss_work)]
-        subprocess.run(complier_cmd)
+        compiler_cmd = [str(iss_compiler), '/cc', str(iss_work)]
+        process = subprocess.run(compiler_cmd)
+        if process.returncode != 0:
+            raise ChildProcessError('Creating Windows installer failed.')
 
 
 if __name__ == '__main__':
-    build()
+    print('Building...')
+    #build()
+    print('Creating portable package...', end='')
     create_portable()
-    creat_setup()
-
-
-
-
-
-
-
-
-
-
+    print('done.')
+    if SYSTEM == 'Windows':
+        print('Creating Windows Installer...', end='')
+        creat_setup()
+        print('Done')
