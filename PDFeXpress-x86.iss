@@ -25,7 +25,7 @@ LicenseFile={#MyProjectDir}\LICENSE
 ;InfoBeforeFile={#MyProjectDir}\README.md
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir={#MyProjectDir}\build
+OutputDir={#MyProjectDir}\release
 OutputBaseFilename=PDFeXpress-{#MyAppVersion}-Setup-Windows-x86
 SetupIconFile={#MyProjectDir}\build\Windows-x86\PDFeXpress.dist\icon\PDFeXpress.ico
 Compression=lzma

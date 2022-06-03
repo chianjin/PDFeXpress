@@ -12,7 +12,7 @@ MACHINE = platform.machine().lower()
 if MACHINE == 'amd64':
     MACHINE = 'x64'
 
-PROJECT_DIR = Path(__file__).parent
+PROJECT_DIR = Path(__file__).absolute().parent
 BUILD_DIR = 'build'
 RELEASE_DIR = 'release'
 OUTPUT_DIR = f'{BUILD_DIR}/{SYSTEM}-{MACHINE}'
