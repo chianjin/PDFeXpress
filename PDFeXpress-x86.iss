@@ -2,11 +2,11 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "PDF eXpress"
-#define MyAppVersion "0.3-BETA"
+#define MyAppVersion "%%APP_VERSION%%"
 #define MyAppPublisher "chian.jin@gmail.com"
 #define MyAppURL "https://github.com/chianjin/PDFeXpress"
 #define MyAppExeName "PDFeXpress.exe"
-#define MyProjectDir "D:\GitHub\PDFeXpress"
+#define MyProjectDir "%%PROJECT_DIR%%"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -26,12 +26,11 @@ LicenseFile={#MyProjectDir}\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir={#MyProjectDir}\build
-OutputBaseFilename=PDFeXpress-{#MyAppVersion}-Setup-x64
-SetupIconFile={#MyProjectDir}\build\PDFeXpress.dist\icon\PDFeXpress.ico
+OutputBaseFilename=PDFeXpress-{#MyAppVersion}-Setup-Windows-x86
+SetupIconFile={#MyProjectDir}\build\Windows-x86\PDFeXpress.dist\icon\PDFeXpress.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -41,8 +40,8 @@ Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.i
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "{#MyProjectDir}\build\PDFeXpress.dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MyProjectDir}\build\PDFeXpress.dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyProjectDir}\build\Windows-x86\PDFeXpress.dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyProjectDir}\build\Windows-x86\PDFeXpress.dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

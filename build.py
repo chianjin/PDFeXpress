@@ -1,0 +1,115 @@
+import glob
+from pathlib import Path
+import platform
+import subprocess
+import os
+from zipfile import ZipFile, ZIP_DEFLATED
+from src.constants import EXEC_NAME, APP_VERSION
+
+SYSTEM = platform.system()
+MACHINE = platform.machine().lower()
+if MACHINE == 'amd64': MACHINE = 'x64'
+
+PROJECT_DIR = Path(__file__).parent
+BUILD_DIR = PROJECT_DIR / 'build'
+RELEASE_DIR = PROJECT_DIR / 'release'
+OUTPUT_DIR = BUILD_DIR / f'{SYSTEM}-{MACHINE}'
+
+
+def build():
+    nuitka_cmd = [
+            'nuitka',
+            '--show-progress',
+            '--show-memory',
+            '--standalone',
+            '--include-data-dir=src/icon=icon',
+            '--include-data-dir=src/locale=locale',
+            '--include-data-file=LICENSE=LICENSE',
+            '--include-data-file=README.md=README.md',
+            '--include-data-file=README.zh_CN.md=README.zh_CN.md',
+            '--plugin-enable=tk-inter',
+            f'--output-dir={OUTPUT_DIR}'
+            ]
+    if platform.system() == 'Windows':
+        nuitka_cmd.extend(
+                (
+                        '--windows-disable-console',
+                        '--windows-icon-from-ico=src/icon/PDFeXpress.ico',
+                        '--clang',
+                        '--mingw64'
+                 )
+                )
+    nuitka_cmd.append(f'src/{EXEC_NAME}.py')
+
+    process = subprocess.run(nuitka_cmd, shell=True)
+    if process.returncode != 0:
+        raise ChildProcessError('nuitka build failed.')
+
+
+def create_portable():
+    root_dir = f'{OUTPUT_DIR}/{EXEC_NAME}.dist'
+    print(root_dir)
+    file_list = glob.glob('**', root_dir=root_dir)
+    file_list.sort()
+    portable_file = f'{RELEASE_DIR}/{EXEC_NAME}-{APP_VERSION}-Portable-{SYSTEM}-{MACHINE}.zip'
+    print(portable_file)
+    with ZipFile(portable_file, 'w', compression=ZIP_DEFLATED) as zf:
+        for file in file_list:
+            zf.write(f'{root_dir}/{file}', f'{EXEC_NAME}-{MACHINE}/{file}')
+
+
+def update_iss():
+    settings = {
+            'APP_VERSION': APP_VERSION,
+            'PROJECT_DIR': str(PROJECT_DIR)
+            }
+
+    iss_src = f'{EXEC_NAME}-{MACHINE}.iss'
+    iss_work = Path(BUILD_DIR) / iss_src
+
+    with open(iss_src) as template:
+        iss_script = template.read()
+
+    for key in settings:
+        iss_script = iss_script.replace(f'%%{key}%%', settings.get(key))
+
+    with open(iss_work, 'w') as iss:
+        iss.write(iss_script)
+
+    return iss_work
+
+
+def check_iss():
+    if MACHINE == 'x64':
+        program_files = os.environ.get('ProgramFiles(x86)')
+    else:
+        program_files = os.environ.get('ProgramFiles')
+    iss_compiler = Path(program_files) / 'Inno Setup 6' / 'Compil32.exe'
+    print(iss_compiler)
+    if iss_compiler.exists():
+        return iss_compiler
+    return None
+
+
+def creat_setup():
+    iss_work = update_iss()
+    iss_compiler = check_iss()
+    if iss_compiler:
+        complier_cmd = [str(iss_compiler), '/cc', str(iss_work)]
+        subprocess.run(complier_cmd)
+
+
+if __name__ == '__main__':
+    build()
+    create_portable()
+    creat_setup()
+
+
+
+
+
+
+
+
+
+

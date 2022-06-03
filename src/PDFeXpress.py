@@ -1,4 +1,4 @@
-import sys
+import platform
 import tkinter as tk
 import tkinter.font as tkfont
 
@@ -50,9 +50,8 @@ class PDFeXpress(tk.Tk):
 
 
 if __name__ == '__main__':
-    if sys.platform == 'win32':
+    if platform.system() == 'Windows' and int(platform.version().split('.')[0]) >= 10:
         import ctypes
-
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
     PDFeXpress().run()

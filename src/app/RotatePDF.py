@@ -1,3 +1,4 @@
+from typing import Union
 from multiprocessing import Process, Queue
 from pathlib import Path
 from tkinter.filedialog import askdirectory
@@ -112,7 +113,7 @@ class RotatePDF(UiRotatePDF):
             self.ButtonProcess.configure(state='disabled')
 
 
-def rotate_pdf(queue: Queue, pdf_list: list, output_dir: str | Path, rotation: int):
+def rotate_pdf(queue: Queue, pdf_list: list, output_dir: Union[str, Path], rotation: int):
     for pdf_file in pdf_list:
         if output_dir:
             rotated_pdf_file = Path(output_dir) / f'{Path(pdf_file).stem}-Rotated.pdf'
