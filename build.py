@@ -106,7 +106,7 @@ def creat_setup():
 
 if __name__ == '__main__':
     print('Building...')
-    #build()
+    build()
     print('Creating portable package...', end='')
     create_portable()
     print('done.')

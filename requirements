@@ -1,4 +1,5 @@
-Nuitka==0.7.7
-Pillow==9.1.0
-psutil==5.9.0
+Nuitka==0.8.3
+ordered-set==4.1.0
+Pillow==9.1.1
+psutil==5.9.1
 PyMuPDF==1.19.6

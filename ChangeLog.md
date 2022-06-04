@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 0.3.1-BETA
+
+2022-06-04
+
+- compatible with Python 3.8 and later
+- support Windows 7 and higher
+- build 32bit binary and portable package
+
 ## 0.3-BATE
 
 2022-04-13

@@ -7,14 +7,15 @@
 ## 开发环境
 
 - Python 3.10
-- Nuitka
 - Pillow
 - psutil
 - PyMuPDF
+- Nuitka
+- orederd-set
 
 ## 当前版本
 
-当前版本为 0.3-BETA，已经在64位的Windows 10和11上测试通过。未来计划测试Linux、FreeBSD系统。
+当前版本为 0.3.1-BETA，已经在64位的Windows 7、10和11上测试通过。未来计划测试Linux、FreeBSD系统。
 
 ## 主要功能
 
@@ -29,7 +30,7 @@
 
 ## 运行方式
 
-[下载](https://github.com/chianjin/PDFeXpress/releases) 已经编译好的安装程序，运行安装即可。
+有两种形式的预编译包，安装包和绿色包，[下载](https://github.com/chianjin/PDFeXpress/releases) 、安装或解压，运行`PDFeXpress.exe`。
 
 也可以从这里下载：
 [阿里云盘](https://www.aliyundrive.com/s/3HRssM66yVV)
@@ -44,9 +45,7 @@
 > cd PDFeXpress
 > pip install -r requirements
 > python <Python Path>\Tools\i18n\msgfmt.py locale\zh_CN\LC_MESSAGES\PDFeXpress.po
-> nuitka-build.cmd
+> python build.py
 ```
 
-编译后的可执行文件，保存在`build\PDFeXpress.dist`目录中，运行 `PDFeXpress.exe`.
-
-另外，也可以下载安装**Inno Setup**，打开`PDFeXpress.iss`，构建安装程序。
+预编译包保存在`release`目录中。

@@ -6,14 +6,15 @@
 ## Developing Environment
 
 - Python 3.10
-- Nuitka
 - Pillow
 - psutil
 - PyMuPDF
+- Nuitka
+- ordered-set
 
 ## Current Version
 
-The current version is 0.3-BETA, tested on Windows 10 and 11. Planing to test on Linux/FreeBSD.
+The current version is 0.3.1-BETA, tested on Windows 7 , 10 and 11. Planing to test on Linux/FreeBSD.
 
 ## Main Functions
 
@@ -28,7 +29,7 @@ The current version is 0.3-BETA, tested on Windows 10 and 11. Planing to test on
 
 ## Running Method
 
-[Download](https://github.com/chianjin/PDFeXpress/releases) the compiled binary installer and install and run PDFeXpress.exe or click the shortcut on your system.
+There are two type binary, installer and portable packages. [Download](https://github.com/chianjin/PDFeXpress/releases) and install or unzip it, run `PDFeXpress.exe`.
 
 Can also download from:
 [Aliyun](https://www.aliyundrive.com/s/3HRssM66yVV)
@@ -43,9 +44,7 @@ If you want to build the application yourself. Please follow these steps below:
 > cd PDFeXpress
 > pip install -r requirements
 > python <Python Path>\Tools\i18n\msgfmt.py locale\zh_CN\LC_MESSAGES\PDFeXpress.po
-> nuitka-build.cmd
+> python build.py
 ```
 
-The compiled binary files are saved in `build\PDFeXpress.dist`, run `PDFeXpress.exe`.
-
-Additionally, you may download and install **Inno Setup** , open the `PDFeXpress.iss` to build the installer.
+The compiled binary packages  are saved in `release` folder.
