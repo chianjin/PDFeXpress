@@ -1,11 +1,10 @@
 import gettext
+import locale
 import os
 import sys
 from pathlib import Path
 
 import psutil
-
-import locale
 
 BASE_DIR = Path(__file__).absolute().parent
 PHYSICAL_CPU_COUNT = psutil.cpu_count(logical=False)

@@ -1,5 +1,11 @@
 # ChangeLog
 
+## 0.3.2-BETA
+
+2022-06-04
+
+- support mouse drag and drop for add files
+
 ## 0.3.1-BETA
 
 2022-06-04
