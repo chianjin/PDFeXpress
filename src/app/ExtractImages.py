@@ -4,11 +4,12 @@ from tkinter.filedialog import askdirectory
 from typing import Union
 
 import fitz
+from tkinterdnd2 import DND_FILES
 
 from app.Progress import Progress
-from constants import PHYSICAL_CPU_COUNT
+from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT
 from ui.UiExtractImages import UiExtractImages
-from utils import check_dir, check_file_exist, get_pdf_info
+from utils import check_dir, check_file_exist, get_pdf_info, pdf_info, split_drop_data
 
 
 class ExtractImages(UiExtractImages):
@@ -20,8 +21,22 @@ class ExtractImages(UiExtractImages):
         self._images_dir: Union[str, Path] = ''
         self._page_count = 0
 
+        self.drop_target_register(DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_file)
+
+    def drop_file(self, event):
+        file_list = split_drop_data(event.data)
+        for file in file_list:
+            if file.suffix.lower() in FILE_TYPES_PDF[0][1]:
+                self._pdf_file, self._page_count, self._page_no_width = pdf_info(file)
+                break
+        self._set_options()
+
     def get_pdf_file(self):
         self._pdf_file, self._page_count, self._page_no_width = get_pdf_info()
+        self._set_options()
+
+    def _set_options(self):
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
             self.app_info.set(_('Total Pages: {}').format(self._page_count))

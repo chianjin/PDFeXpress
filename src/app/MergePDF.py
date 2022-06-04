@@ -4,12 +4,13 @@ from tkinter.filedialog import asksaveasfilename
 from typing import List, Union
 
 import fitz
+from tkinterdnd2 import DND_FILES
 
 from app.Progress import Progress
 from constants import FILE_TYPES_PDF
 from ui.UiMergePDF import UiMergePDF
-from utils import check_dir, check_file_exist, treeview_add_files, treeview_get_file_list, treeview_get_first_file, \
-    treeview_move_item, treeview_remove_items
+from utils import check_dir, check_file_exist, split_drop_data, treeview_add_files, treeview_drop_files, \
+    treeview_get_file_list, treeview_get_first_file, treeview_move_item, treeview_remove_items
 
 
 class MergePDF(UiMergePDF):
@@ -22,6 +23,15 @@ class MergePDF(UiMergePDF):
 
         self.TreeViewPDFList.configure(yscrollcommand=self.ScrollbarPDFList.set)
         self.ScrollbarPDFList.configure(command=self.TreeViewPDFList.yview)
+
+        self.drop_target_register(DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_file)
+
+    def drop_file(self, event):
+        file_list = split_drop_data(event.data)
+        treeview_drop_files(self.TreeViewPDFList, file_list, FILE_TYPES_PDF)
+        self._set_app_info()
+        self._toggle_buttons()
 
     def add_pdf(self):
         treeview_add_files(self.TreeViewPDFList, title=_('Select PDF files'), filetypes=FILE_TYPES_PDF)

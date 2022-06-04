@@ -4,12 +4,13 @@ from tkinter.filedialog import asksaveasfilename
 from typing import List, Union
 
 import fitz
+from tkinterdnd2 import DND_FILES
 
 from app.Progress import Progress
 from constants import FILE_TYPES_IMAGE, FILE_TYPES_PDF
 from ui.UiImages2PDF import UiImages2PDF
-from utils import check_dir, check_file_exist, treeview_add_files, treeview_get_file_list, treeview_get_first_file, \
-    treeview_move_item, treeview_remove_items
+from utils import check_dir, check_file_exist, split_drop_data, treeview_add_files, treeview_drop_files, \
+    treeview_get_file_list, treeview_get_first_file, treeview_move_item, treeview_remove_items
 
 
 class Images2PDF(UiImages2PDF):
@@ -22,6 +23,15 @@ class Images2PDF(UiImages2PDF):
 
         self.TreeViewImageList.configure(yscrollcommand=self.ScrollbarImagesList.set)
         self.ScrollbarImagesList.configure(command=self.TreeViewImageList.yview)
+
+        self.drop_target_register(DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_file)
+
+    def drop_file(self, event):
+        file_list = split_drop_data(event.data)
+        treeview_drop_files(self.TreeViewImageList, file_list, FILE_TYPES_IMAGE)
+        self._set_app_info()
+        self._toggle_buttons()
 
     def add_images(self):
         treeview_add_files(self.TreeViewImageList, title=_('Select images files'), filetypes=FILE_TYPES_IMAGE)

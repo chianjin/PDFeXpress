@@ -2,12 +2,14 @@ import platform
 import tkinter as tk
 import tkinter.font as tkfont
 
+from tkinterdnd2 import TkinterDnD
+
 from app.FrameMenu import FrameMenu
 from app.MainFrame import MainFrame
 from constants import APP_ICON, APP_NAME
 
 
-class PDFeXpress(tk.Tk):
+class PDFeXpress(TkinterDnD.Tk):
     def __init__(self):
         super(PDFeXpress, self).__init__()
 
@@ -52,6 +54,7 @@ class PDFeXpress(tk.Tk):
 if __name__ == '__main__':
     if platform.system() == 'Windows' and int(platform.version().split('.')[0]) >= 10:
         import ctypes
+
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
     PDFeXpress().run()

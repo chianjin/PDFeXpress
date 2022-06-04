@@ -9,11 +9,12 @@ from typing import Iterable, Union
 
 import fitz
 from PIL import Image
+from tkinterdnd2 import DND_FILES
 
 from app.Progress import Progress
 from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT
 from ui.UiCompressPDF import UiCompressPDF
-from utils import check_dir, check_file_exist, get_pdf_info, int2byte_unit
+from utils import check_dir, check_file_exist, get_pdf_info, int2byte_unit, pdf_info, split_drop_data
 
 TEMP_DIR = Path(gettempdir())
 
@@ -32,8 +33,22 @@ class CompressPDF(UiCompressPDF):
         self.image_quality.set(self._image_quality)
         self.image_max_dpi.set(self._image_max_dpi)
 
+        self.drop_target_register(DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_file)
+
+    def drop_file(self, event):
+        file_list = split_drop_data(event.data)
+        for file in file_list:
+            if file.suffix.lower() in FILE_TYPES_PDF[0][1]:
+                self._pdf_file, self._page_count, _other = pdf_info(file)
+                break
+        self._set_options()
+
     def get_pdf_file(self):
         self._pdf_file, self._page_count, _other = get_pdf_info()
+        self._set_options()
+
+    def _set_options(self):
         if self._page_count > 0:
             self.pdf_file.set(self._pdf_file)
             self._pdf_file_size = os.path.getsize(self._pdf_file)

@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 from tkinter.filedialog import askopenfilename, askopenfilenames
 from tkinter.messagebox import showerror
@@ -16,14 +17,18 @@ def int2byte_unit(value: int):
     return f'{round(value)}{BYTE_UNIT[index]}B'
 
 
-def get_pdf_info(title=_('Select PDF file'), filetypes=FILE_TYPES_PDF):
+def pdf_info(pdf_file):
     page_count = 0
+    with fitz.Document(pdf_file) as pdf:
+        page_count = pdf.page_count
+    pdf_file = Path(pdf_file)
+    return pdf_file, page_count, len(str(page_count))
+
+
+def get_pdf_info(title=_('Select PDF file'), filetypes=FILE_TYPES_PDF):
     pdf_file = askopenfilename(title=title, filetypes=filetypes)
     if pdf_file:
-        with fitz.Document(pdf_file) as pdf:
-            page_count = pdf.page_count
-        pdf_file = Path(pdf_file)
-    return pdf_file, page_count, len(str(page_count))
+        return pdf_info(pdf_file)
 
 
 def check_file_exist(file_path: Path):
@@ -92,3 +97,20 @@ def treeview_get_first_file(treeview: Treeview):
         return file_list[0]
     else:
         return ''
+
+
+def split_drop_data(data):
+    file_list = []
+    pattern = re.compile(r'\{([^\{\}]+)\}|(\S+)')
+    for match in pattern.findall(data):
+        file_name = match[0] if match[0] else match[1]
+        file_name = Path(file_name)
+        if file_name.is_file():
+            file_list.append(file_name)
+    return file_list
+
+
+def treeview_drop_files(treeview, file_list: list[Path], file_type):
+    for file in file_list:
+        if file.suffix.lower() in file_type[0][1]:
+            treeview.insert('', 'end', text=file, values=(file.parent, file.name))
