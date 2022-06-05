@@ -15,7 +15,7 @@
 
 ## 当前版本
 
-当前版本为 0.3.1-BETA，已经在64位的Windows 7、10和11上测试通过。未来计划测试Linux、FreeBSD系统。
+当前版本为 0.3.2-BETA，已经在64位的Windows 7、10和11上测试通过。未来计划测试Linux、FreeBSD系统。
 
 ## 主要功能
 
@@ -32,9 +32,7 @@
 
 有两种形式的预编译包，安装包和绿色包，[下载](https://github.com/chianjin/PDFeXpress/releases) 、安装或解压，运行`PDFeXpress.exe`。
 
-也可以从这里下载：
-[阿里云盘](https://www.aliyundrive.com/s/3HRssM66yVV)
-[百度网盘](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
+也可以从这里下载：[百度网盘](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
 
 ## 构建
 

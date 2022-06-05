@@ -14,7 +14,7 @@
 
 ## Current Version
 
-The current version is 0.3.1-BETA, tested on Windows 7 , 10 and 11. Planing to test on Linux/FreeBSD.
+The current version is 0.3.2-BETA, tested on Windows 7 , 10 and 11. Planing to test on Linux/FreeBSD.
 
 ## Main Functions
 
@@ -31,9 +31,7 @@ The current version is 0.3.1-BETA, tested on Windows 7 , 10 and 11. Planing to t
 
 There are two type binary, installer and portable packages. [Download](https://github.com/chianjin/PDFeXpress/releases) and install or unzip it, run `PDFeXpress.exe`.
 
-Can also download from:
-[Aliyun](https://www.aliyundrive.com/s/3HRssM66yVV)
-[Baidu](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
+Can also download from: [Baidu](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
 
 ## Build
 
