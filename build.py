@@ -49,6 +49,18 @@ def build():
 
 
 def create_portable():
+    if SYSTEM == 'Windows' and MACHINE == 'x86':
+        win64_dir = f'{OUTPUT_DIR}/{EXEC_NAME}.dist/tkinterdnd2/tkdnd/win64'
+        win64_dir = Path(win64_dir)
+        if Path(win64_dir).exists():
+            os.system(f'RD /S /Q {win64_dir}')
+
+        src_win32_dir = Path('src/tkinterdnd2/tkdnd/win32')
+        dist_win32_dir = Path(f'{OUTPUT_DIR}/{EXEC_NAME}.dist/tkinterdnd2/tkdnd/win32')
+        if not dist_win32_dir.exists():
+            dist_win32_dir.mkdir()
+        os.system(f'COPY /Y {src_win32_dir}\\*.* {dist_win32_dir}')
+
     root_dir = f'{OUTPUT_DIR}/{EXEC_NAME}.dist'
     file_list = glob.glob(f'{root_dir}/**', recursive=True)
     file_list.sort()
@@ -105,8 +117,8 @@ def creat_setup():
 
 
 if __name__ == '__main__':
-    print('Building...')
-    build()
+    # print('Building...')
+    # build()
     print('Creating portable package...', end='')
     create_portable()
     print('done.')
