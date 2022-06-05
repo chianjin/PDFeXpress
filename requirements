@@ -3,4 +3,3 @@ ordered-set==4.1.0
 Pillow==9.1.1
 psutil==5.9.1
 PyMuPDF==1.19.6
-tkinterdnd2==0.3.0
