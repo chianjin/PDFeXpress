@@ -81,7 +81,6 @@ class Images2PDF(UiImages2PDF):
         self._toggle_buttons()
 
     def process(self):
-        print('OK')
         image_list = treeview_get_file_list(self.TreeViewImageList)
         for image_file in image_list:
             if not check_file_exist(image_file):
@@ -96,7 +95,6 @@ class Images2PDF(UiImages2PDF):
         sub_process_list = [sub_process]
         sub_process.start()
         progress = Progress(process_list=sub_process_list, queue=queue, maximum=len(image_list))
-        print(progress)
         self.wait_window(progress)
 
     def _set_app_info(self):
@@ -120,7 +118,7 @@ def images2pdf(queue: Queue, image_list: List[Union[str, Path]], pdf_file: Union
         for image_no, image_file in enumerate(image_list, start=1):
             with fitz.Document(image_file) as image_doc:
                 pdf_bytes = image_doc.convert_to_pdf()
-                with fitz.Document('images_pdf', pdf_bytes) as image_pdf:
+                with fitz.Document('images.pdf', stream=pdf_bytes) as image_pdf:
                     pdf.insert_pdf(image_pdf)
             queue.put(image_no)
         pdf.save(pdf_file)

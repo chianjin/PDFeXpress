@@ -110,7 +110,7 @@ def split_drop_data(data):
     return file_list
 
 
-def treeview_drop_files(treeview, file_list: list[Path], file_type):
+def treeview_drop_files(treeview, file_list, file_type):
     for file in file_list:
         if file.suffix.lower() in file_type[0][1]:
             treeview.insert('', 'end', text=file, values=(file.parent, file.name))
