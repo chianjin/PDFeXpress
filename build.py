@@ -2,7 +2,6 @@ import glob
 import os
 import platform
 import subprocess
-import time
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
@@ -130,4 +129,3 @@ if __name__ == '__main__':
     create_portable()
     if SYSTEM == 'Windows':
         create_setup()
-

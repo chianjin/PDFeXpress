@@ -4,10 +4,10 @@ from tkinter.filedialog import asksaveasfilename
 from typing import Union
 
 import fitz
-from tkinterdnd2 import DND_FILES
 
 from app.Progress import Progress
 from constants import FILE_TYPES_PDF, FILE_TYPES_TEXT
+from tkinterdnd2 import DND_FILES
 from ui.UiExtractText import UiExtractText
 from utils import check_dir, check_file_exist, get_pdf_info, pdf_info, split_drop_data
 

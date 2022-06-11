@@ -15,11 +15,8 @@ CF_UNICODETEXT = 'CF_UNICODETEXT'
 CF_TEXT = 'CF_TEXT'
 CF_HDROP = 'CF_HDROP'
 
-FileGroupDescriptor = 'FileGroupDescriptor - FileContents'# ??
-FileGroupDescriptorW = 'FileGroupDescriptorW - FileContents'# ??
+FileGroupDescriptor = 'FileGroupDescriptor - FileContents'  # ??
+FileGroupDescriptorW = 'FileGroupDescriptorW - FileContents'  # ??
 
 from . import TkinterDnD
-from .TkinterDnD import Tk
-from .TkinterDnD import TixTk
-
-
+from .TkinterDnD import TixTk, Tk

@@ -2,11 +2,10 @@ import platform
 import tkinter as tk
 import tkinter.font as tkfont
 
-from tkinterdnd2 import TkinterDnD
-
 from app.FrameMenu import FrameMenu
 from app.MainFrame import MainFrame
 from constants import APP_ICON, APP_NAME
+from tkinterdnd2 import TkinterDnD
 
 
 class PDFeXpress(TkinterDnD.Tk):

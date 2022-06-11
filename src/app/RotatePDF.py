@@ -4,10 +4,10 @@ from tkinter.filedialog import askdirectory
 from typing import Union
 
 import fitz
-from tkinterdnd2 import DND_FILES
 
 from app.Progress import Progress
 from constants import FILE_TYPES_PDF, PHYSICAL_CPU_COUNT
+from tkinterdnd2 import DND_FILES
 from ui.UiRotatePDF import UiRotatePDF
 from utils import check_dir, split_drop_data, treeview_add_files, treeview_drop_files, treeview_get_file_list, \
     treeview_get_first_file, treeview_move_item, treeview_remove_items

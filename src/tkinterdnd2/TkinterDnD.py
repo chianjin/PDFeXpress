@@ -43,6 +43,7 @@ _platforms = {
                 }
         }
 
+
 def _require(tkroot):
     '''Internal function.'''
     global TkdndVersion
@@ -54,13 +55,14 @@ def _require(tkroot):
             tkdnd_platform_rep = _platforms[platform.architecture()[0][:2]][platform.system()]
         except KeyError:
             raise RuntimeError('Platform not supported.')
-        
+
         module_path = os.path.join(os.path.dirname(__file__), 'tkdnd', tkdnd_platform_rep)
         tkroot.tk.call('lappend', 'auto_path', module_path)
         TkdndVersion = tkroot.tk.call('package', 'require', 'tkdnd')
     except tkinter.TclError:
         raise RuntimeError('Unable to load tkdnd library.')
     return TkdndVersion
+
 
 class DnDEvent:
     """Internal class.
@@ -89,6 +91,7 @@ class DnDEvent:
     """
     pass
 
+
 class DnDWrapper:
     '''Internal class.'''
     # some of the percent substitutions need to be enclosed in braces
@@ -104,16 +107,19 @@ class DnDWrapper:
         """Internal function."""
         if len(args) != len(self._subst_format_dnd):
             return args
+
         def getint_event(s):
             try:
                 return int(s)
             except ValueError:
                 return s
+
         def splitlist_event(s):
             try:
                 return self.tk.splitlist(s)
             except ValueError:
                 return s
+
         # valid percent substitutions for DnD event types
         # (tested with tkdnd-2.8 on debian jessie):
         # <<DragInitCmd>> : %W, %X, %Y %e, %t
@@ -146,6 +152,7 @@ class DnDWrapper:
         ev.x_root = getint_event(X)
         ev.y_root = getint_event(Y)
         return (ev,)
+
     tkinter.BaseWidget._substitute_dnd = _substitute_dnd
 
     def _dnd_bind(self, what, sequence, func, add, needcleanup=True):
@@ -155,16 +162,17 @@ class DnDWrapper:
         elif func:
             funcid = self._register(func, self._substitute_dnd, needcleanup)
             # FIXME: why doesn't the "return 'break'" mechanism work here??
-            #cmd = ('%sif {"[%s %s]" == "break"} break\n' % (add and '+' or '',
+            # cmd = ('%sif {"[%s %s]" == "break"} break\n' % (add and '+' or '',
             #                              funcid, self._subst_format_str_dnd))
-            cmd = '%s%s %s' %(add and '+' or '', funcid,
-                                    self._subst_format_str_dnd)
+            cmd = '%s%s %s' % (add and '+' or '', funcid,
+                               self._subst_format_str_dnd)
             self.tk.call(what + (sequence, cmd))
             return funcid
         elif sequence:
             return self.tk.call(what + (sequence,))
         else:
             return self.tk.splitlist(self.tk.call(what))
+
     tkinter.BaseWidget._dnd_bind = _dnd_bind
 
     def dnd_bind(self, sequence=None, func=None, add=None):
@@ -182,6 +190,7 @@ class DnDWrapper:
         finally the data that shall be dropped. Each of these three elements
         may be a tuple of strings or a single string.'''
         return self._dnd_bind(('bind', self._w), sequence, func, add)
+
     tkinter.BaseWidget.dnd_bind = dnd_bind
 
     def drag_source_register(self, button=None, *dndtypes):
@@ -211,7 +220,9 @@ class DnDWrapper:
                 dndtypes = (button,) + dndtypes
                 button = 1
         self.tk.call(
-                'tkdnd::drag_source', 'register', self._w, dndtypes, button)
+                'tkdnd::drag_source', 'register', self._w, dndtypes, button
+                )
+
     tkinter.BaseWidget.drag_source_register = drag_source_register
 
     def drag_source_unregister(self):
@@ -220,6 +231,7 @@ class DnDWrapper:
         to use this command for a window that has not been registered as a
         drag source with drag_source_register().'''
         self.tk.call('tkdnd::drag_source', 'unregister', self._w)
+
     tkinter.BaseWidget.drag_source_unregister = drag_source_unregister
 
     def drop_target_register(self, *dndtypes):
@@ -233,6 +245,7 @@ class DnDWrapper:
         dropping a list of files (which can contain one or multiple files) on
         SELF.'''
         self.tk.call('tkdnd::drop_target', 'register', self._w, dndtypes)
+
     tkinter.BaseWidget.drop_target_register = drop_target_register
 
     def drop_target_unregister(self):
@@ -241,6 +254,7 @@ class DnDWrapper:
         to use this command for a window that has not been registered as a
         drop target with drop_target_register().'''
         self.tk.call('tkdnd::drop_target', 'unregister', self._w)
+
     tkinter.BaseWidget.drop_target_unregister = drop_target_unregister
 
     def platform_independent_types(self, *dndtypes):
@@ -249,8 +263,12 @@ class DnDWrapper:
         where each platform specific type in DNDTYPES will be substituted by
         one or more platform independent types. Thus, the returned list may
         have more elements than DNDTYPES.'''
-        return self.tk.split(self.tk.call(
-                            'tkdnd::platform_independent_types', dndtypes))
+        return self.tk.split(
+                self.tk.call(
+                        'tkdnd::platform_independent_types', dndtypes
+                        )
+                )
+
     tkinter.BaseWidget.platform_independent_types = platform_independent_types
 
     def platform_specific_types(self, *dndtypes):
@@ -259,8 +277,12 @@ class DnDWrapper:
         where each platform independent type in DNDTYPES will be substituted
         by one or more platform specific types. Thus, the returned list may
         have more elements than DNDTYPES.'''
-        return self.tk.split(self.tk.call(
-                            'tkdnd::platform_specific_types', dndtypes))
+        return self.tk.split(
+                self.tk.call(
+                        'tkdnd::platform_specific_types', dndtypes
+                        )
+                )
+
     tkinter.BaseWidget.platform_specific_types = platform_specific_types
 
     def get_dropfile_tempdir(self):
@@ -271,13 +293,16 @@ class DnDWrapper:
         value of the following environmental variables:
         TKDND_TEMP_DIR, TEMP, TMP.'''
         return self.tk.call('tkdnd::GetDropFileTempDirectory')
+
     tkinter.BaseWidget.get_dropfile_tempdir = get_dropfile_tempdir
 
     def set_dropfile_tempdir(self, tempdir):
         '''This command will change the temporary directory used by TkDND for
         storing temporary files to TEMPDIR.'''
         self.tk.call('tkdnd::SetDropFileTempDirectory', tempdir)
+
     tkinter.BaseWidget.set_dropfile_tempdir = set_dropfile_tempdir
+
 
 #######################################################################
 ####      The main window classes that enable Drag & Drop for      ####
@@ -287,13 +312,16 @@ class DnDWrapper:
 class Tk(tkinter.Tk, DnDWrapper):
     '''Creates a new instance of a tkinter.Tk() window; all methods of the
     DnDWrapper class apply to this window and all its descendants.'''
+
     def __init__(self, *args, **kw):
         tkinter.Tk.__init__(self, *args, **kw)
         self.TkdndVersion = _require(self)
 
+
 class TixTk(tix.Tk, DnDWrapper):
     '''Creates a new instance of a tix.Tk() window; all methods of the
     DnDWrapper class apply to this window and all its descendants.'''
+
     def __init__(self, *args, **kw):
         tix.Tk.__init__(self, *args, **kw)
         self.TkdndVersion = _require(self)

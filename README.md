@@ -1,7 +1,8 @@
 # PDF eXpress
+
 [[English]](https://github.com/chianjin/PDFeXpress/blob/main/README.md)  [[简体中文]](https://github.com/chianjin/PDFeXpress/blob/main/README.zh_CN.md)
 
-**PDF eXpress**,  an application used to operate PDF, wrote by using Python.
+**PDF eXpress**, an application used to operate PDF, wrote by using Python.
 
 ## Developing Environment
 
@@ -19,7 +20,8 @@ The current version is 0.3.3-BETA, tested on Windows 7 , 10 and 11. Planing to t
 ## Main Functions
 
 - **Merge**: Merge multiple PDF files into one PDF
-- **Split**: Splits a PDF into multiple PDFs, supporting single page splitting, split by number of pages, by number of copies, and by range
+- **Split**: Splits a PDF into multiple PDFs, supporting single page splitting, split by number of pages, by number of
+  copies, and by range
 - **Rotate** : Rotate each PDF page with 90° clockwise, counterclockwise, and 180°
 - **Compression**: Reduces PDF file size by compressing the images contained in the page
 - **Extract Images**: Extracts the images contained in the PDF file and saves them in the original data format
@@ -29,7 +31,8 @@ The current version is 0.3.3-BETA, tested on Windows 7 , 10 and 11. Planing to t
 
 ## Running Method
 
-There are two type binary, installer and portable packages. [Download](https://github.com/chianjin/PDFeXpress/releases) and install or unzip it, run `PDFeXpress.exe`.
+There are two type binary, installer and portable packages. [Download](https://github.com/chianjin/PDFeXpress/releases)
+and install or unzip it, run `PDFeXpress.exe`.
 
 Can also download from: [Baidu](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
 
