@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 0.3.3-BTEA
+
+2022-06-11
+
+- change compiler to MSVC 2019 on Windows
+- fix some bugs in build
+- nuitka upgrade to 0.8.4
+
 ## 0.3.2-BETA
 
 2022-06-04

@@ -14,7 +14,7 @@
 
 ## Current Version
 
-The current version is 0.3.2-BETA, tested on Windows 7 , 10 and 11. Planing to test on Linux/FreeBSD.
+The current version is 0.3.3-BETA, tested on Windows 7 , 10 and 11. Planing to test on Linux/FreeBSD.
 
 ## Main Functions
 
@@ -45,4 +45,4 @@ If you want to build the application yourself. Please follow these steps below:
 > python build.py
 ```
 
-The compiled binary packages  are saved in `release` folder.
+The compiled binary package and installer are saved in `release` folder.

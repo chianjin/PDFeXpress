@@ -46,4 +46,4 @@
 > python build.py
 ```
 
-预编译包保存在`release`目录中。
+预编译包安装程序保存在`release`目录中。

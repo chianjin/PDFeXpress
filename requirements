@@ -1,4 +1,4 @@
-Nuitka==0.8.3
+Nuitka==0.8.4
 ordered-set==4.1.0
 Pillow==9.1.1
 psutil==5.9.1

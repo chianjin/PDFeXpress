@@ -25,13 +25,13 @@ LicenseFile={#MyProjectDir}\LICENSE
 ;InfoBeforeFile={#MyProjectDir}\README.md
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir={#MyProjectDir}\release
-OutputBaseFilename=PDFeXpress-{#MyAppVersion}-Setup-Windows-x64
-SetupIconFile={#MyProjectDir}\build\Windows-x64\PDFeXpress.dist\icon\PDFeXpress.ico
+OutputDir={#MyProjectDir}\%%RELEASE_DIR%%
+OutputBaseFilename=PDFeXpress-{#MyAppVersion}-Setup-Windows-%%ARCH%%
+SetupIconFile={#MyProjectDir}\%%OUTPUT_DIR%%\PDFeXpress.dist\icon\PDFeXpress.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-ArchitecturesInstallIn64BitMode=x64
+%%ARCH_MODE%%
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -41,8 +41,8 @@ Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.i
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "{#MyProjectDir}\build\Windows-x64\PDFeXpress.dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MyProjectDir}\build\Windows-x64\PDFeXpress.dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyProjectDir}\%%OUTPUT_DIR%%\PDFeXpress.dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyProjectDir}\%%OUTPUT_DIR%%\PDFeXpress.dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
