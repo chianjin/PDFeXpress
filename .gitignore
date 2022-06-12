@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 /.idea
 release
-.venv38-32
+.venv*
