@@ -11,10 +11,12 @@ SYSTEM = platform.system()
 ARCH = platform.architecture()[0][:2]
 
 PROJECT_DIR = Path(__file__).absolute().parent
-SOURCE_DIR = Path('src')
-BUILD_DIR = Path('build')
-RELEASE_DIR = Path('release') / APP_VERSION
+SOURCE_DIR = PROJECT_DIR / 'src'
+BUILD_DIR = PROJECT_DIR / 'build'
 OUTPUT_DIR = BUILD_DIR / f'{SYSTEM}-{ARCH}'
+RELEASE_DIR = PROJECT_DIR / 'release' / APP_VERSION
+if not RELEASE_DIR.exists():
+    RELEASE_DIR.mkdir()
 
 
 def build():
