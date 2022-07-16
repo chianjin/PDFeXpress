@@ -11,7 +11,7 @@ PHYSICAL_CPU_COUNT = psutil.cpu_count(logical=False)
 
 EXEC_NAME = 'PDFeXpress'
 APP_NAME = 'PDF eXpress'
-APP_VERSION = '0.3.3-BETA'
+APP_VERSION = '0.3.4-BETA'
 APP_URL = f'https://github.com/chianjin/{EXEC_NAME}'
 APP_ICON = BASE_DIR / f'icon/{EXEC_NAME}32.png'
 

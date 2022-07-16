@@ -83,19 +83,19 @@ class PDF2Images(UiPDF2Images):
             self.EntryImageQuality.configure(state='normal')
             self.ScaleImageQuality.configure(state='normal')
             self.LabelImageDPI.configure(state='normal')
-            self.ComboboxImageDPI.configure(state='normal')
+            self.ComboboxImageDPI.configure(state='readonly')
 
     def set_image_alpha(self):
         self._image_alpha = self.image_alpha.get()
 
-    def valid_image_quality(self, d, P, V):
-        if d == '0' \
-                or d == '1' and P == '0' \
-                or d == '1' and not P.startswith('0') and P.isdigit() and 0 <= int(P) <= 100 \
-                or V == 'focusout' and P.isdigit() and 0 <= int(P) <= 100:
-            if self.EntryImageQuality.grab_status():
-                self.EntryImageQuality.grab_release()
-            return True
+    # def valid_image_quality(self, d, P, V):
+    #     if d == '0' \
+    #             or d == '1' and P == '0' \
+    #             or d == '1' and not P.startswith('0') and P.isdigit() and 0 <= int(P) <= 100 \
+    #             or V == 'focusout' and P.isdigit() and 0 <= int(P) <= 100:
+    #         if self.EntryImageQuality.grab_status():
+    #             self.EntryImageQuality.grab_release()
+    #         return True
 
         self.EntryImageQuality.grab_set()
         self.EntryImageQuality.focus()
