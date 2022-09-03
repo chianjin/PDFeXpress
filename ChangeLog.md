@@ -1,6 +1,16 @@
 # ChangeLog
 
-## 0.3.3-BTEA
+## 0.3.4-BETA
+
+2022-09-3
+
+- fix few bugs
+
+- `Nuitka` upgrade to 1.0.6
+
+- `PyMuPDF`upgrade to 1.20.2
+
+## 0.3.3-BETA
 
 2022-06-11
 
