@@ -42,8 +42,10 @@
 > git clone https://github.com/chianjin/PDFeXpress.git
 > cd PDFeXpress
 > pip install -r requirements
-> python <Python Path>\Tools\i18n\msgfmt.py locale\zh_CN\LC_MESSAGES\PDFeXpress.po
+> python <Python Path>\Tools\i18n\msgfmt.py src\locale\zh_CN\LC_MESSAGES\PDFeXpress.po
 > python build.py
 ```
 
 预编译包安装程序保存在`release`目录中。
+
+**注**：Windows 系统构建时，如果安装了 Inno Setup 6.x 的，将自动构建安装程序。

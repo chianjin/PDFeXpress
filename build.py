@@ -33,6 +33,7 @@ def build():
             '--plugin-enable=tk-inter',
             f'--output-dir={OUTPUT_DIR}'
             ]
+
     if platform.system() == 'Windows':
         nuitka_cmd.extend(
                 (

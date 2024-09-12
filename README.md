@@ -44,8 +44,10 @@ If you want to build the application yourself. Please follow these steps below:
 > git clone https://github.com/chianjin/PDFeXpress.git
 > cd PDFeXpress
 > pip install -r requirements
-> python <Python Path>\Tools\i18n\msgfmt.py locale\zh_CN\LC_MESSAGES\PDFeXpress.po
+> python <Python Path>\Tools\i18n\msgfmt.py src\locale\zh_CN\LC_MESSAGES\PDFeXpress.po
 > python build.py
 ```
 
 The compiled binary package and installer are saved in `release` folder.
+
+**Note**: The setup package will be created if Inno Setup 6.x is already installed on Windows.
