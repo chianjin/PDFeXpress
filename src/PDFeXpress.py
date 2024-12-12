@@ -1,59 +1,35 @@
-import platform
 import tkinter as tk
-import tkinter.font as tkfont
 
-from app.FrameMenu import FrameMenu
-from app.MainFrame import MainFrame
-from constants import APP_ICON, APP_NAME
-from tkinterdnd2 import TkinterDnD
+from app import Menubar
+from constant import SYSTEM, BASE_FOLDER, APPLICATION_NAME
+from main_frame import MainFrame
+from utility import center_window
 
 
-class PDFeXpress(TkinterDnD.Tk):
+class PDFeXpress(tk.Tk):
     def __init__(self):
-        super(PDFeXpress, self).__init__()
+        super().__init__()
+        self.title(APPLICATION_NAME)
+        self.iconbitmap(BASE_FOLDER / 'data/PDFeXpress.ico')
+        self.geometry('1200x800')
 
-        self._center()
-
-        # for font in tkfont.names(self):
-        #     tkfont.nametofont(font).configure(size=9)
-
-        # FrameLabelFont: named font for frame label
-        _frame_label_font = tkfont.Font(
-                name='FrameLabelFont',
-                family=tkfont.nametofont('TkDefaultFont').cget('family'),
-                size=20,
-                weight='bold'
-                )
-
-        self.FrameMenu = FrameMenu(self)
-        self.configure(menu=self.FrameMenu)
-
+        self.MainMenu = Menubar(self)
+        self.configure(menu=self.MainMenu)
         self.MainFrame = MainFrame(self)
-        self.MainFrame.pack(expand=True, fill='both')
+        self.MainFrame.pack(expand=True, fill='both', padx=4, pady=4)
+        # self.state('zoomed')
 
-        self.title(APP_NAME)
-        self.iconphoto(False, tk.PhotoImage(file=APP_ICON))
-
-    def _center(self):
-        screen_width = self.winfo_screenwidth()
-        screen_height = self.winfo_screenheight()
-        width = screen_width * 2 // 3
-        height = screen_height * 3 // 4
-        screen_height = screen_height * 4 // 5
-        left = (screen_width - width) // 2
-        top = (screen_height - height) // 2
-        self.wm_minsize(width, height)
-        self.wm_resizable(True, True)
-        self.wm_geometry(f'+{left}+{top}')
+        center_window(self, 128)
 
     def run(self):
         self.mainloop()
 
 
 if __name__ == '__main__':
-    if platform.system() == 'Windows' and int(platform.version().split('.')[0]) >= 10:
+    if SYSTEM == 'Windows':
         import ctypes
 
-        ctypes.windll.shcore.SetProcessDpiAwareness(1)
+        ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
-    PDFeXpress().run()
+    app = PDFeXpress()
+    app.run()
