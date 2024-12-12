@@ -4,7 +4,6 @@ from tkinter import ttk
 from tkinter.filedialog import askdirectory
 
 import fitz
-from PIL.ImImagePlugin import number
 
 from utility import get_treeview_file_list
 from widget import FileList, Process, FrameTitle, OutputFolder
@@ -78,6 +77,7 @@ class ExtractImage(ttk.Frame):
             self.Process.process.set(i)
             self.Process.ProgressBar.update_idletasks()
         self.Process.ProgressBar.grab_release()
+
 
 if __name__ == '__main__':
     root = tk.Tk()

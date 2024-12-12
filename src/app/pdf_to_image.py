@@ -8,7 +8,7 @@ import fitz
 from PIL import Image
 
 from utility import get_treeview_file_list
-from widget import Process, FrameTitle, OutputFolder, InputFile, FileList
+from widget import Process, FrameTitle, OutputFolder, FileList
 
 
 class PDFToImage(ttk.Frame):
@@ -19,7 +19,7 @@ class PDFToImage(ttk.Frame):
         self.FrameTitle.pack(fill='x', padx=4, pady=4)
 
         self.Filelist = FileList(master=self)
-        self.Filelist.pack(expand=True, fill='x', padx=4, pady=4)
+        self.Filelist.pack(expand=True, fill='both', padx=4, pady=4)
         self.Filelist.configure(text=_('PDF File List'))
 
         self.Options = Options(master=self)
@@ -60,7 +60,7 @@ class PDFToImage(ttk.Frame):
         if not output_folder:
             return None
 
-        image_resolution= self.Options.image_resolution.get()
+        image_resolution = self.Options.image_resolution.get()
         image_format = self.Options.image_format.get()
         png_transparent = self.Options.png_transparent.get()
         jpeg_quality = self.Options.jpeg_quality.get()
@@ -98,11 +98,12 @@ class Options(ttk.LabelFrame):
         self.LabelImageResolution = ttk.Label(master=self, text=_('Resolution'))
         self.LabelImageResolution.pack(side='left', padx=4, pady=4)
         self.image_resolution = tk.IntVar(value=200)
-        self.EntryImageResolution = ttk.Entry(master=self, width=4, justify='center', textvariable=self.image_resolution)
+        self.EntryImageResolution = ttk.Entry(master=self, width=4, justify='center',
+                                              textvariable=self.image_resolution)
         self.EntryImageResolution.pack(side='left', padx=4, pady=4)
         self.LabelImageResolutionUnit = ttk.Label(master=self, text='dpi')
         self.LabelImageResolutionUnit.pack(side='left', padx=0, pady=4)
-        ttk.Separator(master=self, orient='vertical').pack(side='left',fill='y', padx=14, pady=4)
+        ttk.Separator(master=self, orient='vertical').pack(side='left', fill='y', padx=14, pady=4)
         self.LabelImageFormat = ttk.Label(master=self, text=_('Image Format'))
         self.LabelImageFormat.pack(side='left', padx=4, pady=4)
         self.image_format = tk.StringVar(value='png')

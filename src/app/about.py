@@ -2,10 +2,8 @@ import tkinter as tk
 import webbrowser
 from tkinter import ttk
 
-from constant import APPLICATION_NAME, APPLICATION_VERSION, APPLICATION_URL, BASE_FOLDER
+from constant import APPLICATION_NAME, APPLICATION_VERSION, APPLICATION_URL
 from utility import center_window
-
-from PIL import ImageTk, Image
 
 
 class About(tk.Toplevel):

@@ -72,6 +72,7 @@ class RotatePDF(ttk.Frame):
             self.Process.ProgressBar.update_idletasks()
         self.Process.ProgressBar.grab_release()
 
+
 class Options(ttk.LabelFrame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)

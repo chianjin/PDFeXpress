@@ -1,12 +1,12 @@
-import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename
 
 import fitz
+import tkinterdnd2
 
 from constant import FILE_WILDCARD
-from utility import get_treeview_file_list
+from utility import get_treeview_file_list, split_drop_data, add_files_to_treeview
 from widget import FileListOrdered, OutputFile, Process, FrameTitle
 
 
@@ -30,6 +30,14 @@ class MergePDF(ttk.Frame):
         self.Process.configure(text=_('Merge PDF'))
         self.Process.ButtonProcess.configure(text=_('Merge'), command=self.merge_pdf)
         self.Process.pack(fill='x', padx=4, pady=4)
+
+        self.drop_target_register(tkinterdnd2.DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_files)
+
+    def drop_files(self, event):
+        file_list = split_drop_data(event.data)
+        file_list = [file for file in file_list if file.suffix.lower() == '.pdf']
+        add_files_to_treeview(self.FileList.TreeviewFilelist, file_list)
 
     def set_output_file(self):
         initial_dir = None
@@ -76,7 +84,8 @@ class MergePDF(ttk.Frame):
 
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    # root = tk.Tk()
+    root = tkinterdnd2.Tk()
     root.title('Merge PDF')
     merge_pdf = MergePDF(root)
     merge_pdf.pack(expand=True, fill='both', padx=4, pady=4)

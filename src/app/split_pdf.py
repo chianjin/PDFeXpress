@@ -3,11 +3,12 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory, askopenfilename
-from turtledemo.penrose import start
 
 import fitz
+import tkinterdnd2
 
 from constant import FILE_WILDCARD
+from utility import split_drop_data
 from widget import Process, FrameTitle, OutputFolder, InputFile
 
 
@@ -34,6 +35,14 @@ class SplitPDF(ttk.Frame):
         self.Process.configure(text=_('Split PDF'))
         self.Process.ButtonProcess.configure(text=_('Split'), command=self.split_pdf)
         self.Process.pack(fill='x', padx=4, pady=4)
+
+        self.drop_target_register(tkinterdnd2.DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_files)
+
+    def drop_files(self, event):
+        file_list = split_drop_data(event.data)
+        file_list = [file for file in file_list if file.suffix.lower() == '.pdf']
+        self.InputFile.input_file.set(file_list[0])
 
     def set_output_folder(self):
         initial_dir = None
@@ -102,6 +111,7 @@ class SplitPDF(ttk.Frame):
             with fitz.Document(file) as input_pdf:
                 self.Options.range_end.set(input_pdf.page_count)
 
+
 class Options(ttk.LabelFrame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
@@ -155,7 +165,7 @@ class Options(ttk.LabelFrame):
 
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    root = tkinterdnd2.Tk()
     root.title('Split PDF')
     split_pdf = SplitPDF(root)
     split_pdf.pack(expand=True, fill='both', padx=4, pady=4)

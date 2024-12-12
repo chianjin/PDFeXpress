@@ -3,9 +3,9 @@ from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory, askopenfilenames
 
-# from tktooltip import ToolTip
-
 from constant import FILE_WILDCARD
+# from tktooltip import ToolTip
+from utility import add_files_to_treeview
 
 
 class FileList(ttk.LabelFrame):
@@ -101,14 +101,14 @@ class FileList(ttk.LabelFrame):
             filetypes=FILE_WILDCARD['pdf']
         )
         if files:
-            self._add_files(files)
+            add_files_to_treeview(self.TreeviewFilelist, files)
 
     def add_folder(self):
         folder = askdirectory(title=_('Select Folder'))
         if folder:
             files = Path(folder).glob('*.pdf')
             if files:
-                self._add_files(files)
+                add_files_to_treeview(self.TreeviewFilelist, files)
 
     def remove_files(self):
         items = self.TreeviewFilelist.selection()
@@ -132,12 +132,6 @@ class FileList(ttk.LabelFrame):
         deselection = set(items) - set(selection)
         self.TreeviewFilelist.selection_set(list(deselection))
         self.TreeviewFilelist.selection_remove(selection)
-
-    def _add_files(self, files):
-        for file in files:
-            index = self.TreeviewFilelist.insert('', 'end', text=file)
-            self.TreeviewFilelist.set(index, 'folder', Path(file).parent)
-            self.TreeviewFilelist.set(index, 'filename', Path(file).name)
 
 
 class FileListOrdered(FileList):

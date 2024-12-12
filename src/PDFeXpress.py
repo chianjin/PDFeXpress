@@ -1,4 +1,4 @@
-import tkinter as tk
+import tkinterdnd2
 
 from app import Menubar
 from constant import SYSTEM, BASE_FOLDER, APPLICATION_NAME
@@ -6,7 +6,7 @@ from main_frame import MainFrame
 from utility import center_window
 
 
-class PDFeXpress(tk.Tk):
+class PDFeXpress(tkinterdnd2.Tk):
     def __init__(self):
         super().__init__()
         self.title(APPLICATION_NAME)

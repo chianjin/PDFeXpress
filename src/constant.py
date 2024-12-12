@@ -5,7 +5,7 @@ import platform
 from collections import namedtuple
 from pathlib import Path
 
-import psutil
+# import psutil
 
 APPLICATION_NAME = 'PDF eXpress'
 EXECUTIVE_NAME = APPLICATION_NAME.replace(' ', '')
@@ -13,7 +13,7 @@ APPLICATION_VERSION = '0.4-ALPHA'
 APPLICATION_URL = f'https://github.com/chianjin/{EXECUTIVE_NAME}'
 
 SYSTEM = platform.system()
-PHYSICAL_CPU_COUNT = psutil.cpu_count(logical=False)
+# PHYSICAL_CPU_COUNT = psutil.cpu_count(logical=False)
 BASE_FOLDER = Path(__file__).absolute().parent
 
 BYTE_UNIT = ('', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')

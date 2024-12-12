@@ -9,13 +9,12 @@ from constant import FILE_WILDCARD, BASE_FOLDER
 from utility import get_treeview_file_list
 from widget import FileList, OutputFile, Process, FrameTitle
 
-
 BLANK_PDF = BASE_FOLDER / 'data/blank.pdf'
 print(BLANK_PDF)
-LIMITED_HEIGHT = 397                        # 14 * 72 / 2.54 = 396.8504
-INVOICE_HEIGHT = 14 * 72 / 2.54     # 14cm
-A4_WIDTH = 21 * 72 / 2.54           # 21cm
-A4_HEIGHT = 29.7 * 72 / 2.54        # 29.7cm
+LIMITED_HEIGHT = 397  # 14 * 72 / 2.54 = 396.8504
+INVOICE_HEIGHT = 14 * 72 / 2.54  # 14cm
+A4_WIDTH = 21 * 72 / 2.54  # 21cm
+A4_HEIGHT = 29.7 * 72 / 2.54  # 29.7cm
 A4_RECT = fitz.Rect(0, 0, A4_WIDTH, A4_HEIGHT)
 UP_RECT = fitz.Rect(0, 0, A4_WIDTH, INVOICE_HEIGHT)
 DOWN_RECT = fitz.Rect(0, INVOICE_HEIGHT, A4_WIDTH, INVOICE_HEIGHT * 2)
@@ -96,7 +95,7 @@ class MergeInvoice(ttk.Frame):
             self.Process.process.set(count)
             self.Process.ProgressBar.update_idletasks()
             try:
-                down_pdf = fitz.Document(normal_invoices[i+1])
+                down_pdf = fitz.Document(normal_invoices[i + 1])
                 new_page.show_pdf_page(DOWN_RECT, down_pdf, 0)
                 down_pdf.close()
                 count += 1

@@ -71,7 +71,7 @@ class Process(ttk.LabelFrame):
             mode='determinate',
             variable=self.process
         )
-        self.ProgressBar.pack(side='left', expand=True,fill='x', padx=4, pady=4)
+        self.ProgressBar.pack(side='left', expand=True, fill='x', padx=4, pady=4)
         self.ButtonProcess = ttk.Button(
             master=self,
             text=_('Process'),

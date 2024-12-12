@@ -67,7 +67,7 @@ class Options(ttk.LabelFrame):
         self.EntryImageQuality = ttk.Entry(master=self, width=4, justify='center', textvariable=self.image_quality)
         self.EntryImageQuality.pack(side='left', padx=4, pady=4)
 
-        ttk.Separator(master=self, orient='vertical').pack(side='left',fill='y', padx=14, pady=4)
+        ttk.Separator(master=self, orient='vertical').pack(side='left', fill='y', padx=14, pady=4)
 
         self.LabelMaxResolution = ttk.Label(master=self, text=_('Max Resolution'))
         self.LabelMaxResolution.pack(side='left', padx=4, pady=4)
@@ -76,7 +76,6 @@ class Options(ttk.LabelFrame):
         self.EntryMaxResolution.pack(side='left', padx=4, pady=4)
         self.LabelMaxResolutionUnit = ttk.Label(master=self, text='dpi')
         self.LabelMaxResolutionUnit.pack(side='left', padx=0, pady=4)
-
 
         self.configure(text=_('Options'))
         self.pack(fill='x', padx=4, pady=4)
