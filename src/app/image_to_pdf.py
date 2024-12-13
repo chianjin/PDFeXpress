@@ -4,9 +4,10 @@ from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename, askopenfilenames, askdirectory
 
 import fitz
+import tkinterdnd2
 
 from constant import FILE_WILDCARD
-from utility import get_treeview_file_list
+from utility import get_treeview_file_list, drop_image_files_to_treeview
 from widget import FileListOrdered, OutputFile, Process, FrameTitle
 
 
@@ -32,6 +33,12 @@ class ImageToPDF(ttk.Frame):
         self.Process.configure(text=_('Image to PDF'))
         self.Process.ButtonProcess.configure(text=_('Convert'), command=self.image_to_pdf)
         self.Process.pack(fill='x', padx=4, pady=4)
+
+        self.drop_target_register(tkinterdnd2.DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_files)
+
+    def drop_files(self, event):
+        drop_image_files_to_treeview(self.FileList.TreeviewFilelist, event)
 
     def add_files(self):
         files = askopenfilenames(
@@ -100,7 +107,7 @@ class ImageToPDF(ttk.Frame):
 
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    root = tkinterdnd2.Tk()
     root.title('Image t PDF')
     image_to_pdf = ImageToPDF(root)
     image_to_pdf.pack(expand=True, fill='both', padx=4, pady=4)
