@@ -8,7 +8,7 @@ import fitz
 import tkinterdnd2
 
 from constant import FILE_WILDCARD
-from utility import split_drop_data
+from utility import drop_pdf_file_to_entry
 from widget import Process, FrameTitle, OutputFolder, InputFile
 
 
@@ -40,9 +40,7 @@ class SplitPDF(ttk.Frame):
         self.dnd_bind('<<Drop>>', self.drop_files)
 
     def drop_files(self, event):
-        file_list = split_drop_data(event.data)
-        file_list = [file for file in file_list if file.suffix.lower() == '.pdf']
-        self.InputFile.input_file.set(file_list[0])
+        drop_pdf_file_to_entry(self.InputFile.input_file, event)
 
     def set_output_folder(self):
         initial_dir = None
@@ -83,7 +81,7 @@ class SplitPDF(ttk.Frame):
                     output_file = f'{output_folder}/{Path(input_file).stem}-P{from_page:0{page_width}d}-{to_page:0{page_width}d}.pdf'
                 with fitz.Document() as out_pdf:
                     out_pdf.insert_pdf(input_pdf, from_page=from_page, to_page=to_page)
-                    out_pdf.save(output_file)
+                    out_pdf.save(output_file, garbage=4, deflate=True)
                 self.Process.process.set(i)
                 self.Process.ProgressBar.update()
         self.Process.ProgressBar.grab_release()

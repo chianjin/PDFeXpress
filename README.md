@@ -6,28 +6,26 @@
 
 ## Developing Environment
 
-- Python 3.10
+- Python 3.11
+- PyMuPDF==1.22.5
 - Pillow
-- psutil
-- PyMuPDF
-- Nuitka
-- ordered-set
+- Nuitka==1.8.6
 
 ## Current Version
 
-The current version is 0.3.3-BETA, tested on Windows 7 , 10 and 11. Planing to test on Linux/FreeBSD.
+The current version is 0.4-BETA, tested on Windows 11 amd64.
 
 ## Main Functions
 
 - **Merge**: Merge multiple PDF files into one PDF
 - **Split**: Splits a PDF into multiple PDFs, supporting single page splitting, split by number of pages, by number of
   copies, and by range
-- **Rotate** : Rotate each PDF page with 90° clockwise, counterclockwise, and 180°
-- **Compression**: Reduces PDF file size by compressing the images contained in the page
+- **Rotate** : Rotate each PDF page with 90°, 180°, and 270° clockwise
 - **Extract Images**: Extracts the images contained in the PDF file and saves them in the original data format
 - **Extract Text**: Extracts plain text contained in a PDF file, without formatting
 - **PDF to Image** : Converts each entire pages of a PDF file to images
 - **Image to PDF**: Converts images file to PDF
+- **Merge Invoice**: Merges multiple Chinese invoices into one PDF
 
 ## Running Method
 

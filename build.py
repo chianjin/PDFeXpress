@@ -5,18 +5,25 @@ import subprocess
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
+from setuptools.errors import PlatformError
+
 from src.constant import APPLICATION_VERSION, EXECUTIVE_NAME
 
 SYSTEM = platform.system()
 ARCH = platform.architecture()[0][:2]
 
+if ARCH == '32':
+    raise PlatformError('x86 is not supported.')
+
 PROJECT_DIR = Path(__file__).absolute().parent
 SOURCE_DIR = Path('src')
 BUILD_DIR = Path('build')
-OUTPUT_DIR = BUILD_DIR / f'{SYSTEM}-{ARCH}'
+OUTPUT_DIR = BUILD_DIR
 RELEASE_DIR = Path('release') / APPLICATION_VERSION
 if not RELEASE_DIR.exists():
     RELEASE_DIR.mkdir()
+
+
 
 
 def build():
@@ -49,31 +56,18 @@ def build():
     if process.returncode != 0:
         raise ChildProcessError('Nuitka building failed.')
 
-    # # hack for win32
-    # if SYSTEM == 'Windows' and ARCH == '32':
-    #     win64_dir = OUTPUT_DIR / f'{EXECUTIVE_NAME}.dist/tkinterdnd2/tkdnd/win64'
-    #     if Path(win64_dir).exists():
-    #         os.system(f'RD /S /Q {win64_dir}')
-    #
-    #     src_dnd_dir = SOURCE_DIR / 'tkinterdnd2/tkdnd/win32'
-    #     dist_dnd_dir = OUTPUT_DIR / f'{EXECUTIVE_NAME}.dist/tkinterdnd2/tkdnd/win32'
-    #     if not dist_dnd_dir.exists():
-    #         dist_dnd_dir.mkdir()
-    #     os.system(f'COPY /Y {src_dnd_dir}\\*.* {dist_dnd_dir}')
-
     print('Building done.')
 
 
 def create_portable():
-    file_list = glob.glob(f'{OUTPUT_DIR / EXECUTIVE_NAME}.dist/**', recursive=True)
-    file_list.sort()
+    file_list = Path(OUTPUT_DIR / f'{EXECUTIVE_NAME}.dist').glob('**/*')
+    # file_list.sort()
     portable_file = RELEASE_DIR / f'{EXECUTIVE_NAME}-{APPLICATION_VERSION}-Portable-{SYSTEM}-{ARCH}.zip'
 
     print('Creating portable package...')
     with ZipFile(portable_file, 'w', compression=ZIP_DEFLATED) as zf:
         for file in file_list:
-            file = Path(file)
-            name_in_zip = f'{EXECUTIVE_NAME}-{ARCH}/{"/".join(file.parts[3:])}'
+            name_in_zip = Path('/'.join(file.parts[2:]))
             print(name_in_zip)
             if file.is_file():
                 zf.write(file, name_in_zip)
@@ -82,7 +76,7 @@ def create_portable():
 
 def update_iss():
     settings = {
-            'APPLICATION_VERSION': APPLICATION_VERSION,
+            'APP_VERSION': APPLICATION_VERSION,
             'PROJECT_DIR': str(PROJECT_DIR),
             'OUTPUT_DIR': str(OUTPUT_DIR),
             'RELEASE_DIR': str(RELEASE_DIR),
@@ -130,7 +124,7 @@ def create_setup():
 
 
 if __name__ == '__main__':
-    build()
-    #create_portable()
-    #if SYSTEM == 'Windows':
-    #    create_setup()
+    # build()
+    create_portable()
+    # if SYSTEM == 'Windows':
+    #     create_setup()

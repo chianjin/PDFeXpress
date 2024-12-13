@@ -3,7 +3,10 @@ from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename
 
+import tkinterdnd2
+
 from constant import FILE_WILDCARD
+from utility import drop_pdf_file_to_entry, get_treeview_file_list
 from widget import Process, FrameTitle, InputFile, OutputFile
 
 
@@ -30,6 +33,12 @@ class CompressPDF(ttk.Frame):
         self.Process.ButtonProcess.configure(text=_('Compress'), command=self.compress_pdf)
         self.Process.pack(fill='x', padx=4, pady=4)
 
+        self.drop_target_register(tkinterdnd2.DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_files)
+
+    def drop_files(self, event):
+        drop_pdf_file_to_entry(self.InputFile.input_file, event)
+
     def set_output_file(self):
         initial_file = None
         initial_dir = None
@@ -54,6 +63,16 @@ class CompressPDF(ttk.Frame):
             self.OutputFile.output_file.set(Path(file))
 
     def compress_pdf(self):
+        input_file = self.InputFile.input_file.get()
+        output_file = self.OutputFile.output_file.get()
+
+
+        image_quality = self.Options.image_quality.get()
+        max_resolution = self.Options.max_resolution.get()
+
+        if not input_file or not output_file:
+            return
+
         pass
 
 
@@ -82,7 +101,7 @@ class Options(ttk.LabelFrame):
 
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    root = tkinterdnd2.Tk()
     root.title('Split PDF')
     split_pdf = CompressPDF(root)
     split_pdf.pack(expand=True, fill='both', padx=4, pady=4)

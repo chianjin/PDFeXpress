@@ -20,7 +20,7 @@ class MainFrame(tk.Frame):
             'merge_pdf': [_('Merge PDF'), MergePDF(self)],
             'split_pdf': [_('Split PDF'), SplitPDF(self)],
             'rotate_pdf': [_('Rotate PDF'), RotatePDF(self)],
-            'compress_pdf': [_('Compress PDF'), CompressPDF(self)],
+            # 'compress_pdf': [_('Compress PDF'), CompressPDF(self)],
             'extract_text': [_('Extract Text'), ExtractText(self)],
             'extract_image': [_('Extract Image'), ExtractImage(self)],
             'image_to_pdf': [_('Image to PDF'), ImageToPDF(self)],

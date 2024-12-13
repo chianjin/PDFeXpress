@@ -36,6 +36,8 @@ FILE_WILDCARD = {
         (_('WebP Image'), '*.webp'),
     )
 }
+IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.gif', '.tif', '.tiff', '.bmp')
+
 
 file_label = namedtuple('file_label', ['label', 'prompt', 'extension', 'wildcard'])
 

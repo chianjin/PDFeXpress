@@ -6,7 +6,7 @@ import fitz
 import tkinterdnd2
 
 from constant import FILE_WILDCARD
-from utility import get_treeview_file_list, split_drop_data, add_files_to_treeview
+from utility import get_treeview_file_list, drop_pdf_files_to_treeview
 from widget import FileListOrdered, OutputFile, Process, FrameTitle
 
 
@@ -35,9 +35,7 @@ class MergePDF(ttk.Frame):
         self.dnd_bind('<<Drop>>', self.drop_files)
 
     def drop_files(self, event):
-        file_list = split_drop_data(event.data)
-        file_list = [file for file in file_list if file.suffix.lower() == '.pdf']
-        add_files_to_treeview(self.FileList.TreeviewFilelist, file_list)
+        drop_pdf_files_to_treeview(self.FileList.TreeviewFilelist, event)
 
     def set_output_file(self):
         initial_dir = None
@@ -79,7 +77,7 @@ class MergePDF(ttk.Frame):
                     out_pdf.insert_pdf(input_pdf)
                 self.Process.process.set(i)
                 self.Process.update_idletasks()
-            out_pdf.save(output_file)
+            out_pdf.save(output_file, garbage=4, deflate=True)
         self.Process.ProgressBar.grab_release()
 
 

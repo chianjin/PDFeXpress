@@ -1,5 +1,17 @@
 # ChangeLog
 
+## 0.4-ALPHA
+
+2024-12-13
+
+- 移除 `压缩 PDF` 功能
+- 添加 `合并发票` 功能
+- 移除 Windows x86 支持
+- Python 升级至 3.11
+- PyMuPDF 升级至 1.22.5
+- Pillow 升级至 11.0.0
+- Nuitka 升级至 1.8.6
+
 ## 0.3.4-BETA
 
 2022-09-3

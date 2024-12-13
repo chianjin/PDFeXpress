@@ -1,6 +1,6 @@
 import re
 from pathlib import Path
-
+from constant import IMAGE_EXTENSIONS
 
 def center_window(window, bottom_keep=48):
     window.update()
@@ -37,3 +37,18 @@ def split_drop_data(data):
         if file_name.is_file():
             file_list.append(file_name)
     return file_list
+
+def drop_pdf_files_to_treeview(treeview, event):
+    file_list = split_drop_data(event.data)
+    file_list = [file for file in file_list if file.suffix.lower() == '.pdf']
+    add_files_to_treeview(treeview, file_list)
+
+def drop_pdf_file_to_entry(entry_variable, event):
+    file_list = split_drop_data(event.data)
+    file_list = [file for file in file_list if file.suffix.lower() == '.pdf']
+    entry_variable.set(Path(file_list[0]))
+
+def drop_image_files_to_treeview(treeview, event):
+    file_list = split_drop_data(event.data)
+    file_list = [file for file in file_list if file.suffix.lower() in IMAGE_EXTENSIONS]
+    add_files_to_treeview(treeview, file_list)

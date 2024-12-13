@@ -4,9 +4,10 @@ from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename
 
 import fitz
+import tkinterdnd2
 
 from constant import FILE_WILDCARD, BASE_FOLDER
-from utility import get_treeview_file_list
+from utility import get_treeview_file_list, drop_pdf_files_to_treeview
 from widget import FileList, OutputFile, Process, FrameTitle
 
 BLANK_PDF = BASE_FOLDER / 'data/blank.pdf'
@@ -40,6 +41,12 @@ class MergeInvoice(ttk.Frame):
         self.Process.configure(text=_('Merge Invoice'))
         self.Process.ButtonProcess.configure(text=_('Merge'), command=self.merge_invoice)
         self.Process.pack(fill='x', padx=4, pady=4)
+
+        self.drop_target_register(tkinterdnd2.DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_files)
+
+    def drop_files(self, event):
+        drop_pdf_files_to_treeview(self.FileList.TreeviewFilelist, event)
 
     def set_output_file(self):
         initial_dir = None
@@ -105,7 +112,7 @@ class MergeInvoice(ttk.Frame):
                 pass
         merged_normal_pdf.insert_pdf(merged_other_pdf)
         merged_other_pdf.close()
-        merged_normal_pdf.save(output_file)
+        merged_normal_pdf.save(output_file, garbage=4, deflate=True)
         merged_normal_pdf.close()
         blank_pdf.close()
         self.Process.ProgressBar.grab_release()
@@ -133,7 +140,7 @@ class MergeInvoice(ttk.Frame):
 
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    root = tkinterdnd2.Tk()
     root.title('Merge PDF')
     merge_pdf = MergeInvoice(root)
     merge_pdf.pack(expand=True, fill='both', padx=4, pady=4)

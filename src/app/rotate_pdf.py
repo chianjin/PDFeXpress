@@ -4,8 +4,9 @@ from tkinter import ttk
 from tkinter.filedialog import askdirectory
 
 import fitz
+import tkinterdnd2
 
-from utility import get_treeview_file_list
+from utility import get_treeview_file_list, add_files_to_treeview, split_drop_data
 from widget import FileList, Process, FrameTitle, OutputFolder
 
 
@@ -32,6 +33,14 @@ class RotatePDF(ttk.Frame):
         self.Process.configure(text=_('Rotate PDF'))
         self.Process.ButtonProcess.configure(text=_('Rotate'), command=self.rotate_pdf)
         self.Process.pack(fill='x', padx=4, pady=4)
+
+        self.drop_target_register(tkinterdnd2.DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_files)
+
+    def drop_files(self, event):
+        file_list = split_drop_data(event.data)
+        file_list = [file for file in file_list if file.suffix.lower() == '.pdf']
+        add_files_to_treeview(self.FileList.TreeviewFilelist, file_list)
 
     def set_output_folder(self):
         initial_dir = None
@@ -67,7 +76,7 @@ class RotatePDF(ttk.Frame):
             with fitz.Document(input_file) as input_pdf:
                 for page in input_pdf:
                     page.set_rotation(angle)
-                input_pdf.save(output_file)
+                input_pdf.save(output_file, garbage=4, deflate=True)
             self.Process.process.set(i)
             self.Process.ProgressBar.update_idletasks()
         self.Process.ProgressBar.grab_release()
@@ -90,7 +99,7 @@ class Options(ttk.LabelFrame):
 
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    root = tkinterdnd2.Tk()
     root.title('Rotate PDF')
     rotate_pdf = RotatePDF(root)
     rotate_pdf.pack(expand=True, fill='both', padx=4, pady=4)

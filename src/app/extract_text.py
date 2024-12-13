@@ -4,8 +4,9 @@ from tkinter import ttk
 from tkinter.filedialog import askdirectory
 
 import fitz
+import tkinterdnd2
 
-from utility import get_treeview_file_list
+from utility import get_treeview_file_list, drop_pdf_files_to_treeview
 from widget import FileList, Process, FrameTitle, OutputFolder
 
 
@@ -29,6 +30,12 @@ class ExtractText(ttk.Frame):
         self.Process.configure(text=_('Extract Text'))
         self.Process.ButtonProcess.configure(text=_('Extract'), command=self.extract_text)
         self.Process.pack(fill='x', padx=4, pady=4)
+
+        self.drop_target_register(tkinterdnd2.DND_FILES)
+        self.dnd_bind('<<Drop>>', self.drop_files)
+
+    def drop_files(self, event):
+        drop_pdf_files_to_treeview(self.FileList.TreeviewFilelist, event)
 
     def set_output_folder(self):
         initial_dir = None
@@ -72,7 +79,7 @@ class ExtractText(ttk.Frame):
 
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    root = tkinterdnd2.Tk()
     root.title('Extract Text')
     extract_text = ExtractText(root)
     extract_text.pack(expand=True, fill='both', padx=4, pady=4)

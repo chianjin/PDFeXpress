@@ -1,5 +1,17 @@
 # ChangeLog
 
+## 0.4-ALPHA
+
+2024-12-13
+
+- Remove `Compress PDF` function
+- Add `Merge Invoice` function
+- Remove Windows x86 support
+- Python update to 3.11
+- PyMuPDF update to 1.22.5
+- Pillow update to 11.0.0
+- Nuitka update to 1.8.6
+
 ## 0.3.4-BETA
 
 2022-09-3
