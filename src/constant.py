@@ -38,7 +38,6 @@ FILE_WILDCARD = {
 }
 IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.gif', '.tif', '.tiff', '.bmp')
 
-
 file_label = namedtuple('file_label', ['label', 'prompt', 'extension', 'wildcard'])
 
 FILE_LABELS = {

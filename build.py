@@ -1,4 +1,3 @@
-import glob
 import os
 import platform
 import subprocess
@@ -24,32 +23,30 @@ if not RELEASE_DIR.exists():
     RELEASE_DIR.mkdir()
 
 
-
-
 def build():
     nuitka_cmd = [
-            'nuitka',
-            '--clang',
-            '--mingw64',
-            # '--show-progress',
-            '--show-memory',
-            '--standalone',
-            '--include-data-dir=src/data=data',
-            '--include-data-dir=src/locale=locale',
-            '--include-data-file=LICENSE=LICENSE',
-            '--include-data-file=README.md=README.md',
-            '--include-data-file=README.zh_CN.md=README.zh_CN.md',
-            '--plugin-enable=tk-inter',
-            f'--output-dir={OUTPUT_DIR}'
-            ]
+        'nuitka',
+        '--clang',
+        '--mingw64',
+        # '--show-progress',
+        '--show-memory',
+        '--standalone',
+        '--include-data-dir=src/data=data',
+        '--include-data-dir=src/locale=locale',
+        '--include-data-file=LICENSE=LICENSE',
+        '--include-data-file=README.md=README.md',
+        '--include-data-file=README.zh_CN.md=README.zh_CN.md',
+        '--plugin-enable=tk-inter',
+        f'--output-dir={OUTPUT_DIR}'
+    ]
 
     if platform.system() == 'Windows':
         nuitka_cmd.extend(
-                (
-                        '--windows-disable-console',
-                        '--windows-icon-from-ico=src/data/PDFeXpress.ico',
-                        )
-                )
+            (
+                '--windows-disable-console',
+                '--windows-icon-from-ico=src/data/PDFeXpress.ico',
+            )
+        )
     nuitka_cmd.append(SOURCE_DIR / f'{EXECUTIVE_NAME}.py')
 
     process = subprocess.run(nuitka_cmd, shell=True)
@@ -76,13 +73,13 @@ def create_portable():
 
 def update_iss():
     settings = {
-            'APP_VERSION': APPLICATION_VERSION,
-            'PROJECT_DIR': str(PROJECT_DIR),
-            'OUTPUT_DIR': str(OUTPUT_DIR),
-            'RELEASE_DIR': str(RELEASE_DIR),
-            'ARCH': ARCH,
-            'ARCH_MODE': 'ArchitecturesInstallIn64BitMode=x64' if ARCH == '64' else ''
-            }
+        'APP_VERSION': APPLICATION_VERSION,
+        'PROJECT_DIR': str(PROJECT_DIR),
+        'OUTPUT_DIR': str(OUTPUT_DIR),
+        'RELEASE_DIR': str(RELEASE_DIR),
+        'ARCH': ARCH,
+        'ARCH_MODE': 'ArchitecturesInstallIn64BitMode=x64' if ARCH == '64' else ''
+    }
 
     iss_template = f'{EXECUTIVE_NAME}-template.iss'
     iss_work = Path(BUILD_DIR) / f'{EXECUTIVE_NAME}-{ARCH}.iss'

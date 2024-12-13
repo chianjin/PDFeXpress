@@ -6,7 +6,7 @@ from tkinter.filedialog import asksaveasfilename
 import tkinterdnd2
 
 from constant import FILE_WILDCARD
-from utility import drop_pdf_file_to_entry, get_treeview_file_list
+from utility import drop_pdf_file_to_entry
 from widget import Process, FrameTitle, InputFile, OutputFile
 
 
@@ -65,7 +65,6 @@ class CompressPDF(ttk.Frame):
     def compress_pdf(self):
         input_file = self.InputFile.input_file.get()
         output_file = self.OutputFile.output_file.get()
-
 
         image_quality = self.Options.image_quality.get()
         max_resolution = self.Options.max_resolution.get()

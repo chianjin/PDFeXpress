@@ -3,8 +3,7 @@ from tkinter import ttk
 
 from app import (
     MergePDF, RotatePDF, ExtractText, ExtractImage,
-    ImageToPDF, SplitPDF, MergeInvoice, PDFToImage,
-    CompressPDF
+    ImageToPDF, SplitPDF, MergeInvoice, PDFToImage
 )
 from constant import SYSTEM, APPLICATION_NAME
 

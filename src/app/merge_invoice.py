@@ -1,4 +1,3 @@
-import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename
