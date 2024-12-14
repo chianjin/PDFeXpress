@@ -26,6 +26,7 @@ FILE_WILDCARD = {
     'all': ((_('All Files'), '*.*'),),
     'text': ((_('Text File'), '*.txt'),),
     'pdf': ((_('PDF File'), '*.pdf'),),
+    'jpg': ((_('JPEG Image'), '*.jpg;*.jpeg'),),
     'image': (
         (_('Image File'), '*.jpg;*.jpeg;*.png;*.gif;*.tif;*.tiff;*.bmp'),
         (_('JPEG Image'), '*.jpg;*.jpeg'),

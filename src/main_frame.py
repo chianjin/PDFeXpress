@@ -5,6 +5,7 @@ from app import (
     MergePDF, RotatePDF, ExtractText, ExtractImage,
     ImageToPDF, SplitPDF, MergeInvoice, PDFToImage
 )
+from app.pdf_to_long_image import PDFToLongImage
 from constant import SYSTEM, APPLICATION_NAME
 
 
@@ -24,6 +25,7 @@ class MainFrame(tk.Frame):
             'extract_image': [_('Extract Image'), ExtractImage(self)],
             'image_to_pdf': [_('Image to PDF'), ImageToPDF(self)],
             'pdf_to_image': [_('PDF to Image'), PDFToImage(self)],
+            'pdf_to_long_image': [_('PDF to Long Image'), PDFToLongImage(self)],
             'merge_invoice': [_('Merge Invoice'), MergeInvoice(self)],
         }
         for action in self._actions.keys():
