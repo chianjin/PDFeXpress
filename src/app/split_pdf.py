@@ -78,7 +78,7 @@ class SplitPDF(ttk.Frame):
                 if self.Options.split_mode.get() == 'single_page':
                     output_file = f'{output_folder}/{Path(input_file).stem}-P{from_page:0{page_width}d}.pdf'
                 else:
-                    output_file = f'{output_folder}/{Path(input_file).stem}-P{from_page:0{page_width}d}-{to_page:0{page_width}d}.pdf'
+                    output_file = f'{output_folder}/{Path(input_file).stem}-P{from_page:0{page_width}d}-P{to_page:0{page_width}d}.pdf'
                 with fitz.Document() as out_pdf:
                     out_pdf.insert_pdf(input_pdf, from_page=from_page, to_page=to_page)
                     out_pdf.save(output_file, garbage=4, deflate=True)
@@ -88,6 +88,14 @@ class SplitPDF(ttk.Frame):
 
     def _generate_split_range(self, page_count):
         mode = self.Options.split_mode.get()
+        if self.Options.EntryPages.get() == '':
+            self.Options.pages.set(2)
+        if self.Options.EntryCount.get() == '':
+            self.Options.count.set(2)
+        if self.Options.EntryStart.get() == '':
+            self.Options.range_start.set(1)
+        if self.Options.EntryEnd.get() == '':
+            self.Options.range_end.set(page_count)
         if mode in ('single_page', 'by_pages', 'by_count'):
             if mode == 'single_page':
                 step = 1
@@ -97,6 +105,10 @@ class SplitPDF(ttk.Frame):
                 step = math.ceil(page_count / self.Options.count.get())
             return [(i, i + step - 1) for i in range(1, page_count + 1, step)]
         elif mode == 'by_range':
+            if self.Options.range_start.get() > page_count:
+                self.Options.range_start.set(page_count)
+            if self.Options.range_end.get() > page_count:
+                self.Options.range_end.set(page_count)
             return [(self.Options.range_start.get(), self.Options.range_end.get())]
 
     def add_file(self):
@@ -130,7 +142,14 @@ class Options(ttk.LabelFrame):
         )
         self.RadioButtonByPages.pack(side='left', padx=4, pady=4)
         self.pages = tk.IntVar(value=2)
-        self.EntryPages = ttk.Entry(master=self, width=4, justify='center', textvariable=self.pages)
+        self.EntryPages = ttk.Entry(
+            master=self,
+            width=4,
+            justify='center',
+            textvariable=self.pages,
+            validate='key',
+            validatecommand=(self.register(self.validate_pages_count), '%P')
+        )
         self.EntryPages.pack(side='left', padx=4, pady=4)
         self.RadioButtonByCount = ttk.Radiobutton(
             master=self,
@@ -140,7 +159,14 @@ class Options(ttk.LabelFrame):
         )
         self.RadioButtonByCount.pack(side='left', padx=4, pady=4)
         self.count = tk.IntVar(value=2)
-        self.EntryCount = ttk.Entry(master=self, width=4, justify='center', textvariable=self.count)
+        self.EntryCount = ttk.Entry(
+            master=self,
+            width=4,
+            justify='center',
+            textvariable=self.count,
+            validate='key',
+            validatecommand=(self.register(self.validate_pages_count), '%P')
+        )
         self.EntryCount.pack(side='left', padx=4, pady=4)
         self.RadioButtonByRange = ttk.Radiobutton(
             master=self,
@@ -151,15 +177,47 @@ class Options(ttk.LabelFrame):
         self.RadioButtonByRange.pack(side='left', padx=4, pady=4)
         self.range_start = tk.IntVar(value=1)
         self.range_end = tk.IntVar(value=1)
-        self.EntryStart = ttk.Entry(master=self, width=4, justify='center', textvariable=self.range_start)
+        self.EntryStart = ttk.Entry(
+            master=self,
+            width=4,
+            justify='center',
+            textvariable=self.range_start,
+            validate='key',
+            validatecommand=(self.register(self.validate_range), '%P')
+        )
         self.EntryStart.pack(side='left', padx=4, pady=4)
         label_to = ttk.Label(master=self, text='-')
         label_to.pack(side='left', pady=4)
-        self.EntryEnd = ttk.Entry(master=self, width=4, justify='center', textvariable=self.range_end)
+        self.EntryEnd = ttk.Entry(
+            master=self,
+            width=4,
+            justify='center',
+            textvariable=self.range_end,
+            validate='key',
+            validatecommand=(self.register(self.validate_range), '%P')
+        )
         self.EntryEnd.pack(side='left', padx=4, pady=4)
 
         self.configure(text=_('Options'))
         self.pack(fill='x', padx=4, pady=4)
+
+    def validate_pages_count(self, P):
+        if P == "":
+            return True
+        try:
+            value = int(P)
+            return value > 1
+        except ValueError:
+            return False
+
+    def validate_range(self, P):
+        if P == "":
+            return True
+        try:
+            value = int(P)
+            return value > 0
+        except ValueError:
+            return False
 
 
 if __name__ == '__main__':

@@ -66,10 +66,13 @@ class PDFToImage(ttk.Frame):
         output_folder = self.OutputFolder.output_folder.get()
         if not output_folder:
             return None
-
+        if self.Options.EntryImageResolution.get() == "":
+            self.Options.EntryImageResolution.insert(0, "200")
         image_resolution = self.Options.image_resolution.get()
         image_format = self.Options.image_format.get()
         png_transparent = self.Options.png_transparent.get()
+        if self.Options.EntryJpegQuality.get() == "":
+            self.Options.EntryJpegQuality.insert(0, "85")
         jpeg_quality = self.Options.jpeg_quality.get()
 
         zoom = image_resolution / 96 * 4 / 3  # actually 72
@@ -105,8 +108,14 @@ class Options(ttk.LabelFrame):
         self.LabelImageResolution = ttk.Label(master=self, text=_('Resolution'))
         self.LabelImageResolution.pack(side='left', padx=4, pady=4)
         self.image_resolution = tk.IntVar(value=200)
-        self.EntryImageResolution = ttk.Entry(master=self, width=4, justify='center',
-                                              textvariable=self.image_resolution)
+        self.EntryImageResolution = ttk.Entry(
+            master=self,
+            width=4,
+            justify='center',
+            textvariable=self.image_resolution,
+            validate='key',
+            validatecommand=(self.register(self.validate_resolution), '%P')
+        )
         self.EntryImageResolution.pack(side='left', padx=4, pady=4)
         self.LabelImageResolutionUnit = ttk.Label(master=self, text='dpi')
         self.LabelImageResolutionUnit.pack(side='left', padx=0, pady=4)
@@ -140,11 +149,36 @@ class Options(ttk.LabelFrame):
         self.LabelJpegQuality = ttk.Label(master=self, text=_('Image Quality'))
         self.LabelJpegQuality.pack(side='left', padx=4, pady=4)
         self.jpeg_quality = tk.IntVar(value=85)
-        self.EntryJpegQuality = ttk.Entry(master=self, width=4, justify='center', textvariable=self.jpeg_quality)
+        self.EntryJpegQuality = ttk.Entry(
+            master=self,
+            width=4,
+            justify='center',
+            textvariable=self.jpeg_quality,
+            validate='key',
+            validatecommand=(self.register(self.validate_quality), '%P')
+        )
         self.EntryJpegQuality.pack(side='left', padx=4, pady=4)
 
         self.configure(text=_('Options'))
         self.pack(fill='x', padx=4, pady=4)
+
+    def validate_resolution(self, P):
+        if P == "":
+            return True
+        try:
+            value = int(P)
+            return value > 0
+        except ValueError:
+            return False
+
+    def validate_quality(self, P):
+        if P == "":
+            return True
+        try:
+            value = int(P)
+            return value <= 100
+        except ValueError:
+            return False
 
 
 if __name__ == '__main__':

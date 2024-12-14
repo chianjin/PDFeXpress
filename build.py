@@ -57,14 +57,15 @@ def build():
 
 
 def create_portable():
-    file_list = Path(OUTPUT_DIR / f'{EXECUTIVE_NAME}.dist').glob('**/*')
+    dist_dir = OUTPUT_DIR / f'{EXECUTIVE_NAME}.dist'
+    file_list = dist_dir.glob('**/*')
     # file_list.sort()
     portable_file = RELEASE_DIR / f'{EXECUTIVE_NAME}-{APPLICATION_VERSION}-Portable-{SYSTEM}-{ARCH}.zip'
 
     print('Creating portable package...')
     with ZipFile(portable_file, 'w', compression=ZIP_DEFLATED) as zf:
         for file in file_list:
-            name_in_zip = Path('/'.join(file.parts[2:]))
+            name_in_zip = file.relative_to(dist_dir)
             print(name_in_zip)
             if file.is_file():
                 zf.write(file, name_in_zip)
