@@ -70,13 +70,11 @@ class ExtractImage(ttk.Frame):
                 for page_no, page in enumerate(input_pdf, start=1):
                     images = page.get_images()
                     for image_no, image_info in enumerate(images, start=1):
-                        print(image_no)
                         xref = image_info[0]
                         image_data = input_pdf.extract_image(xref)
                         ext = image_data['ext']
                         image = image_data['image']
                         output_file = f'{Path(input_file).stem}-P{page_no:0{page_no_width}d}-{image_no:02d}.{ext}'
-                        print(output_file)
                         output_file = Path(output_folder) / output_file
                         with open(output_file, 'wb') as f:
                             f.write(image)

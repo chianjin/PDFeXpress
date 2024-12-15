@@ -10,7 +10,6 @@ from utility import get_treeview_file_list, drop_pdf_files_to_treeview
 from widget import FileList, OutputFile, Process, FrameTitle
 
 BLANK_PDF = BASE_FOLDER / 'data/blank.pdf'
-print(BLANK_PDF)
 LIMITED_HEIGHT = 397  # 14 * 72 / 2.54 = 396.8504
 INVOICE_HEIGHT = 14 * 72 / 2.54  # 14cm
 A4_WIDTH = 21 * 72 / 2.54  # 21cm

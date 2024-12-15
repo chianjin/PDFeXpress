@@ -21,7 +21,7 @@ class SplitPDF(ttk.Frame):
 
         self.InputFile = InputFile(master=self)
         self.InputFile.pack(fill='x', padx=4, pady=4)
-        self.InputFile.ButtonInputFile.configure(command=self.add_file)
+        self.InputFile.input_file.trace('w', self.trace_input_file)
 
         self.Options = Options(master=self)
         self.Options.pack(fill='x', padx=4, pady=4)
@@ -41,6 +41,13 @@ class SplitPDF(ttk.Frame):
 
     def drop_files(self, event):
         drop_pdf_file_to_entry(self.InputFile.input_file, event)
+
+    def trace_input_file(self, *args):
+        input_file = self.InputFile.input_file.get()
+        if input_file:
+            self.OutputFolder.output_folder.set(Path(input_file).parent)
+            with fitz.Document(input_file) as input_pdf:
+                self.Options.range_end.set(input_pdf.page_count)
 
     def set_output_folder(self):
         initial_dir = None
@@ -110,16 +117,6 @@ class SplitPDF(ttk.Frame):
             if self.Options.range_end.get() > page_count:
                 self.Options.range_end.set(page_count)
             return [(self.Options.range_start.get(), self.Options.range_end.get())]
-
-    def add_file(self):
-        file = askopenfilename(
-            title=_('Select PDF File'),
-            filetypes=FILE_WILDCARD['pdf']
-        )
-        if file:
-            self.InputFile.input_file.set(Path(file))
-            with fitz.Document(file) as input_pdf:
-                self.Options.range_end.set(input_pdf.page_count)
 
 
 class Options(ttk.LabelFrame):

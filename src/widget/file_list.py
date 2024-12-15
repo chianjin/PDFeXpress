@@ -233,7 +233,6 @@ class FileListOrdered(FileList):
         selected_item = selection[0]
         index = self.TreeviewFilelist.index(selected_item)
         positions = dict(first=0, up=index - 1, down=index + 1, last='end')
-        print(positions)
         self.TreeviewFilelist.move(selected_item, '', positions[position])
 
     def _add_files(self, files):
