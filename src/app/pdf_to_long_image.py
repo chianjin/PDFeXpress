@@ -2,15 +2,15 @@ import tkinter as tk
 from io import BytesIO
 from pathlib import Path
 from tkinter import ttk, Image
-from tkinter.filedialog import askdirectory, asksaveasfilename
+from tkinter.filedialog import asksaveasfilename
+from tkinter.messagebox import showinfo
 
 import fitz
 import tkinterdnd2
 from PIL import Image
-from PIL.JpegImagePlugin import jpeg_factory
 
 from constant import FILE_WILDCARD
-from utility import get_treeview_file_list, drop_pdf_files_to_treeview, drop_pdf_file_to_entry
+from utility import drop_pdf_file_to_entry
 from widget import Process, FrameTitle, OutputFile, InputFile
 
 
@@ -116,6 +116,8 @@ class PDFToLongImage(ttk.Frame):
         long_image.save(output_file, quality=jpeg_quality, dpi=(image_resolution, image_resolution))
 
         self.Process.ProgressBar.grab_release()
+        showinfo(title=_('Done'), message=_('Convert PDF to long image completed.'))
+        self.Process.process.set(0)
 
 
 class Options(ttk.LabelFrame):

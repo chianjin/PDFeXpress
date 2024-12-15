@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename
+from tkinter.messagebox import showinfo
 
 import fitz
 import tkinterdnd2
@@ -79,6 +80,8 @@ class MergePDF(ttk.Frame):
                 self.Process.update_idletasks()
             out_pdf.save(output_file, garbage=4, deflate=True)
         self.Process.ProgressBar.grab_release()
+        showinfo(title=_('Done'), message=_('Merge Completed.'))
+        self.Process.process.set(0)
 
 
 if __name__ == '__main__':

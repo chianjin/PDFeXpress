@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
+from tkinter.messagebox import showinfo
 
 import fitz
 import tkinterdnd2
@@ -81,6 +82,8 @@ class ExtractImage(ttk.Frame):
             self.Process.process.set(i)
             self.Process.ProgressBar.update_idletasks()
         self.Process.ProgressBar.grab_release()
+        showinfo(title=_('Done'), message=_('Extract Completed.'))
+        self.Process.process.set(0)
 
 
 if __name__ == '__main__':

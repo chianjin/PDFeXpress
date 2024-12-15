@@ -114,6 +114,8 @@ class MergeInvoice(ttk.Frame):
         merged_normal_pdf.close()
         blank_pdf.close()
         self.Process.ProgressBar.grab_release()
+        showinfo(title=_('Done'), message=_('Merge Completed.'))
+        self.Process.process.set(0)
 
     def _get_invoices_list(self, file_list):
         normal_invoices = []

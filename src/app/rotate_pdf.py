@@ -2,6 +2,7 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
+from tkinter.messagebox import showinfo
 
 import fitz
 import tkinterdnd2
@@ -80,6 +81,8 @@ class RotatePDF(ttk.Frame):
             self.Process.process.set(i)
             self.Process.ProgressBar.update_idletasks()
         self.Process.ProgressBar.grab_release()
+        showinfo(title=_('Done'), message=_('Rotate Completed.'))
+        self.Process.process.set(0)
 
 
 class Options(ttk.LabelFrame):

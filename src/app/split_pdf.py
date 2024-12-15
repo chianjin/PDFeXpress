@@ -2,12 +2,12 @@ import math
 import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
-from tkinter.filedialog import askdirectory, askopenfilename
+from tkinter.filedialog import askdirectory
+from tkinter.messagebox import showinfo
 
 import fitz
 import tkinterdnd2
 
-from constant import FILE_WILDCARD
 from utility import drop_pdf_file_to_entry
 from widget import Process, FrameTitle, OutputFolder, InputFile
 
@@ -92,6 +92,8 @@ class SplitPDF(ttk.Frame):
                 self.Process.process.set(i)
                 self.Process.ProgressBar.update()
         self.Process.ProgressBar.grab_release()
+        showinfo(title=_('Done'), message=_('Split Completed.'))
+        self.Process.process.set(0)
 
     def _generate_split_range(self, page_count):
         mode = self.Options.split_mode.get()

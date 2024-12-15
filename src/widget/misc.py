@@ -78,18 +78,3 @@ class Process(ttk.LabelFrame):
         )
         self.ButtonProcess.pack(side='left', padx=4, pady=4)
         self.configure(text=_('Process'))
-
-
-if __name__ == '__main__':
-    root = tk.Tk()
-    root.title('File List')
-    frame_title = FrameTitle(root)
-    frame_title.pack(expand=True, fill='both', padx=4, pady=5)
-    output_file = OutputFile(root)
-    output_file.pack(expand=True, fill='both', padx=4, pady=5)
-    output_folder = OutputFolder(root)
-    output_folder.pack(expand=True, fill='both', padx=4, pady=5)
-    process = Process(root)
-    process.pack(expand=True, fill='both', padx=4, pady=5)
-
-    root.mainloop()

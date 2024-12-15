@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename, askopenfilenames, askdirectory
+from tkinter.messagebox import showinfo
 
 import fitz
 import tkinterdnd2
@@ -103,6 +104,8 @@ class ImageToPDF(ttk.Frame):
                 self.Process.update_idletasks()
             output_pdf.save(output_file)
         self.Process.ProgressBar.grab_release()
+        showinfo(title=_('Done'), message=_('Convert Completed.'))
+        self.Process.process.set(0)
 
 
 if __name__ == '__main__':
