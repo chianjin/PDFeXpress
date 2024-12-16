@@ -21,7 +21,7 @@ class SplitPDF(ttk.Frame):
 
         self.InputFile = InputFile(master=self)
         self.InputFile.pack(fill='x', padx=4, pady=4)
-        self.InputFile.input_file.trace('w', self.trace_input_file)
+        self.InputFile.input_file.trace_add('write', self.trace_input_file)
 
         self.Options = Options(master=self)
         self.Options.pack(fill='x', padx=4, pady=4)

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PDF eXpress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-15 17:08+0800\n"
-"PO-Revision-Date: 2024-12-15 17:10+0800\n"
+"POT-Creation-Date: 2024-12-15 17:50+0800\n"
+"PO-Revision-Date: 2024-12-15 17:52+0800\n"
 "Last-Translator: \n"
 "Language-Team: https://github.com/chianjin/PDFeXpress\n"
 "Language: zh_CN\n"
@@ -33,12 +33,12 @@ msgstr "PDF 输出文件"
 msgid "Compress"
 msgstr "压缩"
 
-#: app/compress_pdf.py:56 app/image_to_pdf.py:76 app/merge_invoice.py:57
-#: app/merge_pdf.py:54 app/pdf_to_long_image.py:71
+#: app/compress_pdf.py:56 app/image_to_pdf.py:77 app/merge_invoice.py:57
+#: app/merge_pdf.py:55 app/pdf_to_long_image.py:71
 msgid "Select PDF Output File"
 msgstr "选择 PDF 输出文件"
 
-#: app/compress_pdf.py:82 app/pdf_to_image.py:149 app/pdf_to_long_image.py:141
+#: app/compress_pdf.py:82 app/pdf_to_image.py:152 app/pdf_to_long_image.py:143
 msgid "Image Quality"
 msgstr "图像质量"
 
@@ -46,67 +46,81 @@ msgstr "图像质量"
 msgid "Max Resolution"
 msgstr "最大分辨率"
 
-#: app/compress_pdf.py:98 app/pdf_to_image.py:162 app/pdf_to_long_image.py:154
-#: app/rotate_pdf.py:97 app/split_pdf.py:198
+#: app/compress_pdf.py:98 app/pdf_to_image.py:165 app/pdf_to_long_image.py:156
+#: app/rotate_pdf.py:100 app/split_pdf.py:200
 msgid "Options"
 msgstr "选项"
 
-#: app/extract_image.py:16 app/extract_image.py:29 main_frame.py:25
+#: app/extract_image.py:17 app/extract_image.py:30 main_frame.py:25
 msgid "Extract Image"
 msgstr "提取图像"
 
-#: app/extract_image.py:21 app/extract_text.py:21 app/merge_pdf.py:22
-#: app/pdf_to_image.py:24 app/rotate_pdf.py:22
+#: app/extract_image.py:22 app/extract_text.py:22 app/merge_pdf.py:23
+#: app/pdf_to_image.py:25 app/rotate_pdf.py:23
 msgid "PDF File List"
 msgstr "PDF 文件列表"
 
-#: app/extract_image.py:24 app/pdf_to_image.py:30
+#: app/extract_image.py:25 app/pdf_to_image.py:31
 msgid "Image Output Folder"
 msgstr "图像输出文件夹"
 
-#: app/extract_image.py:30 app/extract_text.py:30
+#: app/extract_image.py:31 app/extract_text.py:31
 msgid "Extract"
 msgstr "提取"
 
-#: app/extract_image.py:50
+#: app/extract_image.py:51
 msgid "Select Image Output Folder"
 msgstr "选择图像输出文件夹"
 
-#: app/extract_text.py:16 app/extract_text.py:29 main_frame.py:24
+#: app/extract_image.py:85 app/extract_text.py:79 app/image_to_pdf.py:107
+#: app/merge_invoice.py:117 app/merge_pdf.py:83 app/pdf_to_image.py:103
+#: app/pdf_to_long_image.py:119 app/rotate_pdf.py:84 app/split_pdf.py:95
+msgid "Done"
+msgstr "完成"
+
+#: app/extract_image.py:85 app/extract_text.py:79
+msgid "Extract Completed."
+msgstr "提取完成。"
+
+#: app/extract_text.py:17 app/extract_text.py:30 main_frame.py:24
 msgid "Extract Text"
 msgstr "提取文本"
 
-#: app/extract_text.py:24
+#: app/extract_text.py:25
 msgid "Text Output Folder"
 msgstr "文本输出文件夹"
 
-#: app/extract_text.py:50
+#: app/extract_text.py:51
 msgid "Select Text Output Folder"
 msgstr "选择文本输出文件夹"
 
-#: app/image_to_pdf.py:17 app/image_to_pdf.py:32 main_frame.py:26
+#: app/image_to_pdf.py:18 app/image_to_pdf.py:33 main_frame.py:26
 msgid "Image to PDF"
 msgstr "图像转 PDF"
 
-#: app/image_to_pdf.py:22
+#: app/image_to_pdf.py:23
 msgid "Image File List"
 msgstr "图像文件列表"
 
-#: app/image_to_pdf.py:27 app/merge_pdf.py:25
+#: app/image_to_pdf.py:28 app/merge_pdf.py:26
 msgid "Output PDF File"
 msgstr "输出 PDF 文件"
 
-#: app/image_to_pdf.py:33 app/pdf_to_image.py:36 app/pdf_to_long_image.py:45
+#: app/image_to_pdf.py:34 app/pdf_to_image.py:37 app/pdf_to_long_image.py:45
 msgid "Convert"
 msgstr "转换"
 
-#: app/image_to_pdf.py:44
+#: app/image_to_pdf.py:45
 msgid "Select Image Files"
 msgstr "选择图像文件"
 
-#: app/image_to_pdf.py:51 widget/file_list.py:107 widget/file_list.py:185
+#: app/image_to_pdf.py:52 widget/file_list.py:107 widget/file_list.py:185
 msgid "Select Folder"
 msgstr "选择文件夹"
+
+#: app/image_to_pdf.py:107 app/pdf_to_image.py:103 app/pdf_to_long_image.py:119
+msgid "Convert Completed."
+msgstr "转换完成。"
 
 #: app/menu.py:15
 msgid "Exit"
@@ -136,31 +150,35 @@ msgstr "合并发票"
 msgid "Invoice File List"
 msgstr "图像文件列表"
 
-#: app/merge_invoice.py:40 app/merge_pdf.py:31
+#: app/merge_invoice.py:40 app/merge_pdf.py:32
 msgid "Merge"
 msgstr "合并"
 
-#: app/merge_pdf.py:17 app/merge_pdf.py:30 main_frame.py:20
+#: app/merge_invoice.py:117 app/merge_pdf.py:83
+msgid "Merge Completed."
+msgstr "合并完成。"
+
+#: app/merge_pdf.py:18 app/merge_pdf.py:31 main_frame.py:20
 msgid "Merge PDF"
 msgstr "合并 PDF"
 
-#: app/pdf_to_image.py:19 app/pdf_to_image.py:35 main_frame.py:27
+#: app/pdf_to_image.py:20 app/pdf_to_image.py:36 main_frame.py:27
 msgid "PDF to Image"
 msgstr "PDF 转图像"
 
-#: app/pdf_to_image.py:56 app/rotate_pdf.py:56 app/split_pdf.py:62
+#: app/pdf_to_image.py:57 app/rotate_pdf.py:57 app/split_pdf.py:62
 msgid "Select PDF Output Folder"
 msgstr "选择 PDF 输出文件"
 
-#: app/pdf_to_image.py:108 app/pdf_to_long_image.py:125
+#: app/pdf_to_image.py:111 app/pdf_to_long_image.py:127
 msgid "Resolution"
 msgstr "分辨率"
 
-#: app/pdf_to_image.py:123
+#: app/pdf_to_image.py:126
 msgid "Image Format"
 msgstr "图像格式"
 
-#: app/pdf_to_image.py:136
+#: app/pdf_to_image.py:139
 msgid "Transparent"
 msgstr "透明背景"
 
@@ -172,19 +190,23 @@ msgstr "PDF 转长图"
 msgid "Long Image File"
 msgstr "长图文件"
 
-#: app/rotate_pdf.py:17 app/rotate_pdf.py:33 main_frame.py:22
+#: app/rotate_pdf.py:18 app/rotate_pdf.py:34 main_frame.py:22
 msgid "Rotate PDF"
 msgstr "旋转 PDF"
 
-#: app/rotate_pdf.py:28 app/split_pdf.py:30
+#: app/rotate_pdf.py:29 app/split_pdf.py:30
 msgid "PDF Output Folder"
 msgstr "PDF 输出文件夹"
 
-#: app/rotate_pdf.py:34
+#: app/rotate_pdf.py:35
 msgid "Rotate"
 msgstr "旋转"
 
-#: app/rotate_pdf.py:88
+#: app/rotate_pdf.py:84
+msgid "Rotate Completed."
+msgstr "旋转完成。"
+
+#: app/rotate_pdf.py:91
 msgid "Rotation Angle (Clockwise)"
 msgstr "旋转角度（顺时针）"
 
@@ -196,19 +218,23 @@ msgstr "拆分 PDF"
 msgid "Split"
 msgstr "拆分"
 
-#: app/split_pdf.py:129
+#: app/split_pdf.py:95
+msgid "Split Completed."
+msgstr "拆分完成。"
+
+#: app/split_pdf.py:131
 msgid "Single Page"
 msgstr "单页"
 
-#: app/split_pdf.py:136
+#: app/split_pdf.py:138
 msgid "By Pages"
 msgstr "按页数"
 
-#: app/split_pdf.py:153
+#: app/split_pdf.py:155
 msgid "By Count"
 msgstr "按份数"
 
-#: app/split_pdf.py:170
+#: app/split_pdf.py:172
 msgid "By Range"
 msgstr "范围"
 
@@ -409,9 +435,6 @@ msgstr "运行"
 
 #~ msgid "Total PDF: {}"
 #~ msgstr "共 {} 个 PDF 文件"
-
-#~ msgid "Completed."
-#~ msgstr "全部完成。"
 
 #~ msgid "OK"
 #~ msgstr "确定"

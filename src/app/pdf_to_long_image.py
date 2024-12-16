@@ -28,7 +28,7 @@ class PDFToLongImage(ttk.Frame):
 
         self.InputFile = InputFile(master=self)
         self.InputFile.pack(fill='x', padx=4, pady=4)
-        self.InputFile.input_file.trace('w', self.trace_input_file)
+        self.InputFile.input_file.trace_add('write', self.trace_input_file)
 
         self.Options = Options(master=self)
         self.Options.pack(fill='x', padx=4, pady=4)
@@ -116,7 +116,7 @@ class PDFToLongImage(ttk.Frame):
         long_image.save(output_file, quality=jpeg_quality, dpi=(image_resolution, image_resolution))
 
         self.Process.ProgressBar.grab_release()
-        showinfo(title=_('Done'), message=_('Convert PDF to long image completed.'))
+        showinfo(title=_('Done'), message=_('Convert Completed.'))
         self.Process.process.set(0)
 
 

@@ -9,7 +9,7 @@ from pathlib import Path
 
 APPLICATION_NAME = 'PDF eXpress'
 EXECUTIVE_NAME = APPLICATION_NAME.replace(' ', '')
-APPLICATION_VERSION = '0.4-BETA'
+APPLICATION_VERSION = '0.4.1-BETA'
 APPLICATION_URL = f'https://github.com/chianjin/{EXECUTIVE_NAME}'
 
 SYSTEM = platform.system()
