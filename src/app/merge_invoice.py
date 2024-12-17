@@ -23,22 +23,19 @@ class MergeInvoice(ttk.Frame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
 
-        self.Title = FrameTitle(master=self, frame_title=_('Merge Invoice'))
-        self.Title.pack(fill='x', padx=4, pady=4)
+        self.FrameTitle = FrameTitle(master=self, frame_title=_('Merge Invoice'))
+        self.FrameTitle.pack(fill='x', padx=4, pady=4)
 
         self.FileList = FileList(master=self)
-        self.FileList.pack(expand=True, fill='both', padx=4, pady=4)
         self.FileList.configure(text=_('Invoice File List'))
 
         self.OutputFile = OutputFile(master=self)
         self.OutputFile.configure(text=_('PDF Output File'))
-        self.OutputFile.pack(fill='x', padx=4, pady=4)
         self.OutputFile.ButtonOutputFile.configure(command=self.set_output_file)
 
         self.Process = Process(master=self)
         self.Process.configure(text=_('Merge Invoice'))
         self.Process.ButtonProcess.configure(text=_('Merge'), command=self.merge_invoice)
-        self.Process.pack(fill='x', padx=4, pady=4)
 
         self.drop_target_register(tkinterdnd2.DND_FILES)
         self.dnd_bind('<<Drop>>', self.drop_files)

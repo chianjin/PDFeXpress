@@ -24,26 +24,21 @@ class PDFToLongImage(ttk.Frame):
         }
 
         self.FrameTitle = FrameTitle(master=self, frame_title=_('PDF to Long Image'))
-        self.FrameTitle.pack(fill='x', padx=4, pady=4)
 
         self.InputFile = InputFile(master=self)
-        self.InputFile.pack(fill='x', padx=4, pady=4)
         self.InputFile.input_file.trace_add('write', self.trace_input_file)
 
         self.Options = Options(master=self)
-        self.Options.pack(fill='x', padx=4, pady=4)
         self.Options.jpeg_quality.set(self.default_options['jpeg_quality'])
         self.Options.image_resolution.set(self.default_options['image_resolution'])
 
         self.OutputFile = OutputFile(master=self)
         self.OutputFile.configure(text=_('Long Image File'))
-        self.OutputFile.pack(fill='x', padx=4, pady=4)
         self.OutputFile.ButtonOutputFile.configure(command=self.set_output_file)
 
         self.Process = Process(master=self)
         self.Process.configure(text=_('PDF to Long Image'))
         self.Process.ButtonProcess.configure(text=_('Convert'), command=self.pdf_to_long_image)
-        self.Process.pack(fill='x', padx=4, pady=4)
 
         self.drop_target_register(tkinterdnd2.DND_FILES)
         self.dnd_bind('<<Drop>>', self.drop_files)

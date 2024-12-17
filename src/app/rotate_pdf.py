@@ -16,24 +16,18 @@ class RotatePDF(ttk.Frame):
         super().__init__(master, **kw)
 
         self.FrameTitle = FrameTitle(master=self, frame_title=_('Rotate PDF'))
-        self.FrameTitle.pack(fill='x', padx=4, pady=4)
 
         self.FileList = FileList(master=self)
-        self.FileList.pack(expand=True, fill='both', padx=4, pady=4)
-        self.FileList.configure(text=_('PDF File List'))
 
         self.Options = Options(master=self)
-        self.Options.pack(fill='x', padx=4, pady=4)
 
         self.OutputFolder = OutputFolder(master=self)
         self.OutputFolder.configure(text=_('PDF Output Folder'))
-        self.OutputFolder.pack(fill='x', padx=4, pady=4)
         self.OutputFolder.ButtonOutputFolder.configure(command=self.set_output_folder)
 
         self.Process = Process(master=self)
         self.Process.configure(text=_('Rotate PDF'))
         self.Process.ButtonProcess.configure(text=_('Rotate'), command=self.rotate_pdf)
-        self.Process.pack(fill='x', padx=4, pady=4)
 
         self.drop_target_register(tkinterdnd2.DND_FILES)
         self.dnd_bind('<<Drop>>', self.drop_files)

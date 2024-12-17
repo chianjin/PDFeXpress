@@ -20,21 +20,16 @@ class SplitPDF(ttk.Frame):
         self.FrameTitle.pack(fill='x', padx=4, pady=4)
 
         self.InputFile = InputFile(master=self)
-        self.InputFile.pack(fill='x', padx=4, pady=4)
         self.InputFile.input_file.trace_add('write', self.trace_input_file)
 
         self.Options = Options(master=self)
-        self.Options.pack(fill='x', padx=4, pady=4)
 
         self.OutputFolder = OutputFolder(master=self)
         self.OutputFolder.configure(text=_('PDF Output Folder'))
-        self.OutputFolder.pack(fill='x', padx=4, pady=4)
         self.OutputFolder.ButtonOutputFolder.configure(command=self.set_output_folder)
 
         self.Process = Process(master=self)
         self.Process.configure(text=_('Split PDF'))
-        self.Process.ButtonProcess.configure(text=_('Split'), command=self.split_pdf)
-        self.Process.pack(fill='x', padx=4, pady=4)
 
         self.drop_target_register(tkinterdnd2.DND_FILES)
         self.dnd_bind('<<Drop>>', self.drop_files)

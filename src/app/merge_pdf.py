@@ -1,3 +1,4 @@
+import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename
@@ -15,22 +16,19 @@ class MergePDF(ttk.Frame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
 
-        self.Title = FrameTitle(master=self, frame_title=_('Merge PDF'))
-        self.Title.pack(fill='x', padx=4, pady=4)
+        self.FrameTitle = FrameTitle(master=self, frame_title=_('Merge PDF'))
 
         self.FileList = FileListOrdered(master=self)
-        self.FileList.pack(expand=True, fill='both', padx=4, pady=4)
-        self.FileList.configure(text=_('PDF File List'))
+
+        self.Options = Options(master=self)
 
         self.OutputFile = OutputFile(master=self)
         self.OutputFile.configure(text=_('Output PDF File'))
-        self.OutputFile.pack(fill='x', padx=4, pady=4)
         self.OutputFile.ButtonOutputFile.configure(command=self.set_output_file)
 
         self.Process = Process(master=self)
         self.Process.configure(text=_('Merge PDF'))
         self.Process.ButtonProcess.configure(text=_('Merge'), command=self.merge_pdf)
-        self.Process.pack(fill='x', padx=4, pady=4)
 
         self.drop_target_register(tkinterdnd2.DND_FILES)
         self.dnd_bind('<<Drop>>', self.drop_files)
@@ -82,6 +80,22 @@ class MergePDF(ttk.Frame):
         self.Process.ProgressBar.grab_release()
         showinfo(title=_('Done'), message=_('Merge Completed.'))
         self.Process.process.set(0)
+
+
+class Options(ttk.LabelFrame):
+    def __init__(self, master=None, **kw):
+        super().__init__(master, **kw)
+
+        self.generate_toc = tk.BooleanVar(value=False)
+        self.CheckButtonTOC = ttk.Checkbutton(
+            self,
+            variable=self.generate_toc,
+            text=_('Generate TOC')
+        )
+        self.CheckButtonTOC.pack(side='left', padx=4, pady=4)
+
+        self.configure(text=_('Options'))
+        self.pack(fill='x', padx=4, pady=4)
 
 
 if __name__ == '__main__':

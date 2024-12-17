@@ -93,7 +93,8 @@ class FileList(ttk.LabelFrame):
         # ToolTip(self.ButtonInvertSelection, _('Invert selection.'))
 
         self.FrameButton.pack(side='left', fill='y', padx=4, pady=4)
-        self.configure(text=_('File List'))
+        self.configure(text=_('PDF File List'))
+        self.pack(expand=True, fill='both', padx=4, pady=4)
 
     def add_files(self):
         files = askopenfilenames(

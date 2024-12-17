@@ -9,8 +9,9 @@ from constant import FILE_WILDCARD
 class FrameTitle(ttk.Frame):
     def __init__(self, master=None, frame_title='Frame Title', **kw):
         super().__init__(master, **kw)
-        self.LabelTitle = ttk.Label(master=self, text=_(frame_title), font=('Microsoft YaHei UI', 24, 'bold'))
+        self.LabelTitle = ttk.Label(master=self, text=_(frame_title), font=('Microsoft YaHei UI', 18, 'bold'))
         self.LabelTitle.pack(side='left', padx=8, pady=8)
+        self.pack(fill='x', padx=4, pady=4)
 
 
 class InputFile(ttk.LabelFrame):
@@ -26,6 +27,7 @@ class InputFile(ttk.LabelFrame):
         )
         self.ButtonInputFile.pack(side='left', padx=4, pady=4)
         self.configure(text=_('PDF File'))
+        self.pack(fill='x', padx=4, pady=4)
 
     def set_input_file(self):
         file = askopenfilename(filetypes=FILE_WILDCARD['pdf'])
@@ -45,6 +47,7 @@ class OutputFile(ttk.LabelFrame):
         )
         self.ButtonOutputFile.pack(side='left', padx=4, pady=4)
         self.configure(text=_('Output File'))
+        self.pack(fill='x', padx=4, pady=4)
 
 
 class OutputFolder(ttk.LabelFrame):
@@ -59,6 +62,7 @@ class OutputFolder(ttk.LabelFrame):
         )
         self.ButtonOutputFolder.pack(side='left', padx=4, pady=4)
         self.configure(text=_('Output Folder'))
+        self.pack(fill='x', padx=4, pady=4)
 
 
 class Process(ttk.LabelFrame):
@@ -78,3 +82,4 @@ class Process(ttk.LabelFrame):
         )
         self.ButtonProcess.pack(side='left', padx=4, pady=4)
         self.configure(text=_('Process'))
+        self.pack(fill='x', padx=4, pady=4)

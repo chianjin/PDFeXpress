@@ -15,21 +15,16 @@ class ExtractImage(ttk.Frame):
         super().__init__(master, **kw)
 
         self.FrameTitle = FrameTitle(master=self, frame_title=_('Extract Image'))
-        self.FrameTitle.pack(fill='x', padx=4, pady=4)
 
         self.FileList = FileList(master=self)
-        self.FileList.pack(expand=True, fill='both', padx=4, pady=4)
-        self.FileList.configure(text=_('PDF File List'))
 
         self.OutputFolder = OutputFolder(master=self)
         self.OutputFolder.configure(text=_('Image Output Folder'))
-        self.OutputFolder.pack(fill='x', padx=4, pady=4)
         self.OutputFolder.ButtonOutputFolder.configure(command=self.set_output_folder)
 
         self.Process = Process(master=self)
         self.Process.configure(text=_('Extract Image'))
         self.Process.ButtonProcess.configure(text=_('Extract'), command=self.extract_image)
-        self.Process.pack(fill='x', padx=4, pady=4)
 
         self.drop_target_register(tkinterdnd2.DND_FILES)
         self.dnd_bind('<<Drop>>', self.drop_files)

@@ -125,4 +125,4 @@ if __name__ == '__main__':
     build()
     create_portable()
     if SYSTEM == 'Windows':
-         create_setup()
+        create_setup()

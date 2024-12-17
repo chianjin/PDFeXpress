@@ -16,23 +16,19 @@ class ImageToPDF(ttk.Frame):
         super().__init__(master, **kw)
 
         self.Title = FrameTitle(master=self, frame_title=_('Image to PDF'))
-        self.Title.pack(fill='x', padx=4, pady=4)
 
         self.FileList = FileListOrdered(master=self)
-        self.FileList.pack(expand=True, fill='both', padx=4, pady=4)
         self.FileList.configure(text=_('Image File List'))
         self.FileList.ButtonAddFiles.configure(command=self.add_files)
         self.FileList.ButtonAddFolder.configure(command=self.add_folder)
 
         self.OutputFile = OutputFile(master=self)
         self.OutputFile.configure(text=_('Output PDF File'))
-        self.OutputFile.pack(fill='x', padx=4, pady=4)
         self.OutputFile.ButtonOutputFile.configure(command=self.set_output_file)
 
         self.Process = Process(master=self)
         self.Process.configure(text=_('Image to PDF'))
         self.Process.ButtonProcess.configure(text=_('Convert'), command=self.image_to_pdf)
-        self.Process.pack(fill='x', padx=4, pady=4)
 
         self.drop_target_register(tkinterdnd2.DND_FILES)
         self.dnd_bind('<<Drop>>', self.drop_files)

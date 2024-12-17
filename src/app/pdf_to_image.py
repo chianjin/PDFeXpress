@@ -17,19 +17,20 @@ class PDFToImage(ttk.Frame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
 
+        self.default_options = {
+            'image_resolution': 216,
+            'jpeg_quality': 85,
+        }
+
         self.FrameTitle = FrameTitle(master=self, frame_title=_('PDF to Image'))
-        self.FrameTitle.pack(fill='x', padx=4, pady=4)
 
         self.Filelist = FileList(master=self)
-        self.Filelist.pack(expand=True, fill='both', padx=4, pady=4)
         self.Filelist.configure(text=_('PDF File List'))
 
         self.Options = Options(master=self)
-        self.Options.pack(fill='x', padx=4, pady=4)
 
         self.OutputFolder = OutputFolder(master=self)
         self.OutputFolder.configure(text=_('Image Output Folder'))
-        self.OutputFolder.pack(fill='x', padx=4, pady=4)
         self.OutputFolder.ButtonOutputFolder.configure(command=self.set_output_folder)
 
         self.Process = Process(master=self)
@@ -68,12 +69,12 @@ class PDFToImage(ttk.Frame):
         if not output_folder:
             return None
         if self.Options.EntryImageResolution.get() == "":
-            self.Options.EntryImageResolution.insert(0, "200")
+            self.Options.image_resolution.set(self.default_options['image_resolution'])
         image_resolution = self.Options.image_resolution.get()
         image_format = self.Options.image_format.get()
         png_transparent = self.Options.png_transparent.get()
         if self.Options.EntryJpegQuality.get() == "":
-            self.Options.EntryJpegQuality.insert(0, "85")
+            self.Options.jpeg_quality.set(self.default_options['jpeg_quality'])
         jpeg_quality = self.Options.jpeg_quality.get()
 
         zoom = image_resolution / 96 * 4 / 3  # actually 72
