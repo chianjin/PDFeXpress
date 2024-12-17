@@ -18,9 +18,10 @@ PROJECT_DIR = Path(__file__).absolute().parent
 SOURCE_DIR = Path('src')
 BUILD_DIR = Path('build')
 OUTPUT_DIR = BUILD_DIR
-RELEASE_DIR = Path('release') / APPLICATION_VERSION
-if not RELEASE_DIR.exists():
-    RELEASE_DIR.mkdir()
+RELEASE_DIR = Path('release')
+RELEASE_DIR.mkdir(exist_ok=True)
+RELEASE_DIR /= APPLICATION_VERSION
+RELEASE_DIR.mkdir(exist_ok=True)
 
 
 def build():
@@ -36,8 +37,8 @@ def build():
         '--include-data-file=LICENSE=LICENSE',
         '--include-data-file=README.md=README.md',
         '--include-data-file=README.zh_CN.md=README.zh_CN.md',
-        '--include-data-file=ChangeLog.md=CHANGELOG.md',
-        '--include-data-file=ChangeLog.zh_CN.md=CHANGELOG.zh_CN.md',
+        '--include-data-file=CHANGELOG.md=CHANGELOG.md',
+        '--include-data-file=CHANGELOG.zh_CN.md=CHANGELOG.zh_CN.md',
         '--plugin-enable=tk-inter',
         f'--output-dir={OUTPUT_DIR}'
     ]
