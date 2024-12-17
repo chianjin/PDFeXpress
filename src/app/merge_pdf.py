@@ -46,7 +46,7 @@ class MergePDF(ttk.Frame):
         else:
             item_list = self.FileList.TreeviewFilelist.get_children()
             if item_list:
-                current_file = self.FileList.TreeviewFilelist.item(item_list[0])['text']
+                current_file = self.FileList.TreeviewFilelist.entry(item_list[0])['text']
                 initial_dir = Path(current_file).parent
                 initial_file = f'{Path(current_file).stem}-merged.pdf'
         file = asksaveasfilename(
@@ -70,12 +70,18 @@ class MergePDF(ttk.Frame):
         self.Process.ProgressBar.grab_set()
         self.Process.process.set(0)
         self.Process.ProgressBar.configure(maximum=len(file_list))
+        toc_items = []
+        page_count = 1
         with fitz.Document() as out_pdf:
             for i, input_file in enumerate(file_list, start=1):
                 with fitz.Document(input_file) as input_pdf:
+                    toc_items.append((1, Path(input_file).stem, page_count))
+                    page_count += input_pdf.page_count
                     out_pdf.insert_pdf(input_pdf)
                 self.Process.process.set(i)
                 self.Process.update_idletasks()
+            if self.Options.generate_toc.get():
+                out_pdf.set_toc(toc_items)
             out_pdf.save(output_file, garbage=4, deflate=True)
         self.Process.ProgressBar.grab_release()
         showinfo(title=_('Done'), message=_('Merge Completed.'))
@@ -86,7 +92,7 @@ class Options(ttk.LabelFrame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
 
-        self.generate_toc = tk.BooleanVar(value=False)
+        self.generate_toc = tk.BooleanVar(value=True)
         self.CheckButtonTOC = ttk.Checkbutton(
             self,
             variable=self.generate_toc,

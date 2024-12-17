@@ -52,8 +52,6 @@ class PDFToLongImage(ttk.Frame):
             self.OutputFile.output_file.set(Path(input_file).with_suffix('.jpg'))
 
     def set_output_file(self):
-        initial_dir = None
-        initial_file = None
         current_file = self.OutputFile.output_file.get()
         if current_file:
             initial_file = Path(current_file)

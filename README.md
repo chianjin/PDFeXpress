@@ -29,7 +29,8 @@ The current version is 0.4.1-BETA, which has been tested on 64-bit Windows 11.
 
 ## Running Method
 
-There are two types of pre-compiled packages, installers and portable packages. [Download](https://github.com/chianjin/PDFeXpress/releases) and install or unzip it, run `PDFeXpress.exe`.
+There are two types of pre-compiled packages, installers and portable
+packages. [Download](https://github.com/chianjin/PDFeXpress/releases) and install or unzip it, run `PDFeXpress.exe`.
 
 You can also download from: [Baidu](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
 
