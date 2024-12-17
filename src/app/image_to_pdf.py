@@ -66,7 +66,7 @@ class ImageToPDF(ttk.Frame):
         else:
             item_list = self.FileList.TreeviewFilelist.get_children()
             if item_list:
-                current_file = self.FileList.TreeviewFilelist.item(item_list[0])['text']
+                current_file = self.FileList.TreeviewFilelist.entry(item_list[0])['text']
                 initial_dir = Path(current_file).parent
                 initial_file = f'{Path(current_file).stem}.pdf'
         file = asksaveasfilename(

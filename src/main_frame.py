@@ -1,11 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
 
+import tkinterdnd2
+
 from app import (
     MergePDF, RotatePDF, ExtractText, ExtractImage,
-    ImageToPDF, SplitPDF, MergeInvoice, PDFToImage
+    ImageToPDF, SplitPDF, MergeInvoice, PDFToImage,
+    PDFToLongImage, EditTOC
 )
-from app.pdf_to_long_image import PDFToLongImage
 from constant import SYSTEM, APPLICATION_NAME
 
 
@@ -21,6 +23,7 @@ class MainFrame(tk.Frame):
             'split_pdf': [_('Split PDF'), SplitPDF(self)],
             'rotate_pdf': [_('Rotate PDF'), RotatePDF(self)],
             # 'compress_pdf': [_('Compress PDF'), CompressPDF(self)],
+            'edit_toc': [_('Edit TOC'), EditTOC(self)],
             'extract_text': [_('Extract Text'), ExtractText(self)],
             'extract_image': [_('Extract Image'), ExtractImage(self)],
             'image_to_pdf': [_('Image to PDF'), ImageToPDF(self)],
@@ -51,12 +54,7 @@ class MainFrame(tk.Frame):
 
 
 if __name__ == '__main__':
-    if SYSTEM == 'Windows':
-        import ctypes
-
-        ctypes.windll.shcore.SetProcessDpiAwareness(True)
-
-    root = tk.Tk()
+    root = tkinterdnd2.Tk()
     root.title(APPLICATION_NAME)
     main_frame = MainFrame(root)
     main_frame.pack(expand=True, fill='both', padx=4, pady=4)

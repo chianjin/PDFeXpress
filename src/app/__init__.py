@@ -9,6 +9,8 @@ from .merge_pdf import MergePDF
 from .pdf_to_image import PDFToImage
 from .rotate_pdf import RotatePDF
 from .split_pdf import SplitPDF
+from .pdf_to_long_image import PDFToLongImage
+from .edit_toc import EditTOC
 
 __all__ = [
     'MergePDF',
@@ -19,7 +21,9 @@ __all__ = [
     'SplitPDF',
     'MergeInvoice',
     'PDFToImage',
-    'CompressPDF',
+    # 'CompressPDF',
+    'PDFToLongImage',
+    'EditTOC',
     'About',
     'Menubar'
 ]

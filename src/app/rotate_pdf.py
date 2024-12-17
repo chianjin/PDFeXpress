@@ -45,7 +45,7 @@ class RotatePDF(ttk.Frame):
         else:
             item_list = self.FileList.TreeviewFilelist.get_children()
             if item_list:
-                current_file = self.FileList.TreeviewFilelist.item(item_list[0])['text']
+                current_file = self.FileList.TreeviewFilelist.entry(item_list[0])['text']
                 initial_dir = Path(current_file).parent
         folder = askdirectory(
             title=_('Select PDF Output Folder'),

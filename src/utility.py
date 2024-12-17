@@ -26,7 +26,7 @@ def add_files_to_treeview(treeview, file_list):
 def get_treeview_file_list(treeview):
     file_list = []
     for item in treeview.get_children():
-        file_list.append(treeview.item(item, 'text'))
+        file_list.append(treeview.entry(item, 'text'))
     return file_list
 
 
