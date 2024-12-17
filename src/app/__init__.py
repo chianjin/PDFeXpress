@@ -11,6 +11,8 @@ from .pdf_to_image import PDFToImage
 from .pdf_to_long_image import PDFToLongImage
 from .rotate_pdf import RotatePDF
 from .split_pdf import SplitPDF
+from .pdf_to_long_image import PDFToLongImage
+from .edit_toc import EditTOC
 
 __all__ = [
     'MergePDF',

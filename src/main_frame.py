@@ -8,7 +8,11 @@ from app import (
     ImageToPDF, SplitPDF, MergeInvoice, PDFToImage,
     PDFToLongImage, EditTOC
 )
+<<<<<<< HEAD
 from constant import APPLICATION_NAME
+=======
+from constant import SYSTEM, APPLICATION_NAME
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
 
 
 class MainFrame(tk.Frame):

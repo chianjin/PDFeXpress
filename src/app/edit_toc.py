@@ -1,15 +1,30 @@
 import tkinter as tk
+<<<<<<< HEAD
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
+=======
+from logging import currentframe
+from pathlib import Path
+from tkinter import ttk
+from tkinter.filedialog import askdirectory, askopenfilename, asksaveasfilename
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
 from tkinter.messagebox import showinfo
 
 import fitz
 import tkinterdnd2
+<<<<<<< HEAD
 
 from constant import FILE_WILDCARD
 from utility import drop_pdf_file_to_entry
 from widget import Process, FrameTitle, InputFile, OutputFile
+=======
+from PIL.ImageOps import expand
+
+from constant import FILE_WILDCARD
+from utility import get_treeview_file_list, drop_pdf_files_to_treeview, split_drop_data, drop_pdf_file_to_entry
+from widget import FileList, Process, FrameTitle, OutputFolder, InputFile, OutputFile
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
 
 
 class EditTOC(tk.Frame):
@@ -34,7 +49,13 @@ class EditTOC(tk.Frame):
         self.drop_target_register(tkinterdnd2.DND_FILES)
         self.dnd_bind('<<Drop>>', self.drop_file)
 
+<<<<<<< HEAD
     def export_toc(self):
+=======
+
+    def export_toc(self):
+
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
         input_file = self.InputFile.input_file.get()
         if not input_file:
             return None
@@ -65,8 +86,12 @@ class EditTOC(tk.Frame):
             self.OutputFile.output_file.set(output_file)
             with fitz.Document(input_file) as input_pdf:
                 toc = input_pdf.get_toc()
+<<<<<<< HEAD
             self.TableOfContents.TreeviewTableOfContents.delete(
                 *self.TableOfContents.TreeviewTableOfContents.get_children())
+=======
+            self.TableOfContents.TreeviewTableOfContents.delete(*self.TableOfContents.TreeviewTableOfContents.get_children())
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
             for level, entry, page_no in toc:
                 self.TableOfContents.TreeviewTableOfContents.insert('', 'end', values=(page_no, level, entry))
 
@@ -103,7 +128,11 @@ class EditTOC(tk.Frame):
         toc = []
         self.Process.ProgressBar.grab_set()
         self.Process.ProgressBar.configure(maximum=len(item_list))
+<<<<<<< HEAD
         for i, item in enumerate(item_list, start=1):
+=======
+        for i, item in enumerate(item_list,start=1):
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
             page_no, level, entry = self.TableOfContents.TreeviewTableOfContents.item(item)['values']
             toc.append((level, entry, page_no))
             self.Process.process.set(i)
@@ -178,6 +207,10 @@ class FrameTableOfContents(ttk.LabelFrame):
 
         self.pack(expand=True, fill='both', padx=4, pady=4)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
     def load_toc(self):
         toc_file = askopenfilename(
             filetypes=FILE_WILDCARD['text'],
@@ -192,6 +225,10 @@ class FrameTableOfContents(ttk.LabelFrame):
                         page_no, level, entry = line.split('\t')
                         self.TreeviewTableOfContents.insert('', 'end', values=(page_no, level, entry))
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
     def export_toc(self):
         # Defined in EditTOC
         pass
@@ -240,7 +277,11 @@ class ItemEditor(tk.Frame):
         self.EntryPageNo.pack(side='left', padx=4, pady=4)
         self.LabelLevel = ttk.Label(self, text=_('Level'))
         self.LabelLevel.pack(side='left', padx=4, pady=4)
+<<<<<<< HEAD
         self.EntryLevel = ttk.Entry(self, width=5, justify='center', textvariable=self.level)
+=======
+        self.EntryLevel = ttk.Entry(self, width=5, justify='center',textvariable=self.level)
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
         self.EntryLevel.pack(side='left', padx=4, pady=4)
         self.LabelEntry = ttk.Label(self, text=_('Entry'))
         self.LabelEntry.pack(side='left', padx=4, pady=4)
@@ -251,9 +292,18 @@ class ItemEditor(tk.Frame):
         self.pack(fill="x", side="top")
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
 if __name__ == '__main__':
     root = tkinterdnd2.Tk()
     root.title('Edit Doc')
     edit_toc = EditTOC(root)
     edit_toc.pack(expand=True, fill='both', padx=4, pady=4)
+<<<<<<< HEAD
     root.mainloop()
+=======
+    root.mainloop()
+>>>>>>> 6cf73abdb65fe883f080ec26203d72feb53e5521
