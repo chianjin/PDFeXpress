@@ -20,6 +20,7 @@ The current version is 0.4.1-BETA, which has been tested on 64-bit Windows 11.
 * **Merge PDF**：Merge multiple PDF files into one
 * **Split PDF**：Split one PDF to serval, supporting single-page splitting, by page count, by copy count, and by range
 * **Rotate PDF**：Rotate each page by 90°, 180°, and 270° clockwise
+* **Edit TOC**：Edit the table of contents
 * **Extract Text**：Extract plain text from PDF files without formatting
 * **Extract Images**：Extract images from PDF files and save them in original format
 * **Image to PDF**：Convert images to one PDF
