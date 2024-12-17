@@ -28,6 +28,7 @@ class PDFeXpress(tkinterdnd2.Tk):
 if __name__ == '__main__':
     if SYSTEM == 'Windows':
         import ctypes
+
         ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
     app = PDFeXpress()

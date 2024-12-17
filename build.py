@@ -36,6 +36,8 @@ def build():
         '--include-data-file=LICENSE=LICENSE',
         '--include-data-file=README.md=README.md',
         '--include-data-file=README.zh_CN.md=README.zh_CN.md',
+        '--include-data-file=ChangeLog.md=CHANGELOG.md',
+        '--include-data-file=ChangeLog.zh_CN.md=CHANGELOG.zh_CN.md',
         '--plugin-enable=tk-inter',
         f'--output-dir={OUTPUT_DIR}'
     ]
