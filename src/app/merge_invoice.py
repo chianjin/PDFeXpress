@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename
+from tkinter.messagebox import showinfo
 
 import fitz
 import tkinterdnd2
@@ -50,6 +51,12 @@ class MergeInvoice(ttk.Frame):
         if current_file:
             initial_dir = Path(current_file).parent
             initial_file = Path(current_file).name
+        else:
+            item_list = self.FileList.TreeviewFilelist.get_children()
+            if item_list:
+                current_file = self.FileList.TreeviewFilelist.item(item_list[0])['text']
+                initial_dir = Path(current_file).parent.parent
+                initial_file = f'{Path(current_file).parent}-merged_invoice.pdf'
         file = asksaveasfilename(
             title=_('Select PDF Output File'),
             filetypes=FILE_WILDCARD['pdf'],

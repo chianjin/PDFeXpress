@@ -30,6 +30,7 @@ class SplitPDF(ttk.Frame):
 
         self.Process = Process(master=self)
         self.Process.configure(text=_('Split PDF'))
+        self.Process.ButtonProcess.configure(text=_('Split'), command=self.split_pdf)
 
         self.drop_target_register(tkinterdnd2.DND_FILES)
         self.dnd_bind('<<Drop>>', self.drop_files)
