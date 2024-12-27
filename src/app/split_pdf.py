@@ -114,7 +114,7 @@ class SplitPDF(ttk.Frame):
                 self.Options.range_start.set(page_count)
             if self.Options.range_end.get() > page_count:
                 self.Options.range_end.set(page_count)
-            return [(self.Options.range_start.get(), self.Options.range_end.get())]
+            return [(self.Options.range_start.get() - 1, self.Options.range_end.get() - 1)]
 
 
 class Options(ttk.LabelFrame):
