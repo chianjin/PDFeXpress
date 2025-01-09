@@ -1,5 +1,11 @@
 # ChangeLog
 
+## 0.4.1.2-BETA
+
+2025-01-09
+
+- fix `merge_invoice.py` bugs
+
 ## 0.4.1.1-BETA
 
 2024-12-26

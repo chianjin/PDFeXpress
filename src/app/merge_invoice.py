@@ -112,7 +112,8 @@ class MergeInvoice(ttk.Frame):
                 self.Process.ProgressBar.update_idletasks()
             except:
                 pass
-        merged_normal_pdf.insert_pdf(merged_other_pdf)
+        if merged_other_pdf.page_count > 0:
+            merged_normal_pdf.insert_pdf(merged_other_pdf)
         merged_other_pdf.close()
         merged_normal_pdf.save(output_file, garbage=4, deflate=True)
         merged_normal_pdf.close()
