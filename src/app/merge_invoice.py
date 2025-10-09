@@ -7,7 +7,7 @@ import fitz
 import tkinterdnd2
 
 from constant import FILE_WILDCARD, BASE_FOLDER
-from utility import get_treeview_file_list, drop_pdf_files_to_treeview
+from utility import get_treeview_file_list, drop_pdf_files_to_treeview, complete_notice
 from widget import FileList, OutputFile, Process, FrameTitle
 
 BLANK_PDF = BASE_FOLDER / 'data/blank.pdf'
@@ -86,6 +86,7 @@ class MergeInvoice(ttk.Frame):
         count = 0
         for file in other_invoices:
             other_pdf = fitz.Document(file)
+            other_pdf.bake()
             for pno in range(other_pdf.page_count):
                 new_page = merged_other_pdf.new_page(width=A4_WIDTH, height=A4_HEIGHT)
                 other_page = other_pdf.load_page(pno)
@@ -98,6 +99,7 @@ class MergeInvoice(ttk.Frame):
             new_page = merged_normal_pdf.new_page(width=A4_WIDTH, height=A4_HEIGHT)
             new_page.show_pdf_page(A4_RECT, blank_pdf, 0)
             up_pdf = fitz.Document(normal_invoices[i])
+            up_pdf.bake()
             new_page.show_pdf_page(UP_RECT, up_pdf, 0)
             up_pdf.close()
             count += 1
@@ -105,6 +107,7 @@ class MergeInvoice(ttk.Frame):
             self.Process.ProgressBar.update_idletasks()
             try:
                 down_pdf = fitz.Document(normal_invoices[i + 1])
+                down_pdf.bake()
                 new_page.show_pdf_page(DOWN_RECT, down_pdf, 0)
                 down_pdf.close()
                 count += 1
@@ -120,6 +123,7 @@ class MergeInvoice(ttk.Frame):
         blank_pdf.close()
         self.Process.ProgressBar.grab_release()
         showinfo(title=_('Done'), message=_('Merge Completed.'))
+        # complete_notice(title=_('Done'), massage=_('Merge Completed.'))
         self.Process.process.set(0)
 
     def _get_invoices_list(self, file_list):

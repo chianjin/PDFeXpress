@@ -107,9 +107,14 @@ class FileList(ttk.LabelFrame):
     def add_folder(self):
         folder = askdirectory(title=_('Select Folder'))
         if folder:
-            files = Path(folder).glob('*.pdf')
-            if files:
-                add_files_to_treeview(self.TreeviewFilelist, files)
+            extensions = FILE_WILDCARD['pdf'][0][1].split(';')
+            file_list = []
+            for ext in extensions:
+                files = Path(folder).glob(ext)
+                if files:
+                    file_list.extend(files)
+            if file_list:
+                add_files_to_treeview(self.TreeviewFilelist, file_list)
 
     def remove_files(self):
         items = self.TreeviewFilelist.selection()
@@ -185,9 +190,15 @@ class FileListOrdered(FileList):
     def add_folder(self):
         folder = askdirectory(title=_('Select Folder'))
         if folder:
-            files = Path(folder).glob('*.pdf')
-            if files:
-                self._add_files(files)
+            extensions = FILE_WILDCARD['pdf'][0][1].split(';')
+            file_list = []
+            for ext in extensions:
+                files = Path(folder).glob(ext)
+                if files:
+                    file_list.extend(files)
+            if file_list:
+                file_list.sort()
+                self._add_files(file_list)
 
     def remove_files(self):
         items = self.TreeviewFilelist.selection()

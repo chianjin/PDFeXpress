@@ -92,7 +92,7 @@ class Options(ttk.LabelFrame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
 
-        self.generate_toc = tk.BooleanVar(value=True)
+        self.generate_toc = tk.BooleanVar(value=False)
         self.CheckButtonTOC = ttk.Checkbutton(
             self,
             variable=self.generate_toc,

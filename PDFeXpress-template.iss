@@ -31,7 +31,9 @@ SetupIconFile={#MyProjectDir}\%%OUTPUT_DIR%%\PDFeXpress.dist\data\PDFeXpress.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-%%ARCH_MODE%%
+;ArchitecturesAllowed=x64compatible
+ArchitecturesInstallIn64BitMode=x64compatible
+DisableDirPage=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

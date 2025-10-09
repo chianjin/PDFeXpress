@@ -79,9 +79,9 @@ class SplitPDF(ttk.Frame):
                 if to_page > input_pdf.page_count:
                     to_page = input_pdf.page_count
                 if self.Options.split_mode.get() == 'single_page':
-                    output_file = f'{output_folder}/{Path(input_file).stem}-P{from_page:0{page_width}d}.pdf'
+                    output_file = f'{output_folder}/{Path(input_file).stem}-P{from_page+1:0{page_width}d}.pdf'
                 else:
-                    output_file = f'{output_folder}/{Path(input_file).stem}-P{from_page:0{page_width}d}-P{to_page:0{page_width}d}.pdf'
+                    output_file = f'{output_folder}/{Path(input_file).stem}-P{from_page+1:0{page_width}d}-P{to_page+1:0{page_width}d}.pdf'
                 with fitz.Document() as out_pdf:
                     out_pdf.insert_pdf(input_pdf, from_page=from_page, to_page=to_page)
                     out_pdf.save(output_file, garbage=4, deflate=True)
@@ -108,7 +108,7 @@ class SplitPDF(ttk.Frame):
                 step = self.Options.pages.get()
             else:
                 step = math.ceil(page_count / self.Options.count.get())
-            return [(i, i + step - 1) for i in range(1, page_count + 1, step)]
+            return [(i, i + step - 1) for i in range(0, page_count, step)]
         elif mode == 'by_range':
             if self.Options.range_start.get() > page_count:
                 self.Options.range_start.set(page_count)

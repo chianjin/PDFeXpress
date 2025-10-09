@@ -1,7 +1,7 @@
 import tkinter as tk
 from io import BytesIO
 from pathlib import Path
-from tkinter import ttk, Image
+from tkinter import ttk
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showinfo
 
@@ -61,6 +61,7 @@ class PDFToImage(ttk.Frame):
         if folder:
             self.OutputFolder.output_folder.set(Path(folder))
 
+    @property
     def pdf_to_image(self):
         file_list = get_treeview_file_list(self.Filelist.TreeviewFilelist)
         if not file_list:
@@ -87,7 +88,7 @@ class PDFToImage(ttk.Frame):
         for i, input_file in enumerate(file_list, start=1):
             with fitz.Document(input_file) as input_pdf:
                 page_no_width = len(str(input_pdf.page_count))
-                for page_no, page in enumerate(input_pdf):
+                for page_no, page in enumerate(input_pdf,  start=1):
                     output_file = f'{Path(input_file).stem}-P{page_no:0{page_no_width}d}.{image_format}'
                     output_file = Path(output_folder) / output_file
                     if image_format == 'png':

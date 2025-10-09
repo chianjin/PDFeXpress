@@ -264,7 +264,7 @@ class ItemEditor(tk.Frame):
 
 if __name__ == '__main__':
     root = tkinterdnd2.Tk()
-    root.title('Edit Doc')
+    root.title(_('Edit TOC'))
     edit_toc = EditTOC(root)
     edit_toc.pack(expand=True, fill='both', padx=4, pady=4)
     root.mainloop()

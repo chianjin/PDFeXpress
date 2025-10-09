@@ -27,9 +27,10 @@ RELEASE_DIR.mkdir(exist_ok=True)
 def build():
     nuitka_cmd = [
         'nuitka',
-        '--clang',
-        '--mingw64',
-        # '--show-progress',
+        # '--clang',
+        # '--mingw64',
+
+        '--show-progress',
         '--show-memory',
         '--standalone',
         '--include-data-dir=src/data=data',
@@ -82,7 +83,7 @@ def update_iss():
         'OUTPUT_DIR': str(OUTPUT_DIR),
         'RELEASE_DIR': str(RELEASE_DIR),
         'ARCH': ARCH,
-        'ARCH_MODE': 'ArchitecturesInstallIn64BitMode=x64' if ARCH == '64' else ''
+        #'ARCH_MODE': 'ArchitecturesInstallIn64BitMode=x64' if ARCH == '64' else ''
     }
 
     iss_template = f'{EXECUTIVE_NAME}-template.iss'
@@ -101,14 +102,11 @@ def update_iss():
 
 
 def check_iss():
-    if ARCH == '64':
-        program_files = os.environ.get('ProgramFiles(x86)')
-    else:
-        program_files = os.environ.get('ProgramFiles')
-    iss_compiler = Path(program_files) / 'Inno Setup 6' / 'Compil32.exe'
-
-    if iss_compiler.exists():
-        return iss_compiler
+    for environ_arg in ('ProgramFiles(x86)', 'ProgramFiles'):
+        program_files = os.environ.get(environ_arg)
+        iss_compiler = Path(program_files) / 'Inno Setup 6' / 'Compil32.exe'
+        if iss_compiler.exists():
+            return iss_compiler
     return None
 
 

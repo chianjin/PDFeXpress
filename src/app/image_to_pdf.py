@@ -106,7 +106,7 @@ class ImageToPDF(ttk.Frame):
 
 if __name__ == '__main__':
     root = tkinterdnd2.Tk()
-    root.title('Image t PDF')
+    root.title('Image to PDF')
     image_to_pdf = ImageToPDF(root)
     image_to_pdf.pack(expand=True, fill='both', padx=4, pady=4)
     root.mainloop()

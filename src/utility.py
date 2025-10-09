@@ -1,11 +1,12 @@
 import re
 from pathlib import Path
+from time import sleep
+from tkinter.messagebox import showinfo
 
 from constant import IMAGE_EXTENSIONS
 
 
 def center_window(window, bottom_keep=48):
-    window.update()
     window.update_idletasks()
     width = window.winfo_width()
     height = window.winfo_height()
@@ -57,3 +58,7 @@ def drop_image_files_to_treeview(treeview, event):
     file_list = split_drop_data(event.data)
     file_list = [file for file in file_list if file.suffix.lower() in IMAGE_EXTENSIONS]
     add_files_to_treeview(treeview, file_list)
+
+
+def complete_notice(title, message):
+    showinfo(title=title, message=message)
