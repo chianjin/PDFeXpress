@@ -1,7 +1,7 @@
 import tkinter as tk
 from io import BytesIO
 from pathlib import Path
-from tkinter import ttk
+from tkinter import ttk, Image
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showinfo
 
@@ -61,7 +61,6 @@ class PDFToImage(ttk.Frame):
         if folder:
             self.OutputFolder.output_folder.set(Path(folder))
 
-    @property
     def pdf_to_image(self):
         file_list = get_treeview_file_list(self.Filelist.TreeviewFilelist)
         if not file_list:
@@ -88,7 +87,7 @@ class PDFToImage(ttk.Frame):
         for i, input_file in enumerate(file_list, start=1):
             with fitz.Document(input_file) as input_pdf:
                 page_no_width = len(str(input_pdf.page_count))
-                for page_no, page in enumerate(input_pdf,  start=1):
+                for page_no, page in enumerate(input_pdf, start=1):
                     output_file = f'{Path(input_file).stem}-P{page_no:0{page_no_width}d}.{image_format}'
                     output_file = Path(output_folder) / output_file
                     if image_format == 'png':
@@ -112,7 +111,7 @@ class Options(ttk.LabelFrame):
 
         self.LabelImageResolution = ttk.Label(master=self, text=_('Resolution'))
         self.LabelImageResolution.pack(side='left', padx=4, pady=4)
-        self.image_resolution = tk.IntVar(value=200)
+        self.image_resolution = tk.IntVar(value=300)
         self.EntryImageResolution = ttk.Entry(
             master=self,
             width=4,
@@ -127,7 +126,7 @@ class Options(ttk.LabelFrame):
         ttk.Separator(master=self, orient='vertical').pack(side='left', fill='y', padx=14, pady=4)
         self.LabelImageFormat = ttk.Label(master=self, text=_('Image Format'))
         self.LabelImageFormat.pack(side='left', padx=4, pady=4)
-        self.image_format = tk.StringVar(value='png')
+        self.image_format = tk.StringVar(value='jpg')
         self.RadioButtonPNG = ttk.Radiobutton(
             master=self,
             text='PNG',
