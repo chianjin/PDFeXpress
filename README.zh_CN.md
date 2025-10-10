@@ -6,14 +6,15 @@
 
 ## 开发环境
 
-- Python 3.11
-- PyMuPDF==1.22.5
-- Pillow
-- Nuitka==1.8.6
+- Python 3.13
+- PyMuPDF==1.26.4
+- pillow==11.3.0
+- tkinterdnd2==0.4.3
+- pyinstaller==6.16.0
 
 ## 当前版本
 
-当前版本为 0.4.1-BETA，已经在64位的Windows 11上测试通过。
+当前版本为 0.4.2-BETA，已经在64位的Windows 11上测试通过。
 
 ## 主要功能
 

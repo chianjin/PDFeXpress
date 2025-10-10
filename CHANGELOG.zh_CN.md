@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 0.4.2-BETA
+
+2025-10-10
+
+- 修复 `pdf_to_image.py` bugs
+- `merge_invoice.py`增加页面展平 `bake()`
+- 用 `pyinstaller` 替换 `nuitka`
+
 ## 0.4.1.2-BETA
 
 2025-01-09
