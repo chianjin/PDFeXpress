@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "PDF eXpress"
-#define MyAppVersion "%%APP_VERSION%%"
+#define MyAppVersion "%%APPLICATION_VERSION%%"
 #define MyAppPublisher "chian.jin@gmail.com"
 #define MyAppURL "https://github.com/chianjin/PDFeXpress"
 #define MyAppExeName "PDFeXpress.exe"
@@ -11,29 +11,33 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{2DA5BF84-B973-4D88-B278-EC0474D4BF3A}}
+AppId={{CDAABC79-591F-40B0-A390-F50E0305836C}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={autopf}\{#MyAppName}
+DefaultDirName={autopf}\PDFeXpress
+UninstallDisplayIcon={app}\{#MyAppExeName}
+; "ArchitecturesAllowed=x64compatible" specifies that Setup cannot run
+; on anything but x64 and Windows 11 on Arm.
+ArchitecturesAllowed=x64compatible
+; "ArchitecturesInstallIn64BitMode=x64compatible" requests that the
+; install be done in "64-bit mode" on x64 or Windows 11 on Arm,
+; meaning it should use the native 64-bit Program Files directory and
+; the 64-bit view of the registry.
+ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
-LicenseFile={#MyProjectDir}\LICENSE
-;InfoBeforeFile={#MyProjectDir}\README.md
-; Uncomment the following line to run in non administrative install mode (install for current user only.)
+LicenseFile=%%PROJECT_DIR%%\dist\PDFeXpress\LICENSE
+; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
-OutputDir={#MyProjectDir}\%%RELEASE_DIR%%
-OutputBaseFilename=PDFeXpress-{#MyAppVersion}-Setup-Windows-%%ARCH%%
-SetupIconFile={#MyProjectDir}\%%OUTPUT_DIR%%\PDFeXpress.dist\data\PDFeXpress.ico
-Compression=lzma
+OutputDir=%%PROJECT_DIR%%\release\%%APPLICATION_VERSION%%
+OutputBaseFilename=PDFeXpress-%%APPLICATION_VERSION%%-Setup-Windows-%%MACHINE_TYPE%%
+SetupIconFile=%%PROJECT_DIR%%\dist\PDFeXpress\_internal\data\PDFeXpress.ico
 SolidCompression=yes
 WizardStyle=modern
-;ArchitecturesAllowed=x64compatible
-ArchitecturesInstallIn64BitMode=x64compatible
-DisableDirPage=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -43,8 +47,8 @@ Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.i
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "{#MyProjectDir}\%%OUTPUT_DIR%%\PDFeXpress.dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MyProjectDir}\%%OUTPUT_DIR%%\PDFeXpress.dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "%%PROJECT_DIR%%\dist\PDFeXpress\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "%%PROJECT_DIR%%\dist\PDFeXpress\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -53,3 +57,4 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
