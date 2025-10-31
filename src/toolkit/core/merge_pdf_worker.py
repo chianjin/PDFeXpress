@@ -13,6 +13,10 @@ def pdf_merge_worker(input_files, output_file, create_bookmarks,
         progress_queue.put(("INIT", total_steps))
 
         with pymupdf.open() as output_doc:
+            # 用于存储书签信息的列表
+            toc = []
+            current_page = 0
+            
             for i, file_path in enumerate(input_files):
                 if cancel_event.is_set():
                     result_queue.put(("CANCEL", _("Task cancelled by user.")))
@@ -21,10 +25,16 @@ def pdf_merge_worker(input_files, output_file, create_bookmarks,
                     if create_bookmarks:
                         # 获取不带扩展名的文件名作为书签条目
                         bookmark_title = Path(file_path).stem
-                        # 添加书签，指向插入页面的起始位置
-                        output_doc.set_toc_entry(-1, bookmark_title, len(output_doc) + 1)
+                        # 添加书签，指向当前文档的第一页
+                        toc.append([1, bookmark_title, current_page + 1])  # [level, title, page]
                     output_doc.insert_pdf(input_doc)
+                    current_page += input_doc.page_count
                 progress_queue.put(("PROGRESS", i + 1))
+            
+            # 设置整个文档的目录
+            if create_bookmarks and toc:
+                output_doc.set_toc(toc)
+                
             output_doc.save(output_file, garbage=4, deflate=True)
 
         success_msg = _n(
