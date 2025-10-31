@@ -6,8 +6,8 @@ class TitleFrame(ttk.Frame):
     """Display the title of app"""
     def __init__(self, parent, text=_("Title"), **kwargs):
         super().__init__(parent, **kwargs)
-        # default_font = tkfont.nametofont("TkDefaultFont")
-        font = tkfont.Font(size=18, weight="bold")
+        default_font = tkfont.nametofont("TkDefaultFont")
+        font = tkfont.Font(family=default_font['family'], size=18, weight="bold")
         self.LabelTitle = ttk.Label(self, text=text, font=font)
         self.LabelTitle.grid(row=0, column=0, sticky="w", padx=(20, 5), pady=5)
 

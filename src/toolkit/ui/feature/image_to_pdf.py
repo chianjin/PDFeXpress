@@ -30,7 +30,7 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
             self,
             title=_("Image Files to Convert"),
             file_types=FILE_TYPES_IMAGES,
-
+            sortable=True
         )
         self.file_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=5)
 

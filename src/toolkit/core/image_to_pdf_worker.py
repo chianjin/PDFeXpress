@@ -5,7 +5,7 @@ import pymupdf # 导入 PyMuPDF
 
 from toolkit.i18n import gettext_text as _, gettext_plural as _n
 
-def image_to_pdf_worker(image_files, output_pdf_path, cancel_event, progress_queue, result_queue):
+def image_to_pdf_worker(image_files, output_pdf_path, cancel_event, progress_queue, result_queue, saving_ack_event): # 添加 saving_ack_event
     """业务逻辑: 图像转 PDF。"""
     print(f"[工作进程 {os.getpid()}]: 开始图像转 PDF...")
     try:
@@ -42,6 +42,13 @@ def image_to_pdf_worker(image_files, output_pdf_path, cancel_event, progress_que
             if not output_doc.page_count:
                 raise ValueError(_("No images were successfully converted to PDF."))
 
+            progress_queue.put(("SAVING", _("Saving PDF...")))
+            # 等待 UI 线程确认 SAVING 消息已处理，同时定期检查取消事件
+            while not saving_ack_event.is_set():
+                if cancel_event.is_set():
+                    result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                    return
+                saving_ack_event.wait(timeout=0.1) # 短暂等待，然后再次检查取消事件
             output_doc.save(output_pdf_path, garbage=4, deflate=True)
 
         success_msg = _n(
