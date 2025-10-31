@@ -68,12 +68,7 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
             messagebox.showerror(_("Input Incomplete"), _("Please select an output PDF file."))
             return None
         
-        if os.path.exists(output_pdf_path):
-            if not messagebox.askyesno(
-                _("Overwrite File?"),
-                _("The output file already exists. Do you want to overwrite it?")
-            ):
-                return None
+
 
         target_function = image_to_pdf_worker
         args_tuple = (image_files, output_pdf_path)
