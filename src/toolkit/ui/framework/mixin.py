@@ -17,6 +17,7 @@ class TaskRunnerMixin:
         self.progress_queue = None
         self.result_queue = None
         self.status_callback = status_callback
+        self.saving_ack_event = None # 用于同步保存操作
 
     # --- 1. "契约" (Abstract Methods) ---
     def _get_root_window(self):
@@ -69,6 +70,7 @@ class TaskRunnerMixin:
         self.cancel_event = multiprocessing.Event()
         self.progress_queue = multiprocessing.Queue()
         self.result_queue = multiprocessing.Queue()
+        self.saving_ack_event = multiprocessing.Event() # 创建用于同步保存操作的事件
 
         self.progress_dialog = ProgressDialog(
             self._get_root_window(), 
@@ -77,7 +79,7 @@ class TaskRunnerMixin:
             self.request_cancel
         )
 
-        final_args = args_tuple + (self.cancel_event, self.progress_queue, self.result_queue)
+        final_args = args_tuple + (self.cancel_event, self.progress_queue, self.result_queue, self.saving_ack_event)
 
         self.worker_process = multiprocessing.Process(target=target_function, args=final_args)
         self.worker_process.start()
@@ -142,6 +144,7 @@ class TaskRunnerMixin:
                         self.status_callback(msg[1])
                     # 强制 UI 更新
                     self._get_root_window().update_idletasks() 
+                    self.saving_ack_event.set() # 通知工作进程 UI 已处理 SAVING 消息
         except queue.Empty:
             pass # 没有进度消息
 

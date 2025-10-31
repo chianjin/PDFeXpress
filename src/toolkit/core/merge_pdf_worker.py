@@ -8,7 +8,7 @@ from toolkit.i18n import gettext_text as _, gettext_plural as _n
 
 
 def pdf_merge_worker(input_files, output_file, create_bookmarks,
-                    cancel_event, progress_queue, result_queue):
+                    cancel_event, progress_queue, result_queue, saving_ack_event): # 添加 saving_ack_event
     try:
         total_steps = len(input_files)
         progress_queue.put(("INIT", total_steps))
@@ -37,8 +37,12 @@ def pdf_merge_worker(input_files, output_file, create_bookmarks,
                 output_doc.set_toc(toc)
                 
             progress_queue.put(("SAVING", _("Saving merged PDF...")))
-            import time # 导入 time 模块
-            time.sleep(0.05) # 增加一个短暂的延迟
+            # 等待 UI 线程确认 SAVING 消息已处理，同时定期检查取消事件
+            while not saving_ack_event.is_set():
+                if cancel_event.is_set():
+                    result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                    return
+                saving_ack_event.wait(timeout=0.1) # 短暂等待，然后再次检查取消事件
             output_doc.save(output_file, garbage=4, deflate=True)
 
         success_msg = _n(
