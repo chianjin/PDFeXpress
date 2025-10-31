@@ -77,7 +77,7 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
             return None
 
         target_function = pdf_merge_worker
-        args_tuple = (self.input_files, self.output_file)
+        args_tuple = (self.input_files, self.output_file, False)
         initial_label = _("Preparing to merge...")
 
         return (target_function, args_tuple, initial_label)

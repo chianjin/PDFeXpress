@@ -1,11 +1,12 @@
 # toolkit/core/merge_pdf_worker.py
 
 import pymupdf
+from pathlib import Path
 
 from toolkit.i18n import gettext_text as _, gettext_plural as _n
 
 
-def pdf_merge_worker(input_files, output_file,
+def pdf_merge_worker(input_files, output_file, create_bookmarks,
                     cancel_event, progress_queue, result_queue):
     try:
         total_steps = len(input_files)
@@ -17,6 +18,11 @@ def pdf_merge_worker(input_files, output_file,
                     result_queue.put(("CANCEL", _("Task cancelled by user.")))
                     return
                 with pymupdf.open(file_path) as input_doc:
+                    if create_bookmarks:
+                        # 获取不带扩展名的文件名作为书签条目
+                        bookmark_title = Path(file_path).stem
+                        # 添加书签，指向插入页面的起始位置
+                        output_doc.set_toc_entry(-1, bookmark_title, len(output_doc) + 1)
                     output_doc.insert_pdf(input_doc)
                 progress_queue.put(("PROGRESS", i + 1))
             output_doc.save(output_file, garbage=4, deflate=True)
