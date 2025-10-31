@@ -40,7 +40,7 @@ class PdfToImageApp(ttk.Frame, TaskRunnerMixin):
         self.format_menu.grid(row=1, column=1, padx=10, pady=5, sticky=tk.W)
         options_frame.columnconfigure(1, weight=1)
 
-        self.start_button = ttk.Button(self, text=_("4. Start Conversion"), command=self.run_task_from_ui, state="disabled")
+        self.start_button = ttk.Button(self, text=_("4. Start Conversion"), command=self.run_task_from_ui)
         self.start_button.pack(pady=10, ipadx=10, ipady=10, fill=tk.X)
 
         # (关键) 注册整个 Frame 为拖放目标
@@ -51,13 +51,7 @@ class PdfToImageApp(ttk.Frame, TaskRunnerMixin):
     def _get_root_window(self):
         return self.winfo_toplevel() 
 
-    def _set_ui_busy(self, is_busy):
-        state = "disabled" if is_busy else "normal"
-        self.select_button.config(state=state)
-        self.select_dir_button.config(state=state)
-        self.start_button.config(state=state)
-        self.dpi_entry.config(state=state)
-        self.format_menu.config(state=state)
+
 
     def _prepare_task(self):
         if not self.pdf_path or not self.output_dir:
@@ -77,19 +71,14 @@ class PdfToImageApp(ttk.Frame, TaskRunnerMixin):
 
         return (target_function, args_tuple, initial_label)
 
-    # --- 内部 GUI 逻辑 ---
-    def _check_start_button(self):
-        if self.pdf_path and self.output_dir:
-            self.start_button.config(state="normal")
-        else:
-            self.start_button.config(state="disabled")
+
 
     def set_pdf_path(self, path):
         """辅助函数，用于设置 PDF 路径"""
         if path.lower().endswith('.pdf'):
             self.pdf_path = path
             self.path_label.config(text=f"{_('Selected')}: {os.path.basename(path)}")
-            self._check_start_button()
+
         else:
             messagebox.showwarning(_("Invalid File"), _("Please drop a single PDF file."))
 
@@ -103,7 +92,7 @@ class PdfToImageApp(ttk.Frame, TaskRunnerMixin):
         if path:
             self.output_dir = path
             self.dir_label.config(text=f"{_('Output to')}: {path}")
-        self._check_start_button()
+
 
     def on_drop_pdf(self, event):
         """拖放事件回调"""

@@ -22,9 +22,7 @@ class TaskRunnerMixin:
         """[契约] 子类必须实现：返回顶层 tk.Tk() 窗口"""
         raise NotImplementedError
 
-    def _set_ui_busy(self, is_busy):
-        """[契约] 子类必须实现：禁用/启用自己的 GUI 控件"""
-        raise NotImplementedError
+
 
     def _prepare_task(self):
         """
@@ -65,7 +63,7 @@ class TaskRunnerMixin:
     def _execute_task(self, target_function, args_tuple, initial_label):
         print(f"[{self.__class__.__name__}]: 任务执行开始...")
 
-        self._set_ui_busy(True) 
+
 
         self.cancel_event = multiprocessing.Event()
         self.progress_queue = multiprocessing.Queue()
@@ -144,7 +142,7 @@ class TaskRunnerMixin:
             self.progress_dialog.destroy()
             self.progress_dialog = None
 
-        self._set_ui_busy(False) # 启用 UI
+
 
         self.worker_process = None
         self.cancel_event = None

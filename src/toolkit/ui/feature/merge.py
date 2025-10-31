@@ -41,21 +41,14 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
         self.out_label = ttk.Label(out_frame, text=_("Not selected"))
         self.out_label.pack(side=tk.LEFT, padx=10)
 
-        self.start_button = ttk.Button(self, text=_("3. Start Merging"), command=self.run_task_from_ui, state="disabled")
+        self.start_button = ttk.Button(self, text=_("3. Start Merging"), command=self.run_task_from_ui)
         self.start_button.pack(pady=10, ipadx=10, ipady=10, fill=tk.X)
 
     # --- 实现 Mixin "契约" ---
     def _get_root_window(self):
         return self.winfo_toplevel()
 
-    def _set_ui_busy(self, is_busy):
-        state = "disabled" if is_busy else "normal"
-        self.listbox.config(state=state)
-        self.add_btn.config(state=state)
-        self.remove_btn.config(state=state)
-        self.clear_btn.config(state=state)
-        self.out_button.config(state=state)
-        self.start_button.config(state=state)
+
 
     def _prepare_task(self):
         if not (len(self.input_files) >= 2 and self.output_file):
@@ -68,12 +61,7 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
 
         return (target_function, args_tuple, initial_label)
 
-    # --- 内部 GUI 逻辑 ---
-    def _check_start_button(self):
-        if len(self.input_files) >= 2 and self.output_file:
-            self.start_button.config(state="normal")
-        else:
-            self.start_button.config(state="disabled")
+
 
     def add_files_to_list(self, file_paths):
         """辅助函数，用于添加文件列表 (来自对话框或拖放)"""
@@ -85,7 +73,7 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
                 self.listbox.insert(tk.END, os.path.basename(path))
                 count += 1
         if count > 0:
-            self._check_start_button()
+
 
     def add_files_dialog(self):
         """'添加文件' 按钮的逻辑"""
@@ -109,17 +97,14 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
                 self.listbox.delete(index)
                 self.input_files.pop(index)
         except Exception as e:
-            print(f"移除文件时出错: {e}")
-        self._check_start_button()
+
 
     def clear_files(self):
         self.listbox.delete(0, tk.END)
         self.input_files.clear()
-        self._check_start_button()
 
     def select_output(self):
         path = filedialog.asksaveasfilename(title=_("Save Merged File As..."), filetypes=[(_("PDF Files"), "*.pdf")], defaultextension=".pdf")
         if path:
             self.output_file = path
             self.out_label.config(text=os.path.basename(path))
-        self._check_start_button()

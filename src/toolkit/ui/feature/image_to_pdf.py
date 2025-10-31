@@ -28,8 +28,7 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
             self,
             title=_("1. Select Image Files (Drag & Drop Supported)"),
             file_types=FILE_TYPES_IMAGES,
-            sortable=True,
-            on_change_callback=self._check_start_button
+
         )
         self.file_list.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
 
@@ -39,7 +38,7 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
             title=_("2. Select Output PDF File"),
             mode="save",
             file_types=FILE_TYPES_PDF,
-            on_change_callback=self._check_start_button
+
         )
         self.output_file_picker.pack(fill=tk.X, pady=(0, 10))
 
@@ -47,8 +46,7 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
         self.start_button = ttk.Button(
             self,
             text=_("3. Convert Images to PDF"),
-            command=self.run_task_from_ui,
-            state="disabled"
+            command=self.run_task_from_ui
         )
         self.start_button.pack(pady=(10, 0), ipadx=10, ipady=10, fill=tk.X)
 
@@ -56,24 +54,7 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
     def _get_root_window(self):
         return self.winfo_toplevel()
 
-    def _set_ui_busy(self, is_busy):
-        state = "disabled" if is_busy else "normal"
-        self.file_list.add_files_button.config(state=state)
-        self.file_list.add_folder_button.config(state=state)
-        self.file_list.remove_files_button.config(state=state)
-        self.file_list.remove_all_button.config(state=state)
-        self.file_list.filelist_treeview.config(selectmode="none" if is_busy else "extended")
-        
-        # 排序按钮
-        if self.file_list._sortable:
-            self.file_list.move_to_first_button.config(state=state)
-            self.file_list.move_up_button.config(state=state)
-            self.file_list.move_down_button.config(state=state)
-            self.file_list.move_to_last_button.config(state=state)
 
-        self.output_file_picker.browse_button.config(state=state)
-        self.output_file_picker.file_path_entry.config(state="readonly" if is_busy else "normal")
-        self.start_button.config(state=state)
 
     def _prepare_task(self):
         image_files = [str(p) for p in self.file_list.get()]
@@ -100,9 +81,4 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
 
         return (target_function, args_tuple, initial_label)
 
-    # --- 内部 GUI 逻辑 ---
-    def _check_start_button(self, *args):
-        if self.file_list.get() and self.output_file_picker.get():
-            self.start_button.config(state="normal")
-        else:
-            self.start_button.config(state="disabled")
+
