@@ -18,10 +18,12 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
 
         self.output_pdf_path = None
 
-        # --- GUI --- 
+        # --- GUI ---
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(1, weight=1)
         # 应用标题
         self.title_frame = Title(self, text=_("Image to PDF Converter"))
-        self.title_frame.pack(pady=(0, 10))
+        self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         # 文件列表
         self.file_list = FileList(
@@ -30,7 +32,7 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
             file_types=FILE_TYPES_IMAGES,
 
         )
-        self.file_list.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
+        self.file_list.grid(row=1, column=0, sticky='nsew', padx=10, pady=5)
 
         # 输出 PDF 文件选择
         self.output_file_picker = FilePicker(
@@ -40,30 +42,29 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
             file_types=FILE_TYPES_PDF,
 
         )
-        self.output_file_picker.pack(fill=tk.X, pady=(0, 10))
+        self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=5)
 
         # 底部操作和状态区域
         bottom_frame = ttk.Frame(self)
-        bottom_frame.pack(fill=tk.X, pady=(10, 0))
+        bottom_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=5)
         bottom_frame.columnconfigure(0, weight=1) # 按钮列
-        bottom_frame.columnconfigure(1, weight=3) # 状态栏列
-
-        # 执行按钮
-        self.start_button = ttk.Button(
-            bottom_frame,
-            text=_("3. Convert Images to PDF"),
-            command=self.run_task_from_ui
-        )
-        self.start_button.grid(row=0, column=0, padx=(0, 5), sticky=tk.W+tk.E)
 
         # 状态栏
         self.status_label = ttk.Label(
             bottom_frame,
             text=_("Ready"),
-            anchor=tk.W,
-            relief=tk.SUNKEN # 增加视觉效果
+            anchor='w',
         )
-        self.status_label.grid(row=0, column=1, sticky=tk.W+tk.E)
+        self.status_label.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
+
+        # 执行按钮
+        self.start_button = ttk.Button(
+            bottom_frame,
+            text=_("Convert"),
+            command=self.run_task_from_ui
+        )
+        self.start_button.grid(row=0, column=1, padx=10, pady=5)
+
 
     # --- 实现 Mixin "契约" ---
     def _get_root_window(self):

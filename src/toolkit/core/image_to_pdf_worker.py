@@ -54,7 +54,7 @@ def image_to_pdf_worker(image_files, output_pdf_path, cancel_event, progress_que
             "Successfully converted {} images to PDF!",
             total_steps
         ).format(total_steps)
-        result_queue.put(("SUCCESS", success_msg + f"\n" + _("Saved to:") + f" {output_pdf_path}"))
+        result_queue.put(("SUCCESS", success_msg + _("Saved to:") + f" {output_pdf_path}"))
 
     except Exception as e:
         result_queue.put(("ERROR", _("An unexpected error occurred:\n{}").format(e)))
