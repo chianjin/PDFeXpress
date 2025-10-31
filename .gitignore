@@ -137,3 +137,5 @@ test
 /gemini-venv.bat
 /QWEN.md
 /STYLE_GUIDE.md
+example
+/test_standalone
