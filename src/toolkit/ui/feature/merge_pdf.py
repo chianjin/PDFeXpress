@@ -2,17 +2,18 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-from toolkit.i18n import gettext_text as _
 from toolkit.constant import FILE_TYPES_PDF
+from toolkit.core.merge_pdf_worker import pdf_merge_worker
+from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
 from toolkit.ui.widget.file_list import FileListView
 from toolkit.ui.widget.file_picker import FilePicker
 from toolkit.ui.widget.misc import TitleFrame, OptionFrame
-from toolkit.core.merge_pdf_worker import pdf_merge_worker
+
 
 class MergePdfApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
-        ttk.Frame.__init__(self, master, padding="20", **kwargs)
+        ttk.Frame.__init__(self, master, **kwargs)  # 移除 padding="20"
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
 
         self.output_pdf_path = None
@@ -31,7 +32,7 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
             file_types=FILE_TYPES_PDF,
             sortable=True  # 支持排序
         )
-        self.file_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=5)
+        self.file_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
         # 输出 PDF 文件选择
         self.output_file_picker = FilePicker(
@@ -40,12 +41,12 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
             mode="save",
             file_types=FILE_TYPES_PDF,
         )
-        self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=5)
-        
+        self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
+
         # 选项框架
-        self.option_frame = OptionFrame(self, text=_("Options"))
-        self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=5)
-        
+        self.option_frame = OptionFrame(self)
+        self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
+
         # 生成书签复选框
         self.create_bookmarks_var = tk.BooleanVar(value=False)  # 默认不生成书签
         self.create_bookmarks_checkbox = ttk.Checkbutton(
@@ -57,8 +58,8 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
 
         # 底部操作和状态区域
         bottom_frame = ttk.Frame(self)
-        bottom_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=5)
-        bottom_frame.columnconfigure(0, weight=1) # 按钮列
+        bottom_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=(0, 10))
+        bottom_frame.columnconfigure(0, weight=1)  # 按钮列
 
         # 状态栏
         self.status_label = ttk.Label(
@@ -76,7 +77,6 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
         )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
-
     # --- 实现 Mixin "契约" ---
     def _get_root_window(self):
         return self.winfo_toplevel()
@@ -89,7 +89,7 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
         if len(input_files) < 2:
             messagebox.showerror(_("Not Enough Input Files"), _("Please add at least two PDF files to merge."))
             return None
-        
+
         if not output_pdf_path:
             messagebox.showerror(_("No Output PDF Specified"), _("Please specify an output PDF file."))
             return None
@@ -104,8 +104,10 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
     def update_status(self, message):
         self.status_label.config(text=message)
 
+
 if __name__ == "__main__":
     import tkinterdnd2
+
     root = tkinterdnd2.Tk()
     root.geometry("1024x600")
     app = MergePdfApp(root)

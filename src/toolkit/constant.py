@@ -2,7 +2,6 @@
 
 from toolkit.i18n import gettext_text as _
 
-
 FILE_TYPES_ALL = [(_("All Files"), "*.*")]
 
 FILE_TYPES_PDF = [(_("PDF Files"), "*.pdf")]

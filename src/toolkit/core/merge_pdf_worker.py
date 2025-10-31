@@ -1,14 +1,14 @@
 # toolkit/core/merge_pdf_worker.py
 
-import os
-import pymupdf
 from pathlib import Path
+
+import pymupdf
 
 from toolkit.i18n import gettext_text as _, gettext_plural as _n
 
 
 def pdf_merge_worker(input_files, output_file, create_bookmarks,
-                    cancel_event, progress_queue, result_queue, saving_ack_event): # 添加 saving_ack_event
+                     cancel_event, progress_queue, result_queue, saving_ack_event):  # 添加 saving_ack_event
     try:
         total_steps = len(input_files)
         progress_queue.put(("INIT", total_steps))
@@ -17,7 +17,7 @@ def pdf_merge_worker(input_files, output_file, create_bookmarks,
             # 用于存储书签信息的列表
             toc = []
             current_page = 0
-            
+
             for i, file_path in enumerate(input_files):
                 if cancel_event.is_set():
                     result_queue.put(("CANCEL", _("Task cancelled by user.")))
@@ -31,18 +31,18 @@ def pdf_merge_worker(input_files, output_file, create_bookmarks,
                     output_doc.insert_pdf(input_doc)
                     current_page += input_doc.page_count
                 progress_queue.put(("PROGRESS", i + 1))
-            
+
             # 设置整个文档的目录
             if create_bookmarks and toc:
                 output_doc.set_toc(toc)
-                
+
             progress_queue.put(("SAVING", _("Saving merged PDF...")))
             # 等待 UI 线程确认 SAVING 消息已处理，同时定期检查取消事件
             while not saving_ack_event.is_set():
                 if cancel_event.is_set():
                     result_queue.put(("CANCEL", _("Task cancelled by user.")))
                     return
-                saving_ack_event.wait(timeout=0.1) # 短暂等待，然后再次检查取消事件
+                saving_ack_event.wait(timeout=0.1)  # 短暂等待，然后再次检查取消事件
             output_doc.save(output_file, garbage=4, deflate=True)
 
         success_msg = _n(

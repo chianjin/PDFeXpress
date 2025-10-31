@@ -1,8 +1,11 @@
 # src/toolkit/core/pdf_to_image_worker.py
 import os
 from pathlib import Path
+
 import pymupdf
-from toolkit.i18n import gettext_text as _, gettext_plural as ngettext # 导入翻译函数
+
+from toolkit.i18n import gettext_text as _, gettext_plural as ngettext  # 导入翻译函数
+
 
 def pdf_to_image_worker(pdf_path, output_dir, dpi_value, image_format, cancel_event, progress_queue, result_queue):
     """业务逻辑 1: PDF 转图像。"""
@@ -24,10 +27,10 @@ def pdf_to_image_worker(pdf_path, output_dir, dpi_value, image_format, cancel_ev
             for i in range(total_steps):
                 if cancel_event.is_set():
                     result_queue.put(("CANCEL", _("Task cancelled by user.")))
-                    return 
+                    return
                 page = doc.load_page(i)
-                pix = page.get_pixmap(dpi=dpi_value, alpha=has_alpha) 
-                new_filename = f"{pdf_name_only}_page_{i+1}.{image_format}"
+                pix = page.get_pixmap(dpi=dpi_value, alpha=has_alpha)
+                new_filename = f"{pdf_name_only}_page_{i + 1}.{image_format}"
                 output_filename = Path(output_dir) / new_filename
                 pix.save(output_filename)
                 progress_queue.put(("PROGRESS", i + 1))
@@ -42,4 +45,3 @@ def pdf_to_image_worker(pdf_path, output_dir, dpi_value, image_format, cancel_ev
 
     except Exception as e:
         result_queue.put(("ERROR", _("An unexpected error occurred:\n{}").format(e)))
-

@@ -1,11 +1,13 @@
 # toolkit.i18n
+import gettext
 import os
 import platform
-import gettext
+
 from toolkit.config import PROJECT_DIR, EXECUTIVE_NAME
 
 LOCALE_NAME_MAX_LENGTH = 85
 LOCALE_DIR = PROJECT_DIR / "locale"
+
 
 def _standardize_environment():
     if 'LANG' in os.environ:
@@ -21,6 +23,7 @@ def _standardize_environment():
         except (OSError, AttributeError, ImportError, ctypes.WinError):
             pass
 
+
 _standardize_environment()
 
 gettext.bindtextdomain(EXECUTIVE_NAME, LOCALE_DIR)
@@ -29,4 +32,3 @@ translation = gettext.translation(EXECUTIVE_NAME, LOCALE_DIR, fallback=True)
 
 gettext_text = translation.gettext
 gettext_plural = translation.ngettext
-

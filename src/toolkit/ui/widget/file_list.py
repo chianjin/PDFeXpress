@@ -1,14 +1,16 @@
 # toolkit/ui/widget/file_list.py
-from tkinter import ttk, filedialog
 from pathlib import Path
+from tkinter import ttk, filedialog
 
 from tkinterdnd2 import DND_FILES
-from toolkit.i18n import gettext_text as _
+
 from toolkit.constant import FILE_TYPES_PDF
-from toolkit.util.file_util import get_files_with_extensions, get_folder_files_with_extensions
+from toolkit.i18n import gettext_text as _
 from toolkit.util.decorator import create_run_after_decorator
+from toolkit.util.file_util import get_files_with_extensions, get_folder_files_with_extensions
 
 check_file_list_change = create_run_after_decorator("_on_change_callback")
+
 
 class FileListView(ttk.Labelframe):
     def __init__(
@@ -17,9 +19,9 @@ class FileListView(ttk.Labelframe):
             sortable=False,
             on_change_callback=None,
             **kwargs
-        ):
+    ):
         super().__init__(parent, text=title, **kwargs)
-        
+
         self._file_types = file_types
         self._sortable = sortable
         self._on_change_callback = on_change_callback
@@ -41,17 +43,18 @@ class FileListView(ttk.Labelframe):
             show="headings",
             selectmode="extended"
         )
-        
+
         # 设置列标题
         self.filelist_treeview.heading(
             "filepath", text=_('File Path'), anchor='w'
         )
         self.filelist_treeview.column("filepath", width=300)
-        
+
         # 滚动条
-        self.filelist_scrollbar = ttk.Scrollbar(self.treeview_frame, orient="vertical", command=self.filelist_treeview.yview)
+        self.filelist_scrollbar = ttk.Scrollbar(self.treeview_frame, orient="vertical",
+                                                command=self.filelist_treeview.yview)
         self.filelist_treeview.configure(yscrollcommand=self.filelist_scrollbar.set)
-        
+
         # 布局
         self.filelist_treeview.grid(row=0, column=0, sticky="nsew", padx=0)
         self.filelist_scrollbar.grid(row=0, column=1, sticky="ns", padx=0)
@@ -59,7 +62,7 @@ class FileListView(ttk.Labelframe):
         # 右侧按钮框架
         self.button_frame = ttk.Frame(self)
         self.button_frame.grid(row=0, column=1, sticky="n", padx=5, pady=5)
-        self.button_frame.columnconfigure(0, weight=1) # Make buttons expand horizontally
+        self.button_frame.columnconfigure(0, weight=1)  # Make buttons expand horizontally
 
         self.button_row_counter = 0
 
@@ -186,7 +189,7 @@ class FileListView(ttk.Labelframe):
         for file_path in file_paths:
             self.filelist_treeview.insert("", "end", values=(str(Path(file_path)),))
 
-        return  None
+        return None
 
     @check_file_list_change
     def _remove_files(self, event=None):
@@ -242,7 +245,6 @@ class FileListView(ttk.Labelframe):
         for file_path in file_paths:
             self.filelist_treeview.insert("", "end", values=(str(Path(file_path)),))
 
-
     def get(self):
         return [Path(self.filelist_treeview.item(item)["values"][0]) for item in self.filelist_treeview.get_children()]
 
@@ -265,12 +267,12 @@ class FileListView(ttk.Labelframe):
 
 if __name__ == "__main__":
     import tkinterdnd2
+
     root = tkinterdnd2.Tk()
     root.title("File List Test")
     root.geometry("800x500")
-    
 
-    file_list2 = FileListView(root, title="测试文件列表", sortable= True)
+    file_list2 = FileListView(root, title="测试文件列表", sortable=True)
     file_list2.pack(fill="both", expand=True, padx=10, pady=10)
-    
+
     root.mainloop()

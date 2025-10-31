@@ -1,6 +1,7 @@
 # toolkit.util.file_util
 from pathlib import Path
 
+
 def generate_extension_set(*file_types_args, with_star=False):
     extensions = []
     for file_types in file_types_args:
@@ -13,9 +14,11 @@ def generate_extension_set(*file_types_args, with_star=False):
             extensions = [ext.replace("*", "") for ext in extensions]
     return set(extensions)
 
+
 def get_files_with_extensions(file_list, *file_types_args):
     extensions = generate_extension_set(*file_types_args)
     return [file for file in file_list if Path(file).suffix.lower() in extensions]
+
 
 def get_folder_files_with_extensions(folder_path, *file_types_args):
     folder_path = Path(folder_path)

@@ -1,15 +1,17 @@
 # src/toolkit/ui/framework/mixin.py
-from tkinter import messagebox
 import multiprocessing
-import queue 
+import queue
+from tkinter import messagebox
 
-from toolkit.ui.framework.progress_dialog import ProgressDialog # 相对导入
-from toolkit.i18n import gettext_text as _ # 相对导入
+from toolkit.i18n import gettext_text as _  # 相对导入
+from toolkit.ui.framework.progress_dialog import ProgressDialog  # 相对导入
+
 
 class TaskRunnerMixin:
     """    核心框架 Mixin。
     提供运行后台进程、轮询队列和显示进度的全套功能。
     """
+
     def __init__(self, status_callback=None, *args, **kwargs):
         self.progress_dialog = None
         self.worker_process = None
@@ -17,14 +19,12 @@ class TaskRunnerMixin:
         self.progress_queue = None
         self.result_queue = None
         self.status_callback = status_callback
-        self.saving_ack_event = None # 用于同步保存操作
+        self.saving_ack_event = None  # 用于同步保存操作
 
     # --- 1. "契约" (Abstract Methods) ---
     def _get_root_window(self):
         """[契约] 子类必须实现：返回顶层 tk.Tk() 窗口"""
         raise NotImplementedError
-
-
 
     def _prepare_task(self):
         """
@@ -65,17 +65,15 @@ class TaskRunnerMixin:
     def _execute_task(self, target_function, args_tuple, initial_label):
         print(f"[{self.__class__.__name__}]: 任务执行开始...")
 
-
-
         self.cancel_event = multiprocessing.Event()
         self.progress_queue = multiprocessing.Queue()
         self.result_queue = multiprocessing.Queue()
-        self.saving_ack_event = multiprocessing.Event() # 创建用于同步保存操作的事件
+        self.saving_ack_event = multiprocessing.Event()  # 创建用于同步保存操作的事件
 
         self.progress_dialog = ProgressDialog(
-            self._get_root_window(), 
-            _("Processing..."), # 进度框标题
-            initial_label, # 进度框初始文本
+            self._get_root_window(),
+            _("Processing..."),  # 进度框标题
+            initial_label,  # 进度框初始文本
             self.request_cancel
         )
 
@@ -95,16 +93,18 @@ class TaskRunnerMixin:
 
             # 任务结束
             if self.progress_dialog:
-                self.progress_dialog.progressbar.stop() 
+                self.progress_dialog.progressbar.stop()
                 if result_type == "SUCCESS":
-                    self.progress_dialog.progressbar.config(mode='determinate', maximum=self.progress_dialog.progressbar['maximum'], value=self.progress_dialog.progressbar['maximum'])
+                    self.progress_dialog.progressbar.config(mode='determinate',
+                                                            maximum=self.progress_dialog.progressbar['maximum'],
+                                                            value=self.progress_dialog.progressbar['maximum'])
 
             if result_type == "SUCCESS":
                 messagebox.showinfo(_("Task Complete"), message)
                 if self.status_callback:
                     self.status_callback(_("Task Complete: ") + message)
             elif result_type == "CANCEL":
-                messagebox.showwarning(_("Task Cancelled"), message) 
+                messagebox.showwarning(_("Task Cancelled"), message)
                 if self.status_callback:
                     self.status_callback(_("Task Cancelled: ") + message)
             elif result_type == "ERROR":
@@ -113,21 +113,21 @@ class TaskRunnerMixin:
                     self.status_callback(_("Error: ") + message)
 
             self.cleanup()
-            return # 任务已结束，不再轮询
+            return  # 任务已结束，不再轮询
 
         except queue.Empty:
-            pass # 结果队列为空，继续检查进度队列
+            pass  # 结果队列为空，继续检查进度队列
 
         # 2. 检查进度队列
         try:
             msg = self.progress_queue.get_nowait()
             if not self.progress_dialog:
-                pass # 或者处理一下，比如打印日志
+                pass  # 或者处理一下，比如打印日志
             elif isinstance(msg, tuple):
                 if msg[0] == "INIT":
                     # 切换到"确定"进度条
-                    self.progress_dialog.label.config(text=_("Processing...")) 
-                    self.progress_dialog.progressbar.stop() 
+                    self.progress_dialog.label.config(text=_("Processing..."))
+                    self.progress_dialog.progressbar.stop()
                     self.progress_dialog.progressbar.config(mode='determinate', maximum=msg[1], value=0)
                     if self.status_callback:
                         self.status_callback(_("Processing..."))
@@ -138,15 +138,15 @@ class TaskRunnerMixin:
                     # 切换到不定进度条并更新文本
                     self.progress_dialog.progressbar.stop()
                     self.progress_dialog.progressbar.config(mode='indeterminate')
-                    self.progress_dialog.progressbar.start() # 启动不定模式动画，使用默认速度
+                    self.progress_dialog.progressbar.start()  # 启动不定模式动画，使用默认速度
                     self.progress_dialog.label.config(text=msg[1])
                     if self.status_callback:
                         self.status_callback(msg[1])
                     # 强制 UI 更新
-                    self._get_root_window().update_idletasks() 
-                    self.saving_ack_event.set() # 通知工作进程 UI 已处理 SAVING 消息
+                    self._get_root_window().update_idletasks()
+                    self.saving_ack_event.set()  # 通知工作进程 UI 已处理 SAVING 消息
         except queue.Empty:
-            pass # 没有进度消息
+            pass  # 没有进度消息
 
         # 安排下一次轮询
         self._get_root_window().after(100, self.poll_queues)
@@ -162,13 +162,11 @@ class TaskRunnerMixin:
         print(f"[{self.__class__.__name__}]: 执行清理...")
 
         if self.worker_process and self.worker_process.is_alive():
-            self.worker_process.join(timeout=0.5) 
+            self.worker_process.join(timeout=0.5)
 
         if self.progress_dialog:
             self.progress_dialog.destroy()
             self.progress_dialog = None
-
-
 
         self.worker_process = None
         self.cancel_event = None
