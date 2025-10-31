@@ -97,8 +97,7 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
                 self.listbox.delete(index)
                 self.input_files.pop(index)
         except Exception as e:
-
-
+            pass
     def clear_files(self):
         self.listbox.delete(0, tk.END)
         self.input_files.clear()
