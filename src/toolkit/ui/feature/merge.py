@@ -72,7 +72,7 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
                 self.input_files.append(path)
                 self.listbox.insert(tk.END, os.path.basename(path))
                 count += 1
-        if count > 0:
+
 
 
     def add_files_dialog(self):
