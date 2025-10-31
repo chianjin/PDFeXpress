@@ -1,4 +1,4 @@
-# toolkit/ui/widget/_misc.py
+# toolkit/ui/widget/misc.py
 from tkinter import ttk, font as tkfont
 from toolkit.i18n import gettext_text as _
 

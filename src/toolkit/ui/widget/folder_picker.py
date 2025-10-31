@@ -1,4 +1,4 @@
-# toolkit/ui/widget/_folder_picker.py
+# toolkit/ui/widget/folder_picker.py
 import tkinter as tk
 from tkinter import ttk, filedialog
 from pathlib import Path

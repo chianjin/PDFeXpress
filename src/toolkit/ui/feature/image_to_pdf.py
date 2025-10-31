@@ -6,9 +6,9 @@ import os
 from toolkit.i18n import gettext_text as _
 from toolkit.constant import FILE_TYPES_IMAGES, FILE_TYPES_PDF
 from toolkit.ui.framework.mixin import TaskRunnerMixin
-from toolkit.ui.widget._file_list import FileList
-from toolkit.ui.widget._file_picker import FilePicker
-from toolkit.ui.widget._misc import Title
+from toolkit.ui.widget.file_list import FileList
+from toolkit.ui.widget.file_picker import FilePicker
+from toolkit.ui.widget.misc import Title
 from toolkit.core.image_to_pdf_worker import image_to_pdf_worker
 
 class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):

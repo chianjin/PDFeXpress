@@ -1,4 +1,4 @@
-# toolkit/ui/widget/_file_list.py
+# toolkit/ui/widget/file_list.py
 from tkinter import ttk, filedialog
 from pathlib import Path
 
