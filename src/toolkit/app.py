@@ -17,7 +17,7 @@ class MultiApp(ttk.Frame):
         super().__init__(root, padding="10")
         self.root = root
         self.root.title(_("Multifunctional PDF Toolkit"))
-        self.root.geometry("500x500")
+        self.root.geometry("1280x768")
         self.pack(fill=tk.BOTH, expand=True)
 
         self.notebook = ttk.Notebook(self)

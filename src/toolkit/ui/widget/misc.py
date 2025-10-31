@@ -2,16 +2,16 @@
 from tkinter import ttk, font as tkfont
 from toolkit.i18n import gettext_text as _
 
-class Title(ttk.Frame):
+class TitleFrame(ttk.Frame):
     """Display the title of app"""
     def __init__(self, parent, text=_("Title"), **kwargs):
         super().__init__(parent, **kwargs)
         # default_font = tkfont.nametofont("TkDefaultFont")
         font = tkfont.Font(size=18, weight="bold")
         self.LabelTitle = ttk.Label(self, text=text, font=font)
-        self.LabelTitle.grid(row=0, column=0, sticky="w", padx=(20, 5), pady=10)
+        self.LabelTitle.grid(row=0, column=0, sticky="w", padx=(20, 5), pady=5)
 
-class Option(ttk.Labelframe):
+class OptionFrame(ttk.Labelframe):
     def __init__(self, parent, text=_("Option"), **kwargs):
         super().__init__(parent, text=text, **kwargs)
 
@@ -19,9 +19,9 @@ class Option(ttk.Labelframe):
 if __name__ == "__main__":
     import tkinter as tk
     root = tk.Tk()
-    title = Title(root)
+    title = TitleFrame(root)
     title.pack(fill="x", padx=10, pady=10)
-    option = Option(root)
+    option = OptionFrame(root)
     label = ttk.Label(option, text="Option")
     label.pack()
     option.pack(fill="x", padx=10, pady=10)

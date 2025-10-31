@@ -10,7 +10,7 @@ from toolkit.util.decorator import create_run_after_decorator
 
 check_file_list_change = create_run_after_decorator("_on_change_callback")
 
-class FileList(ttk.Labelframe):
+class FileListView(ttk.Labelframe):
     def __init__(
             self, parent, title=_("File List"),
             file_types=FILE_TYPES_PDF,
@@ -270,7 +270,7 @@ if __name__ == "__main__":
     root.geometry("800x500")
     
 
-    file_list2 = FileList(root, title="测试文件列表", sortable= True)
+    file_list2 = FileListView(root, title="测试文件列表", sortable= True)
     file_list2.pack(fill="both", expand=True, padx=10, pady=10)
     
     root.mainloop()

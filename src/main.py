@@ -14,5 +14,6 @@ if __name__ == "__main__":
     multiprocessing.freeze_support() 
 
     root= TkinterDnD.Tk()
+    root.geometry("1389x768")
     app= MultiApp(root)
     root.mainloop()
