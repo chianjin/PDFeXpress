@@ -26,7 +26,7 @@ def pdf_merge_worker(input_files, output_file,
             "Successfully merged {} files!",
             total_steps
         ).format(total_steps)
-        result_queue.put(("SUCCESS", success_msg + f"\n" + _("Saved to:") + f" {output_file}"))
+        result_queue.put(("SUCCESS", success_msg + "\n" + _("Saved to:") + f" {output_file}"))
 
     except Exception as e:
         result_queue.put(("ERROR", _("An unexpected error occurred:\n{}").format(e)))

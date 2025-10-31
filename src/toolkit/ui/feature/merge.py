@@ -2,6 +2,7 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import os
+from pathlib import Path
 from tkinterdnd2 import DND_FILES
 
 from toolkit.ui.framework.mixin import TaskRunnerMixin
@@ -95,7 +96,7 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
             path_lower = path.lower()
             if path_lower.endswith('.pdf') and path not in self.input_files:
                 self.input_files.append(path)
-                self.listbox.insert(tk.END, os.path.basename(path))
+                self.listbox.insert(tk.END, Path(path).name)
                 count += 1
 
 
@@ -131,4 +132,4 @@ class MergePdfApp(ttk.Frame, TaskRunnerMixin):
         path = filedialog.asksaveasfilename(title=_("Save Merged File As..."), filetypes=[(_("PDF Files"), "*.pdf")], defaultextension=".pdf")
         if path:
             self.output_file = path
-            self.out_label.config(text=os.path.basename(path))
+            self.out_label.config(text=Path(path).name)

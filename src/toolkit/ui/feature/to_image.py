@@ -2,6 +2,7 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import os
+from pathlib import Path
 from tkinterdnd2 import DND_FILES
 
 # (关键) 导入框架、业务逻辑和翻译
@@ -102,7 +103,7 @@ class PdfToImageApp(ttk.Frame, TaskRunnerMixin):
         """辅助函数，用于设置 PDF 路径"""
         if path.lower().endswith('.pdf'):
             self.pdf_path = path
-            self.path_label.config(text=f"{_('Selected')}: {os.path.basename(path)}")
+            self.path_label.config(text=f"{_('Selected')}: {Path(path).name}")
 
         else:
             messagebox.showwarning(_("Invalid File"), _("Please drop a single PDF file."))
