@@ -10,12 +10,13 @@ class TaskRunnerMixin:
     """    核心框架 Mixin。
     提供运行后台进程、轮询队列和显示进度的全套功能。
     """
-    def __init__(self, *args, **kwargs):
+    def __init__(self, status_callback=None, *args, **kwargs):
         self.progress_dialog = None
         self.worker_process = None
         self.cancel_event = None
         self.progress_queue = None
         self.result_queue = None
+        self.status_callback = status_callback
 
     # --- 1. "契约" (Abstract Methods) ---
     def _get_root_window(self):
@@ -97,10 +98,16 @@ class TaskRunnerMixin:
 
             if result_type == "SUCCESS":
                 messagebox.showinfo(_("Task Complete"), message)
+                if self.status_callback:
+                    self.status_callback(_("Task Complete: ") + message)
             elif result_type == "CANCEL":
                 messagebox.showwarning(_("Task Cancelled"), message) 
+                if self.status_callback:
+                    self.status_callback(_("Task Cancelled: ") + message)
             elif result_type == "ERROR":
                 messagebox.showerror(_("Error"), message)
+                if self.status_callback:
+                    self.status_callback(_("Error: ") + message)
 
             self.cleanup()
 
@@ -116,6 +123,8 @@ class TaskRunnerMixin:
                             self.progress_dialog.label.config(text=_("Processing...")) 
                             self.progress_dialog.progressbar.stop() 
                             self.progress_dialog.progressbar.config(mode='determinate', maximum=msg[1], value=0)
+                            if self.status_callback:
+                                self.status_callback(_("Processing..."))
                         elif msg[0] == "PROGRESS":
                             # 更新进度
                             self.progress_dialog.progressbar['value'] = msg[1]

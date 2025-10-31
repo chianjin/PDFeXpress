@@ -12,7 +12,7 @@ from toolkit.i18n import gettext_text as _
 class PdfToImageApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
         ttk.Frame.__init__(self, master, padding="20", **kwargs)
-        TaskRunnerMixin.__init__(self)
+        TaskRunnerMixin.__init__(self, status_callback=self.update_status)
 
         self.pdf_path = None
         self.output_dir = None 
@@ -40,8 +40,28 @@ class PdfToImageApp(ttk.Frame, TaskRunnerMixin):
         self.format_menu.grid(row=1, column=1, padx=10, pady=5, sticky=tk.W)
         options_frame.columnconfigure(1, weight=1)
 
-        self.start_button = ttk.Button(self, text=_("4. Start Conversion"), command=self.run_task_from_ui)
-        self.start_button.pack(pady=10, ipadx=10, ipady=10, fill=tk.X)
+        # 底部操作和状态区域
+        bottom_frame = ttk.Frame(self)
+        bottom_frame.pack(fill=tk.X, pady=(10, 0))
+        bottom_frame.columnconfigure(0, weight=1) # 按钮列
+        bottom_frame.columnconfigure(1, weight=3) # 状态栏列
+
+        # 执行按钮
+        self.start_button = ttk.Button(
+            bottom_frame,
+            text=_("4. Start Conversion"),
+            command=self.run_task_from_ui
+        )
+        self.start_button.grid(row=0, column=0, padx=(0, 5), sticky=tk.W+tk.E)
+
+        # 状态栏
+        self.status_label = ttk.Label(
+            bottom_frame,
+            text=_("Ready"),
+            anchor=tk.W,
+            relief=tk.SUNKEN # 增加视觉效果
+        )
+        self.status_label.grid(row=0, column=1, sticky=tk.W+tk.E)
 
         # (关键) 注册整个 Frame 为拖放目标
         self.drop_target_register(DND_FILES)
@@ -70,6 +90,11 @@ class PdfToImageApp(ttk.Frame, TaskRunnerMixin):
         initial_label = _("Opening PDF...")
 
         return (target_function, args_tuple, initial_label)
+
+    def update_status(self, message):
+        self.status_label.config(text=message)
+
+
 
 
 
