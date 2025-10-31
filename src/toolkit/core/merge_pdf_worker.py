@@ -1,5 +1,6 @@
 # toolkit/core/merge_pdf_worker.py
 
+import os
 import pymupdf
 from pathlib import Path
 
@@ -35,6 +36,9 @@ def pdf_merge_worker(input_files, output_file, create_bookmarks,
             if create_bookmarks and toc:
                 output_doc.set_toc(toc)
                 
+            progress_queue.put(("SAVING", _("Saving merged PDF...")))
+            import time # 导入 time 模块
+            time.sleep(0.05) # 增加一个短暂的延迟
             output_doc.save(output_file, garbage=4, deflate=True)
 
         success_msg = _n(

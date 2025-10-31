@@ -86,6 +86,7 @@ class TaskRunnerMixin:
 
     def poll_queues(self):
         """GUI 轮询器 (心跳)"""
+        # 1. 优先检查结果队列
         try:
             result = self.result_queue.get_nowait()
             result_type, message = result
@@ -110,29 +111,42 @@ class TaskRunnerMixin:
                     self.status_callback(_("Error: ") + message)
 
             self.cleanup()
+            return # 任务已结束，不再轮询
 
         except queue.Empty:
-            # 任务仍在运行, 检查进度
-            try:
-                while True: 
-                    msg = self.progress_queue.get_nowait()
-                    if not self.progress_dialog: continue 
-                    if isinstance(msg, tuple):
-                        if msg[0] == "INIT":
-                            # 切换到"确定"进度条
-                            self.progress_dialog.label.config(text=_("Processing...")) 
-                            self.progress_dialog.progressbar.stop() 
-                            self.progress_dialog.progressbar.config(mode='determinate', maximum=msg[1], value=0)
-                            if self.status_callback:
-                                self.status_callback(_("Processing..."))
-                        elif msg[0] == "PROGRESS":
-                            # 更新进度
-                            self.progress_dialog.progressbar['value'] = msg[1]
-            except queue.Empty:
-                pass 
+            pass # 结果队列为空，继续检查进度队列
 
-            # 安排下一次轮询
-            self._get_root_window().after(100, self.poll_queues)
+        # 2. 检查进度队列
+        try:
+            msg = self.progress_queue.get_nowait()
+            if not self.progress_dialog:
+                pass # 或者处理一下，比如打印日志
+            elif isinstance(msg, tuple):
+                if msg[0] == "INIT":
+                    # 切换到"确定"进度条
+                    self.progress_dialog.label.config(text=_("Processing...")) 
+                    self.progress_dialog.progressbar.stop() 
+                    self.progress_dialog.progressbar.config(mode='determinate', maximum=msg[1], value=0)
+                    if self.status_callback:
+                        self.status_callback(_("Processing..."))
+                elif msg[0] == "PROGRESS":
+                    # 更新进度
+                    self.progress_dialog.progressbar['value'] = msg[1]
+                elif msg[0] == "SAVING":
+                    # 切换到不定进度条并更新文本
+                    self.progress_dialog.progressbar.stop()
+                    self.progress_dialog.progressbar.config(mode='indeterminate')
+                    self.progress_dialog.progressbar.start() # 启动不定模式动画，使用默认速度
+                    self.progress_dialog.label.config(text=msg[1])
+                    if self.status_callback:
+                        self.status_callback(msg[1])
+                    # 强制 UI 更新
+                    self._get_root_window().update_idletasks() 
+        except queue.Empty:
+            pass # 没有进度消息
+
+        # 安排下一次轮询
+        self._get_root_window().after(100, self.poll_queues)
 
     def request_cancel(self):
         """取消请求"""
