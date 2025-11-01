@@ -8,6 +8,8 @@ from toolkit.ui.feature.image_to_pdf import ImageToPDFApp
 from toolkit.ui.feature.merge_pdf import MergePDFApp
 from toolkit.ui.feature.rotate_pdf import RotatePDFApp
 from toolkit.ui.feature.pdf_to_image import PDFToImageApp
+from toolkit.ui.feature.extract_text import ExtractTextApp
+from toolkit.ui.feature.extract_images import ExtractImagesApp
 
 
 class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
@@ -49,6 +51,8 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
         self._create_nav_button(top_nav_frame, _("Image to PDF"), ImageToPDFApp)
         self._create_nav_button(top_nav_frame, _("PDF to Image"), PDFToImageApp)
         self._create_nav_button(top_nav_frame, _("Rotate PDF"), RotatePDFApp)
+        self._create_nav_button(top_nav_frame, _("Extract Text"), ExtractTextApp)
+        self._create_nav_button(top_nav_frame, _("Extract Images"), ExtractImagesApp)
         self._create_nav_button(top_nav_frame, _("Split PDF"), None)  # Placeholder
 
         # Right Content Frame
