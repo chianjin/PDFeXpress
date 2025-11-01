@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2025-11-02 01:53+0800\n"
+"POT-Creation-Date: 2025-11-02 02:21+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,6 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.8\n"
 "X-Poedit-KeywordsList: _n\n"
 "X-Poedit-Basepath: ../../..\n"
@@ -78,7 +79,7 @@ msgid "No pages specified for deletion."
 msgstr ""
 
 #: toolkit/core/delete_pages_worker.py:57
-#: toolkit/core/pdf_to_long_image_worker.py:23
+#: toolkit/core/pdf_to_long_image_worker.py:22
 msgid "PDF file has no pages."
 msgstr ""
 
@@ -92,42 +93,43 @@ msgstr ""
 msgid "This operation would delete all pages from {pdf_path_name}."
 msgstr ""
 
-#: toolkit/core/delete_pages_worker.py:75
+#: toolkit/core/delete_pages_worker.py:76
 #: toolkit/core/image_to_pdf_worker.py:49
-#: toolkit/core/interleave_pdfs_worker.py:48
+#: toolkit/core/interleave_pdfs_worker.py:47
 msgid "Saving PDF..."
 msgstr ""
 
-#: toolkit/core/delete_pages_worker.py:78
+#: toolkit/core/delete_pages_worker.py:79
 #: toolkit/core/extract_images_worker.py:31
 #: toolkit/core/extract_text_worker.py:25
 #: toolkit/core/image_to_pdf_worker.py:21
 #: toolkit/core/image_to_pdf_worker.py:53
-#: toolkit/core/interleave_pdfs_worker.py:34
-#: toolkit/core/interleave_pdfs_worker.py:51
-#: toolkit/core/merge_invoices_worker.py:104
+#: toolkit/core/interleave_pdfs_worker.py:33
+#: toolkit/core/interleave_pdfs_worker.py:50
+#: toolkit/core/merge_invoices_worker.py:103
 #: toolkit/core/merge_pdf_worker.py:23 toolkit/core/merge_pdf_worker.py:43
 #: toolkit/core/pdf_to_image_worker.py:32
 #: toolkit/core/pdf_to_image_worker.py:54
-#: toolkit/core/pdf_to_long_image_worker.py:33
-#: toolkit/core/pdf_to_long_image_worker.py:57
+#: toolkit/core/pdf_to_long_image_worker.py:32
+#: toolkit/core/pdf_to_long_image_worker.py:56
 #: toolkit/core/rotate_pdf_worker.py:25 toolkit/core/split_pdf_worker.py:115
 msgid "Task cancelled by user."
 msgstr ""
 
-#: toolkit/core/delete_pages_worker.py:87
+#: toolkit/core/delete_pages_worker.py:88
 #, python-brace-format
 msgid "Successfully deleted {} page!"
-msgstr ""
+msgid_plural "Successfully deleted {} pages!"
+msgstr[0] ""
 
-#: toolkit/core/delete_pages_worker.py:94
+#: toolkit/core/delete_pages_worker.py:95
 #: toolkit/core/extract_images_worker.py:72
 #: toolkit/core/extract_text_worker.py:50
 #: toolkit/core/image_to_pdf_worker.py:66
-#: toolkit/core/interleave_pdfs_worker.py:61
-#: toolkit/core/merge_invoices_worker.py:106
+#: toolkit/core/interleave_pdfs_worker.py:60
+#: toolkit/core/merge_invoices_worker.py:105
 #: toolkit/core/merge_pdf_worker.py:56 toolkit/core/pdf_to_image_worker.py:81
-#: toolkit/core/pdf_to_long_image_worker.py:68
+#: toolkit/core/pdf_to_long_image_worker.py:67
 #: toolkit/core/rotate_pdf_worker.py:51 toolkit/core/split_pdf_worker.py:143
 #, python-brace-format
 msgid ""
@@ -138,12 +140,14 @@ msgstr ""
 #: toolkit/core/extract_images_worker.py:65
 #, python-brace-format
 msgid "Successfully extracted {} image!"
-msgstr ""
+msgid_plural "Successfully extracted {} images!"
+msgstr[0] ""
 
 #: toolkit/core/extract_text_worker.py:43
 #, python-brace-format
 msgid "Successfully extracted text from {} file!"
-msgstr ""
+msgid_plural "Successfully extracted text from {} files!"
+msgstr[0] ""
 
 #: toolkit/core/image_to_pdf_worker.py:41
 #, python-brace-format
@@ -159,29 +163,30 @@ msgstr ""
 #: toolkit/core/image_to_pdf_worker.py:59
 #, python-brace-format
 msgid "Successfully converted {} image to PDF!"
-msgstr ""
+msgid_plural "Successfully converted {} images to PDF!"
+msgstr[0] ""
 
 #: toolkit/core/image_to_pdf_worker.py:63 toolkit/core/merge_pdf_worker.py:53
 msgid "Saved to:"
 msgstr ""
 
-#: toolkit/core/interleave_pdfs_worker.py:27
+#: toolkit/core/interleave_pdfs_worker.py:26
 msgid "Input files are empty, no pages to merge."
 msgstr ""
 
-#: toolkit/core/interleave_pdfs_worker.py:57
+#: toolkit/core/interleave_pdfs_worker.py:56
 msgid "Successfully interleaved PDFs!"
 msgstr ""
 
-#: toolkit/core/merge_invoices_worker.py:44
+#: toolkit/core/merge_invoices_worker.py:43
 msgid "No invoice files provided."
 msgstr ""
 
-#: toolkit/core/merge_invoices_worker.py:93 toolkit/core/merge_pdf_worker.py:39
+#: toolkit/core/merge_invoices_worker.py:92 toolkit/core/merge_pdf_worker.py:39
 msgid "Saving merged PDF..."
 msgstr ""
 
-#: toolkit/core/merge_invoices_worker.py:100
+#: toolkit/core/merge_invoices_worker.py:99
 #, python-brace-format
 msgid "Successfully merged {} invoices!"
 msgstr ""
@@ -189,29 +194,32 @@ msgstr ""
 #: toolkit/core/merge_pdf_worker.py:49
 #, python-brace-format
 msgid "Successfully merged {} file!"
-msgstr ""
+msgid_plural "Successfully merged {} files!"
+msgstr[0] ""
 
 #: toolkit/core/pdf_to_image_worker.py:74
 #, python-brace-format
 msgid "Successfully converted {} page!"
-msgstr ""
+msgid_plural "Successfully converted {} pages!"
+msgstr[0] ""
 
-#: toolkit/core/pdf_to_long_image_worker.py:46
+#: toolkit/core/pdf_to_long_image_worker.py:45
 msgid "No pages were rendered from the PDF."
 msgstr ""
 
-#: toolkit/core/pdf_to_long_image_worker.py:54
+#: toolkit/core/pdf_to_long_image_worker.py:53
 msgid "Saving long image..."
 msgstr ""
 
-#: toolkit/core/pdf_to_long_image_worker.py:64
+#: toolkit/core/pdf_to_long_image_worker.py:63
 msgid "Successfully converted PDF to a long image!"
 msgstr ""
 
 #: toolkit/core/rotate_pdf_worker.py:44
 #, python-brace-format
 msgid "Successfully rotated {} file!"
-msgstr ""
+msgid_plural "Successfully rotated {} files!"
+msgstr[0] ""
 
 #: toolkit/core/split_pdf_worker.py:12
 msgid "Custom range string cannot be empty."
@@ -253,7 +261,8 @@ msgstr ""
 #: toolkit/core/split_pdf_worker.py:136
 #, python-brace-format
 msgid "Successfully split PDF into {} file!"
-msgstr ""
+msgid_plural "Successfully split PDF into {} files!"
+msgstr[0] ""
 
 #: toolkit/main_frame.py:30
 msgid "Operation"
@@ -329,7 +338,7 @@ msgstr ""
 
 #: toolkit/main_frame.py:111
 #, python-brace-format
-msgid "About {}"
+msgid "About {} "
 msgstr ""
 
 #: toolkit/main_frame.py:120
@@ -358,13 +367,13 @@ msgstr ""
 msgid "e.g., 1-3, 5, 7-9"
 msgstr ""
 
-#: toolkit/ui/feature/delete_page.py:42 toolkit/ui/feature/extract_image.py:62
+#: toolkit/ui/feature/delete_page.py:42 toolkit/ui/feature/extract_image.py:64
 #: toolkit/ui/feature/extract_text.py:60 toolkit/ui/feature/image_to_pdf.py:55
 #: toolkit/ui/feature/interleave_pdf.py:48
 #: toolkit/ui/feature/merge_invoices.py:39 toolkit/ui/feature/merge_pdf.py:68
-#: toolkit/ui/feature/pdf_to_image.py:79
-#: toolkit/ui/feature/pdf_to_long_image.py:41
-#: toolkit/ui/feature/rotate_pdf.py:60 toolkit/ui/feature/split_pdf.py:55
+#: toolkit/ui/feature/pdf_to_image.py:83
+#: toolkit/ui/feature/pdf_to_long_image.py:43
+#: toolkit/ui/feature/rotate_pdf.py:65 toolkit/ui/feature/split_pdf.py:57
 msgid "Ready"
 msgstr ""
 
@@ -373,19 +382,19 @@ msgid "Delete"
 msgstr ""
 
 #: toolkit/ui/feature/delete_page.py:57
-#: toolkit/ui/feature/pdf_to_long_image.py:56
-#: toolkit/ui/feature/split_pdf.py:82
+#: toolkit/ui/feature/pdf_to_long_image.py:58
+#: toolkit/ui/feature/split_pdf.py:84
 msgid "No Input File"
 msgstr ""
 
 #: toolkit/ui/feature/delete_page.py:57
-#: toolkit/ui/feature/pdf_to_long_image.py:56
+#: toolkit/ui/feature/pdf_to_long_image.py:58
 msgid "Please select a PDF file."
 msgstr ""
 
 #: toolkit/ui/feature/delete_page.py:61 toolkit/ui/feature/interleave_pdf.py:68
 #: toolkit/ui/feature/merge_invoices.py:57
-#: toolkit/ui/feature/pdf_to_long_image.py:60
+#: toolkit/ui/feature/pdf_to_long_image.py:62
 msgid "No Output File Specified"
 msgstr ""
 
@@ -428,36 +437,36 @@ msgstr ""
 msgid "Min Width:"
 msgstr ""
 
-#: toolkit/ui/feature/extract_image.py:53
+#: toolkit/ui/feature/extract_image.py:54
 msgid "Min Height:"
 msgstr ""
 
-#: toolkit/ui/feature/extract_image.py:65 toolkit/ui/feature/extract_text.py:63
+#: toolkit/ui/feature/extract_image.py:67 toolkit/ui/feature/extract_text.py:63
 msgid "Extract"
 msgstr ""
 
-#: toolkit/ui/feature/extract_image.py:87 toolkit/ui/feature/extract_text.py:84
-#: toolkit/ui/feature/pdf_to_image.py:117 toolkit/ui/feature/rotate_pdf.py:84
+#: toolkit/ui/feature/extract_image.py:89 toolkit/ui/feature/extract_text.py:84
+#: toolkit/ui/feature/pdf_to_image.py:121 toolkit/ui/feature/rotate_pdf.py:89
 msgid "No Input Files"
 msgstr ""
 
-#: toolkit/ui/feature/extract_image.py:87 toolkit/ui/feature/extract_text.py:84
+#: toolkit/ui/feature/extract_image.py:89 toolkit/ui/feature/extract_text.py:84
 msgid "Please add at least one PDF file."
 msgstr ""
 
-#: toolkit/ui/feature/extract_image.py:91 toolkit/ui/feature/extract_text.py:88
-#: toolkit/ui/feature/pdf_to_image.py:121 toolkit/ui/feature/rotate_pdf.py:88
-#: toolkit/ui/feature/split_pdf.py:86
+#: toolkit/ui/feature/extract_image.py:93 toolkit/ui/feature/extract_text.py:88
+#: toolkit/ui/feature/pdf_to_image.py:125 toolkit/ui/feature/rotate_pdf.py:93
+#: toolkit/ui/feature/split_pdf.py:88
 msgid "No Output Folder Specified"
 msgstr ""
 
-#: toolkit/ui/feature/extract_image.py:91 toolkit/ui/feature/extract_text.py:88
-#: toolkit/ui/feature/pdf_to_image.py:121 toolkit/ui/feature/rotate_pdf.py:88
-#: toolkit/ui/feature/split_pdf.py:86
+#: toolkit/ui/feature/extract_image.py:93 toolkit/ui/feature/extract_text.py:88
+#: toolkit/ui/feature/pdf_to_image.py:125 toolkit/ui/feature/rotate_pdf.py:93
+#: toolkit/ui/feature/split_pdf.py:88
 msgid "Please specify an output folder."
 msgstr ""
 
-#: toolkit/ui/feature/extract_image.py:96
+#: toolkit/ui/feature/extract_image.py:98
 msgid "Extracting images..."
 msgstr ""
 
@@ -477,8 +486,8 @@ msgstr ""
 msgid "Image Files to Convert"
 msgstr ""
 
-#: toolkit/ui/feature/image_to_pdf.py:63 toolkit/ui/feature/pdf_to_image.py:82
-#: toolkit/ui/feature/pdf_to_long_image.py:44
+#: toolkit/ui/feature/image_to_pdf.py:63 toolkit/ui/feature/pdf_to_image.py:86
+#: toolkit/ui/feature/pdf_to_long_image.py:46
 msgid "Convert"
 msgstr ""
 
@@ -587,27 +596,27 @@ msgid "Save In Same Folder"
 msgstr ""
 
 #: toolkit/ui/feature/pdf_to_image.py:50
-#: toolkit/ui/feature/pdf_to_long_image.py:32
+#: toolkit/ui/feature/pdf_to_long_image.py:33
 msgid "DPI:"
 msgstr ""
 
-#: toolkit/ui/feature/pdf_to_image.py:56
+#: toolkit/ui/feature/pdf_to_image.py:57
 msgid "Format:"
 msgstr ""
 
-#: toolkit/ui/feature/pdf_to_image.py:63
+#: toolkit/ui/feature/pdf_to_image.py:66
 msgid "JPEG Quality:"
 msgstr ""
 
-#: toolkit/ui/feature/pdf_to_image.py:71
+#: toolkit/ui/feature/pdf_to_image.py:75
 msgid "Transparent Background"
 msgstr ""
 
-#: toolkit/ui/feature/pdf_to_image.py:117
+#: toolkit/ui/feature/pdf_to_image.py:121
 msgid "Please add at least one PDF file to convert."
 msgstr ""
 
-#: toolkit/ui/feature/pdf_to_image.py:126
+#: toolkit/ui/feature/pdf_to_image.py:131
 msgid "Converting PDFs to images..."
 msgstr ""
 
@@ -619,11 +628,11 @@ msgstr ""
 msgid "Output Image File"
 msgstr ""
 
-#: toolkit/ui/feature/pdf_to_long_image.py:60
+#: toolkit/ui/feature/pdf_to_long_image.py:62
 msgid "Please specify an output image file."
 msgstr ""
 
-#: toolkit/ui/feature/pdf_to_long_image.py:65
+#: toolkit/ui/feature/pdf_to_long_image.py:67
 msgid "Converting to long image..."
 msgstr ""
 
@@ -639,15 +648,15 @@ msgstr ""
 msgid "Rotation Angle:"
 msgstr ""
 
-#: toolkit/ui/feature/rotate_pdf.py:63
+#: toolkit/ui/feature/rotate_pdf.py:68
 msgid "Rotate"
 msgstr ""
 
-#: toolkit/ui/feature/rotate_pdf.py:84
+#: toolkit/ui/feature/rotate_pdf.py:89
 msgid "Please add at least one PDF file to rotate."
 msgstr ""
 
-#: toolkit/ui/feature/rotate_pdf.py:93
+#: toolkit/ui/feature/rotate_pdf.py:98
 msgid "Rotating PDFs..."
 msgstr ""
 
@@ -655,27 +664,27 @@ msgstr ""
 msgid "PDF File to Split"
 msgstr ""
 
-#: toolkit/ui/feature/split_pdf.py:47
+#: toolkit/ui/feature/split_pdf.py:49
 msgid "Value:"
 msgstr ""
 
-#: toolkit/ui/feature/split_pdf.py:58
+#: toolkit/ui/feature/split_pdf.py:60
 msgid "Split"
 msgstr ""
 
-#: toolkit/ui/feature/split_pdf.py:82
+#: toolkit/ui/feature/split_pdf.py:84
 msgid "Please select a PDF file to split."
 msgstr ""
 
-#: toolkit/ui/feature/split_pdf.py:90
+#: toolkit/ui/feature/split_pdf.py:92
 msgid "No Value Specified"
 msgstr ""
 
-#: toolkit/ui/feature/split_pdf.py:90
+#: toolkit/ui/feature/split_pdf.py:92
 msgid "Please specify a value for the selected split mode."
 msgstr ""
 
-#: toolkit/ui/feature/split_pdf.py:95
+#: toolkit/ui/feature/split_pdf.py:97
 msgid "Splitting PDF..."
 msgstr ""
 
@@ -775,19 +784,19 @@ msgstr ""
 msgid "Select input folder."
 msgstr ""
 
-#: toolkit/ui/widget/file_picker.py:20
+#: toolkit/ui/widget/file_picker.py:18
 msgid "Input File"
 msgstr ""
 
-#: toolkit/ui/widget/file_picker.py:41 toolkit/ui/widget/folder_picker.py:23
+#: toolkit/ui/widget/file_picker.py:39 toolkit/ui/widget/folder_picker.py:23
 msgid "Browse"
 msgstr ""
 
-#: toolkit/ui/widget/file_picker.py:52
+#: toolkit/ui/widget/file_picker.py:50
 msgid "Select input file."
 msgstr ""
 
-#: toolkit/ui/widget/file_picker.py:78
+#: toolkit/ui/widget/file_picker.py:76
 msgid "Select output file."
 msgstr ""
 
@@ -801,4 +810,36 @@ msgstr ""
 
 #: toolkit/ui/widget/misc.py:19
 msgid "Option"
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:40
+msgid "Single Page"
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:41
+msgid "By Pages"
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:42
+msgid "By Copies"
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:43
+msgid "Custom Ranges"
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:100
+msgid "Split the PDF every N pages. e.g., a value of 2 will create 2-page PDFs."
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:103
+msgid "Split the PDF into N files with pages distributed evenly."
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:106
+msgid "Specify ranges to extract. e.g., 1, 3, 5-10, 12"
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:109
+msgid "Split every page of the PDF into a separate file."
 msgstr ""

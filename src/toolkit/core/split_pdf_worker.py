@@ -106,8 +106,7 @@ def split_pdf_worker(
             total_files_to_create = len(page_chunks)
             progress_queue.put(("INIT", total_files_to_create))
 
-            output_subfolder = output_folder_obj / f"{pdf_path_obj.stem}_split"
-            output_subfolder.mkdir(parents=True, exist_ok=True)
+            output_folder_obj.mkdir(parents=True, exist_ok=True)
             base_filename = pdf_path_obj.stem
 
             for i, page_list in enumerate(page_chunks):
@@ -127,7 +126,7 @@ def split_pdf_worker(
                     else:
                         output_name = f"{base_filename}_part_{i + 1:04d}.pdf"
 
-                    output_path = output_subfolder / output_name
+                    output_path = output_folder_obj / output_name
                     output_doc.save(str(output_path), garbage=3, deflate=True)
 
                 progress_queue.put(("PROGRESS", i + 1))

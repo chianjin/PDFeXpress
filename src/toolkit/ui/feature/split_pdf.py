@@ -35,20 +35,36 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         self.split_mode_var.trace_add("write", self._on_split_mode_changed)
 
         modes = [
-            ("Split into single pages", "single_page"),
-            ("Split by fixed number of pages", "fixed_pages"),
-            ("Split into a fixed number of files", "fixed_files"),
-            ("Split by custom ranges", "custom_ranges"),
+            ("Single Page", "single_page"),
+            ("By Pages", "fixed_pages"),
+            ("By Copies", "fixed_files"),
+            ("Custom Ranges", "custom_ranges"),
         ]
 
+        radio_frame = ttk.Frame(self.option_frame)
+        radio_frame.pack(fill='x', padx=10, pady=5)
         for text, mode in modes:
-            ttk.Radiobutton(self.option_frame, text=_(text), variable=self.split_mode_var, value=mode).pack(anchor="w",
-                                                                                                            padx=10,
-                                                                                                            pady=2)
+            ttk.Radiobutton(
+                radio_frame,
+                text=_(text),
+                variable=self.split_mode_var,
+                value=mode
+            ).pack(side='left', padx=5, pady=5)
 
-        self.split_value_label = ttk.Label(self.option_frame, text=_("Value:"))
+        self.split_value_label = ttk.Label(radio_frame, text=_("Value:"))
+        self.split_value_label.pack(side='left', padx=(10, 5), pady=5)
+
         self.split_value_var = tk.StringVar()
-        self.split_value_entry = ttk.Entry(self.option_frame, textvariable=self.split_value_var)
+        self.split_value_entry = ttk.Entry(radio_frame, textvariable=self.split_value_var)
+        self.split_value_entry.pack(side='left', fill='x', expand=True, padx=5, pady=5)
+
+        # Fixed description label
+        self.fixed_description_label = ttk.Label(
+            self.option_frame,
+            text=_("By Pages/By Copies: Input an integer (>1). | By Range: 1,3,5-10,12"),
+            justify=tk.LEFT
+        )
+        self.fixed_description_label.pack(fill='x', padx=10, pady=(0, 5))
 
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=(0, 10))
@@ -64,12 +80,10 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
 
     def _on_split_mode_changed(self, *args):
         mode = self.split_mode_var.get()
-        if mode in ["fixed_pages", "fixed_files", "custom_ranges"]:
-            self.split_value_label.pack(side="left", padx=(10, 5), pady=5)
-            self.split_value_entry.pack(side="left", padx=5, pady=5, fill="x", expand=True)
+        if mode == "single_page":
+            self.split_value_entry.config(state="disabled")
         else:
-            self.split_value_label.pack_forget()
-            self.split_value_entry.pack_forget()
+            self.split_value_entry.config(state="normal")
 
     def _get_root_window(self):
         return self.winfo_toplevel()
