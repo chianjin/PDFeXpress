@@ -1,42 +1,76 @@
-# src/toolkit/core/pdf_to_image_worker.py
-import os
+# toolkit/core/pdf_to_image_worker.py
 from pathlib import Path
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, gettext_plural as ngettext  # 导入翻译函数
+from toolkit.i18n import gettext_text as _, gettext_plural as _n
 
 
-def pdf_to_image_worker(pdf_path, output_dir, dpi_value, image_format, cancel_event, progress_queue, result_queue):
-    """业务逻辑 1: PDF 转图像。"""
-    print(f"[工作进程 {os.getpid()}]: 开始 PDF转图像...")
+def pdf_to_image_worker(
+    input_files,
+    output_dir,
+    dpi_value,
+    image_format,
+    jpeg_quality,
+    transparent_background,
+    save_in_same_folder,
+    cancel_event,
+    progress_queue,
+    result_queue,
+    saving_ack_event
+):
     try:
-        with pymupdf.open(pdf_path) as doc:
+        total_steps = 0
+        for file_path in input_files:
+            with pymupdf.open(file_path) as doc:
+                total_steps += doc.page_count
+        progress_queue.put(("INIT", total_steps))
+
+        current_step = 0
+        for file_path in input_files:
             if cancel_event.is_set():
-                result_queue.put(("CANCEL", _("Task cancelled after opening file.")))
+                result_queue.put(("CANCEL", _("Task cancelled by user.")))
                 return
-            total_steps = doc.page_count
-            if total_steps == 0: raise ValueError(_("PDF file has no pages."))
-            progress_queue.put(("INIT", total_steps))
 
-            pdf_path_obj = Path(pdf_path)
-            pdf_basename = pdf_path_obj.name
+            pdf_path_obj = Path(file_path)
             pdf_name_only = pdf_path_obj.stem
-            has_alpha = (image_format == "png")
 
-            for i in range(total_steps):
-                if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Task cancelled by user.")))
-                    return
-                page = doc.load_page(i)
-                pix = page.get_pixmap(dpi=dpi_value, alpha=has_alpha)
-                new_filename = f"{pdf_name_only}_page_{i + 1}.{image_format}"
-                output_filename = Path(output_dir) / new_filename
-                pix.save(output_filename)
-                progress_queue.put(("PROGRESS", i + 1))
+            if save_in_same_folder:
+                sub_output_dir = pdf_path_obj.parent / pdf_name_only
+            else:
+                sub_output_dir = Path(output_dir) / pdf_name_only
+            
+            sub_output_dir.mkdir(parents=True, exist_ok=True)
 
-        # 使用 ngettext 处理复数
-        success_msg = ngettext(
+            with pymupdf.open(file_path) as doc:
+                pdf_path_obj = Path(file_path)
+                pdf_name_only = pdf_path_obj.stem
+                
+                # Calculate padding for page numbers
+                num_digits = len(str(doc.page_count))
+
+                for i in range(doc.page_count):
+                    if cancel_event.is_set():
+                        result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                        return
+                    
+                    page = doc.load_page(i)
+                    pix = page.get_pixmap(dpi=dpi_value, alpha=transparent_background)
+                    
+                    # Zero-pad the page number
+                    page_num_str = str(i + 1).zfill(num_digits)
+                    new_filename = f"{pdf_name_only}_page_{page_num_str}.{image_format}"
+                    output_filename = sub_output_dir / new_filename
+
+                    if image_format == 'jpg':
+                        pix.save(str(output_filename), jpg_quality=jpeg_quality)
+                    else:
+                        pix.save(str(output_filename))
+
+                    current_step += 1
+                    progress_queue.put(("PROGRESS", current_step))
+
+        success_msg = _n(
             "Successfully converted {} page!",
             "Successfully converted {} pages!",
             total_steps

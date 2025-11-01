@@ -11,7 +11,7 @@ from toolkit.ui.widget.folder_picker import FolderPicker
 from toolkit.ui.widget.misc import TitleFrame, OptionFrame
 
 
-class RotatePdfApp(ttk.Frame, TaskRunnerMixin):
+class RotatePDFApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
         ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)

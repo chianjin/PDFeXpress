@@ -11,7 +11,7 @@ from toolkit.ui.widget.file_picker import FilePicker
 from toolkit.ui.widget.misc import TitleFrame, OptionFrame
 
 
-class MergePdfApp(ttk.Frame, TaskRunnerMixin):
+class MergePDFApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
         ttk.Frame.__init__(self, master, **kwargs)  # 移除 padding="20"
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
@@ -122,6 +122,6 @@ if __name__ == "__main__":
 
     root = tkinterdnd2.Tk()
     root.geometry("1024x600")
-    app = MergePdfApp(root)
+    app = MergePDFApp(root)
     app.pack(fill="both", expand=True)
     root.mainloop()

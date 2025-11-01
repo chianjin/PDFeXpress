@@ -4,12 +4,11 @@ from tkinter import ttk, messagebox
 # 相对导入 i18n 和各个"迷你应用"
 from toolkit.config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
 from toolkit.i18n import gettext_text as _
-from toolkit.ui.feature.image_to_pdf import ImageToPdfApp
-from toolkit.ui.feature.merge_pdf import MergePdfApp
-from toolkit.ui.feature.rotate_pdf import RotatePdfApp
+from toolkit.ui.feature.image_to_pdf import ImageToPDFApp
+from toolkit.ui.feature.merge_pdf import MergePDFApp
+from toolkit.ui.feature.rotate_pdf import RotatePDFApp
+from toolkit.ui.feature.pdf_to_image import PDFToImageApp
 
-
-# from toolkit.ui.feature.to_image import PdfToImageApp # 暂时不注册
 
 class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
     def __init__(self, parent, *args, **kwargs):
@@ -46,9 +45,10 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
         self.nav_buttons = {}  # 初始化 nav_buttons 字典
 
         # Navigation Buttons
-        self._create_nav_button(top_nav_frame, _("Merge PDF"), MergePdfApp)
-        self._create_nav_button(top_nav_frame, _("Image to PDF"), ImageToPdfApp)
-        self._create_nav_button(top_nav_frame, _("Rotate PDF"), RotatePdfApp)
+        self._create_nav_button(top_nav_frame, _("Merge PDF"), MergePDFApp)
+        self._create_nav_button(top_nav_frame, _("Image to PDF"), ImageToPDFApp)
+        self._create_nav_button(top_nav_frame, _("PDF to Image"), PDFToImageApp)
+        self._create_nav_button(top_nav_frame, _("Rotate PDF"), RotatePDFApp)
         self._create_nav_button(top_nav_frame, _("Split PDF"), None)  # Placeholder
 
         # Right Content Frame
@@ -58,7 +58,7 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
         self.content_frame.rowconfigure(0, weight=1)
 
         # Initially display the Merge PDF app
-        self._show_app(MergePdfApp)
+        self._show_app(MergePDFApp)
 
     def _create_nav_button(self, parent, text: str, app_class):
         button = ttk.Button(parent, text=text, command=lambda ac=app_class: self._show_app(ac))
