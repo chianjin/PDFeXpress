@@ -1,22 +1,19 @@
 # src/main.py
-import multiprocessing
 import platform
+if platform.system() == "Windows":
+    import ctypes
+    ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
-from tkinterdnd2 import TkinterDnD  # 导入 TkinterDnD
+import multiprocessing
 
-from toolkit.app import MainFrame  # 导入 MainFrame
-from toolkit.i18n import gettext_text as _
+from tkinterdnd2 import TkinterDnD
 
-if __name__ == "__main__":
-    if platform.system() == "Windows":
-        import ctypes
+from toolkit.main_frame import MainFrame
+from toolkit.config import PROJECT_NAME, PROJECT_VERSION
 
-        ctypes.windll.shcore.SetProcessDpiAwareness(True)
-
-    multiprocessing.freeze_support()
-    root = TkinterDnD.Tk()
-    root.title(_("Multifunctional PDF Toolkit"))
-    root.geometry("1280x768")
-
-    app = MainFrame(root)  # 实例化 MainFrame
-    root.mainloop()
+multiprocessing.freeze_support()
+root = TkinterDnD.Tk()
+root.title(f'{PROJECT_NAME} - Ver. {PROJECT_VERSION}')
+root.geometry("1080x680")
+app = MainFrame(root)  # 实例化 MainFrame
+root.mainloop()
