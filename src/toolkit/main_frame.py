@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 # 相对导入 i18n 和各个"迷你应用"
+from toolkit.config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.feature.image_to_pdf import ImageToPdfApp
 from toolkit.ui.feature.merge_pdf import MergePdfApp
@@ -22,7 +23,32 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
         self.nav_frame = ttk.LabelFrame(self, text=_("Operation"))
         self.nav_frame.grid(row=0, column=0, sticky="ns", padx=(10, 0), pady=5)
         self.nav_frame.columnconfigure(0, weight=1)
-        self.nav_frame.pack_propagate(False)  # Prevent frame from resizing to fit contents
+
+        # --- Bottom frame for About button ---
+        about_frame = ttk.Frame(self.nav_frame)
+        about_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=5, padx=5)
+        about_frame.columnconfigure(0, weight=1)
+
+        # separator = ttk.Separator(about_frame)
+        # separator.grid(row=0, column=0, sticky="ew", pady=(0, 5))
+
+        about_button = ttk.Button(about_frame, text=_("About"), command=self._show_about_dialog)
+        about_button.grid(row=1, column=0, sticky="ew")
+
+        # --- Top frame for navigation buttons ---
+        top_nav_frame = ttk.Frame(self.nav_frame)
+        top_nav_frame.pack(side=tk.TOP, fill=tk.X, pady=5, padx=5)
+        top_nav_frame.columnconfigure(0, weight=1)
+
+        self.current_app_frame = None
+        self.app_instances = {}
+        self.nav_buttons = {}  # 初始化 nav_buttons 字典
+
+        # Navigation Buttons
+        self._create_nav_button(top_nav_frame, _("Merge PDF"), MergePdfApp)
+        self._create_nav_button(top_nav_frame, _("Image to PDF"), ImageToPdfApp)
+        self._create_nav_button(top_nav_frame, _("Split PDF"), None)  # Placeholder
+        self._create_nav_button(top_nav_frame, _("Rotate PDF"), None)  # Placeholder
 
         # Right Content Frame
         self.content_frame = ttk.Frame(self)
@@ -30,27 +56,13 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
         self.content_frame.columnconfigure(0, weight=1)
         self.content_frame.rowconfigure(0, weight=1)
 
-        self.current_app_frame = None
-        self.app_instances = {}
-        self.nav_buttons = {}  # 初始化 nav_buttons 字典
-
-        self.button_row_counter = 0  # To keep track of button rows
-
-        # Navigation Buttons
-        self._create_nav_button(_("Merge PDF"), MergePdfApp)
-        self._create_nav_button(_("Image to PDF"), ImageToPdfApp)
-        self._create_nav_button(_("Split PDF"), None)  # Placeholder
-        self._create_nav_button(_("Rotate PDF"), None)  # Placeholder
-        # Add more buttons here for other applications
-
         # Initially display the Merge PDF app
         self._show_app(MergePdfApp)
 
-    def _create_nav_button(self, text: str, app_class):
-        button = ttk.Button(self.nav_frame, text=text, command=lambda ac=app_class: self._show_app(ac))
-        button.grid(row=self.button_row_counter, column=0, sticky="ew", pady=(5, 0), padx=5)
+    def _create_nav_button(self, parent, text: str, app_class):
+        button = ttk.Button(parent, text=text, command=lambda ac=app_class: self._show_app(ac))
+        button.pack(fill='x', pady=(5, 0))
         self.nav_buttons[app_class] = button  # 存储按钮实例以便更新状态
-        self.button_row_counter += 1
 
     def _show_app(self, app_class):
         if app_class is None:
@@ -75,12 +87,23 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
             else:
                 button.state(['!disabled'])
 
+    def _show_about_dialog(self):
+        about_message = (
+            f"{PROJECT_NAME} - {_('Ver.')} {PROJECT_VERSION}\n\n"
+            f"{_('Project Home Page')}: {PROJECT_URL}\n\n"
+            f"{_('Copyright © 2024 ChianJin. All rights reserved.')}"
+        )
+        messagebox.showinfo(
+            _("About {}").format(PROJECT_NAME),
+            about_message
+        )
+
 
 if __name__ == "__main__":
     import tkinterdnd2
 
     root = tkinterdnd2.Tk()
     root.title(_("PDF Toolbox Debug"))
-    root.geometry("1280x768")
+    root.geometry("1080x600")
     app = MainFrame(root)
     root.mainloop()
