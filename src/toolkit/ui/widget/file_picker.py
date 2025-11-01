@@ -3,6 +3,8 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import ttk, filedialog
 
+import tkinterdnd2
+
 from toolkit.constant import FILE_TYPES_PDF
 from toolkit.i18n import gettext_text as _
 from toolkit.util.decorator import create_run_after_decorator

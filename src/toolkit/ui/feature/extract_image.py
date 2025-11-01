@@ -1,4 +1,4 @@
-# src/toolkit/ui/feature/extract_images.py
+# src/toolkit/ui/feature/extract_image.py
 import tkinter as tk
 from tkinter import ttk, messagebox
 
@@ -11,7 +11,7 @@ from toolkit.ui.widget.folder_picker import FolderPicker
 from toolkit.ui.widget.misc import TitleFrame, OptionFrame
 
 
-class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
+class ExtractImageApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
         ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
