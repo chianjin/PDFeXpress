@@ -3,10 +3,10 @@ import gettext
 import os
 import platform
 
-from toolkit.config import PROJECT_DIR, EXECUTIVE_NAME
+from config import SOURCE_DIR, EXECUTIVE_NAME
 
 LOCALE_NAME_MAX_LENGTH = 85
-LOCALE_DIR = PROJECT_DIR / "locale"
+LOCALE_DIR = "locale"
 
 
 def _standardize_environment():

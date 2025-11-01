@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 # 相对导入 i18n 和各个"迷你应用"
-from toolkit.config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
+from config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.feature.image_to_pdf import ImageToPDFApp
 from toolkit.ui.feature.merge_pdf import MergePDFApp
