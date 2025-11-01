@@ -43,6 +43,10 @@ class FolderPicker(ttk.Labelframe):
     def clear(self):
         self.folder_path_var.set("")
 
+    def set_state(self, state):
+        self.folder_path_entry.config(state=state)
+        self.browse_button.config(state=state)
+
 
 if __name__ == "__main__":
     # 测试文件夹选择组件

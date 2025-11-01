@@ -6,6 +6,7 @@ from toolkit.config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.feature.image_to_pdf import ImageToPdfApp
 from toolkit.ui.feature.merge_pdf import MergePdfApp
+from toolkit.ui.feature.rotate_pdf import RotatePdfApp
 
 
 # from toolkit.ui.feature.to_image import PdfToImageApp # 暂时不注册
@@ -47,8 +48,8 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
         # Navigation Buttons
         self._create_nav_button(top_nav_frame, _("Merge PDF"), MergePdfApp)
         self._create_nav_button(top_nav_frame, _("Image to PDF"), ImageToPdfApp)
+        self._create_nav_button(top_nav_frame, _("Rotate PDF"), RotatePdfApp)
         self._create_nav_button(top_nav_frame, _("Split PDF"), None)  # Placeholder
-        self._create_nav_button(top_nav_frame, _("Rotate PDF"), None)  # Placeholder
 
         # Right Content Frame
         self.content_frame = ttk.Frame(self)
