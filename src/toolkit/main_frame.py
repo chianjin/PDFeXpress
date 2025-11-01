@@ -13,6 +13,8 @@ from toolkit.ui.feature.extract_image import ExtractImageApp
 from toolkit.ui.feature.split_pdf import SplitPDFApp
 from toolkit.ui.feature.delete_page import DeletePageApp
 from toolkit.ui.feature.interleave_pdf import InterleavePDFApp
+from toolkit.ui.feature.pdf_to_long_image import PdfToLongImageApp
+from toolkit.ui.feature.merge_invoices import MergeInvoicesApp
 
 
 class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
@@ -59,6 +61,8 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
         self._create_nav_button(top_nav_frame, _("Split PDF"), SplitPDFApp)
         self._create_nav_button(top_nav_frame, _("Delete Page"), DeletePageApp)
         self._create_nav_button(top_nav_frame, _("Interleave PDF"), InterleavePDFApp)
+        self._create_nav_button(top_nav_frame, _("PDF to Long Image"), PdfToLongImageApp)
+        self._create_nav_button(top_nav_frame, _("Merge Invoices"), MergeInvoicesApp)
 
         # Right Content Frame
         self.content_frame = ttk.Frame(self)
