@@ -3,21 +3,21 @@ from pathlib import Path
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, gettext_plural as _n
+from toolkit.i18n import gettext_text as _, ngettext
 
 
 def pdf_to_image_worker(
-    input_files,
-    output_dir,
-    dpi_value,
-    image_format,
-    jpeg_quality,
-    transparent_background,
-    save_in_same_folder,
-    cancel_event,
-    progress_queue,
-    result_queue,
-    saving_ack_event
+        input_files,
+        output_dir,
+        dpi_value,
+        image_format,
+        jpeg_quality,
+        transparent_background,
+        save_in_same_folder,
+        cancel_event,
+        progress_queue,
+        result_queue,
+        saving_ack_event
 ):
     try:
         total_steps = 0
@@ -39,13 +39,13 @@ def pdf_to_image_worker(
                 sub_output_dir = pdf_path_obj.parent / pdf_name_only
             else:
                 sub_output_dir = Path(output_dir) / pdf_name_only
-            
+
             sub_output_dir.mkdir(parents=True, exist_ok=True)
 
             with pymupdf.open(file_path) as doc:
                 pdf_path_obj = Path(file_path)
                 pdf_name_only = pdf_path_obj.stem
-                
+
                 # Calculate padding for page numbers
                 num_digits = len(str(doc.page_count))
 
@@ -53,10 +53,10 @@ def pdf_to_image_worker(
                     if cancel_event.is_set():
                         result_queue.put(("CANCEL", _("Task cancelled by user.")))
                         return
-                    
+
                     page = doc.load_page(i)
                     pix = page.get_pixmap(dpi=dpi_value, alpha=transparent_background)
-                    
+
                     # Zero-pad the page number
                     page_num_str = str(i + 1).zfill(num_digits)
                     new_filename = f"{pdf_name_only}_page_{page_num_str}.{image_format}"
@@ -70,7 +70,7 @@ def pdf_to_image_worker(
                     current_step += 1
                     progress_queue.put(("PROGRESS", current_step))
 
-        success_msg = _n(
+        success_msg = ngettext(
             "Successfully converted {} page!",
             "Successfully converted {} pages!",
             total_steps

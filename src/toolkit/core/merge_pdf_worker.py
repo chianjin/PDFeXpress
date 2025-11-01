@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, gettext_plural as _n
+from toolkit.i18n import gettext_text as _, ngettext
 
 
 def pdf_merge_worker(input_files, output_file, create_bookmarks,
@@ -45,7 +45,7 @@ def pdf_merge_worker(input_files, output_file, create_bookmarks,
                 saving_ack_event.wait(timeout=0.1)  # 短暂等待，然后再次检查取消事件
             output_doc.save(output_file, garbage=4, deflate=True)
 
-        success_msg = _n(
+        success_msg = ngettext(
             "Successfully merged {} file!",
             "Successfully merged {} files!",
             total_steps

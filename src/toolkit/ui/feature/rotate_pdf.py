@@ -49,9 +49,14 @@ class RotatePDFApp(ttk.Frame, TaskRunnerMixin):
         # Rotation angle
         ttk.Label(self.option_frame, text=_("Rotation Angle:")).pack(side="left", padx=(10, 5), pady=5)
         self.rotation_angle_var = tk.IntVar(value=90)
-        ttk.Radiobutton(self.option_frame, text="90°", variable=self.rotation_angle_var, value=90).pack(side="left", padx=5, pady=5)
-        ttk.Radiobutton(self.option_frame, text="180°", variable=self.rotation_angle_var, value=180).pack(side="left", padx=5, pady=5)
-        ttk.Radiobutton(self.option_frame, text="270°", variable=self.rotation_angle_var, value=270).pack(side="left", padx=5, pady=5)
+        ttk.Radiobutton(self.option_frame, text="90°", variable=self.rotation_angle_var, value=90).pack(side="left",
+                                                                                                        padx=5, pady=5)
+        ttk.Radiobutton(self.option_frame, text="180°", variable=self.rotation_angle_var, value=180).pack(side="left",
+                                                                                                          padx=5,
+                                                                                                          pady=5)
+        ttk.Radiobutton(self.option_frame, text="270°", variable=self.rotation_angle_var, value=270).pack(side="left",
+                                                                                                          padx=5,
+                                                                                                          pady=5)
 
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=(0, 10))

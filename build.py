@@ -1,7 +1,7 @@
 import os
 import platform
-import subprocess
 import shutil
+import subprocess
 from pathlib import Path
 
 from config import (
@@ -43,9 +43,8 @@ def build_executive():
     )
 
     # Path to the main script
-    main_script = f"src/{EXECUTIVE_NAME}.py"
+    main_script = f"{SOURCE_DIR_NAME}/{EXECUTIVE_NAME}.py"
     spec_file = f"{EXECUTIVE_NAME}.spec"
-
 
     command = ["pyinstaller", "--noconfirm", "--clean"]
     if Path(spec_file).exists():
@@ -136,16 +135,17 @@ def generate_iss():
     print(f"Generated Inno Setup script at: {setup_iss_file}")
     return setup_iss_file
 
+
 def chack_iscc():
     if PLATFORM != "Windows":
         print("Warning: Inno Setup not supported on this platform.")
         return None
 
-    iscc_command = Path(os.environ["ProgramFiles(x86)"]) /  "Inno Setup 6/ISCC.exe"
+    iscc_command = Path(os.environ["ProgramFiles(x86)"]) / "Inno Setup 6/ISCC.exe"
     if iscc_command.exists():
         return iscc_command
 
-    iscc_command = Path(os.environ["ProgramFiles"]) /  "Inno Setup 6/ISCC.exe"
+    iscc_command = Path(os.environ["ProgramFiles"]) / "Inno Setup 6/ISCC.exe"
     if iscc_command.exists():
         return iscc_command
 
@@ -172,8 +172,6 @@ def create_installer():
         return
 
     command = [str(iscc_path), '/Q', str(iss_script_path)]
-
-
 
     print(f"Running Inno Setup compiler: {' '.join(command)}")
 

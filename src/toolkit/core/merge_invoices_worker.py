@@ -1,10 +1,9 @@
 # toolkit/core/merge_invoices_worker.py
-from pathlib import Path
 from typing import List
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, gettext_plural as _n
+from toolkit.i18n import gettext_text as _
 
 # Constants for page sizes in points (1 inch = 72 points, 1 mm = 2.83465 points)
 A4_WIDTH, A4_HEIGHT = 595, 842
@@ -31,12 +30,12 @@ def _is_standard_invoice(doc: pymupdf.Document) -> bool:
 
 
 def merge_invoices_worker(
-    invoice_pdf_paths: List[str],
-    output_pdf_path: str,
-    cancel_event,
-    progress_queue,
-    result_queue,
-    saving_ack_event
+        invoice_pdf_paths: List[str],
+        output_pdf_path: str,
+        cancel_event,
+        progress_queue,
+        result_queue,
+        saving_ack_event
 ):
     final_doc = None
     try:
@@ -63,15 +62,15 @@ def merge_invoices_worker(
         # --- 2. Process Standard Invoices ---
         for i in range(0, len(standard_invoice_paths), 2):
             if cancel_event.is_set(): raise InterruptedError
-            
+
             page = final_doc.new_page(width=A4_WIDTH, height=A4_HEIGHT)
-            
+
             with pymupdf.open(standard_invoice_paths[i]) as doc1:
                 doc1.bake()
                 page.show_pdf_page(pymupdf.Rect(0, 0, A4_WIDTH, A4_HEIGHT / 2), doc1, 0)
 
             if i + 1 < len(standard_invoice_paths):
-                with pymupdf.open(standard_invoice_paths[i+1]) as doc2:
+                with pymupdf.open(standard_invoice_paths[i + 1]) as doc2:
                     doc2.bake()
                     page.show_pdf_page(pymupdf.Rect(0, A4_HEIGHT / 2, A4_WIDTH, A4_HEIGHT), doc2, 0)
 

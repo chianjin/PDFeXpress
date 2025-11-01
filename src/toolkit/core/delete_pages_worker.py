@@ -4,7 +4,7 @@ from typing import Set
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, gettext_plural as _n
+from toolkit.i18n import gettext_text as _, ngettext
 
 
 def _parse_pages_to_delete(range_string: str, total_pages: int) -> Set[int]:
@@ -39,13 +39,13 @@ def _parse_pages_to_delete(range_string: str, total_pages: int) -> Set[int]:
 
 
 def delete_pages_worker(
-    pdf_path,
-    output_path,
-    pages_to_delete_str,
-    cancel_event,
-    progress_queue,
-    result_queue,
-    saving_ack_event
+        pdf_path,
+        output_path,
+        pages_to_delete_str,
+        cancel_event,
+        progress_queue,
+        result_queue,
+        saving_ack_event
 ):
     try:
         if not pages_to_delete_str:
@@ -68,7 +68,8 @@ def delete_pages_worker(
             pages_to_keep = [p for p in range(total_pages_doc) if p not in pages_to_delete_set]
             if not pages_to_keep:
                 raise ValueError(
-                    _("This operation would delete all pages from {pdf_path_name}.").format(pdf_path_name=Path(pdf_path).name))
+                    _("This operation would delete all pages from {pdf_path_name}.").format(
+                        pdf_path_name=Path(pdf_path).name))
 
             doc.select(pages_to_keep)
 
@@ -83,7 +84,7 @@ def delete_pages_worker(
 
         progress_queue.put(("PROGRESS", 100))
 
-        success_msg = _n(
+        success_msg = ngettext(
             "Successfully deleted {} page!",
             "Successfully deleted {} pages!",
             len(pages_to_delete_set)

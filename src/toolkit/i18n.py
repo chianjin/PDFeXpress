@@ -3,7 +3,7 @@ import gettext
 import os
 import platform
 
-from config import SOURCE_DIR, EXECUTIVE_NAME
+from config import EXECUTIVE_NAME
 
 LOCALE_NAME_MAX_LENGTH = 85
 LOCALE_DIR = "locale"
@@ -31,4 +31,4 @@ gettext.textdomain(EXECUTIVE_NAME)
 translation = gettext.translation(EXECUTIVE_NAME, LOCALE_DIR, fallback=True)
 
 gettext_text = translation.gettext
-gettext_plural = translation.ngettext
+ngettext = translation.ngettext

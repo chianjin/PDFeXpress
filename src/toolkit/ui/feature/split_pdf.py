@@ -42,7 +42,9 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         ]
 
         for text, mode in modes:
-            ttk.Radiobutton(self.option_frame, text=_(text), variable=self.split_mode_var, value=mode).pack(anchor="w", padx=10, pady=2)
+            ttk.Radiobutton(self.option_frame, text=_(text), variable=self.split_mode_var, value=mode).pack(anchor="w",
+                                                                                                            padx=10,
+                                                                                                            pady=2)
 
         self.split_value_label = ttk.Label(self.option_frame, text=_("Value:"))
         self.split_value_var = tk.StringVar()
@@ -58,7 +60,7 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         self.start_button = ttk.Button(bottom_frame, text=_("Split"), command=self.run_task_from_ui)
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
-        self._on_split_mode_changed() # Initial state
+        self._on_split_mode_changed()  # Initial state
 
     def _on_split_mode_changed(self, *args):
         mode = self.split_mode_var.get()

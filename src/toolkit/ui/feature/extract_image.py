@@ -47,12 +47,14 @@ class ExtractImageApp(ttk.Frame, TaskRunnerMixin):
 
         ttk.Label(self.option_frame, text=_("Min Width:")).pack(side="left", padx=(10, 5), pady=5)
         self.min_width_var = tk.IntVar(value=100)
-        self.min_width_spinbox = ttk.Spinbox(self.option_frame, from_=0, to=10000, increment=1, textvariable=self.min_width_var, width=5)
+        self.min_width_spinbox = ttk.Spinbox(self.option_frame, from_=0, to=10000, increment=1,
+                                             textvariable=self.min_width_var, width=5)
         self.min_width_spinbox.pack(side="left", padx=5, pady=5)
 
         ttk.Label(self.option_frame, text=_("Min Height:")).pack(side="left", padx=(10, 5), pady=5)
         self.min_height_var = tk.IntVar(value=100)
-        self.min_height_spinbox = ttk.Spinbox(self.option_frame, from_=0, to=10000, increment=1, textvariable=self.min_height_var, width=5)
+        self.min_height_spinbox = ttk.Spinbox(self.option_frame, from_=0, to=10000, increment=1,
+                                              textvariable=self.min_height_var, width=5)
         self.min_height_spinbox.pack(side="left", padx=5, pady=5)
 
         bottom_frame = ttk.Frame(self)
@@ -65,7 +67,7 @@ class ExtractImageApp(ttk.Frame, TaskRunnerMixin):
         self.start_button = ttk.Button(bottom_frame, text=_("Extract"), command=self.run_task_from_ui)
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
-        self._on_save_in_same_folder_changed() # Initial state
+        self._on_save_in_same_folder_changed()  # Initial state
 
     def _on_save_in_same_folder_changed(self):
         if self.save_in_same_folder_var.get():

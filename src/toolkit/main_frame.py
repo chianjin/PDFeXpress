@@ -4,17 +4,17 @@ from tkinter import ttk, messagebox
 # 相对导入 i18n 和各个"迷你应用"
 from config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
 from toolkit.i18n import gettext_text as _
-from toolkit.ui.feature.image_to_pdf import ImageToPDFApp
-from toolkit.ui.feature.merge_pdf import MergePDFApp
-from toolkit.ui.feature.rotate_pdf import RotatePDFApp
-from toolkit.ui.feature.pdf_to_image import PDFToImageApp
-from toolkit.ui.feature.extract_text import ExtractTextApp
-from toolkit.ui.feature.extract_image import ExtractImageApp
-from toolkit.ui.feature.split_pdf import SplitPDFApp
 from toolkit.ui.feature.delete_page import DeletePageApp
+from toolkit.ui.feature.extract_image import ExtractImageApp
+from toolkit.ui.feature.extract_text import ExtractTextApp
+from toolkit.ui.feature.image_to_pdf import ImageToPDFApp
 from toolkit.ui.feature.interleave_pdf import InterleavePDFApp
-from toolkit.ui.feature.pdf_to_long_image import PdfToLongImageApp
 from toolkit.ui.feature.merge_invoices import MergeInvoicesApp
+from toolkit.ui.feature.merge_pdf import MergePDFApp
+from toolkit.ui.feature.pdf_to_image import PDFToImageApp
+from toolkit.ui.feature.pdf_to_long_image import PdfToLongImageApp
+from toolkit.ui.feature.rotate_pdf import RotatePDFApp
+from toolkit.ui.feature.split_pdf import SplitPDFApp
 
 
 class MainFrame(ttk.Frame):  # 保持类名为 MainFrame

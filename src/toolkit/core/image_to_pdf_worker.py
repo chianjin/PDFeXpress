@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pymupdf  # 导入 PyMuPDF
 
-from toolkit.i18n import gettext_text as _, gettext_plural as _n
+from toolkit.i18n import gettext_text as _, ngettext
 
 
 def image_to_pdf_worker(image_files, output_pdf_path, cancel_event, progress_queue, result_queue,
@@ -55,7 +55,7 @@ def image_to_pdf_worker(image_files, output_pdf_path, cancel_event, progress_que
                 saving_ack_event.wait(timeout=0.1)  # 短暂等待，然后再次检查取消事件
             output_doc.save(output_pdf_path, garbage=4, deflate=True)
 
-        success_msg = _n(
+        success_msg = ngettext(
             "Successfully converted {} image to PDF!",
             "Successfully converted {} images to PDF!",
             total_steps

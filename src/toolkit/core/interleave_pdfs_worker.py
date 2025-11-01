@@ -1,20 +1,19 @@
 # toolkit/core/interleave_pdfs_worker.py
-from pathlib import Path
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, gettext_plural as _n
+from toolkit.i18n import gettext_text as _
 
 
 def interleave_pdfs_worker(
-    pdf_path_a,
-    pdf_path_b,
-    output_pdf_path,
-    reverse_b,
-    cancel_event,
-    progress_queue,
-    result_queue,
-    saving_ack_event
+        pdf_path_a,
+        pdf_path_b,
+        output_pdf_path,
+        reverse_b,
+        cancel_event,
+        progress_queue,
+        result_queue,
+        saving_ack_event
 ):
     try:
         with pymupdf.open(pdf_path_a) as doc_a, pymupdf.open(pdf_path_b) as doc_b, pymupdf.open() as new_doc:
@@ -42,7 +41,7 @@ def interleave_pdfs_worker(
                     page_b_index = (len_b - 1) - i if reverse_b else i
                     new_doc.insert_pdf(doc_b, from_page=page_b_index, to_page=page_b_index)
                     pages_processed += 1
-                
+
                 progress_queue.put(("PROGRESS", pages_processed))
 
             progress_queue.put(("SAVING", _("Saving PDF...")))

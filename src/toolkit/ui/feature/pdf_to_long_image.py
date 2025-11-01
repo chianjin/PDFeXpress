@@ -23,7 +23,8 @@ class PdfToLongImageApp(ttk.Frame, TaskRunnerMixin):
         self.file_picker = FilePicker(self, title=_("PDF File to Convert"), file_types=FILE_TYPES_PDF)
         self.file_picker.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.output_file_picker = FilePicker(self, title=_("Output Image File"), mode="save", file_types=FILE_TYPES_IMAGES)
+        self.output_file_picker = FilePicker(self, title=_("Output Image File"), mode="save",
+                                             file_types=FILE_TYPES_IMAGES)
         self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
         self.option_frame = OptionFrame(self)
@@ -31,7 +32,8 @@ class PdfToLongImageApp(ttk.Frame, TaskRunnerMixin):
 
         ttk.Label(self.option_frame, text=_("DPI:")).pack(side="left", padx=(10, 5), pady=5)
         self.dpi_var = tk.IntVar(value=300)
-        self.dpi_spinbox = ttk.Spinbox(self.option_frame, from_=72, to=600, increment=1, textvariable=self.dpi_var, width=5)
+        self.dpi_spinbox = ttk.Spinbox(self.option_frame, from_=72, to=600, increment=1, textvariable=self.dpi_var,
+                                       width=5)
         self.dpi_spinbox.pack(side="left", padx=5, pady=5)
 
         bottom_frame = ttk.Frame(self)

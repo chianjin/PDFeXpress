@@ -7,9 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-26 17:44+0800\n"
-"PO-Revision-Date: 2025-10-26 18:43+0800\n"
+"POT-Creation-Date: 2025-11-02 01:53+0800\n"
+"PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -17,1100 +16,789 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
+"X-Poedit-KeywordsList: _n\n"
 "X-Poedit-Basepath: ../../..\n"
-"X-Poedit-SearchPath-0: app\n"
-"X-Poedit-SearchPath-1: include\n"
-"X-Poedit-SearchPath-2: widget\n"
-"X-Poedit-SearchPath-3: worker\n"
-"X-Poedit-SearchPath-4: PDFeXpress.py\n"
-"X-Poedit-SearchPath-5: PDFeXpressGUI.py\n"
-
-#: PDFeXpressGUI.py:51 application/merge_pdf_app.py:34
-#: application/merge_pdf_app.py:129
-msgid "Merge PDF"
-msgstr "合并 PDF"
-
-#: PDFeXpressGUI.py:52 application/split_pdf_app.py:32
-#: application/split_pdf_app.py:221
-msgid "Split PDF"
-msgstr "拆分 PDF"
-
-#: PDFeXpressGUI.py:53 application/interleave_pdf_app.py:31
-msgid "Interleave PDF"
-msgstr "交叉合并"
-
-#: PDFeXpressGUI.py:54 application/rotate_pdf_app.py:33
-msgid "Rotate PDF"
-msgstr "旋转 PDF"
-
-#: PDFeXpressGUI.py:55 application/delete_pages_app.py:32
-msgid "Delete Pages"
-msgstr "删除页面"
-
-#: PDFeXpressGUI.py:56 application/extract_text_app.py:32
-#: application/extract_text_app.py:106
-msgid "Extract Text"
-msgstr "提取文本"
-
-#: PDFeXpressGUI.py:57 application/extract_images_app.py:44
-msgid "Extract Images"
-msgstr "提取图像"
-
-#: PDFeXpressGUI.py:58
-msgid "PDF to Images"
-msgstr "PDF 转图像"
-
-#: PDFeXpressGUI.py:59
-msgid "PDF to Long Image"
-msgstr "PDF 转长图"
-
-#: PDFeXpressGUI.py:60
-msgid "Images to PDF"
-msgstr "图像转 PDF"
-
-#: PDFeXpressGUI.py:61 application/merge_invoices_app.py:30
-msgid "Merge Invoices"
-msgstr "合并发票"
-
-#: action/_delete_pages.py:36
-#, python-brace-format
-msgid "Invalid range '{part}': must be between 1-{total_pages}."
-msgstr "无效范围“{part}”：必须介于 1 - {total_pages}。"
-
-#: action/_delete_pages.py:42 action/_split_pdf.py:41
-#, python-brace-format
-msgid "Invalid page '{part}': must be between 1-{total_pages}."
-msgstr "无效页码“{part}”：必须介于 1 - {total_pages}。"
-
-#: action/_delete_pages.py:46
-#, python-brace-format
-msgid "Invalid page range format '{part}': {e}"
-msgstr "无效页面范围格式“{part}”：{e}"
-
-#: action/_delete_pages.py:61
-msgid "No PDF files selected for processing."
-msgstr "没有选择 PDF 用于处理。"
-
-#: action/_delete_pages.py:63 action/_delete_pages.py:118
-msgid "No pages specified for deletion."
-msgstr "没有指定要删除的页面。"
-
-#: action/_delete_pages.py:72
-#, python-brace-format
-msgid "Warning: File not found, skipping: {pdf_path.name}"
-msgstr "警告：未找到文件，跳过：{pdf_path.name}"
-
-#: action/_delete_pages.py:79
-#, python-brace-format
-msgid "File {pdf_path.name} is encrypted and requires a password."
-msgstr "文件 {pdf_path.name} 已加密，需要密码。"
-
-#: action/_delete_pages.py:87 action/_delete_pages.py:140
-#, python-brace-format
-msgid "No valid pages could be parsed from '{pages_to_delete_str}'."
-msgstr "无法从“{pages_to_delete_str}”中解析出有效的页面。"
-
-#: action/_delete_pages.py:92
-#, python-brace-format
-msgid "This operation would delete all pages. Aborted for: {pdf_path.name}"
-msgstr "此操作将删除 {pdf_path.name} 的所有页面，放弃操作。"
-
-#: action/_delete_pages.py:101
-#, python-brace-format
-msgid "Error processing {pdf_path.name}, skipping. Reason: {e}"
-msgstr "{pdf_path.name} 处理错误，跳过。原因：{e}"
-
-#: action/_delete_pages.py:122
-#, python-brace-format
-msgid "PDF file not found: {pdf_path_obj}"
-msgstr "未找到 PDF 文件：{pdf_path_obj}"
-
-#: action/_delete_pages.py:132 action/_extract_images.py:43
-#: action/_extract_text.py:40
-#, python-brace-format
-msgid "File {pdf_path_obj.name} is encrypted and requires a password."
-msgstr "文件 {pdf_path_obj.name} 已加密，需要密码。"
-
-#: action/_delete_pages.py:136
-#, python-brace-format
-msgid "PDF file {pdf_path_obj.name} has no pages."
-msgstr "PDF 文件 {pdf_path_obj.name} 没有页面。"
-
-#: action/_delete_pages.py:146
-#, python-brace-format
-msgid "This operation would delete all pages from {pdf_path_obj.name}."
-msgstr "此操作将删除 {pdf_path_obj.name} 的所有页面。"
-
-#: action/_extract_images.py:36 action/_extract_text.py:35
-#, python-brace-format
-msgid "Warning: File not found, skipping: {pdf_path_obj.name}"
-msgstr "警告：未找到文件，跳过：{pdf_path_obj.name}"
-
-#: action/_extract_images.py:61
-#, python-brace-format
-msgid ""
-"No images found matching the minimum size ({min_width}x{min_height} pixels)."
-msgstr "未找到符合最小尺寸（{min_width}x{min_height} 像素）的图像。"
-
-#: action/_extract_images.py:82
-#, python-brace-format
-msgid ""
-"Warning: Could not extract xref {xref} (from {doc_path.name}). Error: {e}"
-msgstr "警告：无法提取 xref {xref}（来自 {doc_path.name}）。错误：{e}"
-
-#: action/_extract_text.py:49
-msgid "No pages with extractable text were found in the selected files."
-msgstr "在所选文件中未找到可提取文本的页面。"
-
-#: action/_images_to_pdf.py:28
-msgid "No image files were selected for conversion."
-msgstr "没有选择图像文件进行转换。"
-
-#: action/_images_to_pdf.py:38
-#, python-brace-format
-msgid "Warning: File not found, skipping: {p}"
-msgstr "警告：未找到文件，跳过：{p}"
-
-#: action/_images_to_pdf.py:42
-msgid "All selected paths are invalid."
-msgstr "所有选中的路径都无效。"
-
-#: action/_images_to_pdf.py:45 action/_merge_pdfs.py:45
-#, python-brace-format
-msgid "Output file cannot be one of the input files: {output_path_name}"
-msgstr "输出文件不能是输入文件之一：{output_path_name}"
-
-#: action/_images_to_pdf.py:60
-#, python-brace-format
-msgid "Warning: Could not process file {input_file_name} (skipped). Error: {e}"
-msgstr "警告：无法处理文件 {input_file_name}（跳过）。错误：{e}"
-
-#: action/_images_to_pdf.py:71
-msgid "All selected images could not be processed."
-msgstr "所有选中的图像都无法处理。"
-
-#: action/_interleave_pdfs.py:33
-#, python-brace-format
-msgid "File not found: {path_a_obj_name}"
-msgstr "未找到文件：{path_a_obj_name}"
-
-#: action/_interleave_pdfs.py:35
-#, python-brace-format
-msgid "File not found: {path_b_obj_name}"
-msgstr "未找到文件：{path_b_obj_name}"
-
-#: action/_interleave_pdfs.py:37
-msgid "Output file cannot be one of the input files."
-msgstr "输出文件不能是输入文件之一。"
-
-#: action/_interleave_pdfs.py:45
-#, python-brace-format
-msgid "File {path_a_obj_name} is encrypted and requires a password."
-msgstr "文件 {path_a_obj_name} 已加密，需要密码。"
-
-#: action/_interleave_pdfs.py:50
-#, python-brace-format
-msgid "File {path_b_obj_name} is encrypted and requires a password."
-msgstr "文件 {path_b_obj_name} 已加密，需要密码。"
-
-#: action/_interleave_pdfs.py:60
-msgid "Input files are empty, no pages to merge."
-msgstr "输入文件为空，没有页面可合并。"
-
-#: action/_merge_invoices.py:53
-msgid "No invoice files were selected for merging."
-msgstr "没有选择发票文件进行合并。"
-
-#: action/_merge_invoices.py:63 action/_rotate_pdfs.py:47
-#, python-brace-format
-msgid "Warning: File not found, skipping: {pdf_path_name}"
-msgstr "警告：未找到文件，跳过：{pdf_path_name}"
-
-#: action/_merge_invoices.py:68 action/_merge_pdfs.py:64
-#: action/_rotate_pdfs.py:53
-#, python-brace-format
-msgid "File {pdf_path_name} is encrypted and requires a password."
-msgstr "文件 {pdf_path_name} 已加密，需要密码。"
-
-#: action/_merge_invoices.py:73
-#, python-brace-format
-msgid "Could not open file {pdf_path_name}: {e}"
-msgstr "无法打开文件 {pdf_path_name}：{e}"
-
-#: action/_merge_invoices.py:76
-msgid "Selected files are empty or unreadable."
-msgstr "所选文件为空或不可读。"
-
-#: action/_merge_invoices.py:129
-#, python-brace-format
-msgid ""
-"Critical warning: Failed to process file {pdf_path_name}, skipped. Error: {e}"
-msgstr "严重警告：无法处理文件 {pdf_path_name}，跳过。错误：{e}"
-
-#: action/_merge_invoices.py:141
-msgid "No pages were processed."
-msgstr "没有页面被处理。"
-
-#: action/_merge_pdfs.py:29
-msgid "No PDF files were selected for merging."
-msgstr "没有选择 PDF 文件进行合并。"
-
-#: action/_merge_pdfs.py:38
-#, python-brace-format
-msgid "Warning: File not found, skipping: {input_path_name}"
-msgstr "警告：未找到文件，跳过：{input_path_name}"
-
-#: action/_merge_pdfs.py:50
-msgid "All selected paths were invalid or not found."
-msgstr "所有选中的路径都无效或未找到。"
-
-#: action/_merge_pdfs.py:70
-#, python-brace-format
-msgid "Warning: File {pdf_path_name} is empty, skipping."
-msgstr "警告：文件 {pdf_path_name} 为空，跳过。"
-
-#: action/_merge_pdfs.py:82
-#, python-brace-format
-msgid "Error processing {pdf_path_name}, skipping. Reason: {e}"
-msgstr "{pdf_path_name} 处理错误，跳过。原因：{e}"
-
-#: action/_merge_pdfs.py:93
-msgid "All selected PDFs were empty or could not be processed."
-msgstr "所有选中的 PDF 文件都为空或无法处理。"
-
-#: action/_pdf_to_long_image.py:35
-msgid "Pillow library is not installed. Please run 'pip install Pillow'."
-msgstr "未安装 Pillow 库。请运行 'pip install Pillow'。"
-
-#: action/_pdf_to_long_image.py:46 action/_split_pdf.py:110
-#, python-brace-format
-msgid "File not found: {pdf_path_obj_name}"
-msgstr "未找到文件：{pdf_path_obj_name}"
-
-#: action/_pdf_to_long_image.py:53
-#, python-brace-format
-msgid ""
-"Unsupported output format: {output_format_ext} (only 'png' or 'jpg' are "
-"supported)"
-msgstr "不支持的输出格式：{output_format_ext}（仅支持 'png' 或 'jpg'）"
-
-#: action/_pdf_to_long_image.py:63
-msgid "PDF file is empty, no pages to convert."
-msgstr "PDF 文件为空，没有页面可转换。"
-
-#: action/_pdf_to_long_image.py:66 action/_pdfs_to_images.py:42
-#: action/_split_pdf.py:114
-#, python-brace-format
-msgid "File {pdf_path_obj_name} is encrypted and requires a password."
-msgstr "文件 {pdf_path_obj_name} 已加密，需要密码。"
-
-#: action/_pdf_to_long_image.py:91
-msgid "Failed to render any pages from the PDF."
-msgstr "无法渲染 PDF 中的任何页面。"
-
-#: action/_pdfs_to_images.py:51
-msgid "No pages for conversion were found in the selected files."
-msgstr "在所选文件中未找到可转换的页面。"
-
-#: action/_pdfs_to_images.py:55
-#, python-brace-format
-msgid "Unsupported output format: {format_ext}"
-msgstr "不支持的输出格式：{format_ext}"
-
-#: action/_rotate_pdfs.py:28
-#, python-brace-format
-msgid "Rotation angle must be a multiple of 90, but received {rotation_angle}."
-msgstr "旋转角度必须是 90 的倍数，但收到的是 {rotation_angle}。"
-
-#: action/_rotate_pdfs.py:33
-msgid "Rotation angle is 0 or a multiple of 360, no operation needed."
-msgstr "旋转角度为 0 或 360 的倍数，无需操作。"
-
-#: action/_rotate_pdfs.py:37
-msgid "No PDF files were selected for rotation."
-msgstr "没有选择 PDF 文件进行旋转。"
-
-#: action/_rotate_pdfs.py:63
-#, python-brace-format
-msgid "Output file {output_filename} conflicts with source file."
-msgstr "输出文件 {output_filename} 与源文件冲突。"
-
-#: action/_split_pdf.py:22
-msgid "Custom range string cannot be empty."
-msgstr "自定义范围字符串不能为空。"
-
-#: action/_split_pdf.py:35
-#, python-brace-format
-msgid ""
-"Invalid range '{part}': must be between 1-{total_pages}, and start <= end."
-msgstr "无效范围“{part}”：必须介于 1-{total_pages}，并且起始页 <= 结束页。"
-
-#: action/_split_pdf.py:46
-#, python-brace-format
-msgid "Invalid custom range '{part}' format: {e}"
-msgstr "无效自定义范围“{part}”格式：{e}"
-
-#: action/_split_pdf.py:63 action/_split_pdf.py:73
-msgid "Value must be greater than 0"
-msgstr "值必须大于 0"
-
-#: action/_split_pdf.py:65
-#, python-brace-format
-msgid "Invalid pages per file value: {split_value}"
-msgstr "每文件页数的值无效：{split_value}"
-
-#: action/_split_pdf.py:78
-#, python-brace-format
-msgid "Invalid number of files value: {split_value}"
-msgstr "文件数量的值无效：{split_value}"
-
-#: action/_split_pdf.py:94
-#, python-brace-format
-msgid "Unknown split mode: {split_mode}"
-msgstr "未知拆分模式：{split_mode}"
-
-#: action/_split_pdf.py:119
-msgid "PDF file is empty, no pages to split."
-msgstr "PDF 文件为空，没有页面可拆分。"
-
-#: action/_split_pdf.py:127
-msgid "Split logic did not produce any output files."
-msgstr "拆分逻辑未生成任何输出文件。"
-
-#: application/merge_pdf_app.py:77
-msgid "Output file conflict"
-msgstr "输出文件冲突"
-
-#: application/merge_pdf_app.py:79
-msgid "Output file cannot be one of the input files."
-msgstr "输出文件不能是输入文件之一。"
-
-#: application/delete_pages_app.py:109
-msgid "Output file conflict"
-msgstr "输出文件冲突"
-
-#: application/delete_pages_app.py:111
-msgid "Output file cannot be the same as input file."
-msgstr "输出文件不能与输入文件相同。"
-
-#: application/delete_pages_app.py:23
-msgid "Deleting pages from PDF..."
-msgstr "正在从 PDF 删除页面..."
-
-#: application/delete_pages_app.py:37 application/pdf_to_long_image_app.py:40
-msgid "PDF File"
-msgstr "PDF 文件"
-
-#: application/delete_pages_app.py:39 application/delete_pages_app.py:47
-#: application/extract_text_app.py:38 application/interleave_pdf_app.py:38
-#: application/interleave_pdf_app.py:46 application/interleave_pdf_app.py:54
-#: application/merge_invoices_app.py:36 application/merge_invoices_app.py:44
-#: application/merge_pdf_app.py:49 application/pdf_to_images_app.py:43
-#: application/pdf_to_long_image_app.py:42 application/split_pdf_app.py:39
-#: widget/_file_list_widget.py:29 widget/_file_picker_widget.py:92
-msgid "PDF files"
-msgstr "PDF 文件"
-
-#: application/delete_pages_app.py:45 application/interleave_pdf_app.py:52
-#: application/merge_invoices_app.py:42
-msgid "Output PDF File"
-msgstr "输出 PDF 文件"
-
-#: application/delete_pages_app.py:51
-msgid "Pages To Delete"
-msgstr "要删除的页面"
-
-#: application/delete_pages_app.py:64
-msgid "Input format: 1, 3, 5-10 (meaning delete pages 1, 3 and 5-10)"
-msgstr "输入格式：1, 3, 5-10（表示删除第 1, 3 和 5-10 页）"
-
-#: application/delete_pages_app.py:71
-msgid "Delete"
-msgstr "删除"
-
-#: application/delete_pages_app.py:106 application/merge_invoices_app.py:61
-#: application/pdf_to_long_image_app.py:120
-msgid "Missing input"
-msgstr "缺少输入"
-
-#: application/delete_pages_app.py:106
-msgid "Please select a PDF file to process."
-msgstr "请选择要处理的 PDF 文件。"
-
-#: application/delete_pages_app.py:110 application/merge_invoices_app.py:66
-#: application/pdf_to_long_image_app.py:124
-msgid "No output specified"
-msgstr "未指定输出"
-
-#: application/delete_pages_app.py:110
-msgid "Please select an output PDF file."
-msgstr "请选择输出 PDF 文件。"
-
-#: application/delete_pages_app.py:114
-msgid "Page range missing"
-msgstr "缺少页面范围"
-
-#: application/delete_pages_app.py:114
-msgid "Please enter the page range to delete."
-msgstr "请输入要删除的页面范围。"
-
-#: application/delete_pages_app.py:127
-msgid "Page range error"
-msgstr "页面范围错误"
-
-#: application/delete_pages_app.py:163
-msgid "PDF Delete Pages Tool"
-msgstr "PDF 删除页面工具"
-
-#: application/extract_images_app.py:28
-msgid "Extracting images from PDF..."
-msgstr "正在从 PDF 提取图像..."
-
-#: application/extract_images_app.py:49 application/extract_text_app.py:37
-#: application/merge_pdf_app.py:39 application/pdf_to_images_app.py:42
-#: application/rotate_pdf_app.py:38
+"X-Poedit-SearchPath-0: toolkit\n"
+"X-Poedit-SearchPath-1: config.py\n"
+"X-Poedit-SearchPath-2: pdfexpress.py\n"
+
+#: toolkit/constant.py:5
+msgid "All Files"
+msgstr "所有文件"
+
+#: toolkit/constant.py:7
 msgid "PDF Files"
 msgstr "PDF 文件"
 
-#: application/extract_images_app.py:54 application/extract_text_app.py:42
-#: application/pdf_to_images_app.py:48 application/rotate_pdf_app.py:45
-#: application/split_pdf_app.py:45
-msgid "Output Folder"
-msgstr "输出文件夹"
-
-#: application/extract_images_app.py:57 application/extract_text_app.py:45
-#: application/interleave_pdf_app.py:58 application/merge_pdf_app.py:53
-#: application/pdf_to_images_app.py:51 application/pdf_to_long_image_app.py:54
-#: application/rotate_pdf_app.py:49 application/split_pdf_app.py:49
-msgid "Option"
-msgstr "选项"
-
-#: application/extract_images_app.py:62
-msgid "Minimum pixel limit"
-msgstr "最小像素限制"
-
-#: application/extract_images_app.py:68
-msgid "Minimum width: "
-msgstr "最小宽度："
-
-#: application/extract_images_app.py:77
-msgid "Minimum height:"
-msgstr "最小高度："
-
-#: application/extract_images_app.py:88 application/extract_text_app.py:57
-msgid "Extract"
-msgstr "提取"
-
-#: application/extract_images_app.py:110 application/extract_text_app.py:68
-#: application/interleave_pdf_app.py:82 application/interleave_pdf_app.py:86
-msgid "Missing Input"
-msgstr "缺少输入"
-
-#: application/extract_images_app.py:110
-msgid "Please select at least one PDF file to extract."
-msgstr "请选择至少一个 PDF 文件进行提取。"
-
-#: application/extract_images_app.py:115 application/extract_text_app.py:73
-#: application/interleave_pdf_app.py:90 application/merge_pdf_app.py:85
-#: application/rotate_pdf_app.py:103
-msgid "No Output Specified"
-msgstr "未指定输出"
-
-#: application/extract_images_app.py:115 application/extract_text_app.py:73
-#: application/rotate_pdf_app.py:104 application/split_pdf_app.py:157
-msgid "Please specify an output folder."
-msgstr "请指定输出文件夹。"
-
-#: application/extract_images_app.py:158
-msgid "PDF Extract Images Tool"
-msgstr "PDF 提取图像工具"
-
-#: application/extract_text_app.py:22
-msgid "Extracting text from PDF..."
-msgstr "正在从 PDF 提取文本..."
-
-#: application/extract_text_app.py:50
-msgid "Sort text content"
-msgstr "排序文本内容"
-
-#: application/extract_text_app.py:68
-msgid "Please select at least one PDF file to process."
-msgstr "请选择至少一个 PDF 文件进行处理。"
-
-#: application/images_to_pdf_app.py:23
-msgid "Converting Images to PDF..."
-msgstr "正在将图像转换为 PDF..."
-
-#: application/images_to_pdf_app.py:33 application/images_to_pdf_app.py:119
-msgid "Images To PDF"
-msgstr "图像转 PDF"
-
-#: application/images_to_pdf_app.py:39
+#: toolkit/constant.py:10
 msgid "Image Files"
 msgstr "图像文件"
 
-#: application/images_to_pdf_app.py:48
-msgid "Output PDF"
-msgstr "输出 PDF"
-
-#: application/images_to_pdf_app.py:50
-msgid "PDF file"
-msgstr "PDF 文件"
-
-#: application/images_to_pdf_app.py:56 application/pdf_to_images_app.py:94
-#: application/pdf_to_long_image_app.py:96
-msgid "Convert"
-msgstr "转换"
-
-#: application/images_to_pdf_app.py:68
-msgid "Input Missing."
-msgstr "缺少输入。"
-
-#: application/images_to_pdf_app.py:69
-msgid "Please select at least one image file to convert."
-msgstr "请选择至少一个图像文件进行转换。"
-
-#: application/images_to_pdf_app.py:76
-msgid "Output Not Specified."
-msgstr "未指定输出。"
-
-#: application/images_to_pdf_app.py:77
-msgid "Please specify a PDF file for converting."
-msgstr "请指定要转换的 PDF 文件。"
-
-#: application/interleave_pdf_app.py:22
-msgid "Interleaving PDF..."
-msgstr "正在交叉合并 PDF..."
-
-#: application/interleave_pdf_app.py:36
-msgid "Front Pages PDF File (A)"
-msgstr "正面 PDF 文件 (A)"
-
-#: application/interleave_pdf_app.py:44
-msgid "Back Pages PDF File (B)"
-msgstr "背面 PDF 文件 (B)"
-
-#: application/interleave_pdf_app.py:63
-msgid "Reverse Insert PDF B"
-msgstr "反向插入 PDF B"
-
-#: application/interleave_pdf_app.py:70
-msgid "Interleave"
-msgstr "交叉合并"
-
-#: application/interleave_pdf_app.py:82
-msgid "Please select the front pages PDF file (A)."
-msgstr "请选择前页 PDF 文件 (A)。"
-
-#: application/interleave_pdf_app.py:86
-msgid "Please specify the back pages PDF file (B)."
-msgstr "请指定后页 PDF 文件 (B)。"
-
-#: application/interleave_pdf_app.py:90
-msgid "Please specify an output PDF file."
-msgstr "请指定输出 PDF 文件。"
-
-#: application/interleave_pdf_app.py:124
-msgid "PDF Interleave Tool"
-msgstr "PDF 交叉合并工具"
-
-#: application/merge_invoices_app.py:22
-msgid "Merging invoices..."
-msgstr "正在合并发票..."
-
-#: application/merge_invoices_app.py:35
-msgid "Invoice Files"
-msgstr "发票文件"
-
-#: application/merge_invoices_app.py:50 application/merge_pdf_app.py:65
-msgid "Merge"
-msgstr "合并"
-
-#: application/merge_invoices_app.py:61
-msgid "Please select at least one invoice file to merge."
-msgstr "请选择至少一个发票文件进行合并。"
-
-#: application/merge_invoices_app.py:66
-msgid "Please select an output PDF file path."
-msgstr "请选择输出 PDF 文件路径。"
-
-#: application/merge_invoices_app.py:98
-msgid "Merge Invoices Tool"
-msgstr "合并发票工具"
-
-#: application/merge_pdf_app.py:23
-msgid "Merging PDF..."
-msgstr "正在合并 PDF..."
-
-#: application/merge_pdf_app.py:47
-msgid "Merged File"
-msgstr "合并后的文件"
-
-#: application/merge_pdf_app.py:58
-msgid "Generate Bookmarks"
-msgstr "生成书签"
-
-#: application/merge_pdf_app.py:77 application/rotate_pdf_app.py:95
-msgid "Input Not Enough"
-msgstr "输入不足"
-
-#: application/merge_pdf_app.py:78
-msgid "Please select at least two PDF files to merge."
-msgstr "请选择至少两个 PDF 文件进行合并。"
-
-#: application/merge_pdf_app.py:86
-msgid "Please specify a PDF file to merge to."
-msgstr "请指定要合并到的 PDF 文件。"
-
-#: application/pdf_to_images_app.py:23
-msgid "Converting PDFs to Images..."
-msgstr "正在将 PDF 转换为图像..."
-
-#: application/pdf_to_images_app.py:37
-msgid "PDF To Images"
-msgstr "PDF 转图像"
-
-#: application/pdf_to_images_app.py:62
-msgid "Format: "
-msgstr "格式："
-
-#: application/pdf_to_images_app.py:83
-msgid "JPEG Quality: "
-msgstr "JPEG 质量："
-
-#: application/pdf_to_images_app.py:90
-msgid "PNG Transparent Background"
-msgstr "PNG 透明背景"
-
-#: application/pdf_to_images_app.py:113 application/pdf_to_images_app.py:118
-#: include/base_app.py:44
-msgid "Error"
-msgstr "错误"
-
-#: application/pdf_to_images_app.py:113
-msgid "No PDF files selected."
-msgstr "未选择 PDF 文件。"
-
-#: application/pdf_to_images_app.py:118
-msgid "Please select a valid output folder."
-msgstr "请选择有效的输出文件夹。"
-
-#: application/pdf_to_images_app.py:154
-msgid "PDF to Images Tool"
-msgstr "PDF 转图像工具"
-
-#: application/pdf_to_long_image_app.py:23
-msgid "Converting PDF to long image..."
-msgstr "正在将 PDF 转换为长图..."
-
-#: application/pdf_to_long_image_app.py:35
-msgid "PDF To Long Image"
-msgstr "PDF 转长图"
-
-#: application/pdf_to_long_image_app.py:48
-msgid "Output Image File"
-msgstr "输出图像文件"
-
-#: application/pdf_to_long_image_app.py:65
-msgid "Format:"
-msgstr "格式："
-
-#: application/pdf_to_long_image_app.py:86
-msgid "JPEG Quality:"
-msgstr "JPEG 质量："
-
-#: application/pdf_to_long_image_app.py:120
-msgid "Please specify a PDF file."
-msgstr "请指定 PDF 文件。"
-
-#: application/pdf_to_long_image_app.py:124
-msgid "Please select an output image file."
-msgstr "请选择输出图像文件。"
-
-#: application/pdf_to_long_image_app.py:129
-#: application/pdf_to_long_image_app.py:133
-msgid "Format mismatch"
-msgstr "格式不匹配"
-
-#: application/pdf_to_long_image_app.py:129
-#: application/pdf_to_long_image_app.py:133
-msgid "Output file extension does not match the selected format."
-msgstr "输出文件扩展名与所选格式不匹配。"
-
-#: application/pdf_to_long_image_app.py:169
-msgid "PDF to Long Image Tool"
-msgstr "PDF 转长图工具"
-
-#: application/rotate_pdf_app.py:23
-msgid "Rotating PDF..."
-msgstr "正在旋转 PDF..."
-
-#: application/rotate_pdf_app.py:52
-msgid "Rotation Angle: "
-msgstr "旋转角度："
-
-#: application/rotate_pdf_app.py:83
-msgid "Rotate"
-msgstr "旋转"
-
-#: application/rotate_pdf_app.py:96
-msgid "Please select at least one PDF file to rotate."
-msgstr "请选择至少一个 PDF 文件进行旋转。"
-
-#: application/rotate_pdf_app.py:113
-msgid "Invalid Angle"
-msgstr "无效角度"
-
-#: application/rotate_pdf_app.py:114
-msgid "Please specify a valid rotation angle."
-msgstr "请指定有效的旋转角度。"
-
-#: application/rotate_pdf_app.py:158
-msgid "PDF Rotate Tool"
-msgstr "PDF 旋转工具"
-
-#: application/split_pdf_app.py:22
-msgid "Splitting PDF..."
-msgstr "正在拆分 PDF..."
-
-#: application/split_pdf_app.py:37
-msgid "PDF File to Split"
-msgstr "要拆分的 PDF 文件"
-
-#: application/split_pdf_app.py:57
-msgid "Single Page"
-msgstr "单页"
-
-#: application/split_pdf_app.py:65
-msgid "By Pages"
-msgstr "按页数"
-
-#: application/split_pdf_app.py:73
-msgid "By Copies"
-msgstr "按份数"
-
-#: application/split_pdf_app.py:81
-msgid "By Range"
-msgstr "按范围"
-
-#: application/split_pdf_app.py:90
-msgid "Parameter: "
-msgstr "参数："
-
-#: application/split_pdf_app.py:103
-msgid "By Pages/By Copies: Input an integer (>1).  | By Range: 1,3,5-10,12"
-msgstr "按页数/按份数：输入一个整数（>1）。| 按范围：1,3,5-10,12"
-
-#: application/split_pdf_app.py:111
-msgid "Split"
-msgstr "拆分"
-
-#: application/split_pdf_app.py:134
-msgid "Must be > 1."
-msgstr "必须 > 1。"
-
-#: application/split_pdf_app.py:149
-msgid "No Input File."
-msgstr "无输入文件。"
-
-#: application/split_pdf_app.py:150
-msgid "Select a PDF file to split."
-msgstr "选择要拆分的 PDF 文件。"
-
-#: application/split_pdf_app.py:156
-msgid "Output Folder Not Specified."
-msgstr "未指定输出文件夹。"
-
-#: application/split_pdf_app.py:164
-msgid "Parameter Missing."
-msgstr "缺少参数。"
-
-#: application/split_pdf_app.py:165
-msgid "Please input the parameters for the selected mode."
-msgstr "请输入所选模式的参数。"
-
-#: application/split_pdf_app.py:174 application/split_pdf_app.py:180
-msgid "Parameter Incorrect."
-msgstr "参数不正确。"
-
-#: application/split_pdf_app.py:175
+#: toolkit/constant.py:12
+msgid "JPEG Files"
+msgstr "JPEG 文件"
+
+#: toolkit/constant.py:13
+msgid "PNG Files"
+msgstr "PNG 文件"
+
+#: toolkit/constant.py:14
+msgid "WebP Files"
+msgstr ""
+
+#: toolkit/constant.py:15
+msgid "BMP Files"
+msgstr ""
+
+#: toolkit/constant.py:16
+msgid "TIFF Files"
+msgstr ""
+
+#: toolkit/constant.py:17
+msgid "GIF Files"
+msgstr ""
+
+#: toolkit/core/delete_pages_worker.py:26
 #, python-brace-format
-msgid "The input integer must be > 1, got: {num}"
-msgstr "输入的整数必须 > 1，得到：{num}"
+msgid "Invalid range '{part}': must be between 1-{total_pages}."
+msgstr ""
 
-#: application/split_pdf_app.py:181
+#: toolkit/core/delete_pages_worker.py:32 toolkit/core/split_pdf_worker.py:31
 #, python-brace-format
-msgid "Please input a valid number, got: {}"
-msgstr "请输入有效数字，得到：{}"
+msgid "Invalid page '{part}': must be between 1-{total_pages}."
+msgstr ""
 
-#: include/base_app.py:36 widget/_progress_task_windows.py:118
-#: widget/_progress_task_windows.py:181
-msgid "Success"
-msgstr "成功"
-
-#: include/base_app.py:37
+#: toolkit/core/delete_pages_worker.py:36
 #, python-brace-format
-msgid "{task_title} completed successfully."
-msgstr "{task_title} 成功完成。"
+msgid "Invalid page range format '{part}': {e}"
+msgstr ""
 
-#: include/base_app.py:40 widget/_progress_task_windows.py:122
-msgid "Cancelled"
-msgstr "已取消"
+#: toolkit/core/delete_pages_worker.py:52
+msgid "No pages specified for deletion."
+msgstr ""
 
-#: include/base_app.py:41
+#: toolkit/core/delete_pages_worker.py:57
+#: toolkit/core/pdf_to_long_image_worker.py:23
+msgid "PDF file has no pages."
+msgstr ""
+
+#: toolkit/core/delete_pages_worker.py:63
 #, python-brace-format
-msgid "{task_title} was cancelled by the user."
-msgstr "{task_title} 已被用户取消。"
+msgid "No valid pages could be parsed from '{pages_to_delete_str}'."
+msgstr ""
 
-#: include/base_app.py:45
+#: toolkit/core/delete_pages_worker.py:71
 #, python-brace-format
-msgid "{task_title} failed with error: {result}"
-msgstr "{task_title} 失败，错误：{result}"
+msgid "This operation would delete all pages from {pdf_path_name}."
+msgstr ""
 
-#: include/common.py:22
-msgid "Task was cancelled by the user"
-msgstr "任务已被用户取消"
+#: toolkit/core/delete_pages_worker.py:75
+#: toolkit/core/image_to_pdf_worker.py:49
+#: toolkit/core/interleave_pdfs_worker.py:48
+msgid "Saving PDF..."
+msgstr ""
 
-#: widget/_file_list_widget.py:52 widget/_file_list_widget.py:198
-msgid "File Path"
-msgstr "文件路径"
+#: toolkit/core/delete_pages_worker.py:78
+#: toolkit/core/extract_images_worker.py:31
+#: toolkit/core/extract_text_worker.py:25
+#: toolkit/core/image_to_pdf_worker.py:21
+#: toolkit/core/image_to_pdf_worker.py:53
+#: toolkit/core/interleave_pdfs_worker.py:34
+#: toolkit/core/interleave_pdfs_worker.py:51
+#: toolkit/core/merge_invoices_worker.py:104
+#: toolkit/core/merge_pdf_worker.py:23 toolkit/core/merge_pdf_worker.py:43
+#: toolkit/core/pdf_to_image_worker.py:32
+#: toolkit/core/pdf_to_image_worker.py:54
+#: toolkit/core/pdf_to_long_image_worker.py:33
+#: toolkit/core/pdf_to_long_image_worker.py:57
+#: toolkit/core/rotate_pdf_worker.py:25 toolkit/core/split_pdf_worker.py:115
+msgid "Task cancelled by user."
+msgstr ""
 
-#: widget/_file_list_widget.py:60
-msgid "Add Files"
-msgstr "添加文件"
+#: toolkit/core/delete_pages_worker.py:87
+#, python-brace-format
+msgid "Successfully deleted {} page!"
+msgstr ""
 
-#: widget/_file_list_widget.py:67
-msgid "Add Folder"
-msgstr "添加文件夹"
-
-#: widget/_file_list_widget.py:74
-msgid "Remove Files"
-msgstr "移除文件"
-
-#: widget/_file_list_widget.py:81
-msgid "Remove All"
-msgstr "移除全部"
-
-#: widget/_file_list_widget.py:105
-msgid "Move To First"
-msgstr "移到最前"
-
-#: widget/_file_list_widget.py:112
-msgid "Move Up"
-msgstr "上移"
-
-#: widget/_file_list_widget.py:119
-msgid "Move Down"
-msgstr "下移"
-
-#: widget/_file_list_widget.py:126
-msgid "Move To Last"
-msgstr "移到最后"
-
-#: widget/_file_list_widget.py:206
-msgid "Select files"
-msgstr "选择文件"
-
-#: widget/_file_list_widget.py:220
-msgid "Select folder"
-msgstr "选择文件夹"
-
-#: widget/_file_list_widget.py:269
-msgid "Test FileListWidget"
-msgstr "测试 FileListWidget"
-
-#: widget/_file_list_widget.py:283
-msgid "Regular File List"
-msgstr "常规文件列表"
-
-#: widget/_file_list_widget.py:287
-msgid "Sortable File List"
-msgstr "可排序文件列表"
-
-#: widget/_file_list_widget.py:304
-msgid "--- Regular File List ---"
-msgstr "--- 常规文件列表 ---"
-
-#: widget/_file_list_widget.py:305 widget/_file_list_widget.py:307
-msgid "(empty)"
-msgstr "（空）"
-
-#: widget/_file_list_widget.py:306
-msgid "--- Sortable File List ---"
-msgstr "--- 可排序文件列表 ---"
-
-#: widget/_file_list_widget.py:308
-msgid "--------------------"
-msgstr "--------------------"
-
-#: widget/_file_list_widget.py:311
-msgid "Get All File Paths (and print to console)"
-msgstr "获取所有文件路径（并打印到控制台）"
-
-#: widget/_file_picker_widget.py:22
-msgid "Select File"
-msgstr "选择文件"
-
-#: widget/_file_picker_widget.py:30
-msgid "Mode must be 'open' or 'save'"
-msgstr "模式必须为 'open' 或 'save'"
-
-#: widget/_file_picker_widget.py:33
-msgid "All files"
-msgstr "所有文件"
-
-#: widget/_file_picker_widget.py:46 widget/_folder_picker_widget.py:35
-msgid "Browse..."
-msgstr "浏览..."
-
-#: widget/_file_picker_widget.py:55
-msgid "Select a file"
-msgstr "选择文件"
-
-#: widget/_file_picker_widget.py:64
-msgid "Select save path"
-msgstr "选择保存路径"
-
-#: widget/_file_picker_widget.py:84
-msgid "Test FilePickerWidget"
-msgstr "测试 FilePickerWidget"
-
-#: widget/_file_picker_widget.py:90
-msgid "Select Input PDF"
-msgstr "选择输入 PDF"
-
-#: widget/_file_picker_widget.py:98
-msgid "Select Output Image"
-msgstr "选择输出图像"
-
-#: widget/_file_picker_widget.py:100
-msgid "PNG image"
-msgstr "PNG 图像"
-
-#: widget/_file_picker_widget.py:100
-msgid "JPEG image"
-msgstr "JPEG 图像"
-
-#: widget/_file_picker_widget.py:110 widget/_folder_picker_widget.py:76
-msgid "Current Paths"
-msgstr "当前路径"
-
-#: widget/_file_picker_widget.py:111
-msgid "Open"
-msgstr "打开"
-
-#: widget/_file_picker_widget.py:111 widget/_folder_picker_widget.py:77
-#: widget/_folder_picker_widget.py:78
-msgid "(not selected)"
-msgstr "（未选择）"
-
-#: widget/_file_picker_widget.py:111
-msgid "Save"
-msgstr "保存"
-
-#: widget/_file_picker_widget.py:115 widget/_folder_picker_widget.py:82
-msgid "Get Current Paths"
-msgstr "获取当前路径"
-
-#: widget/_folder_picker_widget.py:42
-msgid "Select a folder"
-msgstr "选择文件夹"
-
-#: widget/_folder_picker_widget.py:60
-msgid "Test FolderPickerWidget"
-msgstr "测试 FolderPickerWidget"
-
-#: widget/_folder_picker_widget.py:64
-msgid "Select an Existing Folder (mustexist=True)"
-msgstr "选择现有文件夹 (mustexist=True)"
-
-#: widget/_folder_picker_widget.py:67
-msgid "Select or Type a New Folder (mustexist=False)"
-msgstr "选择或输入新文件夹 (mustexist=False)"
-
-#: widget/_folder_picker_widget.py:77
-msgid "Must-exist folder"
-msgstr "必须存在的文件夹"
-
-#: widget/_folder_picker_widget.py:78
-msgid "Can-create folder"
-msgstr "可创建的文件夹"
-
-#: widget/_progress_task_windows.py:48
-msgid "Task is starting..."
-msgstr "任务正在启动..."
-
-#: widget/_progress_task_windows.py:64
-msgid "Cancel"
-msgstr "取消"
-
-#: widget/_progress_task_windows.py:90
-msgid "Cancelling, please wait..."
-msgstr "正在取消，请稍候..."
-
-#: widget/_progress_task_windows.py:107
-#, python-format
-msgid "Overall Progress: %d%%"
-msgstr "总体进度：%d%%"
-
-#: widget/_progress_task_windows.py:118
-msgid "All tasks completed successfully!"
-msgstr "所有任务成功完成！"
-
-#: widget/_progress_task_windows.py:120
-msgid "Failure"
-msgstr "失败"
-
-#: widget/_progress_task_windows.py:120
+#: toolkit/core/delete_pages_worker.py:94
+#: toolkit/core/extract_images_worker.py:72
+#: toolkit/core/extract_text_worker.py:50
+#: toolkit/core/image_to_pdf_worker.py:66
+#: toolkit/core/interleave_pdfs_worker.py:61
+#: toolkit/core/merge_invoices_worker.py:106
+#: toolkit/core/merge_pdf_worker.py:56 toolkit/core/pdf_to_image_worker.py:81
+#: toolkit/core/pdf_to_long_image_worker.py:68
+#: toolkit/core/rotate_pdf_worker.py:51 toolkit/core/split_pdf_worker.py:143
 #, python-brace-format
 msgid ""
-"An error occurred:\n"
-"{result}"
+"An unexpected error occurred:\n"
+"{}"
 msgstr ""
-"发生错误：\n"
-"{result}"
 
-#: widget/_progress_task_windows.py:122
-msgid "The task was cancelled by the user."
-msgstr "任务已被用户取消。"
+#: toolkit/core/extract_images_worker.py:65
+#, python-brace-format
+msgid "Successfully extracted {} image!"
+msgstr ""
 
-#: widget/_progress_task_windows.py:154
-msgid "Test ProgressTaskWindow"
-msgstr "测试 ProgressTaskWindow"
+#: toolkit/core/extract_text_worker.py:43
+#, python-brace-format
+msgid "Successfully extracted text from {} file!"
+msgstr ""
 
-#: widget/_progress_task_windows.py:157
-msgid "Start a 5-second Task"
-msgstr "启动 5 秒钟任务"
+#: toolkit/core/image_to_pdf_worker.py:41
+#, python-brace-format
+msgid ""
+"Error converting image {}:\n"
+"{}"
+msgstr ""
 
-#: widget/_progress_task_windows.py:160
-msgid "Result: (waiting for task)"
-msgstr "结果：（等待任务）"
+#: toolkit/core/image_to_pdf_worker.py:47
+msgid "No images were successfully converted to PDF."
+msgstr ""
 
-#: widget/_progress_task_windows.py:166
-msgid "Result: Task is running..."
-msgstr "结果：任务正在运行..."
+#: toolkit/core/image_to_pdf_worker.py:59
+#, python-brace-format
+msgid "Successfully converted {} image to PDF!"
+msgstr ""
 
-#: widget/_progress_task_windows.py:174
-msgid "Running Dummy Task..."
-msgstr "运行虚拟任务..."
+#: toolkit/core/image_to_pdf_worker.py:63 toolkit/core/merge_pdf_worker.py:53
+msgid "Saved to:"
+msgstr ""
 
-#: widget/_progress_task_windows.py:181
-#, python-format
-msgid "Result: %s"
-msgstr "结果：%s"
+#: toolkit/core/interleave_pdfs_worker.py:27
+msgid "Input files are empty, no pages to merge."
+msgstr ""
 
-#: widget/_title_widget.py:37
-msgid "Test TitleWidget"
-msgstr "测试 TitleWidget"
+#: toolkit/core/interleave_pdfs_worker.py:57
+msgid "Successfully interleaved PDFs!"
+msgstr ""
 
-#: widget/_title_widget.py:40
-msgid "This is a TitleWidget"
-msgstr "这是一个 TitleWidget"
+#: toolkit/core/merge_invoices_worker.py:44
+msgid "No invoice files provided."
+msgstr ""
 
-#: widget/_title_widget.py:43
-msgid "This is a regular ttk.Label"
-msgstr "这是一个普通的 ttk.Label"
+#: toolkit/core/merge_invoices_worker.py:93 toolkit/core/merge_pdf_worker.py:39
+msgid "Saving merged PDF..."
+msgstr ""
 
-#: PDFeXpressGUI.py:150
-msgid "Version Information"
-msgstr "版本信息"
+#: toolkit/core/merge_invoices_worker.py:100
+#, python-brace-format
+msgid "Successfully merged {} invoices!"
+msgstr ""
+
+#: toolkit/core/merge_pdf_worker.py:49
+#, python-brace-format
+msgid "Successfully merged {} file!"
+msgstr ""
+
+#: toolkit/core/pdf_to_image_worker.py:74
+#, python-brace-format
+msgid "Successfully converted {} page!"
+msgstr ""
+
+#: toolkit/core/pdf_to_long_image_worker.py:46
+msgid "No pages were rendered from the PDF."
+msgstr ""
+
+#: toolkit/core/pdf_to_long_image_worker.py:54
+msgid "Saving long image..."
+msgstr ""
+
+#: toolkit/core/pdf_to_long_image_worker.py:64
+msgid "Successfully converted PDF to a long image!"
+msgstr ""
+
+#: toolkit/core/rotate_pdf_worker.py:44
+#, python-brace-format
+msgid "Successfully rotated {} file!"
+msgstr ""
+
+#: toolkit/core/split_pdf_worker.py:12
+msgid "Custom range string cannot be empty."
+msgstr ""
+
+#: toolkit/core/split_pdf_worker.py:25
+#, python-brace-format
+msgid "Invalid range '{part}': must be between 1-{total_pages}, and start <= end."
+msgstr ""
+
+#: toolkit/core/split_pdf_worker.py:36
+#, python-brace-format
+msgid "Invalid custom range '{part}' format: {e}"
+msgstr ""
+
+#: toolkit/core/split_pdf_worker.py:52 toolkit/core/split_pdf_worker.py:62
+msgid "Value must be greater than 0"
+msgstr ""
+
+#: toolkit/core/split_pdf_worker.py:54
+#, python-brace-format
+msgid "Invalid pages per file value: {split_value}"
+msgstr ""
+
+#: toolkit/core/split_pdf_worker.py:67
+#, python-brace-format
+msgid "Invalid number of files value: {split_value}"
+msgstr ""
+
+#: toolkit/core/split_pdf_worker.py:83
+#, python-brace-format
+msgid "Unknown split mode: {split_mode}"
+msgstr ""
+
+#: toolkit/core/split_pdf_worker.py:103
+msgid "PDF file is empty, no pages to split."
+msgstr ""
+
+#: toolkit/core/split_pdf_worker.py:136
+#, python-brace-format
+msgid "Successfully split PDF into {} file!"
+msgstr ""
+
+#: toolkit/main_frame.py:30
+msgid "Operation"
+msgstr ""
+
+#: toolkit/main_frame.py:42
+msgid "About"
+msgstr ""
+
+#: toolkit/main_frame.py:55 toolkit/ui/feature/merge_pdf.py:25
+msgid "Merge PDF"
+msgstr ""
+
+#: toolkit/main_frame.py:56 toolkit/ui/feature/image_to_pdf.py:24
+msgid "Image to PDF"
+msgstr ""
+
+#: toolkit/main_frame.py:57 toolkit/ui/feature/pdf_to_image.py:22
+msgid "PDF to Image"
+msgstr ""
+
+#: toolkit/main_frame.py:58 toolkit/ui/feature/rotate_pdf.py:22
+msgid "Rotate PDF"
+msgstr ""
+
+#: toolkit/main_frame.py:59 toolkit/ui/feature/extract_text.py:22
+msgid "Extract Text"
+msgstr ""
+
+#: toolkit/main_frame.py:60
+msgid "Extract Image"
+msgstr ""
+
+#: toolkit/main_frame.py:61 toolkit/ui/feature/split_pdf.py:22
+msgid "Split PDF"
+msgstr ""
+
+#: toolkit/main_frame.py:62
+msgid "Delete Page"
+msgstr ""
+
+#: toolkit/main_frame.py:63
+msgid "Interleave PDF"
+msgstr ""
+
+#: toolkit/main_frame.py:64 toolkit/ui/feature/pdf_to_long_image.py:20
+msgid "PDF to Long Image"
+msgstr ""
+
+#: toolkit/main_frame.py:65 toolkit/ui/feature/merge_invoices.py:21
+msgid "Merge Invoices"
+msgstr ""
+
+#: toolkit/main_frame.py:83
+msgid "Coming Soon"
+msgstr ""
+
+#: toolkit/main_frame.py:83
+msgid "This feature is not yet implemented."
+msgstr ""
+
+#: toolkit/main_frame.py:106
+msgid "Ver."
+msgstr ""
+
+#: toolkit/main_frame.py:107
+msgid "Project Home Page"
+msgstr ""
+
+#: toolkit/main_frame.py:108
+msgid "Copyright © 2024 ChianJin. All rights reserved."
+msgstr ""
+
+#: toolkit/main_frame.py:111
+#, python-brace-format
+msgid "About {}"
+msgstr ""
+
+#: toolkit/main_frame.py:120
+msgid "PDF Toolbox Debug"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:21
+msgid "Delete Pages"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:24
+msgid "PDF File to Modify"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:27 toolkit/ui/feature/image_to_pdf.py:40
+#: toolkit/ui/feature/interleave_pdf.py:30
+#: toolkit/ui/feature/merge_invoices.py:32 toolkit/ui/feature/merge_pdf.py:41
+msgid "Output PDF File"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:30
+msgid "Pages to Delete"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:36
+msgid "e.g., 1-3, 5, 7-9"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:42 toolkit/ui/feature/extract_image.py:62
+#: toolkit/ui/feature/extract_text.py:60 toolkit/ui/feature/image_to_pdf.py:55
+#: toolkit/ui/feature/interleave_pdf.py:48
+#: toolkit/ui/feature/merge_invoices.py:39 toolkit/ui/feature/merge_pdf.py:68
+#: toolkit/ui/feature/pdf_to_image.py:79
+#: toolkit/ui/feature/pdf_to_long_image.py:41
+#: toolkit/ui/feature/rotate_pdf.py:60 toolkit/ui/feature/split_pdf.py:55
+msgid "Ready"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:45
+msgid "Delete"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:57
+#: toolkit/ui/feature/pdf_to_long_image.py:56
+#: toolkit/ui/feature/split_pdf.py:82
+msgid "No Input File"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:57
+#: toolkit/ui/feature/pdf_to_long_image.py:56
+msgid "Please select a PDF file."
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:61 toolkit/ui/feature/interleave_pdf.py:68
+#: toolkit/ui/feature/merge_invoices.py:57
+#: toolkit/ui/feature/pdf_to_long_image.py:60
+msgid "No Output File Specified"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:61 toolkit/ui/feature/interleave_pdf.py:68
+#: toolkit/ui/feature/merge_invoices.py:57
+msgid "Please specify an output file."
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:65
+msgid "No Pages Specified"
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:65
+msgid "Please specify the pages to delete."
+msgstr ""
+
+#: toolkit/ui/feature/delete_page.py:70
+msgid "Deleting pages..."
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:22
+msgid "Extract Images"
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:27
+msgid "PDF Files to Extract Images From"
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:33 toolkit/ui/feature/extract_text.py:33
+#: toolkit/ui/feature/pdf_to_image.py:33 toolkit/ui/feature/rotate_pdf.py:33
+#: toolkit/ui/feature/split_pdf.py:28 toolkit/ui/widget/folder_picker.py:10
+msgid "Output Folder"
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:42 toolkit/ui/feature/extract_text.py:42
+msgid "Save in the same folder"
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:48
+msgid "Min Width:"
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:53
+msgid "Min Height:"
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:65 toolkit/ui/feature/extract_text.py:63
+msgid "Extract"
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:87 toolkit/ui/feature/extract_text.py:84
+#: toolkit/ui/feature/pdf_to_image.py:117 toolkit/ui/feature/rotate_pdf.py:84
+msgid "No Input Files"
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:87 toolkit/ui/feature/extract_text.py:84
+msgid "Please add at least one PDF file."
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:91 toolkit/ui/feature/extract_text.py:88
+#: toolkit/ui/feature/pdf_to_image.py:121 toolkit/ui/feature/rotate_pdf.py:88
+#: toolkit/ui/feature/split_pdf.py:86
+msgid "No Output Folder Specified"
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:91 toolkit/ui/feature/extract_text.py:88
+#: toolkit/ui/feature/pdf_to_image.py:121 toolkit/ui/feature/rotate_pdf.py:88
+#: toolkit/ui/feature/split_pdf.py:86
+msgid "Please specify an output folder."
+msgstr ""
+
+#: toolkit/ui/feature/extract_image.py:96
+msgid "Extracting images..."
+msgstr ""
+
+#: toolkit/ui/feature/extract_text.py:27
+msgid "PDF Files to Extract Text From"
+msgstr ""
+
+#: toolkit/ui/feature/extract_text.py:51
+msgid "Sort text"
+msgstr ""
+
+#: toolkit/ui/feature/extract_text.py:93
+msgid "Extracting text..."
+msgstr ""
+
+#: toolkit/ui/feature/image_to_pdf.py:30
+msgid "Image Files to Convert"
+msgstr ""
+
+#: toolkit/ui/feature/image_to_pdf.py:63 toolkit/ui/feature/pdf_to_image.py:82
+#: toolkit/ui/feature/pdf_to_long_image.py:44
+msgid "Convert"
+msgstr ""
+
+#: toolkit/ui/feature/image_to_pdf.py:88
+msgid "Input Image Not Enough."
+msgstr ""
+
+#: toolkit/ui/feature/image_to_pdf.py:88
+msgid "Please add at least one image file."
+msgstr ""
+
+#: toolkit/ui/feature/image_to_pdf.py:92
+msgid "No Output PDF Specified."
+msgstr ""
+
+#: toolkit/ui/feature/image_to_pdf.py:92 toolkit/ui/feature/merge_pdf.py:106
+msgid "Please specify an output PDF file."
+msgstr ""
+
+#: toolkit/ui/feature/image_to_pdf.py:97
+msgid "Converting images..."
+msgstr ""
+
+#: toolkit/ui/feature/interleave_pdf.py:21
+msgid "Interleave PDFs"
+msgstr ""
+
+#: toolkit/ui/feature/interleave_pdf.py:24
+msgid "PDF File A"
+msgstr ""
+
+#: toolkit/ui/feature/interleave_pdf.py:27
+msgid "PDF File B"
+msgstr ""
+
+#: toolkit/ui/feature/interleave_pdf.py:39
+msgid "Reverse second PDF"
+msgstr ""
+
+#: toolkit/ui/feature/interleave_pdf.py:51
+msgid "Interleave"
+msgstr ""
+
+#: toolkit/ui/feature/interleave_pdf.py:64
+msgid "Input Files Missing"
+msgstr ""
+
+#: toolkit/ui/feature/interleave_pdf.py:64
+msgid "Please select both PDF files."
+msgstr ""
+
+#: toolkit/ui/feature/interleave_pdf.py:73
+msgid "Interleaving PDFs..."
+msgstr ""
+
+#: toolkit/ui/feature/merge_invoices.py:26
+msgid "Invoice PDF Files"
+msgstr ""
+
+#: toolkit/ui/feature/merge_invoices.py:42 toolkit/ui/feature/merge_pdf.py:76
+msgid "Merge"
+msgstr ""
+
+#: toolkit/ui/feature/merge_invoices.py:53
+msgid "No Invoice PDFs"
+msgstr ""
+
+#: toolkit/ui/feature/merge_invoices.py:53
+msgid "Please add at least one invoice PDF file."
+msgstr ""
+
+#: toolkit/ui/feature/merge_invoices.py:62
+msgid "Merging invoices..."
+msgstr ""
+
+#: toolkit/ui/feature/merge_pdf.py:31
+msgid "PDF Files to Merge"
+msgstr ""
+
+#: toolkit/ui/feature/merge_pdf.py:55
+msgid "Create bookmarks from filenames"
+msgstr ""
+
+#: toolkit/ui/feature/merge_pdf.py:102
+msgid "Not Enough Input Files"
+msgstr ""
+
+#: toolkit/ui/feature/merge_pdf.py:102
+msgid "Please add at least two PDF files to merge."
+msgstr ""
+
+#: toolkit/ui/feature/merge_pdf.py:106
+msgid "No Output PDF Specified"
+msgstr ""
+
+#: toolkit/ui/feature/merge_pdf.py:112
+msgid "Merging PDFs..."
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_image.py:27
+msgid "PDF Files to Convert"
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_image.py:43
+msgid "Save In Same Folder"
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_image.py:50
+#: toolkit/ui/feature/pdf_to_long_image.py:32
+msgid "DPI:"
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_image.py:56
+msgid "Format:"
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_image.py:63
+msgid "JPEG Quality:"
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_image.py:71
+msgid "Transparent Background"
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_image.py:117
+msgid "Please add at least one PDF file to convert."
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_image.py:126
+msgid "Converting PDFs to images..."
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_long_image.py:23
+msgid "PDF File to Convert"
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_long_image.py:26
+msgid "Output Image File"
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_long_image.py:60
+msgid "Please specify an output image file."
+msgstr ""
+
+#: toolkit/ui/feature/pdf_to_long_image.py:65
+msgid "Converting to long image..."
+msgstr ""
+
+#: toolkit/ui/feature/rotate_pdf.py:27
+msgid "PDF Files to Rotate"
+msgstr ""
+
+#: toolkit/ui/feature/rotate_pdf.py:43
+msgid "Save to the same folder"
+msgstr ""
+
+#: toolkit/ui/feature/rotate_pdf.py:50
+msgid "Rotation Angle:"
+msgstr ""
+
+#: toolkit/ui/feature/rotate_pdf.py:63
+msgid "Rotate"
+msgstr ""
+
+#: toolkit/ui/feature/rotate_pdf.py:84
+msgid "Please add at least one PDF file to rotate."
+msgstr ""
+
+#: toolkit/ui/feature/rotate_pdf.py:93
+msgid "Rotating PDFs..."
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:25
+msgid "PDF File to Split"
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:47
+msgid "Value:"
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:58
+msgid "Split"
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:82
+msgid "Please select a PDF file to split."
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:90
+msgid "No Value Specified"
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:90
+msgid "Please specify a value for the selected split mode."
+msgstr ""
+
+#: toolkit/ui/feature/split_pdf.py:95
+msgid "Splitting PDF..."
+msgstr ""
+
+#: toolkit/ui/framework/mixin.py:49 toolkit/ui/framework/mixin.py:59
+msgid "Internal Error"
+msgstr ""
+
+#: toolkit/ui/framework/mixin.py:49
+#, python-brace-format
+msgid ""
+"Error preparing task:\n"
+"{}"
+msgstr ""
+
+#: toolkit/ui/framework/mixin.py:59
+msgid "Task prepared invalid data."
+msgstr ""
+
+#: toolkit/ui/framework/mixin.py:75 toolkit/ui/framework/mixin.py:129
+#: toolkit/ui/framework/mixin.py:133
+msgid "Processing..."
+msgstr ""
+
+#: toolkit/ui/framework/mixin.py:103
+msgid "Task Complete"
+msgstr ""
+
+#: toolkit/ui/framework/mixin.py:105
+msgid "Task Complete: "
+msgstr ""
+
+#: toolkit/ui/framework/mixin.py:107
+msgid "Task Cancelled"
+msgstr ""
+
+#: toolkit/ui/framework/mixin.py:109
+msgid "Task Cancelled: "
+msgstr ""
+
+#: toolkit/ui/framework/mixin.py:111
+msgid "Error"
+msgstr ""
+
+#: toolkit/ui/framework/mixin.py:113
+msgid "Error: "
+msgstr ""
+
+#: toolkit/ui/framework/progress_dialog.py:26
+msgid "Cancel"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:17
+msgid "File List"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:49
+msgid "File Path"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:71
+msgid "Add Files"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:79
+msgid "Add Folder"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:87
+msgid "Remove Files"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:95
+msgid "Remove All"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:121
+msgid "Move to First"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:129
+msgid "Move Up"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:137
+msgid "Move Down"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:145
+msgid "Move to Last"
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:171
+msgid "Select input files."
+msgstr ""
+
+#: toolkit/ui/widget/file_list.py:184
+msgid "Select input folder."
+msgstr ""
+
+#: toolkit/ui/widget/file_picker.py:20
+msgid "Input File"
+msgstr ""
+
+#: toolkit/ui/widget/file_picker.py:41 toolkit/ui/widget/folder_picker.py:23
+msgid "Browse"
+msgstr ""
+
+#: toolkit/ui/widget/file_picker.py:52
+msgid "Select input file."
+msgstr ""
+
+#: toolkit/ui/widget/file_picker.py:78
+msgid "Select output file."
+msgstr ""
+
+#: toolkit/ui/widget/folder_picker.py:32
+msgid "Select Path"
+msgstr ""
+
+#: toolkit/ui/widget/misc.py:10
+msgid "Title"
+msgstr ""
+
+#: toolkit/ui/widget/misc.py:19
+msgid "Option"
+msgstr ""

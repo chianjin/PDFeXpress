@@ -49,20 +49,24 @@ class PDFToImageApp(ttk.Frame, TaskRunnerMixin):
         # DPI
         ttk.Label(self.option_frame, text=_("DPI:")).pack(side="left", padx=(10, 5), pady=5)
         self.dpi_var = tk.IntVar(value=300)
-        self.dpi_spinbox = ttk.Spinbox(self.option_frame, from_=72, to=600, increment=1, textvariable=self.dpi_var, width=5)
+        self.dpi_spinbox = ttk.Spinbox(self.option_frame, from_=72, to=600, increment=1, textvariable=self.dpi_var,
+                                       width=5)
         self.dpi_spinbox.pack(side="left", padx=5, pady=5)
 
         # Format
         ttk.Label(self.option_frame, text=_("Format:")).pack(side="left", padx=(10, 5), pady=5)
         self.format_var = tk.StringVar(value="jpg")
         self.format_var.trace_add("write", self._on_format_changed)
-        ttk.Radiobutton(self.option_frame, text="PNG", variable=self.format_var, value="png").pack(side="left", padx=5, pady=5)
-        ttk.Radiobutton(self.option_frame, text="JPG", variable=self.format_var, value="jpg").pack(side="left", padx=5, pady=5)
+        ttk.Radiobutton(self.option_frame, text="PNG", variable=self.format_var, value="png").pack(side="left", padx=5,
+                                                                                                   pady=5)
+        ttk.Radiobutton(self.option_frame, text="JPG", variable=self.format_var, value="jpg").pack(side="left", padx=5,
+                                                                                                   pady=5)
 
         # JPEG Quality
         self.jpeg_quality_label = ttk.Label(self.option_frame, text=_("JPEG Quality:"))
         self.jpeg_quality_var = tk.IntVar(value=85)
-        self.jpeg_quality_spinbox = ttk.Spinbox(self.option_frame, from_=1, to=100, increment=1, textvariable=self.jpeg_quality_var, width=5)
+        self.jpeg_quality_spinbox = ttk.Spinbox(self.option_frame, from_=1, to=100, increment=1,
+                                                textvariable=self.jpeg_quality_var, width=5)
 
         # PNG Transparency
         self.transparent_background_var = tk.BooleanVar(value=False)
@@ -83,7 +87,7 @@ class PDFToImageApp(ttk.Frame, TaskRunnerMixin):
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
         self._on_format_changed()  # Initial state
-        self._on_save_in_same_folder_changed() # Initial state
+        self._on_save_in_same_folder_changed()  # Initial state
 
     def _on_format_changed(self, *args):
         if self.format_var.get() == "jpg":
@@ -122,7 +126,8 @@ class PDFToImageApp(ttk.Frame, TaskRunnerMixin):
             return None
 
         target_function = pdf_to_image_worker
-        args_tuple = (input_files, output_dir, dpi_value, image_format, jpeg_quality, transparent_background, save_in_same_folder)
+        args_tuple = (input_files, output_dir, dpi_value, image_format, jpeg_quality, transparent_background,
+                      save_in_same_folder)
         initial_label = _("Converting PDFs to images...")
 
         return target_function, args_tuple, initial_label

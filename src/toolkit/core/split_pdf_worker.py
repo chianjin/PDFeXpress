@@ -4,7 +4,7 @@ from typing import List, Any
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, gettext_plural as _n
+from toolkit.i18n import gettext_text as _, ngettext
 
 
 def _parse_page_ranges(range_string: str, total_pages: int) -> List[List[int]]:
@@ -84,14 +84,14 @@ def _get_page_chunks(
 
 
 def split_pdf_worker(
-    pdf_path,
-    output_dir,
-    split_mode,
-    split_value,
-    cancel_event,
-    progress_queue,
-    result_queue,
-    saving_ack_event
+        pdf_path,
+        output_dir,
+        split_mode,
+        split_value,
+        cancel_event,
+        progress_queue,
+        result_queue,
+        saving_ack_event
 ):
     try:
         pdf_path_obj = Path(pdf_path)
@@ -132,7 +132,7 @@ def split_pdf_worker(
 
                 progress_queue.put(("PROGRESS", i + 1))
 
-        success_msg = _n(
+        success_msg = ngettext(
             "Successfully split PDF into {} file!",
             "Successfully split PDF into {} files!",
             total_files_to_create

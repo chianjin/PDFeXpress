@@ -1,7 +1,9 @@
 # src/pdfexpress.py
 import platform
+
 if platform.system() == "Windows":
     import ctypes
+
     ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
 import multiprocessing
