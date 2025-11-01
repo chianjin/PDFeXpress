@@ -29,8 +29,9 @@ class FilePicker(ttk.Labelframe):
         self._file_types = file_types
 
         self.columnconfigure(0, weight=1)
+        entry_state = "normal" if self._mode == "save" else "readonly"
         self.file_path_entry = ttk.Entry(
-            self, textvariable=self.file_path_var, state="readonly"
+            self, textvariable=self.file_path_var, state=entry_state
         )
         self.file_path_entry.grid(row=0, column=0, sticky="we", padx=5, pady=5)
 
@@ -54,10 +55,30 @@ class FilePicker(ttk.Labelframe):
 
     @check_file_path_change
     def _save_file(self):
+        full_path = self.file_path_var.get()
+        if full_path:
+            path_obj = Path(full_path)
+            initial_dir = str(path_obj.parent)
+            initial_file = path_obj.name
+        else:
+            initial_dir = ""
+            initial_file = ""
+
+        default_extension = ""
+        if self._file_types and len(self._file_types[0]) > 1:
+            ext_pattern = self._file_types[0][1]
+            if isinstance(ext_pattern, str) and ext_pattern.startswith("*"):
+                default_extension = ext_pattern[1:]
+            elif isinstance(ext_pattern, tuple) and ext_pattern[0].startswith("*"):
+                default_extension = ext_pattern[0][1:]
+
         file_path = filedialog.asksaveasfilename(
             title=_("Select output file."),
             filetypes=self._file_types,
             confirmoverwrite=True,
+            initialdir=initial_dir,
+            initialfile=initial_file,
+            defaultextension=default_extension
         )
         if file_path:
             self.file_path_var.set(str(Path(file_path)))

@@ -29,7 +29,8 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
             self,
             title=_("Image Files to Convert"),
             file_types=FILE_TYPES_IMAGES,
-            sortable=True
+            sortable=True,
+            on_change_callback=self._on_file_list_changed
         )
         self.file_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
@@ -63,6 +64,17 @@ class ImageToPdfApp(ttk.Frame, TaskRunnerMixin):
             command=self.run_task_from_ui
         )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
+
+    def _on_file_list_changed(self):
+        files = self.file_list_view.get()
+        if files:
+            first_file_path = files[0]
+            containing_folder = first_file_path.parent
+            output_dir = containing_folder.parent
+            new_filename = output_dir / f"{containing_folder.name}.pdf"
+            self.output_file_picker.set(str(new_filename))
+        else:
+            self.output_file_picker.clear()
 
     # --- 实现 Mixin "契约" ---
     def _get_root_window(self):
