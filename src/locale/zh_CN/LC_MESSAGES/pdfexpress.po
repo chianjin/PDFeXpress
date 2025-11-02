@@ -384,7 +384,7 @@ msgstr ""
 #: toolkit/ui/feature/delete_page.py:57
 #: toolkit/ui/feature/pdf_to_long_image.py:58
 #: toolkit/ui/feature/split_pdf.py:84
-msgid "No Input File"
+msgid "No PDF File Selected"
 msgstr ""
 
 #: toolkit/ui/feature/delete_page.py:57
@@ -404,7 +404,7 @@ msgid "Please specify an output file."
 msgstr ""
 
 #: toolkit/ui/feature/delete_page.py:65
-msgid "No Pages Specified"
+msgid "No Pages to Delete"
 msgstr ""
 
 #: toolkit/ui/feature/delete_page.py:65
@@ -447,7 +447,7 @@ msgstr ""
 
 #: toolkit/ui/feature/extract_image.py:89 toolkit/ui/feature/extract_text.py:84
 #: toolkit/ui/feature/pdf_to_image.py:121 toolkit/ui/feature/rotate_pdf.py:89
-msgid "No Input Files"
+msgid "No PDF Files"
 msgstr ""
 
 #: toolkit/ui/feature/extract_image.py:89 toolkit/ui/feature/extract_text.py:84
@@ -457,7 +457,7 @@ msgstr ""
 #: toolkit/ui/feature/extract_image.py:93 toolkit/ui/feature/extract_text.py:88
 #: toolkit/ui/feature/pdf_to_image.py:125 toolkit/ui/feature/rotate_pdf.py:93
 #: toolkit/ui/feature/split_pdf.py:88
-msgid "No Output Folder Specified"
+msgid "No Output Folder"
 msgstr ""
 
 #: toolkit/ui/feature/extract_image.py:93 toolkit/ui/feature/extract_text.py:88
@@ -492,7 +492,7 @@ msgid "Convert"
 msgstr ""
 
 #: toolkit/ui/feature/image_to_pdf.py:88
-msgid "Input Image Not Enough."
+msgid "No Images Selected"
 msgstr ""
 
 #: toolkit/ui/feature/image_to_pdf.py:88
@@ -500,7 +500,7 @@ msgid "Please add at least one image file."
 msgstr ""
 
 #: toolkit/ui/feature/image_to_pdf.py:92
-msgid "No Output PDF Specified."
+msgid "No Output File"
 msgstr ""
 
 #: toolkit/ui/feature/image_to_pdf.py:92 toolkit/ui/feature/merge_pdf.py:106
@@ -580,7 +580,7 @@ msgid "Please add at least two PDF files to merge."
 msgstr ""
 
 #: toolkit/ui/feature/merge_pdf.py:106
-msgid "No Output PDF Specified"
+msgid "No Output File"
 msgstr ""
 
 #: toolkit/ui/feature/merge_pdf.py:112
@@ -677,7 +677,7 @@ msgid "Please select a PDF file to split."
 msgstr ""
 
 #: toolkit/ui/feature/split_pdf.py:92
-msgid "No Value Specified"
+msgid "No Value"
 msgstr ""
 
 #: toolkit/ui/feature/split_pdf.py:92

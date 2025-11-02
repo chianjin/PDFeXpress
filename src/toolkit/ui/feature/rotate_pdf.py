@@ -86,11 +86,11 @@ class RotatePDFApp(ttk.Frame, TaskRunnerMixin):
         save_to_same_folder = self.save_to_same_folder_var.get()
 
         if not input_files:
-            messagebox.showerror(_("No Input Files"), _("Please add at least one PDF file to rotate."))
+            messagebox.showerror(_("No PDF Files"), _("Please add at least one PDF file to rotate."))
             return None
 
         if not save_to_same_folder and not output_dir:
-            messagebox.showerror(_("No Output Folder Specified"), _("Please specify an output folder."))
+            messagebox.showerror(_("No Output Folder"), _("Please specify an output folder."))
             return None
 
         target_function = pdf_rotate_worker

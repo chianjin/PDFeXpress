@@ -54,7 +54,7 @@ class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
             return None
 
         if not output_pdf_path:
-            messagebox.showerror(_("No Output File Specified"), _("Please specify an output file."))
+            messagebox.showerror(_("No Output File"), _("Please specify an output file."))
             return None
 
         target_function = merge_invoices_worker

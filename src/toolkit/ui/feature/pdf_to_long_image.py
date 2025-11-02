@@ -55,11 +55,11 @@ class PDFToLongImageApp(ttk.Frame, TaskRunnerMixin):
         dpi_value = self.dpi_var.get()
 
         if not pdf_path:
-            messagebox.showerror(_("No Input File"), _("Please select a PDF file."))
+            messagebox.showerror(_("No PDF File"), _("Please select a PDF file."))
             return None
 
         if not output_image_path:
-            messagebox.showerror(_("No Output File Specified"), _("Please specify an output image file."))
+            messagebox.showerror(_("No Output File"), _("Please specify an output image file."))
             return None
 
         target_function = pdf_to_long_image_worker

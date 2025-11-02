@@ -49,7 +49,7 @@ class FilePicker(ttk.Labelframe):
     @check_file_path_change
     def _open_file(self):
         file_path = filedialog.askopenfilename(
-            title=_("Select input file."),
+            title=_("Select input file"),
             filetypes=self._file_types,
         )
         if file_path:
@@ -75,7 +75,7 @@ class FilePicker(ttk.Labelframe):
                 default_extension = ext_pattern[0][1:]
 
         file_path = filedialog.asksaveasfilename(
-            title=_("Select output file."),
+            title=_("Select output file"),
             filetypes=self._file_types,
             confirmoverwrite=True,
             initialdir=initial_dir,
