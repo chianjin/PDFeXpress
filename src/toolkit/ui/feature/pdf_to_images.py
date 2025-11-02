@@ -1,4 +1,4 @@
-# src/toolkit/ui/feature/pdf_to_image.py
+# src/toolkit/ui/feature/pdf_to_images.py
 import tkinter as tk
 from tkinter import ttk, messagebox
 
@@ -11,7 +11,7 @@ from toolkit.ui.widget.folder_picker import FolderPicker
 from toolkit.ui.widget.misc import TitleFrame, OptionFrame
 
 
-class PDFToImageApp(ttk.Frame, TaskRunnerMixin):
+class PDFToImagesApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
         ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
@@ -19,7 +19,7 @@ class PDFToImageApp(ttk.Frame, TaskRunnerMixin):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(1, weight=1)
 
-        self.title_frame = TitleFrame(self, text=_("PDF to Image"))
+        self.title_frame = TitleFrame(self, text=_("PDF to Images"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         self.file_list_view = FileListView(

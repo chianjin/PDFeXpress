@@ -4,16 +4,16 @@ from tkinter import ttk, messagebox
 # 相对导入 i18n 和各个"迷你应用"
 from config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
 from toolkit.i18n import gettext_text as _
-from toolkit.ui.feature.delete_page import DeletePageApp
+from toolkit.ui.feature.delete_pages import DeletePagesApp
 from toolkit.ui.feature.extract_image import ExtractImageApp
 from toolkit.ui.feature.extract_text import ExtractTextApp
-from toolkit.ui.feature.image_to_pdf import ImageToPDFApp
+from toolkit.ui.feature.images_to_pdf import ImagesToPDFApp
 from toolkit.ui.feature.interleave_pdf import InterleavePDFApp
-from toolkit.ui.feature.merge_invoices import MergeInvoiceApp
+from toolkit.ui.feature.merge_invoices import MergeInvoicesApp
 from toolkit.ui.feature.edit_bookmark import EditBookmarkApp
 from toolkit.ui.feature.merge_pdf import MergePDFApp
-from toolkit.ui.feature.pdf_to_image import PDFToImageApp
-from toolkit.ui.feature.pdf_to_long_image import PdfToLongImageApp
+from toolkit.ui.feature.pdf_to_images import PDFToImagesApp
+from toolkit.ui.feature.pdf_to_long_image import PDFToLongImageApp
 from toolkit.ui.feature.rotate_pdf import RotatePDFApp
 from toolkit.ui.feature.split_pdf import SplitPDFApp
 
@@ -59,12 +59,12 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
         self._create_nav_button(top_nav_frame, _("Rotate PDF"), RotatePDFApp)
         self._create_nav_button(top_nav_frame, _("Extract Text"), ExtractTextApp)
         self._create_nav_button(top_nav_frame, _("Extract Image"), ExtractImageApp)
-        self._create_nav_button(top_nav_frame, _("Image to PDF"), ImageToPDFApp)
-        self._create_nav_button(top_nav_frame, _("PDF to Image"), PDFToImageApp)
-        self._create_nav_button(top_nav_frame, _("PDF to Long Image"), PdfToLongImageApp)
-        self._create_nav_button(top_nav_frame, _("Delete Page"), DeletePageApp)
+        self._create_nav_button(top_nav_frame, _("Images to PDF"), ImagesToPDFApp)
+        self._create_nav_button(top_nav_frame, _("PDF to Images"), PDFToImagesApp)
+        self._create_nav_button(top_nav_frame, _("PDF to Long Image"), PDFToLongImageApp)
+        self._create_nav_button(top_nav_frame, _("Delete Pages"), DeletePagesApp)
         self._create_nav_button(top_nav_frame, _("Edit Bookmark"), EditBookmarkApp)
-        self._create_nav_button(top_nav_frame, _("Merge Invoice"), MergeInvoiceApp)
+        self._create_nav_button(top_nav_frame, _("Merge Invoices"), MergeInvoicesApp)
 
         # Right Content Frame
         self.content_frame = ttk.Frame(self)

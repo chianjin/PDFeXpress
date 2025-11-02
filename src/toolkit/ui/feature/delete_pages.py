@@ -1,4 +1,4 @@
-# src/toolkit/ui/feature/delete_page.py
+# src/toolkit/ui/feature/delete_pages.py
 import tkinter as tk
 from tkinter import ttk, messagebox
 
@@ -10,7 +10,7 @@ from toolkit.ui.widget.file_picker import FilePicker
 from toolkit.ui.widget.misc import TitleFrame, OptionFrame
 
 
-class DeletePageApp(ttk.Frame, TaskRunnerMixin):
+class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
         ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
@@ -18,7 +18,7 @@ class DeletePageApp(ttk.Frame, TaskRunnerMixin):
         self.columnconfigure(0, weight=1)
         # self.rowconfigure(1, weight=1)
 
-        self.title_frame = TitleFrame(self, text=_("Delete Page"))
+        self.title_frame = TitleFrame(self, text=_("Delete Pages"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         self.file_picker = FilePicker(self, title=_("PDF File to Modify"), file_types=FILE_TYPES_PDF)

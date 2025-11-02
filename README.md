@@ -24,12 +24,12 @@ The current version is 1.0.0, which has been tested on 64-bit Windows 11.
 * **Rotate PDF**: Rotate each page by 90°, 180°, and 270° clockwise
 * **Extract Text**: Extract plain text from PDF files without formatting
 * **Extract Images**: Extract images from PDF files and save them in original format
-* **Image to PDF**: Convert images to one PDF
-* **PDF to Image**: Convert each page to image
+* **Images to PDF**: Convert images to one PDF
+* **PDF to Images**: Convert each page to image
 * **PDF to Long Image**: Convert each page to image and merge into a long image
-* **Delete Page**: Delete specified pages from a PDF file
+* **Delete Pages**: Delete specified pages from a PDF file
 * **Edit Bookmark**: Edit the bookmark of PDF
-* **Merge Invoice**: Merge multiple Chinese invoice PDFs into one for easy printing
+* **Merge Invoices**: Merge multiple Chinese invoice PDFs into one for easy printing
 
 ## Running Method
 

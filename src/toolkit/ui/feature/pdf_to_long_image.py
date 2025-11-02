@@ -10,7 +10,7 @@ from toolkit.ui.widget.file_picker import FilePicker
 from toolkit.ui.widget.misc import TitleFrame, OptionFrame
 
 
-class PdfToLongImageApp(ttk.Frame, TaskRunnerMixin):
+class PDFToLongImageApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
         ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)

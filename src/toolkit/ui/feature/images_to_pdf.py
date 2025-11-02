@@ -1,4 +1,4 @@
-# src/toolkit/ui/feature/image_to_pdf.py
+# src/toolkit/ui/feature/images_to_pdf.py
 from tkinter import ttk, messagebox
 
 from toolkit.constant import FILE_TYPES_IMAGES, FILE_TYPES_PDF
@@ -10,7 +10,7 @@ from toolkit.ui.widget.file_picker import FilePicker
 from toolkit.ui.widget.misc import TitleFrame
 
 
-class ImageToPDFApp(ttk.Frame, TaskRunnerMixin):
+class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
         ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
@@ -21,7 +21,7 @@ class ImageToPDFApp(ttk.Frame, TaskRunnerMixin):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(1, weight=1)
         # 应用标题
-        self.title_frame = TitleFrame(self, text=_("Image to PDF"))
+        self.title_frame = TitleFrame(self, text=_("Images to PDF"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         # 文件列表
@@ -107,6 +107,6 @@ if __name__ == "__main__":
 
     root = tkinterdnd2.Tk()
     root.geometry("1024x600")
-    app = ImageToPDFApp(root)
+    app = ImagesToPDFApp(root)
     app.pack(fill="both", expand=True)
     root.mainloop()

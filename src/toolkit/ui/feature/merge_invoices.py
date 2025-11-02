@@ -10,7 +10,7 @@ from toolkit.ui.widget.file_picker import FilePicker
 from toolkit.ui.widget.misc import TitleFrame
 
 
-class MergeInvoiceApp(ttk.Frame, TaskRunnerMixin):
+class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
         ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
@@ -18,7 +18,7 @@ class MergeInvoiceApp(ttk.Frame, TaskRunnerMixin):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(1, weight=1)  # Set weight to the file list
 
-        self.title_frame = TitleFrame(self, text=_("Merge Invoice"))
+        self.title_frame = TitleFrame(self, text=_("Merge Invoices"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         self.invoice_list_view = FileListView(

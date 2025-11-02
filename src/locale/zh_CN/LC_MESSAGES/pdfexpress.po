@@ -276,12 +276,12 @@ msgstr ""
 msgid "Merge PDF"
 msgstr ""
 
-#: toolkit/main_frame.py:56 toolkit/ui/feature/image_to_pdf.py:24
-msgid "Image to PDF"
+#: toolkit/main_frame.py:56 toolkit/ui/feature/images_to_pdf.py:24
+msgid "Images to PDF"
 msgstr ""
 
-#: toolkit/main_frame.py:57 toolkit/ui/feature/pdf_to_image.py:22
-msgid "PDF to Image"
+#: toolkit/main_frame.py:57 toolkit/ui/feature/pdf_to_images.py:22
+msgid "PDF to Images"
 msgstr ""
 
 #: toolkit/main_frame.py:58 toolkit/ui/feature/rotate_pdf.py:22
@@ -301,7 +301,7 @@ msgid "Split PDF"
 msgstr ""
 
 #: toolkit/main_frame.py:62
-msgid "Delete Page"
+msgid "Delete Pages"
 msgstr ""
 
 #: toolkit/main_frame.py:63
@@ -345,15 +345,15 @@ msgstr ""
 msgid "PDF Toolbox Debug"
 msgstr ""
 
-#: toolkit/ui/feature/delete_page.py:21
+#: toolkit/ui/feature/delete_pages.py:21
 msgid "Delete Pages"
 msgstr ""
 
-#: toolkit/ui/feature/delete_page.py:24
+#: toolkit/ui/feature/delete_pages.py:24
 msgid "PDF File to Modify"
 msgstr ""
 
-#: toolkit/ui/feature/delete_page.py:27 toolkit/ui/feature/image_to_pdf.py:40
+#: toolkit/ui/feature/delete_pages.py:27 toolkit/ui/feature/images_to_pdf.py:40
 #: toolkit/ui/feature/interleave_pdf.py:30
 #: toolkit/ui/feature/merge_invoices.py:32 toolkit/ui/feature/merge_pdf.py:41
 msgid "Output PDF File"

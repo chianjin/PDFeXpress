@@ -6,15 +6,15 @@
 
 This software release includes a complete refactoring of the underlying logic and adds some common features.
 
-- **Delete Page**: Delete specified pages from a PDF file.
+- **Delete Pages**: Delete specified pages from a PDF file.
 - **Edit Bookmark**: Edit the bookmark of a PDF file.
 - **Extract Images**: Extract images from PDF files.
 - **Extract Text**: Extract text from PDF files.
-- **Image to PDF**: Convert multiple images into a single PDF file.
+- **Images to PDF**: Convert multiple images into a single PDF file.
 - **Interleave PDF**: Interleave pages from two PDF files.
-- **Merge Invoice**: Merge multiple Chinese invoice PDFs into one for easy printing.
+- **Merge Invoices**: Merge multiple Chinese invoice PDFs into one for easy printing.
 - **Merge PDF**: Merge multiple PDF files into one.
-- **PDF to Image**: Convert PDF pages to images.
+- **PDF to Images**: Convert PDF pages to images.
 - **PDF to Long Image**: Convert all PDF pages into a single long image.
 - **Rotate PDF**: Rotate pages in a PDF file.
 - **Split PDF**: Split a PDF file into multiple documents.
