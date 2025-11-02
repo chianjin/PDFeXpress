@@ -84,7 +84,7 @@ def merge_invoices_worker(
                         final_doc.insert_pdf(doc, from_page=p_idx, to_page=p_idx)
                     else:
                         new_page = final_doc.new_page(width=A4_WIDTH, height=A4_HEIGHT)
-                        new_page.show_pdf_page(new_page.rect, doc, p_idx)
+                        new_page.show_pdf_page(pymupdf.Rect(0, 0, p.rect.width, p.rect.height), doc, p_idx)
 
         if cancel_event.is_set(): raise InterruptedError
 

@@ -25,7 +25,7 @@ class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
             self,
             title=_("Invoice PDF Files"),
             file_types=FILE_TYPES_PDF,
-            sortable=True
+            sortable=False
         )
         self.invoice_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 

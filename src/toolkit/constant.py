@@ -6,6 +6,8 @@ FILE_TYPES_ALL = [(_("All Files"), "*.*")]
 
 FILE_TYPES_PDF = [(_("PDF Files"), "*.pdf")]
 
+FILE_TYPES_CSV = [(_("CSV Files"), "*.csv")]
+
 FILE_TYPES_IMAGE = [
     (_("Image Files"), ("*.jpg", "*.jpeg", "*.png", "*.webp", "*.bmp", "*.tif", "*.tiff", "*.gif"))
 ]

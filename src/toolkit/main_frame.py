@@ -10,6 +10,7 @@ from toolkit.ui.feature.extract_text import ExtractTextApp
 from toolkit.ui.feature.image_to_pdf import ImageToPDFApp
 from toolkit.ui.feature.interleave_pdf import InterleavePDFApp
 from toolkit.ui.feature.merge_invoices import MergeInvoicesApp
+from toolkit.ui.feature.edit_bookmark import EditBookmarkApp
 from toolkit.ui.feature.merge_pdf import MergePDFApp
 from toolkit.ui.feature.pdf_to_image import PDFToImageApp
 from toolkit.ui.feature.pdf_to_long_image import PdfToLongImageApp
@@ -63,6 +64,7 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
         self._create_nav_button(top_nav_frame, _("Interleave PDF"), InterleavePDFApp)
         self._create_nav_button(top_nav_frame, _("PDF to Long Image"), PdfToLongImageApp)
         self._create_nav_button(top_nav_frame, _("Merge Invoices"), MergeInvoicesApp)
+        self._create_nav_button(top_nav_frame, _("Edit Bookmark"), EditBookmarkApp)
 
         # Right Content Frame
         self.content_frame = ttk.Frame(self)
