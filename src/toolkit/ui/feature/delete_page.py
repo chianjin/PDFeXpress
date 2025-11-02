@@ -18,7 +18,7 @@ class DeletePageApp(ttk.Frame, TaskRunnerMixin):
         self.columnconfigure(0, weight=1)
         # self.rowconfigure(1, weight=1)
 
-        self.title_frame = TitleFrame(self, text=_("Delete Pages"))
+        self.title_frame = TitleFrame(self, text=_("Delete Page"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         self.file_picker = FilePicker(self, title=_("PDF File to Modify"), file_types=FILE_TYPES_PDF)

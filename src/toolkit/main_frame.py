@@ -9,7 +9,7 @@ from toolkit.ui.feature.extract_image import ExtractImageApp
 from toolkit.ui.feature.extract_text import ExtractTextApp
 from toolkit.ui.feature.image_to_pdf import ImageToPDFApp
 from toolkit.ui.feature.interleave_pdf import InterleavePDFApp
-from toolkit.ui.feature.merge_invoices import MergeInvoicesApp
+from toolkit.ui.feature.merge_invoices import MergeInvoiceApp
 from toolkit.ui.feature.edit_bookmark import EditBookmarkApp
 from toolkit.ui.feature.merge_pdf import MergePDFApp
 from toolkit.ui.feature.pdf_to_image import PDFToImageApp
@@ -54,17 +54,17 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
 
         # Navigation Buttons
         self._create_nav_button(top_nav_frame, _("Merge PDF"), MergePDFApp)
-        self._create_nav_button(top_nav_frame, _("Image to PDF"), ImageToPDFApp)
-        self._create_nav_button(top_nav_frame, _("PDF to Image"), PDFToImageApp)
+        self._create_nav_button(top_nav_frame, _("Interleave PDF"), InterleavePDFApp)
+        self._create_nav_button(top_nav_frame, _("Split PDF"), SplitPDFApp)
         self._create_nav_button(top_nav_frame, _("Rotate PDF"), RotatePDFApp)
         self._create_nav_button(top_nav_frame, _("Extract Text"), ExtractTextApp)
         self._create_nav_button(top_nav_frame, _("Extract Image"), ExtractImageApp)
-        self._create_nav_button(top_nav_frame, _("Split PDF"), SplitPDFApp)
-        self._create_nav_button(top_nav_frame, _("Delete Page"), DeletePageApp)
-        self._create_nav_button(top_nav_frame, _("Interleave PDF"), InterleavePDFApp)
+        self._create_nav_button(top_nav_frame, _("Image to PDF"), ImageToPDFApp)
+        self._create_nav_button(top_nav_frame, _("PDF to Image"), PDFToImageApp)
         self._create_nav_button(top_nav_frame, _("PDF to Long Image"), PdfToLongImageApp)
-        self._create_nav_button(top_nav_frame, _("Merge Invoices"), MergeInvoicesApp)
+        self._create_nav_button(top_nav_frame, _("Delete Page"), DeletePageApp)
         self._create_nav_button(top_nav_frame, _("Edit Bookmark"), EditBookmarkApp)
+        self._create_nav_button(top_nav_frame, _("Merge Invoice"), MergeInvoiceApp)
 
         # Right Content Frame
         self.content_frame = ttk.Frame(self)

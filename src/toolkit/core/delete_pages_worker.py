@@ -23,7 +23,7 @@ def _parse_pages_to_delete(range_string: str, total_pages: int) -> Set[int]:
                 start = int(start_str.strip())
                 end = int(end_str.strip())
                 if not (1 <= start <= end <= total_pages):
-                    raise ValueError(_("Invalid range '{part}': must be between 1-{total_pages}.").format(part=part,
+                    raise ValueError(_("Invalid page range '{part}': must be between 1-{total_pages}.").format(part=part,
                                                                                                           total_pages=total_pages))
                 pages_to_delete_set.update(range(start - 1, end))
             else:
@@ -49,7 +49,7 @@ def delete_pages_worker(
 ):
     try:
         if not pages_to_delete_str:
-            raise ValueError(_("No pages specified for deletion."))
+            raise ValueError(_("No pages specified to delete."))
 
         with pymupdf.open(pdf_path) as doc:
             total_pages_doc = len(doc)

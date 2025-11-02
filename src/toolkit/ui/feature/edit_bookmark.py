@@ -23,7 +23,7 @@ class EditBookmarkApp(ttk.Frame):
         self.rowconfigure(2, weight=1)
 
         # Title
-        self.title_frame = TitleFrame(self, text=_("Edit Bookmarks"))
+        self.title_frame = TitleFrame(self, text=_("Edit Bookmark"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         # 1. Input PDF
