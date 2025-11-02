@@ -19,5 +19,15 @@ if __name__ == "__main__":
     root.title(f'{PROJECT_NAME} - Ver. {PROJECT_VERSION}')
     root.iconbitmap("data/pdfexpress.ico")
     root.geometry("1280x680")
+
+    # Center the window
+    window_width = 1280
+    window_height = 768
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    x = (screen_width - window_width) // 2
+    y = (screen_height - window_height) // 4
+    root.geometry(f'{window_width}x{window_height}+{x}+{y}')
+
     app = MainFrame(root)
     root.mainloop()

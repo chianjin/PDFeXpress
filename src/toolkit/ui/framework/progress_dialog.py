@@ -27,6 +27,14 @@ class ProgressDialog(tk.Toplevel):
         self.cancel_button.pack(pady=10)
 
         self.update_idletasks()
-        x = master.winfo_x() + (master.winfo_width() - master.winfo_width()) // 2
-        y = master.winfo_y() + (master.winfo_height() - master.winfo_height()) // 2
+        master_x = master.winfo_x()
+        master_y = master.winfo_y()
+        master_width = master.winfo_width()
+        master_height = master.winfo_height()
+
+        self_width = self.winfo_width()
+        self_height = self.winfo_height()
+
+        x = master_x + (master_width - self_width) // 2
+        y = master_y + (master_height - self_height) // 4
         self.geometry(f"+{x}+{y}")
