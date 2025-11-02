@@ -26,12 +26,12 @@ class EditBookmarkApp(ttk.Frame):
         self.title_frame = TitleFrame(self, text=_("Edit Bookmark"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
-        # 1. Input PDF
+        # Input PDF
         self.input_file_picker = FilePicker(self, title=_("Source PDF File"), mode="open", file_types=FILE_TYPES_PDF)
         self.input_file_picker.grid(row=1, column=0, sticky='ew', padx=10, pady=5)
         self.input_file_picker.file_path_var.trace_add('write', self.load_bookmarks)
 
-        # 2. Bookmark List
+        # Bookmark List
         list_frame = ttk.Labelframe(self, text=_("Bookmarks"))
         list_frame.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
         list_frame.columnconfigure(0, weight=1)
@@ -70,7 +70,7 @@ class EditBookmarkApp(ttk.Frame):
         ttk.Button(button_frame, text=_("Delete"), command=self.delete_selected_bookmark).pack(fill='x', pady=2)
         ttk.Button(button_frame, text=_("Delete All"), command=self.delete_all_bookmarks).pack(fill='x', pady=2)
 
-        # 3. Edit Bookmark
+        # Edit Bookmark
         edit_frame = ttk.Labelframe(self, text=_("Add / Edit Bookmark"))
         edit_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=5)
         edit_frame.columnconfigure(4, weight=1)
@@ -96,11 +96,11 @@ class EditBookmarkApp(ttk.Frame):
 
         ttk.Button(edit_frame, text=_("Add"), command=self.add_bookmark).grid(row=0, column=7, padx=5, pady=5)
 
-        # 4. Output
+        # Output
         self.output_file_picker = FilePicker(self, title=_("Output PDF File"), mode="save", file_types=FILE_TYPES_PDF)
         self.output_file_picker.grid(row=4, column=0, sticky='ew', padx=10, pady=5)
 
-        # 5. Start Button
+        # Start Button
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=5, column=0, sticky='e', padx=15, pady=10)
         self.start_button = ttk.Button(bottom_frame, text=_("Apply"), command=self.apply_changes)

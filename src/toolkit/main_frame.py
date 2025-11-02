@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-# 相对导入 i18n 和各个"迷你应用"
+# Import i18n and feature modules
 from config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.feature.delete_pages import DeletePagesApp
@@ -18,21 +18,21 @@ from toolkit.ui.feature.rotate_pdf import RotatePDFApp
 from toolkit.ui.feature.split_pdf import SplitPDFApp
 
 
-class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
+class MainFrame(ttk.Frame):
     def __init__(self, parent, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
-        self.pack(fill=tk.BOTH, expand=True)  # 确保 MainFrame 填充整个父容器
+        self.pack(fill=tk.BOTH, expand=True)
 
         # Main layout uses grid for fixed sidebar and expanding content
-        self.columnconfigure(1, weight=1)  # Column for content frame expands
-        self.rowconfigure(0, weight=1)  # Row for both frames expands
+        self.columnconfigure(1, weight=1)
+        self.rowconfigure(0, weight=1)
 
         # Left Navigation Frame
         self.nav_frame = ttk.LabelFrame(self, text=_("Operation"))
         self.nav_frame.grid(row=0, column=0, sticky="ns", padx=(10, 0), pady=5)
         self.nav_frame.columnconfigure(0, weight=1)
 
-        # --- Bottom frame for About button ---
+        # Bottom frame for About button
         about_frame = ttk.Frame(self.nav_frame)
         about_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=5, padx=5)
         about_frame.columnconfigure(0, weight=1)
@@ -43,14 +43,14 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
         about_button = ttk.Button(about_frame, text=_("About"), command=self._show_about_dialog)
         about_button.grid(row=1, column=0, sticky="ew")
 
-        # --- Top frame for navigation buttons ---
+        # Top frame for navigation buttons
         top_nav_frame = ttk.Frame(self.nav_frame)
         top_nav_frame.pack(side=tk.TOP, fill=tk.X, pady=5, padx=5)
         top_nav_frame.columnconfigure(0, weight=1)
 
         self.current_app_frame = None
         self.app_instances = {}
-        self.nav_buttons = {}  # 初始化 nav_buttons 字典
+        self.nav_buttons = {}
 
         # Navigation Buttons
         self._create_nav_button(top_nav_frame, _("Merge PDF"), MergePDFApp)
@@ -78,25 +78,22 @@ class MainFrame(ttk.Frame):  # 保持类名为 MainFrame
     def _create_nav_button(self, parent, text: str, app_class):
         button = ttk.Button(parent, text=text, command=lambda ac=app_class: self._show_app(ac))
         button.pack(fill='x', pady=(5, 0))
-        self.nav_buttons[app_class] = button  # 存储按钮实例以便更新状态
+        self.nav_buttons[app_class] = button
 
     def _show_app(self, app_class):
         if app_class is None:
             messagebox.showinfo(_("Coming Soon"), _("This feature is not yet implemented."))
             return
 
-        # 隐藏当前 app frame
         if self.current_app_frame:
             self.current_app_frame.pack_forget()
 
-        # 获取或创建 app 实例
         if app_class not in self.app_instances:
             self.app_instances[app_class] = app_class(self.content_frame)
 
         self.current_app_frame = self.app_instances[app_class]
         self.current_app_frame.pack(expand=True, fill="both")
 
-        # 更新导航按钮状态
         for ac, button in self.nav_buttons.items():
             if ac == app_class:
                 button.state(['disabled'])

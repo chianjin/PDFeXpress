@@ -13,29 +13,26 @@ from toolkit.ui.widget.misc import TitleFrame, OptionFrame
 
 class MergePDFApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
-        ttk.Frame.__init__(self, master, **kwargs)  # 移除 padding="20"
+        ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
 
         self.output_pdf_path = None
 
-        # --- GUI ---
         self.columnconfigure(0, weight=1)
         self.rowconfigure(1, weight=1)
-        # 应用标题
+        
         self.title_frame = TitleFrame(self, text=_("Merge PDF"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
-        # 文件列表
         self.file_list_view = FileListView(
             self,
             title=_("PDF Files to Merge"),
             file_types=FILE_TYPES_PDF,
-            sortable=True,  # 支持排序
+            sortable=True,
             on_change_callback=self._on_file_list_changed
         )
         self.file_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        # 输出 PDF 文件选择
         self.output_file_picker = FilePicker(
             self,
             title=_("Output PDF File"),
@@ -44,12 +41,10 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         )
         self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        # 选项框架
         self.option_frame = OptionFrame(self)
         self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
 
-        # 生成书签复选框
-        self.create_bookmarks_var = tk.BooleanVar(value=False)  # 默认不生成书签
+        self.create_bookmarks_var = tk.BooleanVar(value=False)
         self.create_bookmarks_checkbox = ttk.Checkbutton(
             self.option_frame,
             text=_("Create bookmarks from filenames"),
@@ -57,12 +52,10 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         )
         self.create_bookmarks_checkbox.pack(anchor='w', padx=10, pady=5)
 
-        # 底部操作和状态区域
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=(0, 10))
-        bottom_frame.columnconfigure(0, weight=1)  # 按钮列
+        bottom_frame.columnconfigure(0, weight=1)
 
-        # 状态栏
         self.status_label = ttk.Label(
             bottom_frame,
             text=_("Ready"),
@@ -70,7 +63,6 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         )
         self.status_label.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
-        # 执行按钮
         self.start_button = ttk.Button(
             bottom_frame,
             text=_("Merge"),
@@ -89,7 +81,7 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         else:
             self.output_file_picker.clear()
 
-    # --- 实现 Mixin "契约" ---
+    # Implementation of Mixin contract
     def _get_root_window(self):
         return self.winfo_toplevel()
 

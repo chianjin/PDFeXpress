@@ -19,5 +19,5 @@ if __name__ == "__main__":
     root.title(f'{PROJECT_NAME} - Ver. {PROJECT_VERSION}')
     root.iconbitmap("data/pdfexpress.ico")
     root.geometry("1080x680")
-    app = MainFrame(root)  # 实例化 MainFrame
+    app = MainFrame(root)
     root.mainloop()

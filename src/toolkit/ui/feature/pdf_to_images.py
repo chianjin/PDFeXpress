@@ -36,7 +36,6 @@ class PDFToImagesApp(ttk.Frame, TaskRunnerMixin):
         self.option_frame = OptionFrame(self)
         self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
 
-        # Save in same folder
         self.save_in_same_folder_var = tk.BooleanVar(value=False)
         self.save_in_same_folder_checkbox = ttk.Checkbutton(
             self.option_frame,
@@ -46,14 +45,12 @@ class PDFToImagesApp(ttk.Frame, TaskRunnerMixin):
         )
         self.save_in_same_folder_checkbox.pack(side="left", padx=10, pady=5)
 
-        # DPI
         ttk.Label(self.option_frame, text=_("DPI:")).pack(side="left", padx=(10, 5), pady=5)
         self.dpi_var = tk.IntVar(value=300)
         self.dpi_spinbox = ttk.Spinbox(self.option_frame, from_=72, to=600, increment=1, textvariable=self.dpi_var,
                                        width=5)
         self.dpi_spinbox.pack(side="left", padx=5, pady=5)
 
-        # Format
         ttk.Label(self.option_frame, text=_("Format:")).pack(side="left", padx=(10, 5), pady=5)
         self.format_var = tk.StringVar(value="jpg")
         self.format_var.trace_add("write", self._on_format_changed)
@@ -62,13 +59,11 @@ class PDFToImagesApp(ttk.Frame, TaskRunnerMixin):
         ttk.Radiobutton(self.option_frame, text="JPG", variable=self.format_var, value="jpg").pack(side="left", padx=5,
                                                                                                    pady=5)
 
-        # JPEG Quality
         self.jpeg_quality_label = ttk.Label(self.option_frame, text=_("JPEG Quality:"))
         self.jpeg_quality_var = tk.IntVar(value=85)
         self.jpeg_quality_spinbox = ttk.Spinbox(self.option_frame, from_=1, to=100, increment=1,
                                                 textvariable=self.jpeg_quality_var, width=5)
 
-        # PNG Transparency
         self.transparent_background_var = tk.BooleanVar(value=False)
         self.transparent_background_checkbox = ttk.Checkbutton(
             self.option_frame,
@@ -86,8 +81,8 @@ class PDFToImagesApp(ttk.Frame, TaskRunnerMixin):
         self.start_button = ttk.Button(bottom_frame, text=_("Convert"), command=self.run_task_from_ui)
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
-        self._on_format_changed()  # Initial state
-        self._on_save_in_same_folder_changed()  # Initial state
+        self._on_format_changed()
+        self._on_save_in_same_folder_changed()
 
     def _on_format_changed(self, *args):
         if self.format_var.get() == "jpg":
