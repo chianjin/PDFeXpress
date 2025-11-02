@@ -247,7 +247,7 @@ class EditBookmarkApp(ttk.Frame):
         output_path = self.output_file_picker.get()
 
         if not input_path or not output_path:
-            messagebox.showerror(_("Missing Information"), _("Please specify both input and output files."))
+            messagebox.showerror(_("Missing Files"), _("Please specify both input and output files."))
             return
 
         try:

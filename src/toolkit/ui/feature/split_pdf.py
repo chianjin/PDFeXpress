@@ -95,15 +95,15 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         split_value = self.split_value_var.get()
 
         if not pdf_path:
-            messagebox.showerror(_("No Input File"), _("Please select a PDF file to split."))
+            messagebox.showerror(_("No PDF File"), _("Please select a PDF file to split."))
             return None
 
         if not output_dir:
-            messagebox.showerror(_("No Output Folder Specified"), _("Please specify an output folder."))
+            messagebox.showerror(_("No Output Folder"), _("Please specify an output folder."))
             return None
 
         if split_mode in ["fixed_pages", "fixed_files", "custom_ranges"] and not split_value:
-            messagebox.showerror(_("No Value Specified"), _("Please specify a value for the selected split mode."))
+            messagebox.showerror(_("No Value"), _("Please specify a value for the selected split mode."))
             return None
 
         target_function = split_pdf_worker

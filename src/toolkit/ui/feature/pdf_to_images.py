@@ -113,11 +113,11 @@ class PDFToImagesApp(ttk.Frame, TaskRunnerMixin):
         save_in_same_folder = self.save_in_same_folder_var.get()
 
         if not input_files:
-            messagebox.showerror(_("No Input Files"), _("Please add at least one PDF file to convert."))
+            messagebox.showerror(_("No PDF Files"), _("Please add at least one PDF file to convert."))
             return None
 
         if not save_in_same_folder and not output_dir:
-            messagebox.showerror(_("No Output Folder Specified"), _("Please specify an output folder."))
+            messagebox.showerror(_("No Output Folder"), _("Please specify an output folder."))
             return None
 
         target_function = pdf_to_image_worker

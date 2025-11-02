@@ -82,7 +82,7 @@ class MainFrame(ttk.Frame):
 
     def _show_app(self, app_class):
         if app_class is None:
-            messagebox.showinfo(_("Coming Soon"), _("This feature is not yet implemented."))
+            messagebox.showinfo(_("Coming Soon"), _("Feature coming soon."))
             return
 
         if self.current_app_frame:

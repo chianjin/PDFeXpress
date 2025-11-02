@@ -91,11 +91,11 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         create_bookmarks = self.create_bookmarks_var.get()
 
         if len(input_files) < 2:
-            messagebox.showerror(_("Not Enough Input Files"), _("Please add at least two PDF files to merge."))
+            messagebox.showerror(_("Not Enough Files"), _("Please add at least two PDF files to merge."))
             return None
 
         if not output_pdf_path:
-            messagebox.showerror(_("No Output PDF Specified"), _("Please specify an output PDF file."))
+            messagebox.showerror(_("No Output File"), _("Please specify an output PDF file."))
             return None
 
         # 将创建书签的选项作为参数传递给worker函数

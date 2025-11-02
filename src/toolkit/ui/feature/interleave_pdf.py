@@ -61,11 +61,11 @@ class InterleavePDFApp(ttk.Frame, TaskRunnerMixin):
         reverse_b = self.reverse_b_var.get()
 
         if not pdf_path_a or not pdf_path_b:
-            messagebox.showerror(_("Input Files Missing"), _("Please select both PDF files."))
+            messagebox.showerror(_("Missing PDF Files"), _("Please select both PDF files."))
             return None
 
         if not output_pdf_path:
-            messagebox.showerror(_("No Output File Specified"), _("Please specify an output file."))
+            messagebox.showerror(_("No Output File"), _("Please specify an output file."))
             return None
 
         target_function = interleave_pdfs_worker

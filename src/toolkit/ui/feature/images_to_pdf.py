@@ -79,11 +79,11 @@ class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
         output_pdf_path = self.output_file_picker.get()
 
         if not image_files:
-            messagebox.showerror(_("Input Image Not Enough."), _("Please add at least one image file."))
+            messagebox.showerror(_("No Images Selected"), _("Please add at least one image file."))
             return None
 
         if not output_pdf_path:
-            messagebox.showerror(_("No Output PDF Specified."), _("Please specify an output PDF file."))
+            messagebox.showerror(_("No Output File"), _("Please specify an output PDF file."))
             return None
 
         target_function = image_to_pdf_worker

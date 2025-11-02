@@ -54,15 +54,15 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
         pages_to_delete_str = self.pages_to_delete_var.get()
 
         if not pdf_path:
-            messagebox.showerror(_("No Input File"), _("Please select a PDF file."))
+            messagebox.showerror(_("No PDF File Selected"), _("Please select a PDF file."))
             return None
 
         if not output_path:
-            messagebox.showerror(_("No Output File Specified"), _("Please specify an output file."))
+            messagebox.showerror(_("No Output File"), _("Please specify an output file."))
             return None
 
         if not pages_to_delete_str:
-            messagebox.showerror(_("No Pages Specified"), _("Please specify the pages to delete."))
+            messagebox.showerror(_("No Pages to Delete"), _("Please specify the pages to delete."))
             return None
 
         target_function = delete_pages_worker
