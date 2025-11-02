@@ -3,8 +3,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from typing import List
 
-import pymupdf
-
 from toolkit.constant import FILE_TYPES_PDF, FILE_TYPES_CSV
 from toolkit.core.edit_bookmark_worker import get_bookmarks, set_bookmarks, import_bookmarks_from_csv, \
     export_bookmarks_to_csv
@@ -27,12 +25,12 @@ class EditBookmarkApp(ttk.Frame):
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         # Input PDF
-        self.input_file_picker = FilePicker(self, title=_("Source PDF File"), mode="open", file_types=FILE_TYPES_PDF)
+        self.input_file_picker = FilePicker(self, title=_("PDF File"), mode="open", file_types=FILE_TYPES_PDF)
         self.input_file_picker.grid(row=1, column=0, sticky='ew', padx=10, pady=5)
         self.input_file_picker.file_path_var.trace_add('write', self.load_bookmarks)
 
         # Bookmark List
-        list_frame = ttk.Labelframe(self, text=_("Bookmarks"))
+        list_frame = ttk.Labelframe(self, text=_("Bookmark"))
         list_frame.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
         list_frame.columnconfigure(0, weight=1)
         list_frame.rowconfigure(0, weight=1)
@@ -41,8 +39,9 @@ class EditBookmarkApp(ttk.Frame):
         self.toc_tree.heading('level', text=_('Level'))
         self.toc_tree.heading('page', text=_('Page'))
         self.toc_tree.heading('title', text=_('Title'))
-        self.toc_tree.column('level', width=50, anchor='center')
-        self.toc_tree.column('page', width=50, anchor='center')
+        self.toc_tree.column('level', width=50, anchor='center', stretch=False)
+        self.toc_tree.column('page', width=60, anchor='center', stretch=False)
+        self.toc_tree.column('title', width=100) # Set a minwidth for the title
         self.toc_tree.bind('<<TreeviewSelect>>', self.on_tree_select)
 
         vsb = ttk.Scrollbar(list_frame, orient="vertical", command=self.toc_tree.yview)
@@ -59,8 +58,8 @@ class EditBookmarkApp(ttk.Frame):
         ttk.Separator(button_frame, orient='horizontal').pack(fill='x', pady=10)
 
 
-        ttk.Button(button_frame, text=_("Import CSV"), command=self.import_toc_from_csv).pack(fill='x', pady=2)
-        ttk.Button(button_frame, text=_("Export CSV"), command=self.export_toc_to_csv).pack(fill='x', pady=2)
+        ttk.Button(button_frame, text=_("Import"), command=self.import_toc_from_csv).pack(fill='x', pady=2)
+        ttk.Button(button_frame, text=_("Export"), command=self.export_toc_to_csv).pack(fill='x', pady=2)
         ttk.Separator(button_frame, orient='horizontal').pack(fill='x', pady=10)
         self.move_up_button = ttk.Button(button_frame, text=_("Move Up"), command=self.move_up)
         self.move_up_button.pack(fill='x', pady=2)
@@ -71,9 +70,9 @@ class EditBookmarkApp(ttk.Frame):
         ttk.Button(button_frame, text=_("Delete All"), command=self.delete_all_bookmarks).pack(fill='x', pady=2)
 
         # Edit Bookmark
-        edit_frame = ttk.Labelframe(self, text=_("Add / Edit Bookmark"))
+        edit_frame = ttk.Labelframe(self, text=_("Entry"))
         edit_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=5)
-        edit_frame.columnconfigure(4, weight=1)
+        edit_frame.columnconfigure(5, weight=1)
 
         ttk.Label(edit_frame, text=_("Level:")).grid(row=0, column=0, padx=5, pady=5)
         self.level_var = tk.StringVar()
@@ -97,13 +96,13 @@ class EditBookmarkApp(ttk.Frame):
         ttk.Button(edit_frame, text=_("Add"), command=self.add_bookmark).grid(row=0, column=7, padx=5, pady=5)
 
         # Output
-        self.output_file_picker = FilePicker(self, title=_("Output PDF File"), mode="save", file_types=FILE_TYPES_PDF)
+        self.output_file_picker = FilePicker(self, title=_("Output PDF"), mode="save", file_types=FILE_TYPES_PDF)
         self.output_file_picker.grid(row=4, column=0, sticky='ew', padx=10, pady=5)
 
         # Start Button
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=5, column=0, sticky='e', padx=15, pady=10)
-        self.start_button = ttk.Button(bottom_frame, text=_("Apply"), command=self.apply_changes)
+        self.start_button = ttk.Button(bottom_frame, text=_("Save"), command=self.apply_changes)
         self.start_button.pack()
 
         self.edit_button.config(state='disabled')
@@ -118,7 +117,7 @@ class EditBookmarkApp(ttk.Frame):
             toc = get_bookmarks(pdf_path)
             self.update_treeview(toc)
         except Exception as e:
-            messagebox.showerror(_("Error"), _("Failed to load bookmarks: {}").format(e))
+            messagebox.showerror(_("Error"), _("Failed to load: {}").format(e))
 
     def update_treeview(self, toc: List):
         self.toc_tree.delete(*self.toc_tree.get_children())
@@ -154,13 +153,30 @@ class EditBookmarkApp(ttk.Frame):
         self.move_up_button.config(state='normal')
         self.move_down_button.config(state='normal')
 
+
+    def edit_bookmark(self):
+        if not self.selected_item_id or not self.toc_tree.exists(self.selected_item_id):
+            messagebox.showerror(_("Invalid Input"), _("No entry selected to edit."))
+            return
+
+        try:
+            level = int(self.level_var.get())
+            page = int(self.page_var.get())
+            title = self.title_var.get()
+        except ValueError:
+            messagebox.showerror(_("Invalid Input"), _("Level and Page must be numbers."))
+            return
+
+        self.toc_tree.item(self.selected_item_id, values=(level, page, title))
+        self.sort_treeview()
+
     def add_bookmark(self):
         try:
             level = int(self.level_var.get())
             page = int(self.page_var.get())
             title = self.title_var.get()
         except ValueError:
-            messagebox.showerror(_("Invalid Input"), _("Level and Page must be integers."))
+            messagebox.showerror(_("Invalid Input"), _("Level and Page must be numbers."))
             return
 
         if not title:
@@ -169,26 +185,9 @@ class EditBookmarkApp(ttk.Frame):
 
         self.toc_tree.insert('', 'end', values=(level, page, title))
         self.sort_treeview()
-
-    def edit_bookmark(self):
-        if not self.selected_item_id or not self.toc_tree.exists(self.selected_item_id):
-            messagebox.showerror(_("Error"), _("No bookmark selected to edit."))
-            return
-
-        try:
-            level = int(self.level_var.get())
-            page = int(self.page_var.get())
-            title = self.title_var.get()
-        except ValueError:
-            messagebox.showerror(_("Invalid Input"), _("Level and Page must be integers."))
-            return
-
-        if not title:
-            messagebox.showerror(_("Invalid Input"), _("Title cannot be empty."))
-            return
-
-        self.toc_tree.item(self.selected_item_id, values=(level, page, title))
-        self.sort_treeview()
+        self.level_var.set('')
+        self.page_var.set('')
+        self.title_var.set('')
 
     def sort_treeview(self):
         items = [(self.toc_tree.set(k, 'page'), k) for k in self.toc_tree.get_children('')]
@@ -209,12 +208,12 @@ class EditBookmarkApp(ttk.Frame):
     def delete_selected_bookmark(self):
         selected_items = self.toc_tree.selection()
         if not selected_items:
-            messagebox.showinfo(_("No Selection"), _("Please select a bookmark to delete."))
+            messagebox.showinfo(_("Invalid Input"), _("Please select a bookmark to delete."))
             return
-        self.toc_tree.delete(selected_items)
+        self.toc_tree.delete(*selected_items)
 
     def delete_all_bookmarks(self):
-        if messagebox.askyesno(_("Confirm"), _("Are you sure you want to delete all bookmarks?")):
+        if messagebox.askyesno(_("Confirm Action"), _("Are you sure you want to delete all bookmarks?")):
             self.toc_tree.delete(*self.toc_tree.get_children())
 
 
@@ -226,7 +225,7 @@ class EditBookmarkApp(ttk.Frame):
             toc = import_bookmarks_from_csv(path)
             self.update_treeview(toc)
         except Exception as e:
-            messagebox.showerror(_("Error"), _("Failed to import bookmarks from CSV: {}").format(e))
+            messagebox.showerror(_("Error"), _("Import failed: {}").format(e))
 
 
     def export_toc_to_csv(self):
@@ -238,22 +237,22 @@ class EditBookmarkApp(ttk.Frame):
         try:
             toc = self.get_toc_from_treeview()
             export_bookmarks_to_csv(toc, path)
-            messagebox.showinfo(_("Success"), _("Bookmarks successfully exported to {}").format(path))
+            messagebox.showinfo(_("Success"), _("Export successful: {}").format(path))
         except Exception as e:
-            messagebox.showerror(_("Error"), _("Failed to export bookmarks to CSV: {}").format(e))
+            messagebox.showerror(_("Error"), _("Export failed: {}").format(e))
 
     def apply_changes(self):
         input_path = self.input_file_picker.get()
         output_path = self.output_file_picker.get()
 
         if not input_path or not output_path:
-            messagebox.showerror(_("Missing Files"), _("Please specify both input and output files."))
+            messagebox.showerror(_("Invalid Input"), _("Please specify input and output files."))
             return
 
         try:
             toc = self.get_toc_from_treeview()
             set_bookmarks(input_path, toc, output_path)
-            messagebox.showinfo(_("Success"), _("Bookmarks successfully applied to {}").format(output_path))
+            messagebox.showinfo(_("Success"), _("Save successful: {}").format(output_path))
         except Exception as e:
-            messagebox.showerror(_("Error"), _("Failed to apply bookmarks: {}").format(e))
+            messagebox.showerror(_("Error"), _("Save failed: {}").format(e))
 

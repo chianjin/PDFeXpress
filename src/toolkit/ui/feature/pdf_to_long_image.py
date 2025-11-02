@@ -2,7 +2,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-from toolkit.constant import FILE_TYPES_PDF, FILE_TYPES_IMAGES
+from toolkit.constant import FILE_TYPES_PDF, FILE_TYPES_JPEG
 from toolkit.core.pdf_to_long_image_worker import pdf_to_long_image_worker
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
@@ -20,14 +20,14 @@ class PDFToLongImageApp(ttk.Frame, TaskRunnerMixin):
         self.title_frame = TitleFrame(self, text=_("PDF to Long Image"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
-        self.file_picker = FilePicker(self, title=_("PDF File to Convert"), file_types=FILE_TYPES_PDF)
+        self.file_picker = FilePicker(self, title=_("PDF File"), file_types=FILE_TYPES_PDF)
         self.file_picker.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.output_file_picker = FilePicker(self, title=_("Output Image File"), mode="save",
-                                             file_types=FILE_TYPES_IMAGES)
+        self.output_file_picker = FilePicker(self, title=_("JPEG File"), mode="save",
+                                             file_types=FILE_TYPES_JPEG)
         self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.option_frame = OptionFrame(self)
+        self.option_frame = OptionFrame(self, text=_("Options"))
         self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
 
         ttk.Label(self.option_frame, text=_("DPI:")).pack(side="left", padx=(10, 5), pady=5)
@@ -55,11 +55,11 @@ class PDFToLongImageApp(ttk.Frame, TaskRunnerMixin):
         dpi_value = self.dpi_var.get()
 
         if not pdf_path:
-            messagebox.showerror(_("No PDF File"), _("Please select a PDF file."))
+            messagebox.showerror(_("Invalid Input"), _("Please select an input PDF."))
             return None
 
         if not output_image_path:
-            messagebox.showerror(_("No Output File"), _("Please specify an output image file."))
+            messagebox.showerror(_("Invalid Input"), _("Please specify an output JPEG file."))
             return None
 
         target_function = pdf_to_long_image_worker

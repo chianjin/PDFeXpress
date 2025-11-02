@@ -22,7 +22,7 @@ def pdf_rotate_worker(
 
         for i, file_path in enumerate(input_files):
             if cancel_event.is_set():
-                result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                result_queue.put(("CANCEL", _("Cancelled by user.")))
                 return
 
             with pymupdf.open(file_path) as doc:
@@ -41,11 +41,11 @@ def pdf_rotate_worker(
             progress_queue.put(("PROGRESS", i + 1))
 
         success_msg = ngettext(
-            "Successfully rotated {} file!",
-            "Successfully rotated {} files!",
+            "{} file rotated!",
+            "{} files rotated!",
             total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("An unexpected error occurred:\n{}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))

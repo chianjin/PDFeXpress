@@ -23,13 +23,13 @@ class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
 
         self.invoice_list_view = FileListView(
             self,
-            title=_("Invoice PDF Files"),
+            title=_("Invoice List"),
             file_types=FILE_TYPES_PDF,
             sortable=False
         )
         self.invoice_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.output_file_picker = FilePicker(self, title=_("Output PDF File"), mode="save", file_types=FILE_TYPES_PDF)
+        self.output_file_picker = FilePicker(self, title=_("Output PDF"), mode="save", file_types=FILE_TYPES_PDF)
         self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
         bottom_frame = ttk.Frame(self)
@@ -50,11 +50,11 @@ class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
         output_pdf_path = self.output_file_picker.get()
 
         if not invoice_pdf_paths:
-            messagebox.showerror(_("No Invoice PDFs"), _("Please add at least one invoice PDF file."))
+            messagebox.showerror(_("Invalid Input"), _("Please add at least one PDF file."))
             return None
 
         if not output_pdf_path:
-            messagebox.showerror(_("No Output File"), _("Please specify an output file."))
+            messagebox.showerror(_("Invalid Input"), _("Please specify an output path."))
             return None
 
         target_function = merge_invoices_worker

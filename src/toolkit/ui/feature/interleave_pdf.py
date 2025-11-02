@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 from toolkit.constant import FILE_TYPES_PDF
-from toolkit.core.interleave_pdfs_worker import interleave_pdfs_worker
+from toolkit.core.interleave_pdf_worker import interleave_pdf_worker
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
 from toolkit.ui.widget.file_picker import FilePicker
@@ -21,22 +21,22 @@ class InterleavePDFApp(ttk.Frame, TaskRunnerMixin):
         self.title_frame = TitleFrame(self, text=_("Interleave PDF"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
-        self.pdf_a_picker = FilePicker(self, title=_("PDF File A"), file_types=FILE_TYPES_PDF)
+        self.pdf_a_picker = FilePicker(self, title=_("PDF File (A)"), file_types=FILE_TYPES_PDF)
         self.pdf_a_picker.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.pdf_b_picker = FilePicker(self, title=_("PDF File B"), file_types=FILE_TYPES_PDF)
+        self.pdf_b_picker = FilePicker(self, title=_("PDF File (B)"), file_types=FILE_TYPES_PDF)
         self.pdf_b_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.output_file_picker = FilePicker(self, title=_("Output PDF File"), mode="save", file_types=FILE_TYPES_PDF)
+        self.output_file_picker = FilePicker(self, title=_("Output PDF"), mode="save", file_types=FILE_TYPES_PDF)
         self.output_file_picker.grid(row=3, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.option_frame = OptionFrame(self)
+        self.option_frame = OptionFrame(self, text=_("Options"))
         self.option_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=(0, 5))
 
         self.reverse_b_var = tk.BooleanVar(value=True)
         self.reverse_b_checkbox = ttk.Checkbutton(
             self.option_frame,
-            text=_("Reverse second PDF"),
+            text=_("Reverse PDF (B)"),
             variable=self.reverse_b_var
         )
         self.reverse_b_checkbox.pack(side="left", padx=10, pady=5)
@@ -61,16 +61,16 @@ class InterleavePDFApp(ttk.Frame, TaskRunnerMixin):
         reverse_b = self.reverse_b_var.get()
 
         if not pdf_path_a or not pdf_path_b:
-            messagebox.showerror(_("Missing PDF Files"), _("Please select both PDF files."))
+            messagebox.showerror(_("Invalid Input"), _("Please select both input PDF."))
             return None
 
         if not output_pdf_path:
-            messagebox.showerror(_("No Output File"), _("Please specify an output file."))
+            messagebox.showerror(_("Invalid Output"), _("Please specify an output PDF."))
             return None
 
-        target_function = interleave_pdfs_worker
+        target_function = interleave_pdf_worker
         args_tuple = (pdf_path_a, pdf_path_b, output_pdf_path, reverse_b)
-        initial_label = _("Interleaving PDFs...")
+        initial_label = _("Interleaving PDF...")
 
         return target_function, args_tuple, initial_label
 

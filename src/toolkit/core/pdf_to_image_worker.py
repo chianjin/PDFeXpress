@@ -29,7 +29,7 @@ def pdf_to_image_worker(
         current_step = 0
         for file_path in input_files:
             if cancel_event.is_set():
-                result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                result_queue.put(("CANCEL", _("Cancelled by user.")))
                 return
 
             pdf_path_obj = Path(file_path)
@@ -51,7 +51,7 @@ def pdf_to_image_worker(
 
                 for i in range(doc.page_count):
                     if cancel_event.is_set():
-                        result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                        result_queue.put(("CANCEL", _("Cancelled by user.")))
                         return
 
                     page = doc.load_page(i)
@@ -71,11 +71,11 @@ def pdf_to_image_worker(
                     progress_queue.put(("PROGRESS", current_step))
 
         success_msg = ngettext(
-            "Successfully converted {} page!",
-            "Successfully converted {} pages!",
+            "{} page converted!",
+            "{} pages converted!",
             total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("An unexpected error occurred:\n{}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))

@@ -5,7 +5,7 @@ from tkinter import ttk, messagebox
 from config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.feature.delete_pages import DeletePagesApp
-from toolkit.ui.feature.extract_image import ExtractImagesApp
+from toolkit.ui.feature.extract_images import ExtractImagesApp
 from toolkit.ui.feature.extract_text import ExtractTextApp
 from toolkit.ui.feature.images_to_pdf import ImagesToPDFApp
 from toolkit.ui.feature.interleave_pdf import InterleavePDFApp

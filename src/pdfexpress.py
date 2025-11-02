@@ -18,6 +18,6 @@ if __name__ == "__main__":
     root = TkinterDnD.Tk()
     root.title(f'{PROJECT_NAME} - Ver. {PROJECT_VERSION}')
     root.iconbitmap("data/pdfexpress.ico")
-    root.geometry("1080x680")
+    root.geometry("1280x680")
     app = MainFrame(root)
     root.mainloop()

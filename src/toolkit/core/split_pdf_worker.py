@@ -111,7 +111,7 @@ def split_pdf_worker(
 
             for i, page_list in enumerate(page_chunks):
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                    result_queue.put(("CANCEL", _("Cancelled by user.")))
                     return
 
                 from_page = page_list[0]
@@ -132,11 +132,11 @@ def split_pdf_worker(
                 progress_queue.put(("PROGRESS", i + 1))
 
         success_msg = ngettext(
-            "Successfully split PDF into {} file!",
-            "Successfully split PDF into {} files!",
+            "Split into {} file!",
+            "Split into {} files!",
             total_files_to_create
         ).format(total_files_to_create)
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("An unexpected error occurred:\n{}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))

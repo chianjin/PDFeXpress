@@ -22,13 +22,13 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         self.title_frame = TitleFrame(self, text=_("Split PDF"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
-        self.file_picker = FilePicker(self, title=_("PDF File to Split"), file_types=FILE_TYPES_PDF)
+        self.file_picker = FilePicker(self, title=_("Input PDF"), file_types=FILE_TYPES_PDF)
         self.file_picker.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
         self.output_folder_picker = FolderPicker(self, title=_("Output Folder"))
         self.output_folder_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.option_frame = OptionFrame(self)
+        self.option_frame = OptionFrame(self, text=_("Options"))
         self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
 
         self.split_mode_var = tk.StringVar(value="single_page")
@@ -61,7 +61,7 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         # Fixed description label
         self.fixed_description_label = ttk.Label(
             self.option_frame,
-            text=_("By Pages/By Copies: Input an integer (>1). | By Range: 1,3,5-10,12"),
+            text=_("e.g., By Pages: 5  |  By Range: 1,3,5-10"),
             justify=tk.LEFT
         )
         self.fixed_description_label.pack(fill='x', padx=10, pady=(0, 5))
@@ -95,15 +95,15 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         split_value = self.split_value_var.get()
 
         if not pdf_path:
-            messagebox.showerror(_("No PDF File"), _("Please select a PDF file to split."))
+            messagebox.showerror(_("Invalid Input"), _("Please select an input PDF."))
             return None
 
         if not output_dir:
-            messagebox.showerror(_("No Output Folder"), _("Please specify an output folder."))
+            messagebox.showerror(_("Invalid Input"), _("Please specify an output path."))
             return None
 
         if split_mode in ["fixed_pages", "fixed_files", "custom_ranges"] and not split_value:
-            messagebox.showerror(_("No Value"), _("Please specify a value for the selected split mode."))
+            messagebox.showerror(_("Invalid Input"), _("Please specify a value for the split mode."))
             return None
 
         target_function = split_pdf_worker

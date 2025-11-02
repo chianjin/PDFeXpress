@@ -25,7 +25,7 @@ class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
 
         self.file_list_view = FileListView(
             self,
-            title=_("Image Files to Convert"),
+            title=_("Image List"),
             file_types=FILE_TYPES_IMAGES,
             sortable=True,
             on_change_callback=self._on_file_list_changed
@@ -34,7 +34,7 @@ class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
 
         self.output_file_picker = FilePicker(
             self,
-            title=_("Output PDF File"),
+            title=_("Output PDF"),
             mode="save",
             file_types=FILE_TYPES_PDF,
 
@@ -79,11 +79,11 @@ class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
         output_pdf_path = self.output_file_picker.get()
 
         if not image_files:
-            messagebox.showerror(_("No Images Selected"), _("Please add at least one image file."))
+            messagebox.showerror(_("Invalid Input"), _("Please add at least one image file."))
             return None
 
         if not output_pdf_path:
-            messagebox.showerror(_("No Output File"), _("Please specify an output PDF file."))
+            messagebox.showerror(_("Invalid Output"), _("Please specify an output PDF."))
             return None
 
         target_function = image_to_pdf_worker

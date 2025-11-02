@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 from toolkit.constant import FILE_TYPES_PDF
-from toolkit.core.merge_pdf_worker import pdf_merge_worker
+from toolkit.core.merge_pdf_worker import merge_pdf_worker
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
 from toolkit.ui.widget.file_list import FileListView
@@ -26,7 +26,7 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
 
         self.file_list_view = FileListView(
             self,
-            title=_("PDF Files to Merge"),
+            title=_("PDF List"),
             file_types=FILE_TYPES_PDF,
             sortable=True,
             on_change_callback=self._on_file_list_changed
@@ -35,19 +35,19 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
 
         self.output_file_picker = FilePicker(
             self,
-            title=_("Output PDF File"),
+            title=_("Output PDF"),
             mode="save",
             file_types=FILE_TYPES_PDF,
         )
         self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.option_frame = OptionFrame(self)
+        self.option_frame = OptionFrame(self, text=_("Options"))
         self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
 
         self.create_bookmarks_var = tk.BooleanVar(value=False)
         self.create_bookmarks_checkbox = ttk.Checkbutton(
             self.option_frame,
-            text=_("Create bookmarks from filenames"),
+            text=_("Generate Bookmark"),
             variable=self.create_bookmarks_var
         )
         self.create_bookmarks_checkbox.pack(anchor='w', padx=10, pady=5)
@@ -91,17 +91,17 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         create_bookmarks = self.create_bookmarks_var.get()
 
         if len(input_files) < 2:
-            messagebox.showerror(_("Not Enough Files"), _("Please add at least two PDF files to merge."))
+            messagebox.showerror(_("Invalid Input"), _("Please add at least two PDF files."))
             return None
 
         if not output_pdf_path:
-            messagebox.showerror(_("No Output File"), _("Please specify an output PDF file."))
+            messagebox.showerror(_("Invalid Output"), _("Please specify an output PDF."))
             return None
 
         # 将创建书签的选项作为参数传递给worker函数
-        target_function = pdf_merge_worker
+        target_function = merge_pdf_worker
         args_tuple = (input_files, output_pdf_path, create_bookmarks)
-        initial_label = _("Merging PDFs...")
+        initial_label = _("Merging PDF...")
 
         return target_function, args_tuple, initial_label
 

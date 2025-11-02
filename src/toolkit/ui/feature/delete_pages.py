@@ -21,19 +21,20 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
         self.title_frame = TitleFrame(self, text=_("Delete Pages"))
         self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
-        self.file_picker = FilePicker(self, title=_("PDF File to Modify"), file_types=FILE_TYPES_PDF)
+        self.file_picker = FilePicker(self, title=_("PDF File"), file_types=FILE_TYPES_PDF)
         self.file_picker.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
         self.output_file_picker = FilePicker(self, title=_("Output PDF File"), mode="save", file_types=FILE_TYPES_PDF)
         self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.option_frame = OptionFrame(self, text=_("Pages to Delete"))
+        self.option_frame = OptionFrame(self, text=_("Options"))
         self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
 
+        ttk.Label(self.option_frame, text=_("Pages to Delete:")).pack(side="left", padx=(10, 5), pady=5)
         self.pages_to_delete_var = tk.StringVar()
         self.pages_to_delete_entry = ttk.Entry(self.option_frame, textvariable=self.pages_to_delete_var)
-        self.pages_to_delete_entry.pack(fill="x", expand=True, padx=10, pady=5)
-        ttk.Label(self.option_frame, text=_("e.g., 1-3, 5, 7-9")).pack(anchor="w", padx=10, pady=(0, 5))
+        self.pages_to_delete_entry.pack(side='left',fill="x", expand=True, padx=10, pady=5)
+        ttk.Label(self.option_frame, text=_("Format: 1-3, 5, 7-9")).pack(padx=20, pady=5)
 
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=(0, 10))
@@ -54,15 +55,15 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
         pages_to_delete_str = self.pages_to_delete_var.get()
 
         if not pdf_path:
-            messagebox.showerror(_("No PDF File Selected"), _("Please select a PDF file."))
+            messagebox.showerror(_("Invalid Input"), _("Please select an input PDF file."))
             return None
 
         if not output_path:
-            messagebox.showerror(_("No Output File"), _("Please specify an output file."))
+            messagebox.showerror(_("Invalid Output"), _("Please specify output PDF path."))
             return None
 
         if not pages_to_delete_str:
-            messagebox.showerror(_("No Pages to Delete"), _("Please specify the pages to delete."))
+            messagebox.showerror(_("Invalid Page Numbers"), _("Please specify page numbers."))
             return None
 
         target_function = delete_pages_worker

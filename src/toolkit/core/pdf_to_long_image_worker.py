@@ -29,12 +29,12 @@ def pdf_to_long_image_worker(
 
             for i in range(total_pages):
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                    result_queue.put(("CANCEL", _("Cancelled by user.")))
                     return
 
                 page = doc.load_page(i)
                 pix = page.get_pixmap(dpi=dpi_value)
-                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
 
                 page_images.append(img)
                 total_width = max(total_width, img.width)
@@ -53,15 +53,15 @@ def pdf_to_long_image_worker(
             progress_queue.put(("SAVING", _("Saving long image...")))
             while not saving_ack_event.is_set():
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                    result_queue.put(("CANCEL", _("Cancelled by user.")))
                     return
                 saving_ack_event.wait(timeout=0.1)
 
             long_image.save(output_image_path)
             progress_queue.put(("PROGRESS", total_pages + 1))
 
-        success_msg = _("Successfully converted PDF to a long image!")
+        success_msg = _("PDF converted to a long image!")
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("An unexpected error occurred:\n{}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))

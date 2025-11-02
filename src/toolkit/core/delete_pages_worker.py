@@ -23,13 +23,13 @@ def _parse_pages_to_delete(range_string: str, total_pages: int) -> Set[int]:
                 start = int(start_str.strip())
                 end = int(end_str.strip())
                 if not (1 <= start <= end <= total_pages):
-                    raise ValueError(_("Invalid page range '{part}': must be between 1-{total_pages}.").format(part=part,
+                    raise ValueError(_("Invalid page range '{part}': must between 1-{total_pages}.").format(part=part,
                                                                                                           total_pages=total_pages))
                 pages_to_delete_set.update(range(start - 1, end))
             else:
                 page = int(part)
                 if not (1 <= page <= total_pages):
-                    raise ValueError(_("Invalid page '{part}': must be between 1-{total_pages}.").format(part=part,
+                    raise ValueError(_("Invalid page '{part}': must between 1-{total_pages}.").format(part=part,
                                                                                                          total_pages=total_pages))
                 pages_to_delete_set.add(page - 1)
         except Exception as e:
@@ -68,7 +68,7 @@ def delete_pages_worker(
             pages_to_keep = [p for p in range(total_pages_doc) if p not in pages_to_delete_set]
             if not pages_to_keep:
                 raise ValueError(
-                    _("This operation would delete all pages from {pdf_path_name}.").format(
+                    _("Will delete all pages from {pdf_path_name}.").format(
                         pdf_path_name=Path(pdf_path).name))
 
             doc.select(pages_to_keep)
@@ -76,7 +76,7 @@ def delete_pages_worker(
             progress_queue.put(("SAVING", _("Saving PDF...")))
             while not saving_ack_event.is_set():
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                    result_queue.put(("CANCEL", _("Cancelled by user.")))
                     return
                 saving_ack_event.wait(timeout=0.1)
 
@@ -85,11 +85,11 @@ def delete_pages_worker(
         progress_queue.put(("PROGRESS", 100))
 
         success_msg = ngettext(
-            "Successfully deleted {} page!",
-            "Successfully deleted {} pages!",
+            "{} page deleted!",
+            "{} pages deleted!",
             len(pages_to_delete_set)
         ).format(len(pages_to_delete_set))
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("An unexpected error occurred:\n{}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))

@@ -1,11 +1,11 @@
-# toolkit/core/interleave_pdfs_worker.py
+# toolkit/core/interleave_pdf_worker.py
 
 import pymupdf
 
 from toolkit.i18n import gettext_text as _
 
 
-def interleave_pdfs_worker(
+def interleave_pdf_worker(
         pdf_path_a,
         pdf_path_b,
         output_pdf_path,
@@ -30,7 +30,7 @@ def interleave_pdfs_worker(
 
             for i in range(max_len):
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                    result_queue.put(("CANCEL", _("Cancelled by user.")))
                     return
 
                 if i < len_a:
@@ -47,14 +47,14 @@ def interleave_pdfs_worker(
             progress_queue.put(("SAVING", _("Saving PDF...")))
             while not saving_ack_event.is_set():
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                    result_queue.put(("CANCEL", _("Cancelled by user.")))
                     return
                 saving_ack_event.wait(timeout=0.1)
 
             new_doc.save(output_pdf_path, garbage=4, deflate=True)
 
-        success_msg = _("Successfully interleaved PDFs!")
+        success_msg = _("PDF interleaved!")
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("An unexpected error occurred:\n{}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))

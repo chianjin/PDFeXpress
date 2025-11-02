@@ -15,7 +15,7 @@ def extract_images_worker(
         cancel_event,
         progress_queue,
         result_queue,
-        saving_ack_event
+        saving_ack_event= None
 ):
     try:
         total_images_to_extract = 0
@@ -28,7 +28,7 @@ def extract_images_worker(
         images_extracted_count = 0
         for file_path in input_files:
             if cancel_event.is_set():
-                result_queue.put(("CANCEL", _("Task cancelled by user.")))
+                result_queue.put(("CANCEL", _("Cancelled by user.")))
                 return
 
             pdf_path_obj = Path(file_path)
@@ -62,11 +62,11 @@ def extract_images_worker(
                         progress_queue.put(("PROGRESS", images_extracted_count))
 
         success_msg = ngettext(
-            "Successfully extracted {} image!",
-            "Successfully extracted {} images!",
+            "{} image extracted!",
+            "{} images extracted!",
             images_extracted_count
         ).format(images_extracted_count)
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("An unexpected error occurred:\n{}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))

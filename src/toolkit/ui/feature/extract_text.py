@@ -24,7 +24,7 @@ class ExtractTextApp(ttk.Frame, TaskRunnerMixin):
 
         self.file_list_view = FileListView(
             self,
-            title=_("PDF Files to Extract Text From"),
+            title=_("PDF List"),
             file_types=FILE_TYPES_PDF,
             sortable=True
         )
@@ -33,7 +33,7 @@ class ExtractTextApp(ttk.Frame, TaskRunnerMixin):
         self.output_folder_picker = FolderPicker(self, title=_("Output Folder"))
         self.output_folder_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.option_frame = OptionFrame(self)
+        self.option_frame = OptionFrame(self, text=_("Options"))
         self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
 
         self.save_in_same_folder_var = tk.BooleanVar(value=False)
@@ -81,11 +81,11 @@ class ExtractTextApp(ttk.Frame, TaskRunnerMixin):
         save_in_same_folder = self.save_in_same_folder_var.get()
 
         if not input_files:
-            messagebox.showerror(_("No PDF Files"), _("Please add at least one PDF file."))
+            messagebox.showerror(_("Invalid Input"), _("Please add at least one PDF file."))
             return None
 
         if not save_in_same_folder and not output_dir:
-            messagebox.showerror(_("No Output Folder"), _("Please specify an output folder."))
+            messagebox.showerror(_("Invalid Output"), _("Please specify an output folder."))
             return None
 
         target_function = extract_text_worker
