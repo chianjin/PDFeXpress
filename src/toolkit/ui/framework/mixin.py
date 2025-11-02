@@ -46,7 +46,7 @@ class TaskRunnerMixin:
             task_data = self._prepare_task()
         except Exception as e:
             print(f"在 _prepare_task 期间发生错误: {e}")
-            messagebox.showerror(_("Internal Error"), _("Error preparing task:\n{}").format(e))
+            messagebox.showerror(_("Internal Error"), _("Failed to prepare task:\n{}").format(e))
             return
 
         if task_data is None:
@@ -56,7 +56,7 @@ class TaskRunnerMixin:
         try:
             target_function, args_tuple, initial_label = task_data
         except (ValueError, TypeError):
-            messagebox.showerror(_("Internal Error"), _("Task prepared invalid data."))
+            messagebox.showerror(_("Internal Error"), _("Invalid data provided."))
             return
 
         self._execute_task(target_function, args_tuple, initial_label)

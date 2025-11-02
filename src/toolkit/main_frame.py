@@ -5,7 +5,7 @@ from tkinter import ttk, messagebox
 from config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.feature.delete_pages import DeletePagesApp
-from toolkit.ui.feature.extract_image import ExtractImageApp
+from toolkit.ui.feature.extract_image import ExtractImagesApp
 from toolkit.ui.feature.extract_text import ExtractTextApp
 from toolkit.ui.feature.images_to_pdf import ImagesToPDFApp
 from toolkit.ui.feature.interleave_pdf import InterleavePDFApp
@@ -58,7 +58,7 @@ class MainFrame(ttk.Frame):
         self._create_nav_button(top_nav_frame, _("Split PDF"), SplitPDFApp)
         self._create_nav_button(top_nav_frame, _("Rotate PDF"), RotatePDFApp)
         self._create_nav_button(top_nav_frame, _("Extract Text"), ExtractTextApp)
-        self._create_nav_button(top_nav_frame, _("Extract Image"), ExtractImageApp)
+        self._create_nav_button(top_nav_frame, _("Extract Images"), ExtractImagesApp)
         self._create_nav_button(top_nav_frame, _("Images to PDF"), ImagesToPDFApp)
         self._create_nav_button(top_nav_frame, _("PDF to Images"), PDFToImagesApp)
         self._create_nav_button(top_nav_frame, _("PDF to Long Image"), PDFToLongImageApp)
