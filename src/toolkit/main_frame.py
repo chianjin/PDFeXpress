@@ -1,9 +1,12 @@
+from datetime import date
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, font as tkfont
+
 
 # Import i18n and feature modules
-from config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL
+from config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL, PROJECT_AUTHOR
 from toolkit.i18n import gettext_text as _
+from toolkit.ui.widget.url import URLLabel
 from toolkit.ui.feature.delete_pages import DeletePagesApp
 from toolkit.ui.feature.extract_images import ExtractImagesApp
 from toolkit.ui.feature.extract_text import ExtractTextApp
@@ -54,8 +57,8 @@ class MainFrame(ttk.Frame):
 
         # Navigation Buttons
         self._create_nav_button(top_nav_frame, _("Merge PDF"), MergePDFApp)
-        self._create_nav_button(top_nav_frame, _("Interleave PDF"), InterleavePDFApp)
         self._create_nav_button(top_nav_frame, _("Split PDF"), SplitPDFApp)
+        self._create_nav_button(top_nav_frame, _("Interleave PDF"), InterleavePDFApp)
         self._create_nav_button(top_nav_frame, _("Rotate PDF"), RotatePDFApp)
         self._create_nav_button(top_nav_frame, _("Extract Text"), ExtractTextApp)
         self._create_nav_button(top_nav_frame, _("Extract Images"), ExtractImagesApp)
@@ -101,22 +104,92 @@ class MainFrame(ttk.Frame):
                 button.state(['!disabled'])
 
     def _show_about_dialog(self):
-        about_message = (
-            f"{PROJECT_NAME} - {_('Ver.')} {PROJECT_VERSION}\n\n"
-            f"{_('Project Home Page')}: {PROJECT_URL}\n\n"
-            f"{_('Copyright © 2024 ChianJin. All rights reserved.')}"
+        AboutFame(self)
+        
+
+class AboutFame(tk.Toplevel):
+    def __init__(self, parent: ttk.Frame, *args, **kwargs):
+        super().__init__(parent, *args, **kwargs)
+
+        # Main layout uses grid for fixed sidebar and expanding content
+        self.columnconfigure(1, weight=1)
+        self.rowconfigure(0, weight=1)
+
+        self.grab_set()
+
+        default_font = tkfont.nametofont("TkDefaultFont").actual()
+        default_font_family = default_font["family"]
+
+        name_font = tkfont.Font(family=default_font_family, size=16, weight="bold")
+        version_font = tkfont.Font(family=default_font_family, size=12, weight="bold")
+
+        ttk.Label(
+            self, text=PROJECT_NAME, font=name_font
+        ).grid(row=0, column=0, padx=10, pady=(20, 0))
+        ttk.Label(
+            self, text=f"{_('Ver.')} {PROJECT_VERSION}", font=version_font
+        ).grid(row=1, column=0, padx=10, pady=(10, 0))
+        URLLabel(
+            self, url=PROJECT_URL
+        ).grid(row=2, column=0, padx=10, pady=(10, 0))
+
+        ttk.Label(
+            self, text=_(
+                'Copyright © 2022-{} {}, All rights reserved.'
+            ).format(date.today().year, PROJECT_AUTHOR)
+        ).grid(row=3, column=0, padx=40, pady=(10, 0))
+
+        ttk.Label(
+            self, text=_('------ The third software or packages -------')
+        ).grid(row=4, column=0, padx=10, pady=(20, 0))
+
+        third_packages = (
+            ('Python', 'https://python.org', 'Python Software Foundation License v2'),
+            ('PyMuPDF', 'https://github.com/pymupdf/PyMuPDF', 'GNU AFFERO GPL 3.0 or Artifex Commercial License'),
+            ('Pillow', 'https://github.com/python-pillow/Pillow', 'MIT-CMU'),
+            ('tkinterdnd2', 'https://github.com/Eliav2/tkinterdnd2', 'MIT License'),
         )
-        messagebox.showinfo(
-            _("About {}").format(PROJECT_NAME),
-            about_message
-        )
+
+        third_packages_frame = ttk.Frame(self)
+        third_packages_frame.grid(row=5, column=0, padx=40, pady=(0, 20))
+        for row_index, (name, url, license_) in enumerate(third_packages):
+            URLLabel(
+                third_packages_frame,
+                text=name,
+                url=url
+            ).grid(row=row_index, sticky='e', column=0, padx=10, pady=(5, 0))
+            ttk.Label(
+                third_packages_frame,
+                text=license_
+            ).grid(row=row_index, sticky='w', column=1, padx=10, pady=(5, 0))
+
+            ok_button = ttk.Button(
+                self,
+                text=_("OK"),
+                command=lambda : self.destroy()
+            )
+            ok_button.grid(row=6, column=0, padx=10, pady=(5, 20))
+
+        self.update_idletasks()
+        parent_x = parent.winfo_rootx()
+        parent_y = parent.winfo_rooty()
+        parent_width = parent.winfo_width()
+        parent_height = parent.winfo_height()
+
+        self_width = self.winfo_width()
+        self_height = self.winfo_height()
+
+        x = parent_x + (parent_width - self_width) // 2
+        y = parent_y + (parent_height - self_height) // 3
+
+        self.geometry(f"+{x}+{y}")
 
 
 if __name__ == "__main__":
     import tkinterdnd2
 
     root = tkinterdnd2.Tk()
-    root.title(_("PDF Toolbox Debug"))
+    root.title(PROJECT_NAME)
     root.geometry("1080x600")
     app = MainFrame(root)
     root.mainloop()

@@ -35,10 +35,10 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         self.split_mode_var.trace_add("write", self._on_split_mode_changed)
 
         modes = [
-            ("Single Page", "single_page"),
-            ("By Pages", "fixed_pages"),
-            ("By Copies", "fixed_files"),
-            ("Custom Ranges", "custom_ranges"),
+            (_("Single Page"), "single_page"),
+            (_("By Pages of File"), "fixed_pages"),
+            (_("By Number of Files"), "fixed_files"),
+            (_("Custom Ranges"), "custom_ranges"),
         ]
 
         radio_frame = ttk.Frame(self.option_frame)
@@ -61,7 +61,7 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         # Fixed description label
         self.fixed_description_label = ttk.Label(
             self.option_frame,
-            text=_("e.g., By Pages: 5  |  By Range: 1,3,5-10"),
+            text=_("Value Description: By Pages/By Files: integer, e.g. 5  |  By Range: integer list, e.g. 1,3,5-10"),
             justify=tk.LEFT
         )
         self.fixed_description_label.pack(fill='x', padx=10, pady=(0, 5))

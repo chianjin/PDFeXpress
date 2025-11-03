@@ -16,7 +16,7 @@ class TitleFrame(ttk.Frame):
 
 
 class OptionFrame(ttk.Labelframe):
-    def __init__(self, parent, text=_("Option"), **kwargs):
+    def __init__(self, parent, text=_("Options"), **kwargs):
         super().__init__(parent, text=text, **kwargs)
 
 
@@ -27,7 +27,7 @@ if __name__ == "__main__":
     title = TitleFrame(root)
     title.pack(fill="x", padx=10, pady=10)
     option = OptionFrame(root)
-    label = ttk.Label(option, text="Option")
+    label = ttk.Label(option, text="Options")
     label.pack()
     option.pack(fill="x", padx=10, pady=10)
     root.mainloop()

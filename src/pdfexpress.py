@@ -18,7 +18,6 @@ if __name__ == "__main__":
     root = TkinterDnD.Tk()
     root.title(f'{PROJECT_NAME} - Ver. {PROJECT_VERSION}')
     root.iconbitmap("data/pdfexpress.ico")
-    root.geometry("1280x680")
 
     # Center the window
     window_width = 1280
