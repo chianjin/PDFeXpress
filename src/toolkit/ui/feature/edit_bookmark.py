@@ -1,4 +1,5 @@
 # src/toolkit/ui/feature/edit_bookmark.py
+from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from typing import List
@@ -28,6 +29,7 @@ class EditBookmarkApp(ttk.Frame):
         self.input_file_picker = FilePicker(self, title=_("PDF File"), mode="open", file_types=FILE_TYPES_PDF)
         self.input_file_picker.grid(row=1, column=0, sticky='ew', padx=10, pady=5)
         self.input_file_picker.file_path_var.trace_add('write', self.load_bookmarks)
+        self.input_file_picker.file_path_var.trace_add('write', self._on_input_pdf_changed)
 
         # Bookmark List
         list_frame = ttk.Labelframe(self, text=_("Bookmark"))
@@ -108,6 +110,20 @@ class EditBookmarkApp(ttk.Frame):
         self.edit_button.config(state='disabled')
         self.move_up_button.config(state='disabled')
         self.move_down_button.config(state='disabled')
+
+    def _on_input_pdf_changed(self, *args):
+        pdf_path_str = self.input_file_picker.get()
+        if pdf_path_str:
+            pdf_path = Path(pdf_path_str)
+            # Extract filename without extension
+            file_name_without_ext = pdf_path.stem
+            # Construct new output filename
+            output_filename = f"{file_name_without_ext}_Bookmark.pdf"
+            # Set the output file picker's value
+            output_file_path = pdf_path.parent / output_filename
+            self.output_file_picker.set(str(output_file_path))
+        else:
+            self.output_file_picker.set("")
 
     def load_bookmarks(self, *args):
         pdf_path = self.input_file_picker.get()

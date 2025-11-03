@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PDF eXpress 1.0.0\n"
-"POT-Creation-Date: 2025-11-03 20:32+0800\n"
+"POT-Creation-Date: 2025-11-03 22:09+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: chian.jin@gmail.com\n"
@@ -90,7 +90,7 @@ msgstr "PDF 文件没有页面。"
 #: toolkit/core/delete_pages_worker.py:63
 #, python-brace-format
 msgid "No valid pages could be parsed from '{pages_to_delete_str}'."
-msgstr "无法从 '{pages_to_delete_str}' 中解析出有效的页面。"
+msgstr "无法从“{pages_to_delete_str}”中解析出有效的页面。"
 
 #: toolkit/core/delete_pages_worker.py:71
 #, python-brace-format
@@ -166,7 +166,7 @@ msgstr ""
 
 #: toolkit/core/image_to_pdf_worker.py:46
 msgid "No image converted to PDF."
-msgstr "没有图像被转换为 PDF。"
+msgstr "没有图像转换为 PDF。"
 
 #: toolkit/core/image_to_pdf_worker.py:60
 #, python-brace-format
@@ -231,8 +231,10 @@ msgstr "自定义范围字符串不能为空。"
 
 #: toolkit/core/split_pdf_worker.py:25
 #, python-brace-format
-msgid "Invalid range '{part}': must be between 1-{total_pages}, and start <= end."
-msgstr "无效范围 '{part}'：必须在 1-{total_pages} 之间，且起始值应小于等于结束值。"
+msgid ""
+"Invalid range '{part}': must be between 1-{total_pages}, and start <= end."
+msgstr ""
+"无效范围 '{part}'：必须在 1-{total_pages} 之间，且起始值应小于等于结束值。"
 
 #: toolkit/core/split_pdf_worker.py:31
 #, python-brace-format
@@ -251,12 +253,12 @@ msgstr "数值必须大于 0"
 #: toolkit/core/split_pdf_worker.py:54
 #, python-brace-format
 msgid "Invalid pages per file value: {split_value}"
-msgstr "无效每文件页数值：{split_value}"
+msgstr "无效每文件页数：{split_value}"
 
 #: toolkit/core/split_pdf_worker.py:67
 #, python-brace-format
 msgid "Invalid number of files value: {split_value}"
-msgstr "无效文件数量值：{split_value}"
+msgstr "无效文件数量：{split_value}"
 
 #: toolkit/core/split_pdf_worker.py:83
 #, python-brace-format
@@ -285,11 +287,11 @@ msgstr "关于"
 msgid "Merge PDF"
 msgstr "合并 PDF"
 
-#: toolkit/main_frame.py:60 toolkit/ui/feature/split_pdf.py:22
+#: toolkit/main_frame.py:60 toolkit/ui/feature/split_pdf.py:23
 msgid "Split PDF"
 msgstr "拆分 PDF"
 
-#: toolkit/main_frame.py:61 toolkit/ui/feature/interleave_pdf.py:21
+#: toolkit/main_frame.py:61 toolkit/ui/feature/interleave_pdf.py:22
 msgid "Interleave PDF"
 msgstr "交错合并"
 
@@ -313,19 +315,19 @@ msgstr "图像转 PDF"
 msgid "PDF to Images"
 msgstr "PDF 转图像"
 
-#: toolkit/main_frame.py:67 toolkit/ui/feature/pdf_to_long_image.py:20
+#: toolkit/main_frame.py:67 toolkit/ui/feature/pdf_to_long_image.py:21
 msgid "PDF to Long Image"
 msgstr "PDF 转长图"
 
-#: toolkit/main_frame.py:68 toolkit/ui/feature/delete_pages.py:21
+#: toolkit/main_frame.py:68 toolkit/ui/feature/delete_pages.py:22
 msgid "Delete Pages"
 msgstr "删除页面"
 
-#: toolkit/main_frame.py:69 toolkit/ui/feature/edit_bookmark.py:24
+#: toolkit/main_frame.py:69 toolkit/ui/feature/edit_bookmark.py:25
 msgid "Edit Bookmark"
 msgstr "编辑书签"
 
-#: toolkit/main_frame.py:70 toolkit/ui/feature/merge_invoices.py:21
+#: toolkit/main_frame.py:70 toolkit/ui/feature/merge_invoices.py:22
 msgid "Merge Invoices"
 msgstr "合并发票"
 
@@ -354,243 +356,239 @@ msgstr "------ 第三方软件或包 -------"
 msgid "OK"
 msgstr "确定"
 
-#: toolkit/main_frame.py:192
-msgid "PDF Toolbox Debug"
-msgstr "PDF 工具箱调试"
-
-#: toolkit/ui/feature/delete_pages.py:24 toolkit/ui/feature/edit_bookmark.py:28
-#: toolkit/ui/feature/pdf_to_long_image.py:23
+#: toolkit/ui/feature/delete_pages.py:25 toolkit/ui/feature/edit_bookmark.py:29
+#: toolkit/ui/feature/pdf_to_long_image.py:24
 msgid "PDF File"
 msgstr "PDF 文件"
 
-#: toolkit/ui/feature/delete_pages.py:27
+#: toolkit/ui/feature/delete_pages.py:29
 msgid "Output PDF File"
 msgstr "输出 PDF 文件"
 
-#: toolkit/ui/feature/delete_pages.py:30
+#: toolkit/ui/feature/delete_pages.py:32
 #: toolkit/ui/feature/extract_images.py:36
 #: toolkit/ui/feature/extract_text.py:36
-#: toolkit/ui/feature/interleave_pdf.py:33 toolkit/ui/feature/merge_pdf.py:44
+#: toolkit/ui/feature/interleave_pdf.py:35 toolkit/ui/feature/merge_pdf.py:44
 #: toolkit/ui/feature/pdf_to_images.py:36
-#: toolkit/ui/feature/pdf_to_long_image.py:30
-#: toolkit/ui/feature/rotate_pdf.py:36 toolkit/ui/feature/split_pdf.py:31
+#: toolkit/ui/feature/pdf_to_long_image.py:32
+#: toolkit/ui/feature/rotate_pdf.py:36 toolkit/ui/feature/split_pdf.py:32
 #: toolkit/ui/widget/misc.py:19
 msgid "Options"
 msgstr "选项"
 
-#: toolkit/ui/feature/delete_pages.py:33
+#: toolkit/ui/feature/delete_pages.py:35
 msgid "Pages to Delete:"
 msgstr "要删除的页面："
 
-#: toolkit/ui/feature/delete_pages.py:37
+#: toolkit/ui/feature/delete_pages.py:40
 msgid "Format: 1-3, 5, 7-9"
 msgstr "格式：1-3, 5, 7-9"
 
-#: toolkit/ui/feature/delete_pages.py:43
+#: toolkit/ui/feature/delete_pages.py:46
 #: toolkit/ui/feature/extract_images.py:64
 #: toolkit/ui/feature/extract_text.py:60 toolkit/ui/feature/images_to_pdf.py:50
-#: toolkit/ui/feature/interleave_pdf.py:48
-#: toolkit/ui/feature/merge_invoices.py:39 toolkit/ui/feature/merge_pdf.py:61
+#: toolkit/ui/feature/interleave_pdf.py:50
+#: toolkit/ui/feature/merge_invoices.py:41 toolkit/ui/feature/merge_pdf.py:61
 #: toolkit/ui/feature/pdf_to_images.py:78
-#: toolkit/ui/feature/pdf_to_long_image.py:43
-#: toolkit/ui/feature/rotate_pdf.py:65 toolkit/ui/feature/split_pdf.py:73
+#: toolkit/ui/feature/pdf_to_long_image.py:45
+#: toolkit/ui/feature/rotate_pdf.py:65 toolkit/ui/feature/split_pdf.py:74
 msgid "Ready"
 msgstr "就绪"
 
-#: toolkit/ui/feature/delete_pages.py:46 toolkit/ui/feature/edit_bookmark.py:69
+#: toolkit/ui/feature/delete_pages.py:49 toolkit/ui/feature/edit_bookmark.py:71
 msgid "Delete"
 msgstr "删除"
 
-#: toolkit/ui/feature/delete_pages.py:58
-#: toolkit/ui/feature/edit_bookmark.py:159
-#: toolkit/ui/feature/edit_bookmark.py:167
-#: toolkit/ui/feature/edit_bookmark.py:179
+#: toolkit/ui/feature/delete_pages.py:79
+#: toolkit/ui/feature/edit_bookmark.py:175
 #: toolkit/ui/feature/edit_bookmark.py:183
-#: toolkit/ui/feature/edit_bookmark.py:211
-#: toolkit/ui/feature/edit_bookmark.py:249
+#: toolkit/ui/feature/edit_bookmark.py:195
+#: toolkit/ui/feature/edit_bookmark.py:199
+#: toolkit/ui/feature/edit_bookmark.py:227
+#: toolkit/ui/feature/edit_bookmark.py:265
 #: toolkit/ui/feature/extract_images.py:89
 #: toolkit/ui/feature/extract_text.py:84 toolkit/ui/feature/images_to_pdf.py:82
-#: toolkit/ui/feature/interleave_pdf.py:64
-#: toolkit/ui/feature/merge_invoices.py:53
-#: toolkit/ui/feature/merge_invoices.py:57 toolkit/ui/feature/merge_pdf.py:94
+#: toolkit/ui/feature/interleave_pdf.py:80
+#: toolkit/ui/feature/merge_invoices.py:69
+#: toolkit/ui/feature/merge_invoices.py:73 toolkit/ui/feature/merge_pdf.py:94
 #: toolkit/ui/feature/pdf_to_images.py:116
-#: toolkit/ui/feature/pdf_to_long_image.py:58
-#: toolkit/ui/feature/pdf_to_long_image.py:62
-#: toolkit/ui/feature/rotate_pdf.py:89 toolkit/ui/feature/split_pdf.py:98
-#: toolkit/ui/feature/split_pdf.py:102 toolkit/ui/feature/split_pdf.py:106
+#: toolkit/ui/feature/pdf_to_long_image.py:74
+#: toolkit/ui/feature/pdf_to_long_image.py:78
+#: toolkit/ui/feature/rotate_pdf.py:89 toolkit/ui/feature/split_pdf.py:115
+#: toolkit/ui/feature/split_pdf.py:119 toolkit/ui/feature/split_pdf.py:123
 msgid "Invalid Input"
 msgstr "无效输入"
 
-#: toolkit/ui/feature/delete_pages.py:58
+#: toolkit/ui/feature/delete_pages.py:79
 msgid "Please select an input PDF file."
 msgstr "请选择一个输入的 PDF 文件。"
 
-#: toolkit/ui/feature/delete_pages.py:62
+#: toolkit/ui/feature/delete_pages.py:83
 #: toolkit/ui/feature/extract_images.py:93
 #: toolkit/ui/feature/extract_text.py:88 toolkit/ui/feature/images_to_pdf.py:86
-#: toolkit/ui/feature/interleave_pdf.py:68 toolkit/ui/feature/merge_pdf.py:98
+#: toolkit/ui/feature/interleave_pdf.py:84 toolkit/ui/feature/merge_pdf.py:98
 #: toolkit/ui/feature/pdf_to_images.py:120 toolkit/ui/feature/rotate_pdf.py:93
 msgid "Invalid Output"
 msgstr "无效输出"
 
-#: toolkit/ui/feature/delete_pages.py:62
+#: toolkit/ui/feature/delete_pages.py:83
 msgid "Please specify output PDF path."
 msgstr "请指定输出 PDF 路径。"
 
-#: toolkit/ui/feature/delete_pages.py:66
+#: toolkit/ui/feature/delete_pages.py:87
 msgid "Invalid Page Numbers"
 msgstr "无效页码"
 
-#: toolkit/ui/feature/delete_pages.py:66
+#: toolkit/ui/feature/delete_pages.py:87
 msgid "Please specify page numbers."
 msgstr "请指定页码。"
 
-#: toolkit/ui/feature/delete_pages.py:71
+#: toolkit/ui/feature/delete_pages.py:92
 msgid "Deleting pages..."
 msgstr "正在删除页面..."
 
-#: toolkit/ui/feature/edit_bookmark.py:33
+#: toolkit/ui/feature/edit_bookmark.py:35
 msgid "Bookmark"
 msgstr "书签"
 
-#: toolkit/ui/feature/edit_bookmark.py:39
+#: toolkit/ui/feature/edit_bookmark.py:41
 msgid "Level"
 msgstr "层级"
 
-#: toolkit/ui/feature/edit_bookmark.py:40
+#: toolkit/ui/feature/edit_bookmark.py:42
 msgid "Page"
 msgstr "页码"
 
-#: toolkit/ui/feature/edit_bookmark.py:41 toolkit/ui/widget/misc.py:10
+#: toolkit/ui/feature/edit_bookmark.py:43 toolkit/ui/widget/misc.py:10
 msgid "Title"
 msgstr "标题"
 
-#: toolkit/ui/feature/edit_bookmark.py:57
+#: toolkit/ui/feature/edit_bookmark.py:59
 msgid "Reload"
 msgstr "重新加载"
 
-#: toolkit/ui/feature/edit_bookmark.py:61
+#: toolkit/ui/feature/edit_bookmark.py:63
 msgid "Import"
 msgstr "导入"
 
-#: toolkit/ui/feature/edit_bookmark.py:62
+#: toolkit/ui/feature/edit_bookmark.py:64
 msgid "Export"
 msgstr "导出"
 
-#: toolkit/ui/feature/edit_bookmark.py:64 toolkit/ui/widget/file_list.py:129
+#: toolkit/ui/feature/edit_bookmark.py:66 toolkit/ui/widget/file_list.py:129
 msgid "Move Up"
 msgstr "上移"
 
-#: toolkit/ui/feature/edit_bookmark.py:66 toolkit/ui/widget/file_list.py:137
+#: toolkit/ui/feature/edit_bookmark.py:68 toolkit/ui/widget/file_list.py:137
 msgid "Move Down"
 msgstr "下移"
 
-#: toolkit/ui/feature/edit_bookmark.py:70
+#: toolkit/ui/feature/edit_bookmark.py:72
 msgid "Delete All"
 msgstr "全部删除"
 
-#: toolkit/ui/feature/edit_bookmark.py:73
+#: toolkit/ui/feature/edit_bookmark.py:75
 msgid "Entry"
 msgstr "条目"
 
-#: toolkit/ui/feature/edit_bookmark.py:77
+#: toolkit/ui/feature/edit_bookmark.py:79
 msgid "Level:"
 msgstr "层级："
 
-#: toolkit/ui/feature/edit_bookmark.py:82
+#: toolkit/ui/feature/edit_bookmark.py:84
 msgid "Page:"
 msgstr "页码："
 
-#: toolkit/ui/feature/edit_bookmark.py:87
+#: toolkit/ui/feature/edit_bookmark.py:89
 msgid "Title:"
 msgstr "标题："
 
-#: toolkit/ui/feature/edit_bookmark.py:93
+#: toolkit/ui/feature/edit_bookmark.py:95
 msgid "Edit"
 msgstr "编辑"
 
-#: toolkit/ui/feature/edit_bookmark.py:96
+#: toolkit/ui/feature/edit_bookmark.py:98
 msgid "Add"
 msgstr "添加"
 
-#: toolkit/ui/feature/edit_bookmark.py:99
+#: toolkit/ui/feature/edit_bookmark.py:101
 #: toolkit/ui/feature/images_to_pdf.py:37
-#: toolkit/ui/feature/interleave_pdf.py:30
-#: toolkit/ui/feature/merge_invoices.py:32 toolkit/ui/feature/merge_pdf.py:38
+#: toolkit/ui/feature/interleave_pdf.py:32
+#: toolkit/ui/feature/merge_invoices.py:34 toolkit/ui/feature/merge_pdf.py:38
 msgid "Output PDF"
 msgstr "输出 PDF"
 
-#: toolkit/ui/feature/edit_bookmark.py:105
+#: toolkit/ui/feature/edit_bookmark.py:107
 msgid "Save"
 msgstr "保存"
 
-#: toolkit/ui/feature/edit_bookmark.py:120
-#: toolkit/ui/feature/edit_bookmark.py:228
-#: toolkit/ui/feature/edit_bookmark.py:242
-#: toolkit/ui/feature/edit_bookmark.py:257 toolkit/ui/framework/mixin.py:107
+#: toolkit/ui/feature/edit_bookmark.py:136
+#: toolkit/ui/feature/edit_bookmark.py:244
+#: toolkit/ui/feature/edit_bookmark.py:258
+#: toolkit/ui/feature/edit_bookmark.py:273 toolkit/ui/framework/mixin.py:107
 msgid "Error"
 msgstr "错误"
 
-#: toolkit/ui/feature/edit_bookmark.py:120
+#: toolkit/ui/feature/edit_bookmark.py:136
 #, python-brace-format
 msgid "Failed to load: {}"
 msgstr "加载失败：{}"
 
-#: toolkit/ui/feature/edit_bookmark.py:159
+#: toolkit/ui/feature/edit_bookmark.py:175
 msgid "No entry selected to edit."
 msgstr "未选择要编辑的条目。"
 
-#: toolkit/ui/feature/edit_bookmark.py:167
-#: toolkit/ui/feature/edit_bookmark.py:179
+#: toolkit/ui/feature/edit_bookmark.py:183
+#: toolkit/ui/feature/edit_bookmark.py:195
 msgid "Level and Page must be numbers."
 msgstr "层级和页码必须是数字。"
 
-#: toolkit/ui/feature/edit_bookmark.py:183
+#: toolkit/ui/feature/edit_bookmark.py:199
 msgid "Title cannot be empty."
 msgstr "标题不能为空。"
 
-#: toolkit/ui/feature/edit_bookmark.py:211
+#: toolkit/ui/feature/edit_bookmark.py:227
 msgid "Please select a bookmark to delete."
 msgstr "请选择要删除的书签。"
 
-#: toolkit/ui/feature/edit_bookmark.py:216
+#: toolkit/ui/feature/edit_bookmark.py:232
 msgid "Confirm Action"
 msgstr "确认操作"
 
-#: toolkit/ui/feature/edit_bookmark.py:216
+#: toolkit/ui/feature/edit_bookmark.py:232
 msgid "Are you sure you want to delete all bookmarks?"
 msgstr "您确定要删除所有书签吗？"
 
-#: toolkit/ui/feature/edit_bookmark.py:228
+#: toolkit/ui/feature/edit_bookmark.py:244
 #, python-brace-format
 msgid "Import failed: {}"
 msgstr "导入失败：{}"
 
-#: toolkit/ui/feature/edit_bookmark.py:240
-#: toolkit/ui/feature/edit_bookmark.py:255
+#: toolkit/ui/feature/edit_bookmark.py:256
+#: toolkit/ui/feature/edit_bookmark.py:271
 msgid "Success"
 msgstr "成功"
 
-#: toolkit/ui/feature/edit_bookmark.py:240
+#: toolkit/ui/feature/edit_bookmark.py:256
 #, python-brace-format
 msgid "Export successful: {}"
 msgstr "导出成功：{}"
 
-#: toolkit/ui/feature/edit_bookmark.py:242
+#: toolkit/ui/feature/edit_bookmark.py:258
 #, python-brace-format
 msgid "Export failed: {}"
 msgstr "导出失败：{}"
 
-#: toolkit/ui/feature/edit_bookmark.py:249
+#: toolkit/ui/feature/edit_bookmark.py:265
 msgid "Please specify input and output files."
 msgstr "请指定输入和输出文件。"
 
-#: toolkit/ui/feature/edit_bookmark.py:255
+#: toolkit/ui/feature/edit_bookmark.py:271
 #, python-brace-format
 msgid "Save successful: {}"
 msgstr "保存成功：{}"
 
-#: toolkit/ui/feature/edit_bookmark.py:257
+#: toolkit/ui/feature/edit_bookmark.py:273
 #, python-brace-format
 msgid "Save failed: {}"
 msgstr "保存失败：{}"
@@ -603,7 +601,7 @@ msgstr "PDF 列表"
 
 #: toolkit/ui/feature/extract_images.py:33
 #: toolkit/ui/feature/extract_text.py:33 toolkit/ui/feature/pdf_to_images.py:33
-#: toolkit/ui/feature/rotate_pdf.py:33 toolkit/ui/feature/split_pdf.py:28
+#: toolkit/ui/feature/rotate_pdf.py:33 toolkit/ui/feature/split_pdf.py:29
 #: toolkit/ui/widget/folder_picker.py:10
 msgid "Output Folder"
 msgstr "输出文件夹"
@@ -629,7 +627,7 @@ msgstr "提取"
 
 #: toolkit/ui/feature/extract_images.py:89
 #: toolkit/ui/feature/extract_text.py:84
-#: toolkit/ui/feature/merge_invoices.py:53
+#: toolkit/ui/feature/merge_invoices.py:69
 #: toolkit/ui/feature/pdf_to_images.py:116 toolkit/ui/feature/rotate_pdf.py:89
 msgid "Please add at least one PDF file."
 msgstr "请至少添加一个 PDF 文件。"
@@ -658,7 +656,7 @@ msgstr "图像列表"
 
 #: toolkit/ui/feature/images_to_pdf.py:57
 #: toolkit/ui/feature/pdf_to_images.py:81
-#: toolkit/ui/feature/pdf_to_long_image.py:46
+#: toolkit/ui/feature/pdf_to_long_image.py:48
 msgid "Convert"
 msgstr "转换"
 
@@ -667,7 +665,7 @@ msgid "Please add at least one image file."
 msgstr "请至少添加一个图像文件。"
 
 #: toolkit/ui/feature/images_to_pdf.py:86
-#: toolkit/ui/feature/interleave_pdf.py:68 toolkit/ui/feature/merge_pdf.py:98
+#: toolkit/ui/feature/interleave_pdf.py:84 toolkit/ui/feature/merge_pdf.py:98
 msgid "Please specify an output PDF."
 msgstr "请指定一个输出 PDF。"
 
@@ -675,43 +673,43 @@ msgstr "请指定一个输出 PDF。"
 msgid "Converting images..."
 msgstr "正在转换图像..."
 
-#: toolkit/ui/feature/interleave_pdf.py:24
+#: toolkit/ui/feature/interleave_pdf.py:25
 msgid "PDF File (A)"
 msgstr "PDF 文件 (A)"
 
-#: toolkit/ui/feature/interleave_pdf.py:27
+#: toolkit/ui/feature/interleave_pdf.py:29
 msgid "PDF File (B)"
 msgstr "PDF 文件 (B)"
 
-#: toolkit/ui/feature/interleave_pdf.py:39
+#: toolkit/ui/feature/interleave_pdf.py:41
 msgid "Reverse PDF (B)"
 msgstr "PDF (B) 反序"
 
-#: toolkit/ui/feature/interleave_pdf.py:51
+#: toolkit/ui/feature/interleave_pdf.py:53
 msgid "Interleave"
 msgstr "交错合并"
 
-#: toolkit/ui/feature/interleave_pdf.py:64
+#: toolkit/ui/feature/interleave_pdf.py:80
 msgid "Please select both input PDF."
 msgstr "请选择两个输入的 PDF。"
 
-#: toolkit/ui/feature/interleave_pdf.py:73
+#: toolkit/ui/feature/interleave_pdf.py:89
 msgid "Interleaving PDF..."
 msgstr "正在交错合并 PDF..."
 
-#: toolkit/ui/feature/merge_invoices.py:26
+#: toolkit/ui/feature/merge_invoices.py:27
 msgid "Invoice List"
 msgstr "票据列表"
 
-#: toolkit/ui/feature/merge_invoices.py:42 toolkit/ui/feature/merge_pdf.py:68
+#: toolkit/ui/feature/merge_invoices.py:44 toolkit/ui/feature/merge_pdf.py:68
 msgid "Merge"
 msgstr "合并"
 
-#: toolkit/ui/feature/merge_invoices.py:57 toolkit/ui/feature/split_pdf.py:102
+#: toolkit/ui/feature/merge_invoices.py:73 toolkit/ui/feature/split_pdf.py:119
 msgid "Please specify an output path."
 msgstr "请指定一个输出路径。"
 
-#: toolkit/ui/feature/merge_invoices.py:62
+#: toolkit/ui/feature/merge_invoices.py:78
 msgid "Merging invoices..."
 msgstr "正在合并票据..."
 
@@ -728,7 +726,7 @@ msgid "Merging PDF..."
 msgstr "正在合并 PDF..."
 
 #: toolkit/ui/feature/pdf_to_images.py:48
-#: toolkit/ui/feature/pdf_to_long_image.py:33
+#: toolkit/ui/feature/pdf_to_long_image.py:35
 msgid "DPI:"
 msgstr "DPI："
 
@@ -748,20 +746,20 @@ msgstr "透明背景"
 msgid "Converting PDF to images..."
 msgstr "正在转换 PDF 为图像..."
 
-#: toolkit/ui/feature/pdf_to_long_image.py:26
+#: toolkit/ui/feature/pdf_to_long_image.py:28
 msgid "JPEG File"
 msgstr "JPEG 文件"
 
-#: toolkit/ui/feature/pdf_to_long_image.py:58
-#: toolkit/ui/feature/split_pdf.py:98
+#: toolkit/ui/feature/pdf_to_long_image.py:74
+#: toolkit/ui/feature/split_pdf.py:115
 msgid "Please select an input PDF."
 msgstr "请选择一个输入的 PDF。"
 
-#: toolkit/ui/feature/pdf_to_long_image.py:62
+#: toolkit/ui/feature/pdf_to_long_image.py:78
 msgid "Please specify an output JPEG file."
 msgstr "请指定一个输出的 JPEG 文件。"
 
-#: toolkit/ui/feature/pdf_to_long_image.py:67
+#: toolkit/ui/feature/pdf_to_long_image.py:83
 msgid "Converting to long image..."
 msgstr "正在转换为长图..."
 
@@ -777,43 +775,46 @@ msgstr "旋转"
 msgid "Rotating PDF..."
 msgstr "正在旋转 PDF..."
 
-#: toolkit/ui/feature/split_pdf.py:25
+#: toolkit/ui/feature/split_pdf.py:26
 msgid "Input PDF"
 msgstr "输入 PDF"
 
-#: toolkit/ui/feature/split_pdf.py:38
+#: toolkit/ui/feature/split_pdf.py:39
 msgid "Single Page"
 msgstr "单页"
 
-#: toolkit/ui/feature/split_pdf.py:39
+#: toolkit/ui/feature/split_pdf.py:40
 msgid "By Pages of File"
 msgstr "按页数"
 
-#: toolkit/ui/feature/split_pdf.py:40
+#: toolkit/ui/feature/split_pdf.py:41
 msgid "By Number of Files"
 msgstr "按份数"
 
-#: toolkit/ui/feature/split_pdf.py:41
+#: toolkit/ui/feature/split_pdf.py:42
 msgid "Custom Ranges"
 msgstr "自定义范围"
 
-#: toolkit/ui/feature/split_pdf.py:54
+#: toolkit/ui/feature/split_pdf.py:55
 msgid "Value:"
 msgstr "拆分参数："
 
-#: toolkit/ui/feature/split_pdf.py:64
-msgid "e.g., By Pages: 5  |  By Range: 1,3,5-10"
-msgstr "例如，按页数：5 | 按范围：1,3,5-10"
+#: toolkit/ui/feature/split_pdf.py:65
+msgid ""
+"Value Description: By Pages/By Files: integer, e.g. 5  |  By Range: integer "
+"list, e.g. 1,3,5-10"
+msgstr ""
+"参数说明：按页数/按份数：整数，如 5  |  自定义范围：数字序列，如：1,3,5-10"
 
-#: toolkit/ui/feature/split_pdf.py:76
+#: toolkit/ui/feature/split_pdf.py:77
 msgid "Split"
 msgstr "拆分"
 
-#: toolkit/ui/feature/split_pdf.py:106
+#: toolkit/ui/feature/split_pdf.py:123
 msgid "Please specify a value for the split mode."
 msgstr "请为拆分模式指定一个值。"
 
-#: toolkit/ui/feature/split_pdf.py:111
+#: toolkit/ui/feature/split_pdf.py:128
 msgid "Splitting PDF..."
 msgstr "正在拆分 PDF..."
 
@@ -922,6 +923,12 @@ msgstr "选择输出文件"
 #: toolkit/ui/widget/folder_picker.py:32
 msgid "Select Path"
 msgstr "选择路径"
+
+#~ msgid "PDF Toolbox Debug"
+#~ msgstr "PDF 工具箱调试"
+
+#~ msgid "e.g., By Pages: 5  |  By Range: 1,3,5-10"
+#~ msgstr "例如，按页数：5 | 按范围：1,3,5-10"
 
 #~ msgid "Project Home Page"
 #~ msgstr "项目主页"

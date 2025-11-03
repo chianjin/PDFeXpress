@@ -1,4 +1,5 @@
 # src/toolkit/ui/feature/pdf_to_long_image.py
+from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, messagebox
 
@@ -22,6 +23,7 @@ class PDFToLongImageApp(ttk.Frame, TaskRunnerMixin):
 
         self.file_picker = FilePicker(self, title=_("PDF File"), file_types=FILE_TYPES_PDF)
         self.file_picker.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
+        self.file_picker.file_path_var.trace_add("write", self._on_input_pdf_changed)
 
         self.output_file_picker = FilePicker(self, title=_("JPEG File"), mode="save",
                                              file_types=FILE_TYPES_JPEG)
@@ -45,6 +47,20 @@ class PDFToLongImageApp(ttk.Frame, TaskRunnerMixin):
 
         self.start_button = ttk.Button(bottom_frame, text=_("Convert"), command=self.run_task_from_ui)
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
+
+    def _on_input_pdf_changed(self, *args):
+        pdf_path_str = self.file_picker.get()
+        if pdf_path_str:
+            pdf_path = Path(pdf_path_str)
+            # Extract filename without extension
+            file_name_without_ext = pdf_path.stem
+            # Construct new output filename with .jpg extension
+            output_filename = f"{file_name_without_ext}.jpg"
+            # Set the output file picker's value
+            output_file_path = pdf_path.parent / output_filename
+            self.output_file_picker.set(str(output_file_path))
+        else:
+            self.output_file_picker.set("")
 
     def _get_root_window(self):
         return self.winfo_toplevel()

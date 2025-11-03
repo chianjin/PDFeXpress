@@ -1,4 +1,5 @@
 # src/toolkit/ui/feature/delete_pages.py
+from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, messagebox
 
@@ -23,6 +24,7 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
 
         self.file_picker = FilePicker(self, title=_("PDF File"), file_types=FILE_TYPES_PDF)
         self.file_picker.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
+        self.file_picker.file_path_var.trace_add("write", self._on_input_changed)
 
         self.output_file_picker = FilePicker(self, title=_("Output PDF File"), mode="save", file_types=FILE_TYPES_PDF)
         self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
@@ -32,6 +34,7 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
 
         ttk.Label(self.option_frame, text=_("Pages to Delete:")).pack(side="left", padx=(10, 5), pady=5)
         self.pages_to_delete_var = tk.StringVar()
+        self.pages_to_delete_var.trace_add("write", self._on_input_changed)
         self.pages_to_delete_entry = ttk.Entry(self.option_frame, textvariable=self.pages_to_delete_var)
         self.pages_to_delete_entry.pack(side='left',fill="x", expand=True, padx=10, pady=5)
         ttk.Label(self.option_frame, text=_("Format: 1-3, 5, 7-9")).pack(padx=20, pady=5)
@@ -45,6 +48,24 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
 
         self.start_button = ttk.Button(bottom_frame, text=_("Delete"), command=self.run_task_from_ui)
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
+
+    def _on_input_changed(self, *args):
+        pdf_path_str = self.file_picker.get()
+        pages_to_delete_str = self.pages_to_delete_var.get()
+
+        if pdf_path_str:
+            pdf_path = Path(pdf_path_str)
+            file_name_without_ext = pdf_path.stem
+            
+            if pages_to_delete_str:
+                output_filename = f"{file_name_without_ext}_Delete_{pages_to_delete_str}.pdf"
+            else:
+                output_filename = f"{file_name_without_ext}_Delete.pdf"
+
+            output_file_path = pdf_path.parent / output_filename
+            self.output_file_picker.set(str(output_file_path))
+        else:
+            self.output_file_picker.set("")
 
     def _get_root_window(self):
         return self.winfo_toplevel()

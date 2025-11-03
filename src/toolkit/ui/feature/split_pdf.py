@@ -1,4 +1,5 @@
 # src/toolkit/ui/feature/split_pdf.py
+from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, messagebox
 
@@ -76,7 +77,23 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         self.start_button = ttk.Button(bottom_frame, text=_("Split"), command=self.run_task_from_ui)
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
+        self.file_picker.file_path_var.trace_add("write", self._on_input_pdf_changed)
+
         self._on_split_mode_changed()  # Initial state
+
+    def _on_input_pdf_changed(self, *args):
+        pdf_path_str = self.file_picker.get()
+        if pdf_path_str:
+            pdf_path = Path(pdf_path_str)
+            # Extract filename without extension
+            file_name_without_ext = pdf_path.stem
+            # Construct new output folder name
+            output_folder_name = f"{file_name_without_ext}_Split"
+            # Set the output folder picker's value
+            output_dir = pdf_path.parent / output_folder_name
+            self.output_folder_picker.set(str(output_dir))
+        else:
+            self.output_folder_picker.set("")
 
     def _on_split_mode_changed(self, *args):
         mode = self.split_mode_var.get()

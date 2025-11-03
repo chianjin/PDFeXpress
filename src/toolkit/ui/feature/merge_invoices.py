@@ -1,4 +1,5 @@
 # src/toolkit/ui/feature/merge_invoices.py
+from pathlib import Path
 from tkinter import ttk, messagebox
 
 from toolkit.constant import FILE_TYPES_PDF
@@ -25,7 +26,8 @@ class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
             self,
             title=_("Invoice List"),
             file_types=FILE_TYPES_PDF,
-            sortable=False
+            sortable=False,
+            on_change_callback=self._on_invoice_list_changed
         )
         self.invoice_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
@@ -41,6 +43,20 @@ class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
 
         self.start_button = ttk.Button(bottom_frame, text=_("Merge"), command=self.run_task_from_ui)
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
+
+    def _on_invoice_list_changed(self):
+        invoice_pdf_paths = self.invoice_list_view.get()
+        if invoice_pdf_paths:
+            first_pdf_path = Path(invoice_pdf_paths[0])
+            # Extract the parent directory's name
+            folder_name = first_pdf_path.parent.name
+            # Construct new output filename
+            output_filename = f"{folder_name}.pdf"
+            # Set the output file picker's value
+            output_file_path = first_pdf_path.parent / output_filename
+            self.output_file_picker.set(str(output_file_path))
+        else:
+            self.output_file_picker.set("")
 
     def _get_root_window(self):
         return self.winfo_toplevel()

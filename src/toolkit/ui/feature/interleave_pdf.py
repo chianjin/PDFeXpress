@@ -1,4 +1,5 @@
 # src/toolkit/ui/feature/interleave_pdf.py
+from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, messagebox
 
@@ -23,6 +24,7 @@ class InterleavePDFApp(ttk.Frame, TaskRunnerMixin):
 
         self.pdf_a_picker = FilePicker(self, title=_("PDF File (A)"), file_types=FILE_TYPES_PDF)
         self.pdf_a_picker.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
+        self.pdf_a_picker.file_path_var.trace_add("write", self._on_input_pdf_a_changed)
 
         self.pdf_b_picker = FilePicker(self, title=_("PDF File (B)"), file_types=FILE_TYPES_PDF)
         self.pdf_b_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
@@ -50,6 +52,20 @@ class InterleavePDFApp(ttk.Frame, TaskRunnerMixin):
 
         self.start_button = ttk.Button(bottom_frame, text=_("Interleave"), command=self.run_task_from_ui)
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
+
+    def _on_input_pdf_a_changed(self, *args):
+        pdf_path_a_str = self.pdf_a_picker.get()
+        if pdf_path_a_str:
+            pdf_path_a = Path(pdf_path_a_str)
+            # Extract filename without extension
+            file_name_without_ext = pdf_path_a.stem
+            # Construct new output filename
+            output_filename = f"{file_name_without_ext}_Interleave.pdf"
+            # Set the output file picker's value
+            output_file_path = pdf_path_a.parent / output_filename
+            self.output_file_picker.set(str(output_file_path))
+        else:
+            self.output_file_picker.set("")
 
     def _get_root_window(self):
         return self.winfo_toplevel()
