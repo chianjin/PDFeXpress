@@ -48,12 +48,8 @@ class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
         invoice_pdf_paths = self.invoice_list_view.get()
         if invoice_pdf_paths:
             first_pdf_path = Path(invoice_pdf_paths[0])
-            # Extract the parent directory's name
             folder_name = first_pdf_path.parent.name
-            # Construct new output filename
-            output_filename = f"{folder_name}.pdf"
-            # Set the output file picker's value
-            output_file_path = first_pdf_path.parent / output_filename
+            output_file_path = (first_pdf_path.parent / folder_name).with_suffix('.pdf')
             self.output_file_picker.set(str(output_file_path))
         else:
             self.output_file_picker.set("")

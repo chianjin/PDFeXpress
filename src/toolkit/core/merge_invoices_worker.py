@@ -37,7 +37,6 @@ def merge_invoices_worker(
         result_queue,
         saving_ack_event
 ):
-    final_doc = None
     try:
         if not invoice_pdf_paths:
             raise ValueError(_("No invoice files provided."))
@@ -57,52 +56,48 @@ def merge_invoices_worker(
                     other_invoice_paths.append(pdf_path)
             progress_queue.put(("PROGRESS", i + 1))
 
-        final_doc = pymupdf.open()
+        with pymupdf.open() as final_doc:
+            # --- 2. Process Standard Invoices ---
+            for i in range(0, len(standard_invoice_paths), 2):
+                if cancel_event.is_set(): raise InterruptedError
 
-        # --- 2. Process Standard Invoices ---
-        for i in range(0, len(standard_invoice_paths), 2):
+                page = final_doc.new_page(width=A4_WIDTH, height=A4_HEIGHT)
+
+                with pymupdf.open(standard_invoice_paths[i]) as doc1:
+                    doc1.bake()
+                    page.show_pdf_page(pymupdf.Rect(0, 0, A4_WIDTH, A4_HEIGHT / 2), doc1, 0)
+
+                if i + 1 < len(standard_invoice_paths):
+                    with pymupdf.open(standard_invoice_paths[i + 1]) as doc2:
+                        doc2.bake()
+                        page.show_pdf_page(pymupdf.Rect(0, A4_HEIGHT / 2, A4_WIDTH, A4_HEIGHT), doc2, 0)
+
+            # --- 3. Process Other Invoices ---
+            for pdf_path in other_invoice_paths:
+                if cancel_event.is_set(): raise InterruptedError
+                with pymupdf.open(pdf_path) as doc:
+                    doc.bake()
+                    for p_idx, p in enumerate(doc):
+                        if _is_a4_size(p.rect):
+                            final_doc.insert_pdf(doc, from_page=p_idx, to_page=p_idx)
+                        else:
+                            new_page = final_doc.new_page(width=A4_WIDTH, height=A4_HEIGHT)
+                            new_page.show_pdf_page(pymupdf.Rect(0, 0, p.rect.width, p.rect.height), doc, p_idx)
+
             if cancel_event.is_set(): raise InterruptedError
 
-            page = final_doc.new_page(width=A4_WIDTH, height=A4_HEIGHT)
+            # --- 4. Save Final PDF ---
+            progress_queue.put(("SAVING", _("Saving merged PDF...")))
+            while not saving_ack_event.is_set():
+                if cancel_event.is_set(): raise InterruptedError
+                saving_ack_event.wait(timeout=0.1)
 
-            with pymupdf.open(standard_invoice_paths[i]) as doc1:
-                doc1.bake()
-                page.show_pdf_page(pymupdf.Rect(0, 0, A4_WIDTH, A4_HEIGHT / 2), doc1, 0)
+            final_doc.save(output_pdf_path, garbage=4, deflate=True)
 
-            if i + 1 < len(standard_invoice_paths):
-                with pymupdf.open(standard_invoice_paths[i + 1]) as doc2:
-                    doc2.bake()
-                    page.show_pdf_page(pymupdf.Rect(0, A4_HEIGHT / 2, A4_WIDTH, A4_HEIGHT), doc2, 0)
-
-        # --- 3. Process Other Invoices ---
-        for pdf_path in other_invoice_paths:
-            if cancel_event.is_set(): raise InterruptedError
-            with pymupdf.open(pdf_path) as doc:
-                doc.bake()
-                for p_idx, p in enumerate(doc):
-                    if _is_a4_size(p.rect):
-                        final_doc.insert_pdf(doc, from_page=p_idx, to_page=p_idx)
-                    else:
-                        new_page = final_doc.new_page(width=A4_WIDTH, height=A4_HEIGHT)
-                        new_page.show_pdf_page(pymupdf.Rect(0, 0, p.rect.width, p.rect.height), doc, p_idx)
-
-        if cancel_event.is_set(): raise InterruptedError
-
-        # --- 4. Save Final PDF ---
-        progress_queue.put(("SAVING", _("Saving merged PDF...")))
-        while not saving_ack_event.is_set():
-            if cancel_event.is_set(): raise InterruptedError
-            saving_ack_event.wait(timeout=0.1)
-
-        final_doc.save(output_pdf_path, garbage=4, deflate=True)
-
-        success_msg = _("Merged {} invoices!").format(len(invoice_pdf_paths))
+        success_msg = _("Merged {} invoices.").format(len(invoice_pdf_paths))
         result_queue.put(("SUCCESS", success_msg))
 
     except InterruptedError:
         result_queue.put(("CANCEL", _("Cancelled by user.")))
     except Exception as e:
         result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))
-    finally:
-        if final_doc:
-            final_doc.close()

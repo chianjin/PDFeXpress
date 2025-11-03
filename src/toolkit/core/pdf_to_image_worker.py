@@ -71,8 +71,8 @@ def pdf_to_image_worker(
                     progress_queue.put(("PROGRESS", current_step))
 
         success_msg = ngettext(
-            "Converted {} page!",
-            "Converted {} pages!",
+            "Converted {} page to image.",
+            "Converted {} pages to images.",
             total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))

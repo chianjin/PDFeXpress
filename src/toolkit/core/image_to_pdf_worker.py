@@ -57,8 +57,8 @@ def image_to_pdf_worker(
             output_doc.save(output_pdf_path, garbage=4, deflate=True)
 
         success_msg = ngettext(
-            "Converted {} image to PDF!",
-            "Converted {} images to PDF!",
+            "Converted {} image into PDF.",
+            "Converted {} images into PDF.",
             total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))

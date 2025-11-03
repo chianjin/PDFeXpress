@@ -60,7 +60,7 @@ def pdf_to_long_image_worker(
             long_image.save(output_image_path)
             progress_queue.put(("PROGRESS", total_pages + 1))
 
-        success_msg = _("PDF converted to a long image!")
+        success_msg = _("PDF converted to a long image.")
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:

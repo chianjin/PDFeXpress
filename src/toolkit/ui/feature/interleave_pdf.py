@@ -57,12 +57,8 @@ class InterleavePDFApp(ttk.Frame, TaskRunnerMixin):
         pdf_path_a_str = self.pdf_a_picker.get()
         if pdf_path_a_str:
             pdf_path_a = Path(pdf_path_a_str)
-            # Extract filename without extension
-            file_name_without_ext = pdf_path_a.stem
-            # Construct new output filename
-            output_filename = f"{file_name_without_ext}_Interleave.pdf"
-            # Set the output file picker's value
-            output_file_path = pdf_path_a.parent / output_filename
+            new_stem = f"{pdf_path_a.stem}_{_('Interleaved')}"
+            output_file_path = pdf_path_a.with_name(f"{new_stem}{pdf_path_a.suffix}")
             self.output_file_picker.set(str(output_file_path))
         else:
             self.output_file_picker.set("")

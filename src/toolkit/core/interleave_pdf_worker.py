@@ -53,7 +53,7 @@ def interleave_pdf_worker(
 
             new_doc.save(output_pdf_path, garbage=4, deflate=True)
 
-        success_msg = _("PDF interleaved!")
+        success_msg = _("PDF interleaved.")
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:

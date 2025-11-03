@@ -40,8 +40,8 @@ def extract_text_worker(
             progress_queue.put(("PROGRESS", i + 1))
 
         success_msg = ngettext(
-            "Extracted text in {} file!",
-            "Extracted text in {} files!",
+            "Extracted text from {} file.",
+            "Extracted text from {} files.",
             total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))

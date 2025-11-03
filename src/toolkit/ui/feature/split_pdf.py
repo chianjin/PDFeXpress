@@ -88,7 +88,7 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
             # Extract filename without extension
             file_name_without_ext = pdf_path.stem
             # Construct new output folder name
-            output_folder_name = f"{file_name_without_ext}_Split"
+            output_folder_name = f"{file_name_without_ext}_{_('Split')}"
             # Set the output folder picker's value
             output_dir = pdf_path.parent / output_folder_name
             self.output_folder_picker.set(str(output_dir))

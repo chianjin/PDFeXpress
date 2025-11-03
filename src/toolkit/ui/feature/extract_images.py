@@ -60,7 +60,7 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
         self.extract_all_var = tk.BooleanVar(value=False)
         self.extract_all_checkbox = ttk.Checkbutton(
             self.option_frame,
-            text=_("Extract all"),
+            text=_("Extract all images"),
             variable=self.extract_all_var,
             command=self._on_extract_all_changed
         )

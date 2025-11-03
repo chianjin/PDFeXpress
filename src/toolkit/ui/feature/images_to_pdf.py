@@ -65,7 +65,7 @@ class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
             first_file_path = files[0]
             containing_folder = first_file_path.parent
             output_dir = containing_folder.parent
-            new_filename = output_dir / f"{containing_folder.name}.pdf"
+            new_filename = (output_dir / containing_folder.name).with_suffix('.pdf')
             self.output_file_picker.set(str(new_filename))
         else:
             self.output_file_picker.clear()

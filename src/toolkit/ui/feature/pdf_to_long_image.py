@@ -33,7 +33,7 @@ class PDFToLongImageApp(ttk.Frame, TaskRunnerMixin):
         self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
 
         ttk.Label(self.option_frame, text=_("DPI:")).pack(side="left", padx=(10, 5), pady=5)
-        self.dpi_var = tk.IntVar(value=300)
+        self.dpi_var = tk.IntVar(value=150)
         self.dpi_spinbox = ttk.Spinbox(self.option_frame, from_=72, to=600, increment=1, textvariable=self.dpi_var,
                                        width=5)
         self.dpi_spinbox.pack(side="left", padx=5, pady=5)

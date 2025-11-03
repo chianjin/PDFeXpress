@@ -31,18 +31,20 @@ def pdf_rotate_worker(
                     new_rotation = (current_rotation + rotation_angle) % 360
                     page.set_rotation(new_rotation)
 
+                p = Path(file_path)
                 if save_to_same_folder:
-                    output_path = Path(file_path).parent / f"{Path(file_path).stem}_rotated_{rotation_angle}.pdf"
+                    new_stem = f"{p.stem}_{_('Rotated')}_{rotation_angle}"
+                    output_path = p.with_name(f"{new_stem}{p.suffix}")
                 else:
-                    output_path = Path(output_dir) / Path(file_path).name
+                    output_path = Path(output_dir) / p.name
 
                 doc.save(str(output_path), garbage=4, deflate=True)
 
             progress_queue.put(("PROGRESS", i + 1))
 
         success_msg = ngettext(
-            "Rotated {} file!",
-            "Rotated {} files!",
+            "Rotated {} PDF file.",
+            "Rotated {} PDF files.",
             total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))

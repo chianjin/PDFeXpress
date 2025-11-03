@@ -132,8 +132,8 @@ def split_pdf_worker(
                 progress_queue.put(("PROGRESS", i + 1))
 
         success_msg = ngettext(
-            "Split into {} file!",
-            "Split into {} files!",
+            "Split into {} PDF file.",
+            "Split into {} PDF files.",
             total_files_to_create
         ).format(total_files_to_create)
         result_queue.put(("SUCCESS", success_msg))

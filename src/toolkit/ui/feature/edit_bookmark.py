@@ -115,12 +115,8 @@ class EditBookmarkApp(ttk.Frame):
         pdf_path_str = self.input_file_picker.get()
         if pdf_path_str:
             pdf_path = Path(pdf_path_str)
-            # Extract filename without extension
-            file_name_without_ext = pdf_path.stem
-            # Construct new output filename
-            output_filename = f"{file_name_without_ext}_Bookmark.pdf"
-            # Set the output file picker's value
-            output_file_path = pdf_path.parent / output_filename
+            new_stem = f"{pdf_path.stem}_{_('Bookmark')}"
+            output_file_path = pdf_path.with_name(f"{new_stem}{pdf_path.suffix}")
             self.output_file_picker.set(str(output_file_path))
         else:
             self.output_file_picker.set("")
