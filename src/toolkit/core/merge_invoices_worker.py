@@ -96,7 +96,7 @@ def merge_invoices_worker(
 
         final_doc.save(output_pdf_path, garbage=4, deflate=True)
 
-        success_msg = _("{} invoices merged!").format(len(invoice_pdf_paths))
+        success_msg = _("Merged {} invoices!").format(len(invoice_pdf_paths))
         result_queue.put(("SUCCESS", success_msg))
 
     except InterruptedError:
@@ -104,5 +104,5 @@ def merge_invoices_worker(
     except Exception as e:
         result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))
     finally:
-        if final_doc and final_doc.is_open:
+        if final_doc:
             final_doc.close()

@@ -46,16 +46,25 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
         self.save_in_same_folder_checkbox.pack(side="left", padx=10, pady=5)
 
         ttk.Label(self.option_frame, text=_("Min Width:")).pack(side="left", padx=(10, 5), pady=5)
-        self.min_width_var = tk.IntVar(value=100)
+        self.min_width_var = tk.IntVar(value=50)
         self.min_width_spinbox = ttk.Spinbox(self.option_frame, from_=0, to=10000, increment=1,
                                              textvariable=self.min_width_var, width=5)
         self.min_width_spinbox.pack(side="left", padx=5, pady=5)
 
         ttk.Label(self.option_frame, text=_("Min Height:")).pack(side="left", padx=(10, 5), pady=5)
-        self.min_height_var = tk.IntVar(value=100)
+        self.min_height_var = tk.IntVar(value=50)
         self.min_height_spinbox = ttk.Spinbox(self.option_frame, from_=0, to=10000, increment=1,
                                               textvariable=self.min_height_var, width=5)
         self.min_height_spinbox.pack(side="left", padx=5, pady=5)
+
+        self.extract_all_var = tk.BooleanVar(value=False)
+        self.extract_all_checkbox = ttk.Checkbutton(
+            self.option_frame,
+            text=_("Extract all"),
+            variable=self.extract_all_var,
+            command=self._on_extract_all_changed
+        )
+        self.extract_all_checkbox.pack(side="left", padx=10, pady=5)
 
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=(0, 10))
@@ -68,6 +77,15 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
         self._on_save_in_same_folder_changed()  # Initial state
+        self._on_extract_all_changed()  # Initial state
+
+    def _on_extract_all_changed(self):
+        if self.extract_all_var.get():
+            self.min_width_spinbox.config(state="disabled")
+            self.min_height_spinbox.config(state="disabled")
+        else:
+            self.min_width_spinbox.config(state="normal")
+            self.min_height_spinbox.config(state="normal")
 
     def _on_save_in_same_folder_changed(self):
         if self.save_in_same_folder_var.get():
@@ -84,6 +102,7 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
         min_width = self.min_width_var.get()
         min_height = self.min_height_var.get()
         save_in_same_folder = self.save_in_same_folder_var.get()
+        extract_all = self.extract_all_var.get()
 
         if not input_files:
             messagebox.showerror(_("Invalid Input"), _("Please add at least one PDF file."))
@@ -94,7 +113,7 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
             return None
 
         target_function = extract_images_worker
-        args_tuple = (input_files, output_dir, min_width, min_height, save_in_same_folder)
+        args_tuple = (input_files, output_dir, min_width, min_height, save_in_same_folder, extract_all)
         initial_label = _("Extracting images...")
 
         return target_function, args_tuple, initial_label

@@ -41,8 +41,8 @@ def pdf_rotate_worker(
             progress_queue.put(("PROGRESS", i + 1))
 
         success_msg = ngettext(
-            "{} file rotated!",
-            "{} files rotated!",
+            "Rotated {} file!",
+            "Rotated {} files!",
             total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))

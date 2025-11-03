@@ -85,8 +85,8 @@ def delete_pages_worker(
         progress_queue.put(("PROGRESS", 100))
 
         success_msg = ngettext(
-            "{} page deleted!",
-            "{} pages deleted!",
+            "Deleted {} page!",
+            "Deleted {} pages!",
             len(pages_to_delete_set)
         ).format(len(pages_to_delete_set))
         result_queue.put(("SUCCESS", success_msg))

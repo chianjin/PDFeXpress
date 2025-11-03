@@ -50,8 +50,8 @@ def merge_pdf_worker(input_files, output_file, create_bookmarks,
             output_doc.save(output_file, garbage=4, deflate=True)
 
         success_msg = ngettext(
-            "{} file merged!",
-            "{} files merged!",
+            "Merged {} file!",
+            "Merged {} files!",
             total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))
