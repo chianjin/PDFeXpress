@@ -1,0 +1,561 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PDF eXpress\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-17 22:58+0800\n"
+"PO-Revision-Date: 2024-12-17 22:58+0800\n"
+"Last-Translator: \n"
+"Language-Team: https://github.com/chianjin/PDFeXpress\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: app/compress_pdf.py:17 app/compress_pdf.py:32
+msgid "Compress PDF"
+msgstr "压缩 PDF"
+
+#: app/compress_pdf.py:27 app/merge_invoice.py:33 constant.py:46
+msgid "PDF Output File"
+msgstr "PDF 输出文件"
+
+#: app/compress_pdf.py:33
+msgid "Compress"
+msgstr "压缩"
+
+#: app/compress_pdf.py:56 app/image_to_pdf.py:73 app/merge_invoice.py:54
+#: app/merge_pdf.py:53 app/pdf_to_long_image.py:64
+msgid "Select PDF Output File"
+msgstr "选择 PDF 输出文件"
+
+#: app/compress_pdf.py:82 app/pdf_to_image.py:153 app/pdf_to_long_image.py:136
+msgid "Image Quality"
+msgstr "图像质量"
+
+#: app/compress_pdf.py:90
+msgid "Max Resolution"
+msgstr "最大分辨率"
+
+#: app/compress_pdf.py:98 app/merge_pdf.py:103 app/pdf_to_image.py:166
+#: app/pdf_to_long_image.py:149 app/rotate_pdf.py:94 app/split_pdf.py:195
+msgid "Options"
+msgstr "选项"
+
+#: app/edit_toc.py:29 app/image_to_pdf.py:26 app/merge_pdf.py:26
+msgid "Output PDF File"
+msgstr "输出 PDF 文件"
+
+#: app/edit_toc.py:33 app/edit_toc.py:34
+msgid "Save"
+msgstr "保存"
+
+#: app/edit_toc.py:87
+msgid "Save PDF File"
+msgstr "保存 PDF 文件"
+
+#: app/edit_toc.py:115 app/extract_image.py:80 app/extract_text.py:74
+#: app/image_to_pdf.py:103 app/merge_invoice.py:114 app/merge_pdf.py:87
+#: app/pdf_to_image.py:104 app/pdf_to_long_image.py:112 app/rotate_pdf.py:78
+#: app/split_pdf.py:90
+msgid "Done"
+msgstr "完成"
+
+#: app/edit_toc.py:115
+msgid "Save Completed."
+msgstr "保存完成。"
+
+#: app/edit_toc.py:122
+msgid "Table of Contents"
+msgstr "目录"
+
+#: app/edit_toc.py:133 app/edit_toc.py:238
+msgid "Page No"
+msgstr "页码"
+
+#: app/edit_toc.py:134 app/edit_toc.py:242
+msgid "Level"
+msgstr "级别"
+
+#: app/edit_toc.py:135 app/edit_toc.py:246
+msgid "Entry"
+msgstr "条目"
+
+#: app/edit_toc.py:147
+msgid "Load TOC"
+msgstr "载入目录"
+
+#: app/edit_toc.py:153
+msgid "Delete Entry"
+msgstr "删除条目"
+
+#: app/edit_toc.py:158
+msgid "Export TOC"
+msgstr "导出目录"
+
+#: app/edit_toc.py:165
+msgid "Delete All"
+msgstr "全部删除"
+
+#: app/edit_toc.py:250
+msgid "Add/Edit"
+msgstr "添加/修改"
+
+#: app/extract_image.py:17 app/extract_image.py:26 main_frame.py:28
+msgid "Extract Image"
+msgstr "提取图像"
+
+#: app/extract_image.py:22 app/pdf_to_image.py:33
+msgid "Image Output Folder"
+msgstr "图像输出文件夹"
+
+#: app/extract_image.py:27 app/extract_text.py:27
+msgid "Extract"
+msgstr "提取"
+
+#: app/extract_image.py:46
+msgid "Select Image Output Folder"
+msgstr "选择图像输出文件夹"
+
+#: app/extract_image.py:80 app/extract_text.py:74
+msgid "Extract Completed."
+msgstr "提取完成。"
+
+#: app/extract_text.py:17 app/extract_text.py:26 main_frame.py:27
+msgid "Extract Text"
+msgstr "提取文本"
+
+#: app/extract_text.py:22
+msgid "Text Output Folder"
+msgstr "文本输出文件夹"
+
+#: app/extract_text.py:46
+msgid "Select Text Output Folder"
+msgstr "选择文本输出文件夹"
+
+#: app/image_to_pdf.py:18 app/image_to_pdf.py:30 main_frame.py:29
+msgid "Image to PDF"
+msgstr "图像转 PDF"
+
+#: app/image_to_pdf.py:21
+msgid "Image File List"
+msgstr "图像文件列表"
+
+#: app/image_to_pdf.py:31 app/pdf_to_image.py:38 app/pdf_to_long_image.py:41
+msgid "Convert"
+msgstr "转换"
+
+#: app/image_to_pdf.py:41
+msgid "Select Image Files"
+msgstr "选择图像文件"
+
+#: app/image_to_pdf.py:48 widget/file_list.py:108 widget/file_list.py:186
+msgid "Select Folder"
+msgstr "选择文件夹"
+
+#: app/image_to_pdf.py:103 app/pdf_to_image.py:104 app/pdf_to_long_image.py:112
+msgid "Convert Completed."
+msgstr "转换完成。"
+
+#: app/menu.py:15
+msgid "Exit"
+msgstr "退出"
+
+#: app/menu.py:16
+msgid "File"
+msgstr "文件"
+
+#: app/menu.py:21
+msgid "Theme"
+msgstr "主题"
+
+#: app/menu.py:24
+msgid "About"
+msgstr "关于"
+
+#: app/menu.py:25
+msgid "Help"
+msgstr "帮助"
+
+#: app/merge_invoice.py:26 app/merge_invoice.py:37 main_frame.py:32
+msgid "Merge Invoice"
+msgstr "合并发票"
+
+#: app/merge_invoice.py:30
+msgid "Invoice File List"
+msgstr "图像文件列表"
+
+#: app/merge_invoice.py:38 app/merge_pdf.py:31
+msgid "Merge"
+msgstr "合并"
+
+#: app/merge_invoice.py:114 app/merge_pdf.py:87
+msgid "Merge Completed."
+msgstr "合并完成。"
+
+#: app/merge_pdf.py:19 app/merge_pdf.py:30 main_frame.py:22
+msgid "Merge PDF"
+msgstr "合并 PDF"
+
+#: app/merge_pdf.py:99
+msgid "Generate TOC"
+msgstr "生成目录"
+
+#: app/pdf_to_image.py:25 app/pdf_to_image.py:37 main_frame.py:30
+msgid "PDF to Image"
+msgstr "PDF 转图像"
+
+#: app/pdf_to_image.py:28 widget/file_list.py:96
+msgid "PDF File List"
+msgstr "PDF 文件列表"
+
+#: app/pdf_to_image.py:58 app/rotate_pdf.py:51 app/split_pdf.py:57
+msgid "Select PDF Output Folder"
+msgstr "选择 PDF 输出文件"
+
+#: app/pdf_to_image.py:112 app/pdf_to_long_image.py:120
+msgid "Resolution"
+msgstr "分辨率"
+
+#: app/pdf_to_image.py:127
+msgid "Image Format"
+msgstr "图像格式"
+
+#: app/pdf_to_image.py:140
+msgid "Transparent"
+msgstr "透明背景"
+
+#: app/pdf_to_long_image.py:26 app/pdf_to_long_image.py:40 main_frame.py:31
+msgid "PDF to Long Image"
+msgstr "PDF 转长图"
+
+#: app/pdf_to_long_image.py:36
+msgid "Long Image File"
+msgstr "长图文件"
+
+#: app/rotate_pdf.py:18 app/rotate_pdf.py:29 main_frame.py:24
+msgid "Rotate PDF"
+msgstr "旋转 PDF"
+
+#: app/rotate_pdf.py:25 app/split_pdf.py:28
+msgid "PDF Output Folder"
+msgstr "PDF 输出文件夹"
+
+#: app/rotate_pdf.py:30
+msgid "Rotate"
+msgstr "旋转"
+
+#: app/rotate_pdf.py:78
+msgid "Rotate Completed."
+msgstr "旋转完成。"
+
+#: app/rotate_pdf.py:85
+msgid "Rotation Angle (Clockwise)"
+msgstr "旋转角度（顺时针）"
+
+#: app/split_pdf.py:19 app/split_pdf.py:32 main_frame.py:23
+msgid "Split PDF"
+msgstr "拆分 PDF"
+
+#: app/split_pdf.py:90
+msgid "Split Completed."
+msgstr "拆分完成。"
+
+#: app/split_pdf.py:126
+msgid "Single Page"
+msgstr "单页"
+
+#: app/split_pdf.py:133
+msgid "By Pages"
+msgstr "按页数"
+
+#: app/split_pdf.py:150
+msgid "By Count"
+msgstr "按份数"
+
+#: app/split_pdf.py:167
+msgid "By Range"
+msgstr "范围"
+
+#: constant.py:26
+msgid "All Files"
+msgstr "所有文件"
+
+#: constant.py:27 constant.py:47
+msgid "Text File"
+msgstr "文本文件"
+
+#: constant.py:28 constant.py:46 widget/misc.py:29
+msgid "PDF File"
+msgstr "PDF 文件"
+
+#: constant.py:29 constant.py:32
+msgid "JPEG Image"
+msgstr "JPEG 图像"
+
+#: constant.py:31
+msgid "Image File"
+msgstr "图像文件"
+
+#: constant.py:33
+msgid "PNG Image"
+msgstr "PNG 图像"
+
+#: constant.py:34
+msgid "GIF Image"
+msgstr "GIF 图像"
+
+#: constant.py:35
+msgid "TIFF Image"
+msgstr "TIFF 图像"
+
+#: constant.py:36
+msgid "BMP Image"
+msgstr "BMP 图像"
+
+#: constant.py:37
+msgid "WebP Image"
+msgstr "WebP 图像"
+
+#: constant.py:45 widget/misc.py:49
+msgid "Output File"
+msgstr "输出文件"
+
+#: constant.py:45
+msgid "Select File"
+msgstr "选择文件"
+
+#: constant.py:46
+msgid "Select PDF File"
+msgstr "选择 PDF 文件"
+
+#: constant.py:47
+msgid "Text Output File"
+msgstr "文本输出文件"
+
+#: constant.py:47
+msgid "Select Text File"
+msgstr "选择文本文件"
+
+#: main_frame.py:26
+msgid "Edit TOC"
+msgstr "编辑目录"
+
+#: widget/file_list.py:24
+msgid "Folder"
+msgstr "文件夹"
+
+#: widget/file_list.py:25
+msgid "File Name"
+msgstr "文件名"
+
+#: widget/file_list.py:38
+msgid "Add Files"
+msgstr "添加文件"
+
+#: widget/file_list.py:46
+msgid "Add Folder"
+msgstr "添加文件夹"
+
+#: widget/file_list.py:54
+msgid "Remove Files"
+msgstr "移除文件"
+
+#: widget/file_list.py:62
+msgid "Remove All"
+msgstr "全部移除"
+
+#: widget/file_list.py:73
+msgid "Select All"
+msgstr "全部选择"
+
+#: widget/file_list.py:81
+msgid "Deselect All"
+msgstr "全部不选"
+
+#: widget/file_list.py:89
+msgid "Invert Selection"
+msgstr "反转选择"
+
+#: widget/file_list.py:101 widget/file_list.py:179
+msgid "Select PDF Files"
+msgstr "选择 PDF 文件"
+
+#: widget/file_list.py:147
+msgid "Move To First"
+msgstr "移至首位"
+
+#: widget/file_list.py:155
+msgid "Move Up"
+msgstr "向上移动"
+
+#: widget/file_list.py:163
+msgid "Move Down"
+msgstr "向下移动"
+
+#: widget/file_list.py:171
+msgid "Move To Last"
+msgstr "移至末尾"
+
+#: widget/misc.py:25 widget/misc.py:46 widget/misc.py:61
+msgid "Browse"
+msgstr "浏览"
+
+#: widget/misc.py:64
+msgid "Output Folder"
+msgstr "输出文件夹"
+
+#: widget/misc.py:81 widget/misc.py:84
+msgid "Process"
+msgstr "运行"
+
+#~ msgid "Page No."
+#~ msgstr "页码\v"
+
+#~ msgid "Split"
+#~ msgstr "拆分"
+
+#~ msgid "File List"
+#~ msgstr "文件列表"
+
+#~ msgid "Add files."
+#~ msgstr "添加文件。"
+
+#~ msgid "Add files from folder."
+#~ msgstr "添加文件夹中文件。"
+
+#~ msgid "Remove selected files."
+#~ msgstr "移除选定的文件。"
+
+#~ msgid "Remove all files."
+#~ msgstr "移除所有文件。"
+
+#~ msgid "Select all files."
+#~ msgstr "选择所有文件。"
+
+#~ msgid "Deselect all files."
+#~ msgstr "不选择所有文件。"
+
+#~ msgid "Invert selection."
+#~ msgstr "反转选择。"
+
+#~ msgid "Move selected file to first."
+#~ msgstr "移动所选文件至列表首位。"
+
+#~ msgid "Move up selected file."
+#~ msgstr "上移所选文件。"
+
+#~ msgid "Move down selected file."
+#~ msgstr "下移所选文件。"
+
+#~ msgid "Move selected file to last."
+#~ msgstr "移动所选文件至列表末尾。"
+
+#~ msgid "Max DPI:"
+#~ msgstr "最大分辨率："
+
+#~ msgid "DPI:"
+#~ msgstr "分辨率："
+
+#~ msgid "Format:"
+#~ msgstr "格式："
+
+#~ msgid "Remove files"
+#~ msgstr "移除文件"
+
+#~ msgid "Total Pages: {}, Size: {}. "
+#~ msgstr "共 {} 页，文件大小：{}。"
+
+#~ msgid "Select compressed PDF file"
+#~ msgstr "选择压缩后的 PDF 文件"
+
+#~ msgid "Compressed Size: {}, Compress Ratio: {}%"
+#~ msgstr "压缩后大小：{}，压缩率：{}%"
+
+#~ msgid "Total Pages: {}"
+#~ msgstr "共 {} 页"
+
+#~ msgid "Total Images: {}"
+#~ msgstr "共 {} 个图像文件"
+
+#~ msgid "Select merged PDF file"
+#~ msgstr "选择合并后的 PDF 文件"
+
+#~ msgid "Total PDF: {}"
+#~ msgstr "共 {} 个 PDF 文件"
+
+#~ msgid "OK"
+#~ msgstr "确定"
+
+#~ msgid "Select Rotated PDF folder"
+#~ msgstr "选择旋转后的 PDF 保存文件夹"
+
+#~ msgid "Select Split PDF folder"
+#~ msgstr "选择分割后的 PDF 保存文件夹"
+
+#~ msgid "Compressed PDF File"
+#~ msgstr "压缩后的 PDF 文件"
+
+#~ msgid "Remove Image"
+#~ msgstr "移除图像"
+
+#~ msgid "Image List"
+#~ msgstr "图像列表"
+
+#~ msgid "Operate"
+#~ msgstr "操作"
+
+#~ msgid "Add PDF"
+#~ msgstr "添加 PDF"
+
+#~ msgid "Remove PDF"
+#~ msgstr "移除 PDF"
+
+#~ msgid "Merged PDF File"
+#~ msgstr "合并后的 PDF 文件"
+
+#~ msgid "Stop"
+#~ msgstr "停止"
+
+#~ msgid "Source Folder"
+#~ msgstr "源文件夹"
+
+#~ msgid "Rotated PDF Folder"
+#~ msgstr "旋转后的 PDF 文件夹"
+
+#~ msgid "Split PDF Folder"
+#~ msgstr "分割后的 PDF 文件夹"
+
+#~ msgid "File not exist."
+#~ msgstr "文件不存在。"
+
+#~ msgid ""
+#~ "{}\n"
+#~ "File not exist, please check."
+#~ msgstr ""
+#~ "{}\n"
+#~ "文件不存在，请检查。"
+
+#~ msgid "DPI"
+#~ msgstr "最大 DPI"
+
+#~ msgid "Error"
+#~ msgstr "错误"
+
+#~ msgid "Pages must between 2 and {}. Please enter again."
+#~ msgstr "页数应当在 2 和 {} 之间，请重新输入。"
+
+#~ msgid "Range start must between 1 and {}. Please enter again."
+#~ msgstr "范围开始页应当在 1 和 {} 之间，请重新输入。"
+
+#~ msgid "Range stop must between 1 and {}. Please enter again."
+#~ msgstr "范围结束页应当在 1 和 {} 之间，请重新输入。"

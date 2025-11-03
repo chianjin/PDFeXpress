@@ -76,13 +76,13 @@ This software release includes a complete refactoring of the underlying logic an
 - fix some bugs in build
 - `Nuitka` upgrade to 0.8.4
 
-## 0.3.2-BATE
+## 0.3.2-BETA
 
 2022-06-04
 
 - support mouse drag and drop for add files
 
-## 0.3.1-BATE
+## 0.3.1-BETA
 
 2022-06-04
 
@@ -101,37 +101,33 @@ This software release includes a complete refactoring of the underlying logic an
 2022-01-23
 
 - Improved verification of the values of the options.
-
-- Nuitka 升级至 0.19.4，添加`-clang -mingw64` 编译选项，使用 `clang` 编译。
+- `Nuitka` upgraded to 0.7.5, added `-clang -mingw64` compilation option, and compiled with `clang`.
 
 ## 0.2.1-BETA
 
 2022-01-16
 
-- 增加 Linux/FreeBSD 支持
-
-- 增加主题选择
+- Added Linux/FreeBSD support.
+- Added `tkinter` theme selection.
 
 ## 0.2-BETA
 
 2022-01-15
 
-- 增加多语言支持，根据系统语言设置，自动选择界面语言，默认英语。目前支持简体中文。
-
-- 修正`JPEG2000`格式图像的读取、格式转换。
-
-- 改进多进程处理逻辑。
+- Added multi-language support, automatically select interface language according to system language settings, default
+  English. Chinese Simplified are currently supported.
+- Fixed `JPEG2000` format image reading, format conversion.
+- Improved multi-process processing logic.
 
 ## 0.1.1-BETA
 
 2022-01-11
 
-- 增加多进程支持，提高处理速度。
-
-- 调整程序界面。
+- Add `multiprocess` support to improve processing speed.
+- Improve program interface.
 
 ## 0.1-BETA
 
 2022-01-10
 
-- 项目发布，具备基本功能，达到可用程度。
+- The project is published, with basic functions, to a usable level.
