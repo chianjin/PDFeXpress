@@ -24,6 +24,19 @@ PLATFORM = platform.system()
 if PLATFORM == "Darwin": PLATFORM = "macOS"
 MACHINE = platform.machine()
 
+DATA_FOLDERS = (
+        (f'{SOURCE_DIR_NAME}/locale', f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}/locale'),
+        (f'{SOURCE_DIR_NAME}/data', f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}/data')
+    )
+
+DATA_FILES = (
+        'LICENSE',
+        'README.md', 'README.zh_CN.md',
+        'CHANGELOG.md', 'CHANGELOG.zh_CN.md',
+        'COPYRIGHT.md', 'COPYRIGHT.zh_CN.md'
+    )
+
+
 ARCHIVE_BASENAME = f"{PROJECT_NAME.replace(' ', '')}-Portable-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}"
 INSTALLER_BASENAME = f"{PROJECT_NAME.replace(' ', '')}-Setup-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}"
 
@@ -34,14 +47,6 @@ def build_executable():
     """Build the executable using PyInstaller."""
     print("\n--- Building Executable ---")
     print("Building executable with PyInstaller...")
-
-    data_dirs = (
-        (f'{SOURCE_DIR_NAME}/locale', f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}/locale'),
-        (f'{SOURCE_DIR_NAME}/data', f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}/data')
-    )
-    data_files = (
-        'README.md', 'README.zh_CN.md', 'CHANGELOG.md', 'CHANGELOG.zh_CN.md', 'LICENSE'
-    )
 
     # Path to the main script
     main_script = f"{SOURCE_DIR_NAME}/{EXECUTIVE_NAME}.py"
@@ -67,9 +72,9 @@ def build_executable():
         print("Coping locale and data files...")
         print(f"PyInstaller build successful: {PROJECT_DIR / DIST_DIR_NAME / EXECUTIVE_NAME}")
 
-        for data_file in data_files:
+        for data_file in DATA_FILES:
             shutil.copy(data_file, f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}')
-        for src_dir, dst_dir in data_dirs:
+        for src_dir, dst_dir in DATA_FOLDERS:
             shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
         print("Executable build process completed.")
     except subprocess.CalledProcessError as e:
