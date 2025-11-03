@@ -7,7 +7,7 @@ import argparse
 
 from config import (
     PROJECT_NAME, PROJECT_VERSION, EXECUTIVE_NAME, PROJECT_URL,
-    PROJECT_AUTHOR
+    PROJECT_AUTHOR, PROJECT_UUID
 )
 
 # Redefine paths for build script context
@@ -136,6 +136,7 @@ def generate_iss():
     iss = iss.replace("%%PROJECT_DIR%%", str(PROJECT_DIR))
     iss = iss.replace("%%EXECUTIVE_NAME%%", EXECUTIVE_NAME)
     iss = iss.replace("%%SETUP_BASENAME%%", str(INSTALLER_BASENAME))
+    iss = iss.replace("%%PROJECT_UUID%%", PROJECT_UUID)
 
     setup_iss_file = f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}.iss'
     with open(setup_iss_file, 'w', encoding='utf-8') as iss_file:
