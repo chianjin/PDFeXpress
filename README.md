@@ -1,6 +1,6 @@
 # PDF Express
 
-[[English]](https://github.com/chianjin/PDFeXpress/blob/main/README.md)  [[Simplified Chinese]](https://github.com/chianjin/PDFeXpress/blob/main/README-zh_CN.md)
+[[English]](https://github.com/chianjin/PDFeXpress/blob/main/README.md)  [[Simplified Chinese]](https://github.com/chianjin/PDFeXpress/blob/main/README.zh_CN.md)
 
 **PDF Express** is a Python-based application for PDF file operations.
 
