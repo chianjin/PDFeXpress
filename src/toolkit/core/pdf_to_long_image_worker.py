@@ -10,6 +10,7 @@ def pdf_to_long_image_worker(
         pdf_path,
         output_image_path,
         dpi_value,
+        quality_value,
         cancel_event,
         progress_queue,
         result_queue,
@@ -57,7 +58,7 @@ def pdf_to_long_image_worker(
                     return
                 saving_ack_event.wait(timeout=0.1)
 
-            long_image.save(output_image_path)
+            long_image.save(output_image_path, quality=quality_value)
             progress_queue.put(("PROGRESS", total_pages + 1))
 
         success_msg = _("PDF converted to a long image.")

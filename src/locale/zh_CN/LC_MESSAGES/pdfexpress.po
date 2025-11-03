@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PDF eXpress 1.0.0\n"
-"POT-Creation-Date: 2025-11-04 00:37+0800\n"
+"POT-Creation-Date: 2025-11-04 00:56+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: chian.jin@gmail.com\n"
@@ -83,7 +83,7 @@ msgid "No pages specified to delete."
 msgstr "未指定要删除的页面。"
 
 #: toolkit/core/delete_pages_worker.py:57
-#: toolkit/core/pdf_to_long_image_worker.py:22
+#: toolkit/core/pdf_to_long_image_worker.py:23
 msgid "PDF file has no pages."
 msgstr "PDF 文件没有页面。"
 
@@ -114,8 +114,8 @@ msgstr "正在保存 PDF..."
 #: toolkit/core/merge_pdf_worker.py:27 toolkit/core/merge_pdf_worker.py:46
 #: toolkit/core/pdf_to_image_worker.py:32
 #: toolkit/core/pdf_to_image_worker.py:54
-#: toolkit/core/pdf_to_long_image_worker.py:32
-#: toolkit/core/pdf_to_long_image_worker.py:56
+#: toolkit/core/pdf_to_long_image_worker.py:33
+#: toolkit/core/pdf_to_long_image_worker.py:57
 #: toolkit/core/rotate_pdf_worker.py:25 toolkit/core/split_pdf_worker.py:114
 msgid "Cancelled by user."
 msgstr "用户已取消。"
@@ -133,7 +133,7 @@ msgstr[0] "删除 {} 页。"
 #: toolkit/core/interleave_pdf_worker.py:60
 #: toolkit/core/merge_invoices_worker.py:103
 #: toolkit/core/merge_pdf_worker.py:60 toolkit/core/pdf_to_image_worker.py:81
-#: toolkit/core/pdf_to_long_image_worker.py:67
+#: toolkit/core/pdf_to_long_image_worker.py:68
 #: toolkit/core/rotate_pdf_worker.py:53 toolkit/core/split_pdf_worker.py:142
 #, python-brace-format
 msgid ""
@@ -206,15 +206,15 @@ msgid "Converted {} page to image."
 msgid_plural "Converted {} pages to images."
 msgstr[0] "转换 {} 页 PDF 为图像。"
 
-#: toolkit/core/pdf_to_long_image_worker.py:45
+#: toolkit/core/pdf_to_long_image_worker.py:46
 msgid "No pages were rendered from the PDF."
 msgstr "未能从 PDF 渲染任何页面。"
 
-#: toolkit/core/pdf_to_long_image_worker.py:53
+#: toolkit/core/pdf_to_long_image_worker.py:54
 msgid "Saving long image..."
 msgstr "正在保存长图..."
 
-#: toolkit/core/pdf_to_long_image_worker.py:63
+#: toolkit/core/pdf_to_long_image_worker.py:64
 msgid "PDF converted to a long image."
 msgstr "PDF 已转换为长图。"
 
@@ -393,7 +393,7 @@ msgstr "格式：1-3, 5, 7-9"
 #: toolkit/ui/feature/interleave_pdf.py:50
 #: toolkit/ui/feature/merge_invoices.py:41 toolkit/ui/feature/merge_pdf.py:61
 #: toolkit/ui/feature/pdf_to_images.py:78
-#: toolkit/ui/feature/pdf_to_long_image.py:45
+#: toolkit/ui/feature/pdf_to_long_image.py:51
 #: toolkit/ui/feature/rotate_pdf.py:65 toolkit/ui/feature/split_pdf.py:74
 msgid "Ready"
 msgstr "就绪"
@@ -419,8 +419,8 @@ msgstr "删除"
 #: toolkit/ui/feature/merge_invoices.py:65
 #: toolkit/ui/feature/merge_invoices.py:69 toolkit/ui/feature/merge_pdf.py:94
 #: toolkit/ui/feature/pdf_to_images.py:116
-#: toolkit/ui/feature/pdf_to_long_image.py:74
-#: toolkit/ui/feature/pdf_to_long_image.py:78
+#: toolkit/ui/feature/pdf_to_long_image.py:81
+#: toolkit/ui/feature/pdf_to_long_image.py:85
 #: toolkit/ui/feature/rotate_pdf.py:89 toolkit/ui/feature/split_pdf.py:115
 #: toolkit/ui/feature/split_pdf.py:119 toolkit/ui/feature/split_pdf.py:123
 msgid "Invalid Input"
@@ -668,7 +668,7 @@ msgstr "图像列表"
 
 #: toolkit/ui/feature/images_to_pdf.py:57
 #: toolkit/ui/feature/pdf_to_images.py:81
-#: toolkit/ui/feature/pdf_to_long_image.py:48
+#: toolkit/ui/feature/pdf_to_long_image.py:54
 msgid "Convert"
 msgstr "转换"
 
@@ -766,16 +766,20 @@ msgstr "正在转换 PDF 为图像..."
 msgid "JPEG File"
 msgstr "JPEG 文件"
 
-#: toolkit/ui/feature/pdf_to_long_image.py:74
+#: toolkit/ui/feature/pdf_to_long_image.py:41
+msgid "Image Quality:"
+msgstr "图像质量："
+
+#: toolkit/ui/feature/pdf_to_long_image.py:81
 #: toolkit/ui/feature/split_pdf.py:115
 msgid "Please select an input PDF."
 msgstr "请选择一个输入的 PDF。"
 
-#: toolkit/ui/feature/pdf_to_long_image.py:78
+#: toolkit/ui/feature/pdf_to_long_image.py:85
 msgid "Please specify an output JPEG file."
 msgstr "请指定一个输出的 JPEG 文件。"
 
-#: toolkit/ui/feature/pdf_to_long_image.py:83
+#: toolkit/ui/feature/pdf_to_long_image.py:90
 msgid "Converting to long image..."
 msgstr "正在转换为长图..."
 
