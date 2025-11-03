@@ -33,6 +33,8 @@
 
 ## 运行方式
 
+**Windows 用户请注意：** 安装新版本前，请务必先卸载旧版本，以避免潜在的冲突。
+
 有两种形式的预编译包，安装包和绿色包，[下载](https://github.com/chianjin/PDFeXpress/releases) 、安装或解压，运行
 `PDFeXpress.exe`。
 

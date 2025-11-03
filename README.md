@@ -33,6 +33,8 @@ The current version is 1.0.0, which has been tested on 64-bit Windows 11.
 
 ## Running Method
 
+**Important Note for Windows Users:** When installing this new version, please ensure you uninstall any previous versions first to avoid potential conflicts.
+
 There are two types of pre-compiled packages, installers and portable packages. [Download](https://github.com/chianjin/PDFeXpress/releases) and install or unzip it, run `PDFeXpress.exe`.
 
 You can also download from: [Quark Cloud Drive](https://pan.quark.cn/s/c50973b1f9c8?pwd=5RTu)
