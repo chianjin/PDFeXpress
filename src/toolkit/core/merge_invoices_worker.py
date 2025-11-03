@@ -100,4 +100,4 @@ def merge_invoices_worker(
     except InterruptedError:
         result_queue.put(("CANCEL", _("Cancelled by user.")))
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))

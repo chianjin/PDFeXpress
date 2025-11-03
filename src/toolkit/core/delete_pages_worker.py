@@ -99,4 +99,4 @@ def delete_pages_worker(
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred: {}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))

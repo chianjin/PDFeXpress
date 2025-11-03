@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PDF eXpress 1.0.0\n"
-"POT-Creation-Date: 2025-11-04 00:56+0800\n"
+"POT-Creation-Date: 2025-11-04 03:07+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: chian.jin@gmail.com\n"
@@ -68,42 +68,52 @@ msgstr "GIF 文件"
 msgid "Invalid page range '{part}': must between 1-{total_pages}."
 msgstr "无效页码范围 '{part}'：必须在 1-{total_pages} 之间。"
 
-#: toolkit/core/delete_pages_worker.py:32
+#: toolkit/core/delete_pages_worker.py:30
+#, python-brace-format
+msgid "Overlapping page range detected: '{part}'."
+msgstr "检测到重叠页码范围：'{part}'。"
+
+#: toolkit/core/delete_pages_worker.py:35
 #, python-brace-format
 msgid "Invalid page '{part}': must between 1-{total_pages}."
 msgstr "无效页码 '{part}'：必须在 1-{total_pages} 之间。"
 
-#: toolkit/core/delete_pages_worker.py:36
+#: toolkit/core/delete_pages_worker.py:38
+#, python-brace-format
+msgid "Duplicate page detected: '{part}'."
+msgstr "检测到重复页面：'{part}'。"
+
+#: toolkit/core/delete_pages_worker.py:43
 #, python-brace-format
 msgid "Invalid page range format '{part}': {e}"
 msgstr "无效页码范围格式 '{part}': {e}"
 
-#: toolkit/core/delete_pages_worker.py:52
+#: toolkit/core/delete_pages_worker.py:59
 msgid "No pages specified to delete."
 msgstr "未指定要删除的页面。"
 
-#: toolkit/core/delete_pages_worker.py:57
+#: toolkit/core/delete_pages_worker.py:64
 #: toolkit/core/pdf_to_long_image_worker.py:23
 msgid "PDF file has no pages."
 msgstr "PDF 文件没有页面。"
 
-#: toolkit/core/delete_pages_worker.py:63
+#: toolkit/core/delete_pages_worker.py:70
 #, python-brace-format
 msgid "No valid pages could be parsed from '{pages_to_delete_str}'."
 msgstr "无法从“{pages_to_delete_str}”中解析出有效的页面。"
 
-#: toolkit/core/delete_pages_worker.py:71
+#: toolkit/core/delete_pages_worker.py:78
 #, python-brace-format
 msgid "Will delete all pages from {pdf_path_name}."
 msgstr "将删除 {pdf_path_name} 的所有页面。"
 
-#: toolkit/core/delete_pages_worker.py:76
+#: toolkit/core/delete_pages_worker.py:83
 #: toolkit/core/image_to_pdf_worker.py:48
 #: toolkit/core/interleave_pdf_worker.py:47
 msgid "Saving PDF..."
 msgstr "正在保存 PDF..."
 
-#: toolkit/core/delete_pages_worker.py:79
+#: toolkit/core/delete_pages_worker.py:86
 #: toolkit/core/extract_images_worker.py:33
 #: toolkit/core/extract_text_worker.py:25
 #: toolkit/core/image_to_pdf_worker.py:25
@@ -120,13 +130,13 @@ msgstr "正在保存 PDF..."
 msgid "Cancelled by user."
 msgstr "用户已取消。"
 
-#: toolkit/core/delete_pages_worker.py:88
+#: toolkit/core/delete_pages_worker.py:95
 #, python-brace-format
 msgid "Deleted {} page."
 msgid_plural "Deleted {} pages."
 msgstr[0] "删除 {} 页。"
 
-#: toolkit/core/delete_pages_worker.py:95
+#: toolkit/core/delete_pages_worker.py:102
 #: toolkit/core/extract_images_worker.py:70
 #: toolkit/core/extract_text_worker.py:50
 #: toolkit/core/image_to_pdf_worker.py:67
@@ -136,12 +146,8 @@ msgstr[0] "删除 {} 页。"
 #: toolkit/core/pdf_to_long_image_worker.py:68
 #: toolkit/core/rotate_pdf_worker.py:53 toolkit/core/split_pdf_worker.py:142
 #, python-brace-format
-msgid ""
-"Unexpected error occurred:\n"
-"{}"
-msgstr ""
-"发生意外错误：\n"
-"{}"
+msgid "Unexpected error occurred. {}"
+msgstr "发生意外错误。{}"
 
 #: toolkit/core/extract_images_worker.py:66
 #, python-brace-format

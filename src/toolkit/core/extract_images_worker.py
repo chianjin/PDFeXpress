@@ -67,4 +67,4 @@ def extract_images_worker(
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))
