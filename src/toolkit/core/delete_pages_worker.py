@@ -25,13 +25,20 @@ def _parse_pages_to_delete(range_string: str, total_pages: int) -> Set[int]:
                 if not (1 <= start <= end <= total_pages):
                     raise ValueError(_("Invalid page range '{part}': must between 1-{total_pages}.").format(part=part,
                                                                                                           total_pages=total_pages))
-                pages_to_delete_set.update(range(start - 1, end))
+                current_range_set = set(range(start - 1, end))
+                if not current_range_set.isdisjoint(pages_to_delete_set):
+                    raise ValueError(_("Overlapping page range detected: '{part}'.").format(part=part))
+                pages_to_delete_set.update(current_range_set)
             else:
                 page = int(part)
                 if not (1 <= page <= total_pages):
                     raise ValueError(_("Invalid page '{part}': must between 1-{total_pages}.").format(part=part,
                                                                                                          total_pages=total_pages))
+                if (page - 1) in pages_to_delete_set:
+                    raise ValueError(_("Duplicate page detected: '{part}'.").format(part=part))
                 pages_to_delete_set.add(page - 1)
+        except ValueError as ve:
+            raise ve
         except Exception as e:
             raise ValueError(_("Invalid page range format '{part}': {e}").format(part=part, e=str(e)))
 
@@ -92,4 +99,4 @@ def delete_pages_worker(
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred:\n{}").format(e)))
+        result_queue.put(("ERROR", _("Unexpected error occurred: {}").format(e)))
