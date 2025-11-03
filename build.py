@@ -3,6 +3,7 @@ import platform
 import shutil
 import subprocess
 from pathlib import Path
+import argparse
 
 from config import (
     PROJECT_NAME, PROJECT_VERSION, EXECUTIVE_NAME, PROJECT_URL,
@@ -24,14 +25,14 @@ if PLATFORM == "Darwin": PLATFORM = "macOS"
 MACHINE = platform.machine()
 
 ARCHIVE_BASENAME = f"{PROJECT_NAME.replace(' ', '')}-Portable-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}"
-SETUP_BASENAME = f"{PROJECT_NAME.replace(' ', '')}-Setup-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}"
+INSTALLER_BASENAME = f"{PROJECT_NAME.replace(' ', '')}-Setup-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}"
 
 ISS_TEMPLATE = f"{ASSETS_DIR_NAME}/{EXECUTIVE_NAME}.iss"
 sep = ";" if PLATFORM == "Windows" else ":"
 
-
-def build_executive():
+def build_executable():
     """Build the executable using PyInstaller."""
+    print("\n--- Building Executable ---")
     print("Building executable with PyInstaller...")
 
     data_dirs = (
@@ -62,14 +63,15 @@ def build_executive():
     print(f"Running command: {' '.join(command)}")
 
     try:
-        result = subprocess.run(command, check=True, capture_output=True, text=True, encoding='utf-8')
-        print("PyInstaller build successful.")
-        print(result.stdout)
+        subprocess.run(command, check=True, capture_output=True, text=True, encoding='utf-8')
         print("Coping locale and data files...")
+        print(f"PyInstaller build successful: {PROJECT_DIR / DIST_DIR_NAME / EXECUTIVE_NAME}")
+
         for data_file in data_files:
             shutil.copy(data_file, f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}')
         for src_dir, dst_dir in data_dirs:
             shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
+        print("Executable build process completed.")
     except subprocess.CalledProcessError as e:
         print("PyInstaller build failed.")
         print(f"Stderr: {e.stderr}")
@@ -82,6 +84,7 @@ def build_executive():
 
 def create_portable():
     """Create a portable zip archive of the built application."""
+    print("\n--- Creating Portable Archive ---")
     print("Creating portable archive...")
 
     # Ensure the release directory exists
@@ -103,7 +106,8 @@ def create_portable():
             format='zip',
             root_dir=str(dist_dir)
         )
-        print(f"Successfully created portable archive: {archive_path}")
+        print(f"Portable archive created successful: {archive_path}")
+        print("Portable archive creation completed.")
     except Exception as e:
         print(f"Failed to create portable archive: {e}")
         raise
@@ -126,7 +130,7 @@ def generate_iss():
     iss = iss.replace("%%PROJECT_URL%%", PROJECT_URL)
     iss = iss.replace("%%PROJECT_DIR%%", str(PROJECT_DIR))
     iss = iss.replace("%%EXECUTIVE_NAME%%", EXECUTIVE_NAME)
-    iss = iss.replace("%%SETUP_BASENAME%%", str(SETUP_BASENAME))
+    iss = iss.replace("%%SETUP_BASENAME%%", str(INSTALLER_BASENAME))
 
     setup_iss_file = f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}.iss'
     with open(setup_iss_file, 'w', encoding='utf-8') as iss_file:
@@ -159,6 +163,7 @@ def create_installer():
         print("Installer creation is only supported on Windows.")
         return
 
+    print("\n--- Creating Installer ---")
     print("Creating Windows installer...")
 
     iss_script_path = generate_iss()
@@ -176,9 +181,9 @@ def create_installer():
     print(f"Running Inno Setup compiler: {' '.join(command)}")
 
     try:
-        result = subprocess.run(command, check=True, capture_output=True, text=True, encoding='utf-8')
-        print("Inno Setup build successful.")
-        print(result.stdout)
+        subprocess.run(command, check=True, capture_output=True, text=True, encoding='utf-8')
+        print(f"Inno Setup build successful: {PROJECT_DIR/ RELEASE_DIR_NAME / PROJECT_VERSION / INSTALLER_BASENAME}.exe")
+        print("Installer creation process completed.")
     except subprocess.CalledProcessError as e:
         print("Inno Setup build failed.")
         print(f"Stderr: {e.stderr}")
@@ -190,7 +195,25 @@ def create_installer():
 
 
 if __name__ == "__main__":
-    print(f"Project directory: {PROJECT_DIR}")
-    build_executive()
-    create_portable()
-    create_installer()
+    parser = argparse.ArgumentParser(description="Build script for {PROJECT_NAME}.")
+    parser.add_argument("-e", "--executable", action="store_true", help="Build the executable using PyInstaller.")
+    parser.add_argument("-p", "--portable", action="store_true", help="Create a portable zip archive.")
+    parser.add_argument("-i", "--installer", action="store_true", help="Create a Windows installer (Windows only).")
+
+    args = parser.parse_args()
+
+    if not any([args.executable, args.portable, args.installer]):
+        print(f"\n--- Starting Full Build Process for {PROJECT_NAME} ---")
+        build_executable()
+        create_portable()
+        create_installer()
+        print(f"\n--- Full Build Process for {PROJECT_NAME} Completed ---")
+    else:
+        if args.executable:
+            build_executable()
+        if args.portable:
+            create_portable()
+        if args.installer:
+            create_installer()
+
+    print("\nBuild script finished.")
