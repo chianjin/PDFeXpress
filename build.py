@@ -1,13 +1,17 @@
+import argparse
 import os
 import platform
 import shutil
 import subprocess
 from pathlib import Path
-import argparse
 
 from config import (
-    PROJECT_NAME, PROJECT_VERSION, EXECUTIVE_NAME, PROJECT_URL,
-    PROJECT_AUTHOR, PROJECT_UUID
+    EXECUTIVE_NAME,
+    PROJECT_AUTHOR,
+    PROJECT_NAME,
+    PROJECT_URL,
+    PROJECT_UUID,
+    PROJECT_VERSION,
 )
 
 # Redefine paths for build script context
@@ -21,27 +25,36 @@ ASSETS_DIR_NAME = "assets"
 RELEASE_DIR = Path(RELEASE_DIR_NAME) / PROJECT_VERSION
 
 PLATFORM = platform.system()
-if PLATFORM == "Darwin": PLATFORM = "macOS"
+if PLATFORM == "Darwin":
+    PLATFORM = "macOS"
 MACHINE = platform.machine()
 
 DATA_FOLDERS = (
-        (f'{SOURCE_DIR_NAME}/locale', f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}/locale'),
-        (f'{SOURCE_DIR_NAME}/data', f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}/data')
-    )
+    (f"{SOURCE_DIR_NAME}/locale", f"{DIST_DIR_NAME}/{EXECUTIVE_NAME}/locale"),
+    (f"{SOURCE_DIR_NAME}/data", f"{DIST_DIR_NAME}/{EXECUTIVE_NAME}/data"),
+)
 
 DATA_FILES = (
-        'LICENSE',
-        'README.md', 'README.zh_CN.md',
-        'CHANGELOG.md', 'CHANGELOG.zh_CN.md',
-        'COPYRIGHT.md', 'COPYRIGHT.zh_CN.md'
-    )
+    "LICENSE",
+    "README.md",
+    "README.zh_CN.md",
+    "CHANGELOG.md",
+    "CHANGELOG.zh_CN.md",
+    "COPYRIGHT.md",
+    "COPYRIGHT.zh_CN.md",
+)
 
 
-ARCHIVE_BASENAME = f"{PROJECT_NAME.replace(' ', '')}-Portable-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}"
-INSTALLER_BASENAME = f"{PROJECT_NAME.replace(' ', '')}-Setup-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}"
+ARCHIVE_BASENAME = (
+    f"{PROJECT_NAME.replace(' ', '')}-Portable-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}"
+)
+INSTALLER_BASENAME = (
+    f"{PROJECT_NAME.replace(' ', '')}-Setup-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}"
+)
 
 ISS_TEMPLATE = f"{ASSETS_DIR_NAME}/{EXECUTIVE_NAME}.iss"
 sep = ";" if PLATFORM == "Windows" else ":"
+
 
 def build_executable():
     """Build the executable using PyInstaller."""
@@ -56,24 +69,30 @@ def build_executable():
     if Path(spec_file).exists():
         command.append(spec_file)
     else:
-        command.extend([
-            "--windowed",
-            f"--name={EXECUTIVE_NAME}",
-            f"--distpath={DIST_DIR_NAME}",
-            f"--workpath={BUILD_DIR_NAME}",
-            f"--icon=src/data/{EXECUTIVE_NAME}.ico",
-            main_script,
-        ])
+        command.extend(
+            [
+                "--windowed",
+                f"--name={EXECUTIVE_NAME}",
+                f"--distpath={DIST_DIR_NAME}",
+                f"--workpath={BUILD_DIR_NAME}",
+                f"--icon=src/data/{EXECUTIVE_NAME}.ico",
+                main_script,
+            ]
+        )
 
     print(f"Running command: {' '.join(command)}")
 
     try:
-        subprocess.run(command, check=True, capture_output=True, text=True, encoding='utf-8')
+        subprocess.run(
+            command, check=True, capture_output=True, text=True, encoding="utf-8"
+        )
         print("Coping locale and data files...")
-        print(f"PyInstaller build successful: {PROJECT_DIR / DIST_DIR_NAME / EXECUTIVE_NAME}")
+        print(
+            f"PyInstaller build successful: {PROJECT_DIR / DIST_DIR_NAME / EXECUTIVE_NAME}"
+        )
 
         for data_file in DATA_FILES:
-            shutil.copy(data_file, f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}')
+            shutil.copy(data_file, f"{DIST_DIR_NAME}/{EXECUTIVE_NAME}")
         for src_dir, dst_dir in DATA_FOLDERS:
             shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
         print("Executable build process completed.")
@@ -83,7 +102,9 @@ def build_executable():
         print(f"Stdout: {e.stdout}")
         raise
     except FileNotFoundError:
-        print("Error: 'pyinstaller' command not found. Make sure PyInstaller is installed and in your PATH.")
+        print(
+            "Error: 'pyinstaller' command not found. Make sure PyInstaller is installed and in your PATH."
+        )
         raise
 
 
@@ -98,7 +119,7 @@ def create_portable():
     archive_basename = RELEASE_DIR / ARCHIVE_BASENAME
 
     # The directory to be zipped is inside DIST_DIR, named after the executive
-    dist_dir = Path(f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}')
+    dist_dir = Path(f"{DIST_DIR_NAME}/{EXECUTIVE_NAME}")
 
     if not dist_dir.is_dir():
         print(f"Error: Source directory for archive not found: {dist_dir}")
@@ -107,9 +128,7 @@ def create_portable():
 
     try:
         archive_path = shutil.make_archive(
-            base_name=str(archive_basename),
-            format='zip',
-            root_dir=str(dist_dir)
+            base_name=str(archive_basename), format="zip", root_dir=str(dist_dir)
         )
         print(f"Portable archive created successful: {archive_path}")
         print("Portable archive creation completed.")
@@ -126,7 +145,7 @@ def generate_iss():
 
     print("Generating Inno Setup script...")
 
-    with open(ISS_TEMPLATE, 'r', encoding='utf-8') as template:
+    with open(ISS_TEMPLATE, "r", encoding="utf-8") as template:
         iss = template.read()
 
     iss = iss.replace("%%PROJECT_NAME%%", PROJECT_NAME)
@@ -138,8 +157,8 @@ def generate_iss():
     iss = iss.replace("%%SETUP_BASENAME%%", str(INSTALLER_BASENAME))
     iss = iss.replace("%%PROJECT_UUID%%", PROJECT_UUID)
 
-    setup_iss_file = f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}.iss'
-    with open(setup_iss_file, 'w', encoding='utf-8') as iss_file:
+    setup_iss_file = f"{DIST_DIR_NAME}/{EXECUTIVE_NAME}.iss"
+    with open(setup_iss_file, "w", encoding="utf-8") as iss_file:
         iss_file.write(iss)
 
     print(f"Generated Inno Setup script at: {setup_iss_file}")
@@ -182,13 +201,17 @@ def create_installer():
         print("Inno Setup compiler not found. Aborting installer creation.")
         return
 
-    command = [str(iscc_path), '/Q', str(iss_script_path)]
+    command = [str(iscc_path), "/Q", str(iss_script_path)]
 
     print(f"Running Inno Setup compiler: {' '.join(command)}")
 
     try:
-        subprocess.run(command, check=True, capture_output=True, text=True, encoding='utf-8')
-        print(f"Inno Setup build successful: {PROJECT_DIR/ RELEASE_DIR_NAME / PROJECT_VERSION / INSTALLER_BASENAME}.exe")
+        subprocess.run(
+            command, check=True, capture_output=True, text=True, encoding="utf-8"
+        )
+        print(
+            f"Inno Setup build successful: {PROJECT_DIR/ RELEASE_DIR_NAME / PROJECT_VERSION / INSTALLER_BASENAME}.exe"
+        )
         print("Installer creation process completed.")
     except subprocess.CalledProcessError as e:
         print("Inno Setup build failed.")
@@ -202,9 +225,21 @@ def create_installer():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Build script for {PROJECT_NAME}.")
-    parser.add_argument("-e", "--executable", action="store_true", help="Build the executable using PyInstaller.")
-    parser.add_argument("-p", "--portable", action="store_true", help="Create a portable zip archive.")
-    parser.add_argument("-i", "--installer", action="store_true", help="Create a Windows installer (Windows only).")
+    parser.add_argument(
+        "-e",
+        "--executable",
+        action="store_true",
+        help="Build the executable using PyInstaller.",
+    )
+    parser.add_argument(
+        "-p", "--portable", action="store_true", help="Create a portable zip archive."
+    )
+    parser.add_argument(
+        "-i",
+        "--installer",
+        action="store_true",
+        help="Create a Windows installer (Windows only).",
+    )
 
     args = parser.parse_args()
 

@@ -1,46 +1,57 @@
 # toolkit/core/split_pdf_worker.py
+
 from pathlib import Path
-from typing import List, Any
+from typing import Any, List
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, ngettext
+from toolkit.i18n import gettext_text as _
+from toolkit.i18n import ngettext
 
 
 def _parse_page_ranges(range_string: str, total_pages: int) -> List[List[int]]:
     chunks: List[List[int]] = []
-    if not range_string: raise ValueError(_("Custom range string cannot be empty."))
-    parts: List[str] = range_string.split(',')
+    if not range_string:
+        raise ValueError(_("Custom range string cannot be empty."))
+    parts: List[str] = range_string.split(",")
     for part in parts:
         part = part.strip()
-        if not part: continue
+        if not part:
+            continue
         try:
             chunk: List[int]
-            if '-' in part:
-                start_str, end_str = part.split('-', 1)
-                start: int = int(start_str.strip());
+            if "-" in part:
+                start_str, end_str = part.split("-", 1)
+                start: int = int(start_str.strip())
                 end: int = int(end_str.strip())
                 if start < 1 or end > total_pages or start > end:
                     raise ValueError(
-                        _("Invalid range '{part}': must be between 1-{total_pages}, and start <= end.").format(
-                            part=part, total_pages=total_pages))
+                        _(
+                            "Invalid range '{part}': must be between 1-{total_pages}, and start <= end."
+                        ).format(part=part, total_pages=total_pages)
+                    )
                 chunk = list(range(start - 1, end))
             else:
                 page: int = int(part)
                 if page < 1 or page > total_pages:
-                    raise ValueError(_("Invalid page '{part}': must be between 1-{total_pages}.").format(part=part,
-                                                                                                         total_pages=total_pages))
+                    raise ValueError(
+                        _(
+                            "Invalid page '{part}': must be between 1-{total_pages}."
+                        ).format(part=part, total_pages=total_pages)
+                    )
                 chunk = [page - 1]
             chunks.append(chunk)
         except Exception as e:
-            raise ValueError(_("Invalid custom range '{part}' format: {e}").format(part=part, e=str(e)))
+            raise ValueError(
+                _("Invalid custom range '{part}' format: {e}").format(
+                    part=part, e=str(e)
+                )
+            )
     return chunks
 
 
 def _get_page_chunks(
-        total_pages: int,
-        split_mode: str,
-        split_value: Any
+    total_pages: int, split_mode: str, split_value: Any
 ) -> List[List[int]]:
     if split_mode == "single_page":
         return [[i] for i in range(total_pages)]
@@ -51,9 +62,16 @@ def _get_page_chunks(
             if num <= 0:
                 raise ValueError(_("Value must be greater than 0"))
         except Exception:
-            raise ValueError(_("Invalid pages per file value: {split_value}").format(split_value=split_value))
+            raise ValueError(
+                _("Invalid pages per file value: {split_value}").format(
+                    split_value=split_value
+                )
+            )
 
-        return [list(range(i, min(i + num, total_pages))) for i in range(0, total_pages, num)]
+        return [
+            list(range(i, min(i + num, total_pages)))
+            for i in range(0, total_pages, num)
+        ]
 
     elif split_mode == "fixed_files":
         try:
@@ -64,7 +82,11 @@ def _get_page_chunks(
             if num_files > total_pages:
                 num_files = total_pages
         except Exception:
-            raise ValueError(_("Invalid number of files value: {split_value}").format(split_value=split_value))
+            raise ValueError(
+                _("Invalid number of files value: {split_value}").format(
+                    split_value=split_value
+                )
+            )
 
         base_pages, remainder = divmod(total_pages, num_files)
         chunks: List[List[int]] = []
@@ -80,18 +102,20 @@ def _get_page_chunks(
         return _parse_page_ranges(str(split_value), total_pages)
 
     else:
-        raise ValueError(_("Unknown split mode: {split_mode}").format(split_mode=split_mode))
+        raise ValueError(
+            _("Unknown split mode: {split_mode}").format(split_mode=split_mode)
+        )
 
 
 def split_pdf_worker(
-        pdf_path,
-        output_dir,
-        split_mode,
-        split_value,
-        cancel_event,
-        progress_queue,
-        result_queue,
-        saving_ack_event
+    pdf_path,
+    output_dir,
+    split_mode,
+    split_value,
+    cancel_event,
+    progress_queue,
+    result_queue,
+    saving_ack_event,
 ):
     try:
         pdf_path_obj = Path(pdf_path)
@@ -121,7 +145,11 @@ def split_pdf_worker(
                     output_doc.insert_pdf(src_doc, from_page=from_page, to_page=to_page)
 
                     if split_mode == "custom_ranges":
-                        range_name = f"p{from_page + 1}" if from_page == to_page else f"p{from_page + 1}-{to_page + 1}"
+                        range_name = (
+                            f"p{from_page + 1}"
+                            if from_page == to_page
+                            else f"p{from_page + 1}-{to_page + 1}"
+                        )
                         output_name = f"{base_filename}_{range_name}.pdf"
                     else:
                         output_name = f"{base_filename}_part_{i + 1:04d}.pdf"
@@ -132,9 +160,7 @@ def split_pdf_worker(
                 progress_queue.put(("PROGRESS", i + 1))
 
         success_msg = ngettext(
-            "Split into {} PDF file.",
-            "Split into {} PDF files.",
-            total_files_to_create
+            "Split into {} PDF file.", "Split into {} PDF files.", total_files_to_create
         ).format(total_files_to_create)
         result_queue.put(("SUCCESS", success_msg))
 

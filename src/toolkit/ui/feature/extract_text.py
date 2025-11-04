@@ -1,6 +1,7 @@
-# src/toolkit/ui/feature/extract_text.py
+# toolkit/ui/feature/extract_text.py
+
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import messagebox, ttk
 
 from toolkit.constant import FILE_TYPES_PDF
 from toolkit.core.extract_text_worker import extract_text_worker
@@ -8,7 +9,7 @@ from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
 from toolkit.ui.widget.file_list import FileListView
 from toolkit.ui.widget.folder_picker import FolderPicker
-from toolkit.ui.widget.misc import TitleFrame, OptionFrame
+from toolkit.ui.widget.misc import OptionFrame, TitleFrame
 
 
 class ExtractTextApp(ttk.Frame, TaskRunnerMixin):
@@ -20,47 +21,46 @@ class ExtractTextApp(ttk.Frame, TaskRunnerMixin):
         self.rowconfigure(1, weight=1)
 
         self.title_frame = TitleFrame(self, text=_("Extract Text"))
-        self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
+        self.title_frame.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
 
         self.file_list_view = FileListView(
-            self,
-            title=_("PDF List"),
-            file_types=FILE_TYPES_PDF,
-            sortable=True
+            self, title=_("PDF List"), file_types=FILE_TYPES_PDF, sortable=True
         )
-        self.file_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
+        self.file_list_view.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 5))
 
         self.output_folder_picker = FolderPicker(self, title=_("Output Folder"))
-        self.output_folder_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
+        self.output_folder_picker.grid(
+            row=2, column=0, sticky="nsew", padx=10, pady=(0, 5)
+        )
 
         self.option_frame = OptionFrame(self, text=_("Options"))
-        self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
+        self.option_frame.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 5))
 
         self.save_in_same_folder_var = tk.BooleanVar(value=False)
         self.save_in_same_folder_checkbox = ttk.Checkbutton(
             self.option_frame,
             text=_("Save in the same folder"),
             variable=self.save_in_same_folder_var,
-            command=self._on_save_in_same_folder_changed
+            command=self._on_save_in_same_folder_changed,
         )
         self.save_in_same_folder_checkbox.pack(side="left", padx=10, pady=5)
 
         self.sort_text_var = tk.BooleanVar(value=True)
         self.sort_text_checkbox = ttk.Checkbutton(
-            self.option_frame,
-            text=_("Sort text"),
-            variable=self.sort_text_var
+            self.option_frame, text=_("Sort text"), variable=self.sort_text_var
         )
         self.sort_text_checkbox.pack(side="left", padx=10, pady=5)
 
         bottom_frame = ttk.Frame(self)
-        bottom_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=(0, 10))
+        bottom_frame.grid(row=4, column=0, sticky="ew", padx=10, pady=(0, 10))
         bottom_frame.columnconfigure(0, weight=1)
 
-        self.status_label = ttk.Label(bottom_frame, text=_("Ready"), anchor='w')
-        self.status_label.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
+        self.status_label = ttk.Label(bottom_frame, text=_("Ready"), anchor="w")
+        self.status_label.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
 
-        self.start_button = ttk.Button(bottom_frame, text=_("Extract"), command=self.run_task_from_ui)
+        self.start_button = ttk.Button(
+            bottom_frame, text=_("Extract"), command=self.run_task_from_ui
+        )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
         self._on_save_in_same_folder_changed()  # Initial state
@@ -81,11 +81,15 @@ class ExtractTextApp(ttk.Frame, TaskRunnerMixin):
         save_in_same_folder = self.save_in_same_folder_var.get()
 
         if not input_files:
-            messagebox.showerror(_("Invalid Input"), _("Please add at least one PDF file."))
+            messagebox.showerror(
+                _("Invalid Input"), _("Please add at least one PDF file.")
+            )
             return None
 
         if not save_in_same_folder and not output_dir:
-            messagebox.showerror(_("Invalid Output"), _("Please specify an output folder."))
+            messagebox.showerror(
+                _("Invalid Output"), _("Please specify an output folder.")
+            )
             return None
 
         target_function = extract_text_worker

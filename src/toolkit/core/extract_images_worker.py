@@ -1,22 +1,23 @@
 # toolkit/core/extract_images_worker.py
+
 from pathlib import Path
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, ngettext
+from toolkit.i18n import gettext_text as _
 
 
 def extract_images_worker(
-        input_files,
-        output_dir,
-        min_width,
-        min_height,
-        save_in_same_folder,
-        extract_all,
-        cancel_event,
-        progress_queue,
-        result_queue,
-        saving_ack_event=None
+    input_files,
+    output_dir,
+    min_width,
+    min_height,
+    save_in_same_folder,
+    extract_all,
+    cancel_event,
+    progress_queue,
+    result_queue,
+    saving_ack_event=None,
 ):
     try:
         total_images_found = 0
@@ -24,7 +25,9 @@ def extract_images_worker(
 
         for file_path in input_files:
             with pymupdf.open(file_path) as doc:
-                total_images_found += sum(len(page.get_images(full=True)) for page in doc)
+                total_images_found += sum(
+                    len(page.get_images(full=True)) for page in doc
+                )
 
         progress_queue.put(("INIT", total_images_found))
 
@@ -56,14 +59,18 @@ def extract_images_worker(
                             img_bytes = img_dict["image"]
                             img_ext = img_dict["ext"]
 
-                            img_filename = f"{pdf_path_obj.stem}_p{page_num + 1}_{xref}.{img_ext}"
+                            img_filename = (
+                                f"{pdf_path_obj.stem}_p{page_num + 1}_{xref}.{img_ext}"
+                            )
                             img_path = output_subfolder / img_filename
                             img_path.write_bytes(img_bytes)
                             images_extracted_count += 1
 
                         progress_queue.put(("PROGRESS", images_extracted_count))
 
-        success_msg = _("Found {} images, extracted {} images.").format(total_images_found, images_extracted_count)
+        success_msg = _("Found {} images, extracted {} images.").format(
+            total_images_found, images_extracted_count
+        )
         result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:

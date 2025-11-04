@@ -6,17 +6,19 @@ from toolkit.i18n import gettext_text as _
 
 
 def interleave_pdf_worker(
-        pdf_path_a,
-        pdf_path_b,
-        output_pdf_path,
-        reverse_b,
-        cancel_event,
-        progress_queue,
-        result_queue,
-        saving_ack_event
+    pdf_path_a,
+    pdf_path_b,
+    output_pdf_path,
+    reverse_b,
+    cancel_event,
+    progress_queue,
+    result_queue,
+    saving_ack_event,
 ):
     try:
-        with pymupdf.open(pdf_path_a) as doc_a, pymupdf.open(pdf_path_b) as doc_b, pymupdf.open() as new_doc:
+        with pymupdf.open(pdf_path_a) as doc_a, pymupdf.open(
+            pdf_path_b
+        ) as doc_b, pymupdf.open() as new_doc:
             len_a = len(doc_a)
             len_b = len(doc_b)
             total_pages_to_insert = len_a + len_b
@@ -39,7 +41,9 @@ def interleave_pdf_worker(
 
                 if i < len_b:
                     page_b_index = (len_b - 1) - i if reverse_b else i
-                    new_doc.insert_pdf(doc_b, from_page=page_b_index, to_page=page_b_index)
+                    new_doc.insert_pdf(
+                        doc_b, from_page=page_b_index, to_page=page_b_index
+                    )
                     pages_processed += 1
 
                 progress_queue.put(("PROGRESS", pages_processed))

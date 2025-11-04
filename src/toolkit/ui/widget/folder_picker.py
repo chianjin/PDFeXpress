@@ -1,7 +1,8 @@
 # toolkit/ui/widget/folder_picker.py
+
 import tkinter as tk
 from pathlib import Path
-from tkinter import ttk, filedialog
+from tkinter import filedialog, ttk
 
 from toolkit.i18n import gettext_text as _
 
@@ -19,18 +20,14 @@ class FolderPicker(ttk.Labelframe):
 
         # 浏览按钮
         self.browse_button = ttk.Button(
-            self,
-            text=_('Browse'),
-            command=self._browse_folder
+            self, text=_("Browse"), command=self._browse_folder
         )
         self.browse_button.grid(row=0, column=1, sticky="w", padx=5, pady=5)
         self.columnconfigure(0, weight=1)
 
     def _browse_folder(self):
         """浏览文件夹"""
-        folder_path = filedialog.askdirectory(
-            title=_("Select Path"), mustexist=True
-        )
+        folder_path = filedialog.askdirectory(title=_("Select Path"), mustexist=True)
         if folder_path:
             self.folder_path_var.set(str(Path(folder_path)))
 

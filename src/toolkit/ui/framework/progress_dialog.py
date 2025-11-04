@@ -1,4 +1,5 @@
 # toolkit/ui/framework/progress_dialog.py
+
 import tkinter as tk
 from tkinter import ttk
 
@@ -6,8 +7,7 @@ from toolkit.i18n import gettext_text as _
 
 
 class ProgressDialog(tk.Toplevel):
-    """ Modal progress bar dialog.
-    """
+    """Modal progress bar dialog."""
 
     def __init__(self, master, title, label_text, cancel_command):
         super().__init__(master)
@@ -19,7 +19,9 @@ class ProgressDialog(tk.Toplevel):
         self.label = ttk.Label(self, text=label_text)
         self.label.pack(padx=20, pady=10)
 
-        self.progressbar = ttk.Progressbar(self, orient='horizontal', length=300, mode='indeterminate')
+        self.progressbar = ttk.Progressbar(
+            self, orient="horizontal", length=300, mode="indeterminate"
+        )
         self.progressbar.pack(padx=20, pady=5)
         self.progressbar.start(10)  # start with indeterminate mode
 

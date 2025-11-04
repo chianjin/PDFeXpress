@@ -7,14 +7,14 @@ from toolkit.i18n import gettext_text as _
 
 
 def pdf_to_long_image_worker(
-        pdf_path,
-        output_image_path,
-        dpi_value,
-        quality_value,
-        cancel_event,
-        progress_queue,
-        result_queue,
-        saving_ack_event
+    pdf_path,
+    output_image_path,
+    dpi_value,
+    quality_value,
+    cancel_event,
+    progress_queue,
+    result_queue,
+    saving_ack_event,
 ):
     try:
         with pymupdf.open(pdf_path) as doc:
@@ -22,7 +22,9 @@ def pdf_to_long_image_worker(
             if total_pages == 0:
                 raise ValueError(_("PDF file has no pages."))
 
-            progress_queue.put(("INIT", total_pages + 1))  # +1 for the final stitching step
+            progress_queue.put(
+                ("INIT", total_pages + 1)
+            )  # +1 for the final stitching step
 
             page_images = []
             total_width = 0
@@ -45,7 +47,7 @@ def pdf_to_long_image_worker(
             if not page_images:
                 raise ValueError(_("No pages were rendered from the PDF."))
 
-            long_image = Image.new('RGB', (total_width, total_height), (255, 255, 255))
+            long_image = Image.new("RGB", (total_width, total_height), (255, 255, 255))
             current_y = 0
             for img in page_images:
                 long_image.paste(img, (0, current_y))

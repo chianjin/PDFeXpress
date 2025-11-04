@@ -1,6 +1,7 @@
-# src/toolkit/ui/feature/merge_invoices.py
+# toolkit/ui/feature/merge_invoices.py
+
 from pathlib import Path
-from tkinter import ttk, messagebox
+from tkinter import messagebox, ttk
 
 from toolkit.constant import FILE_TYPES_PDF
 from toolkit.core.merge_invoices_worker import merge_invoices_worker
@@ -20,28 +21,36 @@ class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
         self.rowconfigure(1, weight=1)
 
         self.title_frame = TitleFrame(self, text=_("Merge Invoices"))
-        self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
+        self.title_frame.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
 
         self.invoice_list_view = FileListView(
             self,
             title=_("Invoice List"),
             file_types=FILE_TYPES_PDF,
             sortable=False,
-            on_change_callback=self._on_invoice_list_changed
+            on_change_callback=self._on_invoice_list_changed,
         )
-        self.invoice_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
+        self.invoice_list_view.grid(
+            row=1, column=0, sticky="nsew", padx=10, pady=(0, 5)
+        )
 
-        self.output_file_picker = FilePicker(self, title=_("Output PDF"), mode="save", file_types=FILE_TYPES_PDF)
-        self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
+        self.output_file_picker = FilePicker(
+            self, title=_("Output PDF"), mode="save", file_types=FILE_TYPES_PDF
+        )
+        self.output_file_picker.grid(
+            row=2, column=0, sticky="nsew", padx=10, pady=(0, 5)
+        )
 
         bottom_frame = ttk.Frame(self)
-        bottom_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 10))
+        bottom_frame.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 10))
         bottom_frame.columnconfigure(0, weight=1)
 
-        self.status_label = ttk.Label(bottom_frame, text=_("Ready"), anchor='w')
-        self.status_label.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
+        self.status_label = ttk.Label(bottom_frame, text=_("Ready"), anchor="w")
+        self.status_label.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
 
-        self.start_button = ttk.Button(bottom_frame, text=_("Merge"), command=self.run_task_from_ui)
+        self.start_button = ttk.Button(
+            bottom_frame, text=_("Merge"), command=self.run_task_from_ui
+        )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
     def _on_invoice_list_changed(self):
@@ -49,7 +58,7 @@ class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
         if invoice_pdf_paths:
             first_pdf_path = Path(invoice_pdf_paths[0])
             folder_name = first_pdf_path.parent.name
-            output_file_path = (first_pdf_path.parent / folder_name).with_suffix('.pdf')
+            output_file_path = (first_pdf_path.parent / folder_name).with_suffix(".pdf")
             self.output_file_picker.set(str(output_file_path))
         else:
             self.output_file_picker.set("")
@@ -62,11 +71,15 @@ class MergeInvoicesApp(ttk.Frame, TaskRunnerMixin):
         output_pdf_path = self.output_file_picker.get()
 
         if not invoice_pdf_paths:
-            messagebox.showerror(_("Invalid Input"), _("Please add at least one PDF file."))
+            messagebox.showerror(
+                _("Invalid Input"), _("Please add at least one PDF file.")
+            )
             return None
 
         if not output_pdf_path:
-            messagebox.showerror(_("Invalid Input"), _("Please specify an output path."))
+            messagebox.showerror(
+                _("Invalid Input"), _("Please specify an output path.")
+            )
             return None
 
         target_function = merge_invoices_worker

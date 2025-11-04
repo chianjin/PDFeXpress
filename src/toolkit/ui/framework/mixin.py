@@ -1,4 +1,5 @@
-# src/toolkit/ui/framework/mixin.py
+# toolkit/ui/framework/mixin.py
+
 import multiprocessing
 import queue
 from tkinter import messagebox
@@ -44,7 +45,9 @@ class TaskRunnerMixin:
         try:
             task_data = self._prepare_task()
         except Exception as e:
-            messagebox.showerror(_("Internal Error"), _("Failed to prepare task:\n{}").format(e))
+            messagebox.showerror(
+                _("Internal Error"), _("Failed to prepare task:\n{}").format(e)
+            )
             return
 
         if task_data is None:
@@ -64,18 +67,27 @@ class TaskRunnerMixin:
         self.cancel_event = multiprocessing.Event()
         self.progress_queue = multiprocessing.Queue()
         self.result_queue = multiprocessing.Queue()
-        self.saving_ack_event = multiprocessing.Event()  # Event for synchronizing the saving operation
+        self.saving_ack_event = (
+            multiprocessing.Event()
+        )  # Event for synchronizing the saving operation
 
         self.progress_dialog = ProgressDialog(
             self._get_root_window(),
             _("Processing..."),  # Progress dialog title
-            initial_label,       # Initial text for the progress dialog
-            self.request_cancel
+            initial_label,  # Initial text for the progress dialog
+            self.request_cancel,
         )
 
-        final_args = args_tuple + (self.cancel_event, self.progress_queue, self.result_queue, self.saving_ack_event)
+        final_args = args_tuple + (
+            self.cancel_event,
+            self.progress_queue,
+            self.result_queue,
+            self.saving_ack_event,
+        )
 
-        self.worker_process = multiprocessing.Process(target=target_function, args=final_args)
+        self.worker_process = multiprocessing.Process(
+            target=target_function, args=final_args
+        )
         self.worker_process.start()
 
         self._get_root_window().after(100, self.poll_queues)
@@ -91,9 +103,11 @@ class TaskRunnerMixin:
             if self.progress_dialog:
                 self.progress_dialog.progressbar.stop()
                 if result_type == "SUCCESS":
-                    self.progress_dialog.progressbar.config(mode='determinate',
-                                                            maximum=self.progress_dialog.progressbar['maximum'],
-                                                            value=self.progress_dialog.progressbar['maximum'])
+                    self.progress_dialog.progressbar.config(
+                        mode="determinate",
+                        maximum=self.progress_dialog.progressbar["maximum"],
+                        value=self.progress_dialog.progressbar["maximum"],
+                    )
 
             if result_type == "SUCCESS":
                 messagebox.showinfo(_("Complete"), message)
@@ -124,16 +138,18 @@ class TaskRunnerMixin:
                     # Switch to a determinate progress bar
                     self.progress_dialog.label.config(text=_("Processing..."))
                     self.progress_dialog.progressbar.stop()
-                    self.progress_dialog.progressbar.config(mode='determinate', maximum=msg[1], value=0)
+                    self.progress_dialog.progressbar.config(
+                        mode="determinate", maximum=msg[1], value=0
+                    )
                     if self.status_callback:
                         self.status_callback(_("Processing..."))
                 elif msg[0] == "PROGRESS":
                     # Update progress
-                    self.progress_dialog.progressbar['value'] = msg[1]
+                    self.progress_dialog.progressbar["value"] = msg[1]
                 elif msg[0] == "SAVING":
                     # Switch to an indeterminate progress bar and update the text
                     self.progress_dialog.progressbar.stop()
-                    self.progress_dialog.progressbar.config(mode='indeterminate')
+                    self.progress_dialog.progressbar.config(mode="indeterminate")
                     self.progress_dialog.progressbar.start()
                     self.progress_dialog.label.config(text=msg[1])
                     if self.status_callback:

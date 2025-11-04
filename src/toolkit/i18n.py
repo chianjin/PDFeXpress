@@ -1,4 +1,4 @@
-# toolkit.i18n
+# toolkit/i18n.py
 import gettext
 import os
 import platform
@@ -10,16 +10,17 @@ LOCALE_DIR = "locale"
 
 
 def _standardize_environment():
-    if 'LANG' in os.environ:
+    if "LANG" in os.environ:
         return
-    if platform.system() == 'Windows':
+    if platform.system() == "Windows":
         try:
             import ctypes
+
             buffer = ctypes.create_unicode_buffer(LOCALE_NAME_MAX_LENGTH)
             kernel32 = ctypes.windll.kernel32
             if kernel32.GetUserDefaultLocaleName(buffer, LOCALE_NAME_MAX_LENGTH):
-                posix_code = buffer.value.replace('-', '_')
-                os.environ['LANG'] = f"{posix_code}.UTF-8"
+                posix_code = buffer.value.replace("-", "_")
+                os.environ["LANG"] = f"{posix_code}.UTF-8"
         except (OSError, AttributeError, ImportError, ctypes.WinError):
             pass
 

@@ -4,15 +4,25 @@ from pathlib import Path
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, ngettext
+from toolkit.i18n import gettext_text as _
+from toolkit.i18n import ngettext
 
 translation_table = str.maketrans("-_.,", "    ")
+
 
 def replace_special_chars(text):
     return text.translate(translation_table)
 
-def merge_pdf_worker(input_files, output_file, create_bookmarks,
-                     cancel_event, progress_queue, result_queue, saving_ack_event):  # 添加 saving_ack_event
+
+def merge_pdf_worker(
+    input_files,
+    output_file,
+    create_bookmarks,
+    cancel_event,
+    progress_queue,
+    result_queue,
+    saving_ack_event,
+):  # 添加 saving_ack_event
     try:
         total_steps = len(input_files)
         progress_queue.put(("INIT", total_steps))
@@ -30,7 +40,9 @@ def merge_pdf_worker(input_files, output_file, create_bookmarks,
                     if create_bookmarks:
                         # File name without extension as bookmark title
                         bookmark_title = replace_special_chars(Path(file_path).stem)
-                        toc.append([1, bookmark_title, current_page + 1])  # [level, title, page]
+                        toc.append(
+                            [1, bookmark_title, current_page + 1]
+                        )  # [level, title, page]
                     output_doc.insert_pdf(input_doc)
                     current_page += input_doc.page_count
                 progress_queue.put(("PROGRESS", i + 1))
@@ -50,9 +62,7 @@ def merge_pdf_worker(input_files, output_file, create_bookmarks,
             output_doc.save(output_file, garbage=4, deflate=True)
 
         success_msg = ngettext(
-            "Merged {} PDF file.",
-            "Merged {} PDF files.",
-            total_steps
+            "Merged {} PDF file.", "Merged {} PDF files.", total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))
 

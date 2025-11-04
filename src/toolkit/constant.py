@@ -9,7 +9,10 @@ FILE_TYPES_PDF = [(_("PDF Files"), "*.pdf")]
 FILE_TYPES_CSV = [(_("CSV Files"), "*.csv")]
 
 FILE_TYPES_IMAGE = [
-    (_("Image Files"), ("*.jpg", "*.jpeg", "*.png", "*.webp", "*.bmp", "*.tif", "*.tiff", "*.gif"))
+    (
+        _("Image Files"),
+        ("*.jpg", "*.jpeg", "*.png", "*.webp", "*.bmp", "*.tif", "*.tiff", "*.gif"),
+    )
 ]
 FILE_TYPES_JPEG = [(_("JPEG Files"), ("*.jpg", "*.jpeg"))]
 FILE_TYPES_PNG = [(_("PNG Files"), "*.png")]
@@ -25,5 +28,5 @@ FILE_TYPES_IMAGES = [
     FILE_TYPES_WEBP[0],
     FILE_TYPES_BMP[0],
     FILE_TYPES_TIFF[0],
-    FILE_TYPES_GIF[0]
+    FILE_TYPES_GIF[0],
 ]

@@ -1,7 +1,8 @@
 # toolkit/ui/widget/file_picker.py
+
 import tkinter as tk
 from pathlib import Path
-from tkinter import ttk, filedialog
+from tkinter import filedialog, ttk
 
 import tkinterdnd2
 
@@ -17,10 +18,13 @@ class FilePicker(ttk.Labelframe):
     """文件选择组件，支持open和save两种模式"""
 
     def __init__(
-            self, parent, title=_("Input File"),
-            mode="open", file_types=FILE_TYPES_PDF,
-            on_change_callback=None,
-            **kwargs
+        self,
+        parent,
+        title=_("Input File"),
+        mode="open",
+        file_types=FILE_TYPES_PDF,
+        on_change_callback=None,
+        **kwargs
     ):
         super().__init__(parent, text=title, **kwargs)
         self._on_change_callback = on_change_callback
@@ -38,13 +42,13 @@ class FilePicker(ttk.Labelframe):
         self.file_path_entry.grid(row=0, column=0, sticky="we", padx=5, pady=5)
 
         self.browse_button = ttk.Button(
-            self, text=_('Browse'), command=self._on_browse_file
+            self, text=_("Browse"), command=self._on_browse_file
         )
         self.browse_button.grid(row=0, column=1, sticky="w", padx=5, pady=5)
 
         if self._mode == "open":
             self.drop_target_register(tkinterdnd2.DND_FILES)
-            self.dnd_bind('<<Drop>>', self._on_drop)
+            self.dnd_bind("<<Drop>>", self._on_drop)
 
     @check_file_path_change
     def _open_file(self):
@@ -80,7 +84,7 @@ class FilePicker(ttk.Labelframe):
             confirmoverwrite=True,
             initialdir=initial_dir,
             initialfile=initial_file,
-            defaultextension=default_extension
+            defaultextension=default_extension,
         )
         if file_path:
             self.file_path_var.set(str(Path(file_path)))

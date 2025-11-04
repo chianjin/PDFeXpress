@@ -1,20 +1,21 @@
 # toolkit/core/image_to_pdf_worker.py
-import os
+
 from pathlib import Path
 
 import pymupdf  # 导入 PyMuPDF
 
-from toolkit.i18n import gettext_text as _, ngettext
+from toolkit.i18n import gettext_text as _
+from toolkit.i18n import ngettext
 
 
 def image_to_pdf_worker(
-        image_files,
-        output_pdf_path,
-        cancel_event,
-        progress_queue,
-        result_queue,
-        saving_ack_event
-    ):
+    image_files,
+    output_pdf_path,
+    cancel_event,
+    progress_queue,
+    result_queue,
+    saving_ack_event,
+):
     try:
         total_steps = len(image_files)
         progress_queue.put(("INIT", total_steps))
@@ -37,7 +38,13 @@ def image_to_pdf_worker(
                 except Exception as img_e:
                     print(f"Error converting image {image_file}: {img_e}")
                     result_queue.put(
-                        ("ERROR", _("Error converting image {}:\n{}").format(Path(image_file).name, img_e)))
+                        (
+                            "ERROR",
+                            _("Error converting image {}:\n{}").format(
+                                Path(image_file).name, img_e
+                            ),
+                        )
+                    )
                     return
 
                 progress_queue.put(("PROGRESS", i + 1))
@@ -57,9 +64,7 @@ def image_to_pdf_worker(
             output_doc.save(output_pdf_path, garbage=4, deflate=True)
 
         success_msg = ngettext(
-            "Converted {} image into PDF.",
-            "Converted {} images into PDF.",
-            total_steps
+            "Converted {} image into PDF.", "Converted {} images into PDF.", total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))
 

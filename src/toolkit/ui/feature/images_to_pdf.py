@@ -1,5 +1,6 @@
-# src/toolkit/ui/feature/images_to_pdf.py
-from tkinter import ttk, messagebox
+# toolkit/ui/feature/images_to_pdf.py
+
+from tkinter import messagebox, ttk
 
 from toolkit.constant import FILE_TYPES_IMAGES, FILE_TYPES_PDF
 from toolkit.core.image_to_pdf_worker import image_to_pdf_worker
@@ -19,43 +20,42 @@ class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
 
         self.columnconfigure(0, weight=1)
         self.rowconfigure(1, weight=1)
-        
+
         self.title_frame = TitleFrame(self, text=_("Images to PDF"))
-        self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
+        self.title_frame.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
 
         self.file_list_view = FileListView(
             self,
             title=_("Image List"),
             file_types=FILE_TYPES_IMAGES,
             sortable=True,
-            on_change_callback=self._on_file_list_changed
+            on_change_callback=self._on_file_list_changed,
         )
-        self.file_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
+        self.file_list_view.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 5))
 
         self.output_file_picker = FilePicker(
             self,
             title=_("Output PDF"),
             mode="save",
             file_types=FILE_TYPES_PDF,
-
         )
-        self.output_file_picker.grid(row=2, column=0, sticky='nsew', padx=10, pady=(0, 5))
+        self.output_file_picker.grid(
+            row=2, column=0, sticky="nsew", padx=10, pady=(0, 5)
+        )
 
         bottom_frame = ttk.Frame(self)
-        bottom_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 10))
+        bottom_frame.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 10))
         bottom_frame.columnconfigure(0, weight=1)
 
         self.status_label = ttk.Label(
             bottom_frame,
             text=_("Ready"),
-            anchor='w',
+            anchor="w",
         )
-        self.status_label.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
+        self.status_label.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
 
         self.start_button = ttk.Button(
-            bottom_frame,
-            text=_("Convert"),
-            command=self.run_task_from_ui
+            bottom_frame, text=_("Convert"), command=self.run_task_from_ui
         )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
@@ -65,7 +65,7 @@ class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
             first_file_path = files[0]
             containing_folder = first_file_path.parent
             output_dir = containing_folder.parent
-            new_filename = (output_dir / containing_folder.name).with_suffix('.pdf')
+            new_filename = (output_dir / containing_folder.name).with_suffix(".pdf")
             self.output_file_picker.set(str(new_filename))
         else:
             self.output_file_picker.clear()
@@ -79,11 +79,15 @@ class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
         output_pdf_path = self.output_file_picker.get()
 
         if not image_files:
-            messagebox.showerror(_("Invalid Input"), _("Please add at least one image file."))
+            messagebox.showerror(
+                _("Invalid Input"), _("Please add at least one image file.")
+            )
             return None
 
         if not output_pdf_path:
-            messagebox.showerror(_("Invalid Output"), _("Please specify an output PDF."))
+            messagebox.showerror(
+                _("Invalid Output"), _("Please specify an output PDF.")
+            )
             return None
 
         target_function = image_to_pdf_worker

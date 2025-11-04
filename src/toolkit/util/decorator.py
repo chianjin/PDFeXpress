@@ -1,4 +1,5 @@
-# src/toolkit/util/decorator.py
+# toolkit/util/decorator.py
+
 import functools
 
 

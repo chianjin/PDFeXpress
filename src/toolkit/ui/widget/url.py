@@ -1,16 +1,19 @@
+# toolkit/ui/widget/url.py
+
 import tkinter as tk
-from tkinter import font as tkfont
 import webbrowser
+from tkinter import font as tkfont
+
 
 class URLLabel(tk.Label):
     def __init__(self, parent, url, text=None, **kwargs):
         super().__init__(parent, **kwargs)
 
-        normal_color = 'blue'
-        hold_color = 'darkblue'
+        normal_color = "blue"
+        hold_color = "darkblue"
 
         font = tkfont.nametofont("TkDefaultFont").actual()
-        size = font['size']
+        size = font["size"]
         font = tkfont.Font(size=size, underline=True)
 
         if not text:

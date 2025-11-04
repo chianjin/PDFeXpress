@@ -1,20 +1,22 @@
 # toolkit/core/rotate_pdf_worker.py
+
 from pathlib import Path
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, ngettext
+from toolkit.i18n import gettext_text as _
+from toolkit.i18n import ngettext
 
 
 def pdf_rotate_worker(
-        input_files,
-        output_dir,
-        rotation_angle,
-        save_to_same_folder,
-        cancel_event,
-        progress_queue,
-        result_queue,
-        saving_ack_event
+    input_files,
+    output_dir,
+    rotation_angle,
+    save_to_same_folder,
+    cancel_event,
+    progress_queue,
+    result_queue,
+    saving_ack_event,
 ):
     try:
         total_steps = len(input_files)
@@ -43,9 +45,7 @@ def pdf_rotate_worker(
             progress_queue.put(("PROGRESS", i + 1))
 
         success_msg = ngettext(
-            "Rotated {} PDF file.",
-            "Rotated {} PDF files.",
-            total_steps
+            "Rotated {} PDF file.", "Rotated {} PDF files.", total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))
 

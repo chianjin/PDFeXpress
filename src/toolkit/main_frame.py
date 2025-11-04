@@ -1,24 +1,26 @@
-from datetime import date
-import tkinter as tk
-from tkinter import ttk, messagebox, font as tkfont
+# toolkit/main_frame.py
 
+import tkinter as tk
+from datetime import date
+from tkinter import font as tkfont
+from tkinter import messagebox, ttk
 
 # Import i18n and feature modules
-from config import PROJECT_NAME, PROJECT_VERSION, PROJECT_URL, PROJECT_AUTHOR
+from config import PROJECT_AUTHOR, PROJECT_NAME, PROJECT_URL, PROJECT_VERSION
 from toolkit.i18n import gettext_text as _
-from toolkit.ui.widget.url import URLLabel
 from toolkit.ui.feature.delete_pages import DeletePagesApp
+from toolkit.ui.feature.edit_bookmark import EditBookmarkApp
 from toolkit.ui.feature.extract_images import ExtractImagesApp
 from toolkit.ui.feature.extract_text import ExtractTextApp
 from toolkit.ui.feature.images_to_pdf import ImagesToPDFApp
 from toolkit.ui.feature.interleave_pdf import InterleavePDFApp
 from toolkit.ui.feature.merge_invoices import MergeInvoicesApp
-from toolkit.ui.feature.edit_bookmark import EditBookmarkApp
 from toolkit.ui.feature.merge_pdf import MergePDFApp
 from toolkit.ui.feature.pdf_to_images import PDFToImagesApp
 from toolkit.ui.feature.pdf_to_long_image import PDFToLongImageApp
 from toolkit.ui.feature.rotate_pdf import RotatePDFApp
 from toolkit.ui.feature.split_pdf import SplitPDFApp
+from toolkit.ui.widget.url import URLLabel
 
 
 class MainFrame(ttk.Frame):
@@ -43,7 +45,9 @@ class MainFrame(ttk.Frame):
         # separator = ttk.Separator(about_frame)
         # separator.grid(row=0, column=0, sticky="ew", pady=(0, 5))
 
-        about_button = ttk.Button(about_frame, text=_("About"), command=self._show_about_dialog)
+        about_button = ttk.Button(
+            about_frame, text=_("About"), command=self._show_about_dialog
+        )
         about_button.grid(row=1, column=0, sticky="ew")
 
         # Top frame for navigation buttons
@@ -64,7 +68,9 @@ class MainFrame(ttk.Frame):
         self._create_nav_button(top_nav_frame, _("Extract Images"), ExtractImagesApp)
         self._create_nav_button(top_nav_frame, _("Images to PDF"), ImagesToPDFApp)
         self._create_nav_button(top_nav_frame, _("PDF to Images"), PDFToImagesApp)
-        self._create_nav_button(top_nav_frame, _("PDF to Long Image"), PDFToLongImageApp)
+        self._create_nav_button(
+            top_nav_frame, _("PDF to Long Image"), PDFToLongImageApp
+        )
         self._create_nav_button(top_nav_frame, _("Delete Pages"), DeletePagesApp)
         self._create_nav_button(top_nav_frame, _("Edit Bookmark"), EditBookmarkApp)
         self._create_nav_button(top_nav_frame, _("Merge Invoices"), MergeInvoicesApp)
@@ -79,8 +85,10 @@ class MainFrame(ttk.Frame):
         self._show_app(MergePDFApp)
 
     def _create_nav_button(self, parent, text: str, app_class):
-        button = ttk.Button(parent, text=text, command=lambda ac=app_class: self._show_app(ac))
-        button.pack(fill='x', pady=(5, 0))
+        button = ttk.Button(
+            parent, text=text, command=lambda ac=app_class: self._show_app(ac)
+        )
+        button.pack(fill="x", pady=(5, 0))
         self.nav_buttons[app_class] = button
 
     def _show_app(self, app_class):
@@ -99,13 +107,13 @@ class MainFrame(ttk.Frame):
 
         for ac, button in self.nav_buttons.items():
             if ac == app_class:
-                button.state(['disabled'])
+                button.state(["disabled"])
             else:
-                button.state(['!disabled'])
+                button.state(["!disabled"])
 
     def _show_about_dialog(self):
         AboutFame(self)
-        
+
 
 class AboutFame(tk.Toplevel):
     def __init__(self, parent: ttk.Frame, *args, **kwargs):
@@ -123,51 +131,47 @@ class AboutFame(tk.Toplevel):
         name_font = tkfont.Font(family=default_font_family, size=16, weight="bold")
         version_font = tkfont.Font(family=default_font_family, size=12, weight="bold")
 
-        ttk.Label(
-            self, text=PROJECT_NAME, font=name_font
-        ).grid(row=0, column=0, padx=10, pady=(20, 0))
-        ttk.Label(
-            self, text=f"{_('Ver.')} {PROJECT_VERSION}", font=version_font
-        ).grid(row=1, column=0, padx=10, pady=(10, 0))
-        URLLabel(
-            self, url=PROJECT_URL
-        ).grid(row=2, column=0, padx=10, pady=(10, 0))
+        ttk.Label(self, text=PROJECT_NAME, font=name_font).grid(
+            row=0, column=0, padx=10, pady=(20, 0)
+        )
+        ttk.Label(self, text=f"{_('Ver.')} {PROJECT_VERSION}", font=version_font).grid(
+            row=1, column=0, padx=10, pady=(10, 0)
+        )
+        URLLabel(self, url=PROJECT_URL).grid(row=2, column=0, padx=10, pady=(10, 0))
 
         ttk.Label(
-            self, text=_(
-                'Copyright © 2022-{} {}, All rights reserved.'
-            ).format(date.today().year, PROJECT_AUTHOR)
+            self,
+            text=_("Copyright © 2022-{} {}, All rights reserved.").format(
+                date.today().year, PROJECT_AUTHOR
+            ),
         ).grid(row=3, column=0, padx=40, pady=(10, 0))
 
-        ttk.Label(
-            self, text=_('------ The third software or packages -------')
-        ).grid(row=4, column=0, padx=10, pady=(20, 0))
+        ttk.Label(self, text=_("------ The third software or packages -------")).grid(
+            row=4, column=0, padx=10, pady=(20, 0)
+        )
 
         third_packages = (
-            ('Python', 'https://python.org', 'Python Software Foundation License v2'),
-            ('PyMuPDF', 'https://github.com/pymupdf/PyMuPDF', 'GNU AFFERO GPL 3.0 or Artifex Commercial License'),
-            ('Pillow', 'https://github.com/python-pillow/Pillow', 'MIT-CMU'),
-            ('tkinterdnd2', 'https://github.com/Eliav2/tkinterdnd2', 'MIT License'),
+            ("Python", "https://python.org", "Python Software Foundation License v2"),
+            (
+                "PyMuPDF",
+                "https://github.com/pymupdf/PyMuPDF",
+                "GNU AFFERO GPL 3.0 or Artifex Commercial License",
+            ),
+            ("Pillow", "https://github.com/python-pillow/Pillow", "MIT-CMU"),
+            ("tkinterdnd2", "https://github.com/Eliav2/tkinterdnd2", "MIT License"),
         )
 
         third_packages_frame = ttk.Frame(self)
         third_packages_frame.grid(row=5, column=0, padx=40, pady=(0, 20))
         for row_index, (name, url, license_) in enumerate(third_packages):
-            URLLabel(
-                third_packages_frame,
-                text=name,
-                url=url
-            ).grid(row=row_index, sticky='e', column=0, padx=10, pady=(5, 0))
-            ttk.Label(
-                third_packages_frame,
-                text=license_
-            ).grid(row=row_index, sticky='w', column=1, padx=10, pady=(5, 0))
-
-            ok_button = ttk.Button(
-                self,
-                text=_("OK"),
-                command=lambda : self.destroy()
+            URLLabel(third_packages_frame, text=name, url=url).grid(
+                row=row_index, sticky="e", column=0, padx=10, pady=(5, 0)
             )
+            ttk.Label(third_packages_frame, text=license_).grid(
+                row=row_index, sticky="w", column=1, padx=10, pady=(5, 0)
+            )
+
+            ok_button = ttk.Button(self, text=_("OK"), command=lambda: self.destroy())
             ok_button.grid(row=6, column=0, padx=10, pady=(5, 20))
 
         self.update_idletasks()

@@ -1,23 +1,25 @@
 # toolkit/core/pdf_to_image_worker.py
+
 from pathlib import Path
 
 import pymupdf
 
-from toolkit.i18n import gettext_text as _, ngettext
+from toolkit.i18n import gettext_text as _
+from toolkit.i18n import ngettext
 
 
 def pdf_to_image_worker(
-        input_files,
-        output_dir,
-        dpi_value,
-        image_format,
-        jpeg_quality,
-        transparent_background,
-        save_in_same_folder,
-        cancel_event,
-        progress_queue,
-        result_queue,
-        saving_ack_event
+    input_files,
+    output_dir,
+    dpi_value,
+    image_format,
+    jpeg_quality,
+    transparent_background,
+    save_in_same_folder,
+    cancel_event,
+    progress_queue,
+    result_queue,
+    saving_ack_event,
 ):
     try:
         total_steps = 0
@@ -62,7 +64,7 @@ def pdf_to_image_worker(
                     new_filename = f"{pdf_name_only}_page_{page_num_str}.{image_format}"
                     output_filename = sub_output_dir / new_filename
 
-                    if image_format == 'jpg':
+                    if image_format == "jpg":
                         pix.save(str(output_filename), jpg_quality=jpeg_quality)
                     else:
                         pix.save(str(output_filename))
@@ -71,9 +73,7 @@ def pdf_to_image_worker(
                     progress_queue.put(("PROGRESS", current_step))
 
         success_msg = ngettext(
-            "Converted {} page to image.",
-            "Converted {} pages to images.",
-            total_steps
+            "Converted {} page to image.", "Converted {} pages to images.", total_steps
         ).format(total_steps)
         result_queue.put(("SUCCESS", success_msg))
 
