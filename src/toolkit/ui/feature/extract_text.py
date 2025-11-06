@@ -45,11 +45,11 @@ class ExtractTextApp(ttk.Frame, TaskRunnerMixin):
         )
         self.save_in_same_folder_checkbox.pack(side="left", padx=10, pady=5)
 
-        self.sort_text_var = tk.BooleanVar(value=True)
-        self.sort_text_checkbox = ttk.Checkbutton(
-            self.option_frame, text=_("Sort text"), variable=self.sort_text_var
+        self.add_page_separator_var = tk.BooleanVar(value=False)
+        self.add_page_separator_checkbox = ttk.Checkbutton(
+            self.option_frame, text=_("Add page separators"), variable=self.add_page_separator_var
         )
-        self.sort_text_checkbox.pack(side="left", padx=10, pady=5)
+        self.add_page_separator_checkbox.pack(side="left", padx=10, pady=5)
 
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky="ew", padx=10, pady=(0, 10))
@@ -77,7 +77,7 @@ class ExtractTextApp(ttk.Frame, TaskRunnerMixin):
     def _prepare_task(self):
         input_files = [str(p) for p in self.file_list_view.get()]
         output_dir = self.output_folder_picker.get()
-        sort_text = self.sort_text_var.get()
+        add_page_separator = self.add_page_separator_var.get()
         save_in_same_folder = self.save_in_same_folder_var.get()
 
         if not input_files:
@@ -93,7 +93,7 @@ class ExtractTextApp(ttk.Frame, TaskRunnerMixin):
             return None
 
         target_function = extract_text_worker
-        args_tuple = (input_files, output_dir, sort_text, save_in_same_folder)
+        args_tuple = (input_files, output_dir, add_page_separator, save_in_same_folder)
         initial_label = _("Extracting text...")
 
         return target_function, args_tuple, initial_label

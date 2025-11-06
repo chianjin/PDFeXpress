@@ -7,10 +7,10 @@ from typing import List
 
 from toolkit.constant import FILE_TYPES_CSV, FILE_TYPES_PDF
 from toolkit.core.edit_bookmark_worker import (
-    export_bookmarks_to_csv,
-    get_bookmarks,
-    import_bookmarks_from_csv,
-    set_bookmarks,
+    export_to_csv,
+    get_outlines,
+    import_from_csv,
+    set_outlines,
 )
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.widget.file_picker import FilePicker
@@ -157,7 +157,7 @@ class EditBookmarkApp(ttk.Frame):
         if not pdf_path:
             return
         try:
-            toc = get_bookmarks(pdf_path)
+            toc = get_outlines(pdf_path)
             self.update_treeview(toc)
         except Exception as e:
             messagebox.showerror(_("Error"), _("Failed to load: {}").format(e))
@@ -165,7 +165,7 @@ class EditBookmarkApp(ttk.Frame):
     def update_treeview(self, toc: List):
         self.toc_tree.delete(*self.toc_tree.get_children())
         for i, item in enumerate(toc):
-            level, title, page = item
+            level, page, title = item
             self.toc_tree.insert("", "end", values=(level, page, title))
 
     def get_toc_from_treeview(self) -> List:
@@ -173,7 +173,7 @@ class EditBookmarkApp(ttk.Frame):
         for iid in self.toc_tree.get_children():
             values = self.toc_tree.item(iid, "values")
             level, page, title = values
-            toc.append([int(level), str(title), int(page)])
+            toc.append([int(level), int(page), str(title)])
         return toc
 
     def on_tree_select(self, event):
@@ -281,7 +281,7 @@ class EditBookmarkApp(ttk.Frame):
         if not path:
             return
         try:
-            toc = import_bookmarks_from_csv(path)
+            toc = import_from_csv(path)
             self.update_treeview(toc)
         except Exception as e:
             messagebox.showerror(_("Error"), _("Import failed: {}").format(e))
@@ -294,7 +294,7 @@ class EditBookmarkApp(ttk.Frame):
             return
         try:
             toc = self.get_toc_from_treeview()
-            export_bookmarks_to_csv(toc, path)
+            export_to_csv(toc, path)
             messagebox.showinfo(_("Success"), _("Export successful: {}").format(path))
         except Exception as e:
             messagebox.showerror(_("Error"), _("Export failed: {}").format(e))
@@ -311,7 +311,7 @@ class EditBookmarkApp(ttk.Frame):
 
         try:
             toc = self.get_toc_from_treeview()
-            set_bookmarks(input_path, toc, output_path)
+            set_outlines(input_path, toc, output_path)
             messagebox.showinfo(
                 _("Success"), _("Save successful: {}").format(output_path)
             )

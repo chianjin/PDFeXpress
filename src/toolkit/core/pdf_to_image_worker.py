@@ -1,11 +1,10 @@
 # toolkit/core/pdf_to_image_worker.py
 
 from pathlib import Path
+from pypdfium2 import PdfDocument
+from PIL import Image
 
-import pymupdf
-
-from toolkit.i18n import gettext_text as _
-from toolkit.i18n import ngettext
+from toolkit.i18n import gettext_text as _, ngettext
 
 
 def pdf_to_image_worker(
@@ -24,8 +23,8 @@ def pdf_to_image_worker(
     try:
         total_steps = 0
         for file_path in input_files:
-            with pymupdf.open(file_path) as doc:
-                total_steps += doc.page_count
+            with PdfDocument(file_path) as doc:
+                total_steps += len(doc)
         progress_queue.put(("INIT", total_steps))
 
         current_step = 0
@@ -44,30 +43,45 @@ def pdf_to_image_worker(
 
             sub_output_dir.mkdir(parents=True, exist_ok=True)
 
-            with pymupdf.open(file_path) as doc:
-                pdf_path_obj = Path(file_path)
-                pdf_name_only = pdf_path_obj.stem
-
+            with PdfDocument(file_path) as doc:
                 # Calculate padding for page numbers
-                num_digits = len(str(doc.page_count))
+                num_digits = len(str(len(doc)))
 
-                for i in range(doc.page_count):
+                for i in range(len(doc)):
                     if cancel_event.is_set():
                         result_queue.put(("CANCEL", _("Cancelled by user.")))
                         return
 
-                    page = doc.load_page(i)
-                    pix = page.get_pixmap(dpi=dpi_value, alpha=transparent_background)
-
+                    page = doc[i]
                     # Zero-pad the page number
                     page_num_str = str(i + 1).zfill(num_digits)
                     new_filename = f"{pdf_name_only}_page_{page_num_str}.{image_format}"
                     output_filename = sub_output_dir / new_filename
 
-                    if image_format == "jpg":
-                        pix.save(str(output_filename), jpg_quality=jpeg_quality)
+                    if image_format == 'png' and transparent_background:
+                        pil_image = page.render(
+                            scale=dpi_value / 72,
+                            fill_color=(255, 255, 255, 0),
+                            maybe_alpha=True
+                        ).to_pil()
+                        pil_image.save(str(output_filename), format='PNG', dpi=(dpi_value, dpi_value), optimize=True)
                     else:
-                        pix.save(str(output_filename))
+                        pil_image = page.render(
+                            scale=dpi_value / 72
+                        ).to_pil()
+                        # For JPG format
+                        if image_format == 'jpg':
+                            # Convert to RGB if necessary (JPEG doesn't support transparency)
+                            if pil_image.mode in ('RGBA', 'LA', 'P'):
+                                rgb_image = Image.new('RGB', pil_image.size, (255, 255, 255))
+                                if pil_image.mode == 'RGBA':
+                                    rgb_image.paste(pil_image, mask=pil_image.split()[-1])
+                                else:
+                                    rgb_image.paste(pil_image)
+                                pil_image = rgb_image
+                            pil_image.save(str(output_filename), format='JPEG', quality=jpeg_quality, dpi=(dpi_value, dpi_value), optimize=True)
+                        else:  # For PNG format when transparent_background is False
+                            pil_image.save(str(output_filename), format='PNG', dpi=(dpi_value, dpi_value), optimize=True)
 
                     current_step += 1
                     progress_queue.put(("PROGRESS", current_step))

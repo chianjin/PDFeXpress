@@ -1,17 +1,15 @@
 # toolkit/core/extract_text_worker.py
 
 from pathlib import Path
+from pypdfium2 import PdfDocument
 
-import pymupdf
-
-from toolkit.i18n import gettext_text as _
-from toolkit.i18n import ngettext
+from toolkit.i18n import gettext_text as _, ngettext
 
 
 def extract_text_worker(
     input_files,
     output_dir,
-    sort_text,
+    add_page_separator,
     save_in_same_folder,
     cancel_event,
     progress_queue,
@@ -27,17 +25,38 @@ def extract_text_worker(
                 result_queue.put(("CANCEL", _("Cancelled by user.")))
                 return
 
-            with pymupdf.open(file_path) as doc:
-                text = ""
-                for page in doc:
-                    text += page.get_text(sort=sort_text)
+            # pypdfium2 doesn't have a direct sort option like PyMuPDF
+            # We'll extract text from each page
+            with PdfDocument(file_path) as doc:
+                text_parts = []
+                for page_num in range(len(doc)):
+                    page = doc[page_num]
+                    text_page = page.get_textpage()
+                    page_text = text_page.get_text_range()
+                    # Normalize line endings to \n and clean up
+                    page_text = page_text.replace('\r\n', '\n').replace('\r', '\n')
+                    # Split into lines and remove empty lines
+                    lines = [line for line in page_text.split('\n') if line.strip()]
+                    page_text = '\n'.join(lines)
+                    text_parts.append(page_text)
+                    # Add a page separator if option is enabled
+                    if add_page_separator:
+                        text_parts.append(f"{'='*25} {_('PAGE {} END').format(page_num+1)} {'='*25}"
+)
 
-                pdf_path_obj = Path(file_path)
-                if save_in_same_folder:
-                    output_path = pdf_path_obj.parent / f"{pdf_path_obj.stem}.txt"
-                else:
-                    output_path = Path(output_dir) / f"{pdf_path_obj.stem}.txt"
-                output_path.write_text(text, encoding="utf-8")
+                text = '\n'.join(text_parts)
+
+            pdf_path_obj = Path(file_path)
+            if save_in_same_folder:
+                output_path = pdf_path_obj.parent / f"{pdf_path_obj.stem}.txt"
+            else:
+                output_path = Path(output_dir) / f"{pdf_path_obj.stem}.txt"
+            
+            # Normalize line endings to platform default
+            import os
+            text = text.replace('\n', os.linesep).replace('\r', '')
+            
+            output_path.write_text(text, encoding="utf-8")
 
             progress_queue.put(("PROGRESS", i + 1))
 

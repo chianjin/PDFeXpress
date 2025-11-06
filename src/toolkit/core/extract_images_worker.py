@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-import pymupdf
+from pikepdf import Pdf, PdfImage
 
 from toolkit.i18n import gettext_text as _
 
@@ -21,16 +21,23 @@ def extract_images_worker(
 ):
     try:
         total_images_found = 0
-        images_extracted_count = 0
 
+        # Count total images in all files first (to initialize progress)
         for file_path in input_files:
-            with pymupdf.open(file_path) as doc:
-                total_images_found += sum(
-                    len(page.get_images(full=True)) for page in doc
-                )
+            with Pdf.open(file_path) as pdf:
+                xref_list = []  # Track xrefs to skip duplicates
+                for page in pdf.pages:
+                    for img_name in page.images.keys():
+                        xref = page.images[img_name].objgen
+                        if xref in xref_list:
+                            continue  # Skip duplicate image
+                        xref_list.append(xref)
+                        total_images_found += 1
+
 
         progress_queue.put(("INIT", total_images_found))
 
+        images_extracted_count = 0
         for file_path in input_files:
             if cancel_event.is_set():
                 result_queue.put(("CANCEL", _("Cancelled by user.")))
@@ -43,27 +50,26 @@ def extract_images_worker(
                 output_subfolder = Path(output_dir) / pdf_path_obj.stem
             output_subfolder.mkdir(parents=True, exist_ok=True)
 
-            with pymupdf.open(file_path) as doc:
-                for page_num, page in enumerate(doc):
-                    img_list = page.get_images(full=True)
-                    for img_info in img_list:
-                        xref = img_info[0]
-                        w = img_info[2]
-                        h = img_info[3]
+            with Pdf.open(file_path) as pdf:
+                xref_list = []  # Track xrefs to skip duplicates
+                for page_num, page in enumerate(pdf.pages, start=1):
+                    # 使用 page.images 获取页面中的所有图像
+                    for img_name in page.images.keys():
+                        xref = page.images[img_name].objgen
+                        if xref in xref_list:
+                            continue  # Skip duplicate image
+                        xref_list.append(xref)
+                        try:
+                            # 尝试将对象解析为图像
+                            pdf_img = PdfImage(page.images[img_name])
+                        except Exception as e:
+                            continue  # Skip non-image XObject
 
-                        if extract_all or (w >= min_width and h >= min_height):
-                            img_dict = doc.extract_image(xref)
-                            if not img_dict:
-                                continue
-
-                            img_bytes = img_dict["image"]
-                            img_ext = img_dict["ext"]
-
-                            img_filename = (
-                                f"{pdf_path_obj.stem}_p{page_num + 1}_{xref}.{img_ext}"
-                            )
-                            img_path = output_subfolder / img_filename
-                            img_path.write_bytes(img_bytes)
+                        # 检查是否满足尺寸要求
+                        if extract_all or (pdf_img.width >= min_width and pdf_img.height >= min_height):
+                            # 使用PikePDF的extract_to方法，它会自动处理扩展名
+                            img_prefix = output_subfolder / f"P{page_num:02d}_{img_name[1:]}"
+                            img_path = pdf_img.extract_to(fileprefix=img_prefix)
                             images_extracted_count += 1
 
                         progress_queue.put(("PROGRESS", images_extracted_count))

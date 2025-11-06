@@ -3,10 +3,9 @@
 from pathlib import Path
 from typing import Set
 
-import pymupdf
+from pikepdf import Pdf
 
-from toolkit.i18n import gettext_text as _
-from toolkit.i18n import ngettext
+from toolkit.i18n import gettext_text as _, ngettext
 
 
 def _parse_pages_to_delete(range_string: str, total_pages: int) -> Set[int]:
@@ -74,8 +73,8 @@ def delete_pages_worker(
         if not pages_to_delete_str:
             raise ValueError(_("No pages specified to delete."))
 
-        with pymupdf.open(pdf_path) as doc:
-            total_pages_doc = len(doc)
+        with Pdf.open(pdf_path) as pdf:
+            total_pages_doc = len(pdf.pages)
             if total_pages_doc == 0:
                 raise ValueError(_("PDF file has no pages."))
 
@@ -103,16 +102,18 @@ def delete_pages_worker(
                     )
                 )
 
-            doc.select(pages_to_keep)
+            # Create a new PDF with only the pages to keep
+            with Pdf.new() as output_pdf:
+                for page_num in pages_to_keep:
+                    output_pdf.pages.append(pdf.pages[page_num])
 
-            progress_queue.put(("SAVING", _("Saving PDF...")))
-            while not saving_ack_event.is_set():
-                if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Cancelled by user.")))
-                    return
-                saving_ack_event.wait(timeout=0.1)
-
-            doc.save(output_path, garbage=4, deflate=True)
+                progress_queue.put(("SAVING", _("Saving PDF...")))
+                while not saving_ack_event.is_set():
+                    if cancel_event.is_set():
+                        result_queue.put(("CANCEL", _("Cancelled by user.")))
+                        return
+                    saving_ack_event.wait(timeout=0.1)
+                output_pdf.save(output_path)
 
         progress_queue.put(("PROGRESS", 100))
 

@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Any, List
 
-import pymupdf
+from pikepdf import Pdf
 
 from toolkit.i18n import gettext_text as _
 from toolkit.i18n import ngettext
@@ -121,8 +121,8 @@ def split_pdf_worker(
         pdf_path_obj = Path(pdf_path)
         output_folder_obj = Path(output_dir)
 
-        with pymupdf.open(pdf_path_obj) as src_doc:
-            total_pages = len(src_doc)
+        with Pdf.open(pdf_path_obj) as src_pdf:
+            total_pages = len(src_pdf.pages)
             if total_pages == 0:
                 raise ValueError(_("PDF file is empty, no pages to split."))
 
@@ -138,24 +138,26 @@ def split_pdf_worker(
                     result_queue.put(("CANCEL", _("Cancelled by user.")))
                     return
 
-                from_page = page_list[0]
-                to_page = page_list[-1]
-
-                with pymupdf.open() as output_doc:
-                    output_doc.insert_pdf(src_doc, from_page=from_page, to_page=to_page)
+                # Create output PDF inside the loop and use context manager to save it
+                with Pdf.new() as output_pdf:
+                    
+                    # Add selected pages to the output PDF
+                    for page_num in page_list:
+                        output_pdf.pages.append(src_pdf.pages[page_num])
 
                     if split_mode == "custom_ranges":
                         range_name = (
-                            f"p{from_page + 1}"
-                            if from_page == to_page
-                            else f"p{from_page + 1}-{to_page + 1}"
+                            f"p{page_list[0] + 1}"
+                            if len(page_list) == 1
+                            else f"p{page_list[0] + 1}-{page_list[-1] + 1}"
                         )
                         output_name = f"{base_filename}_{range_name}.pdf"
                     else:
                         output_name = f"{base_filename}_part_{i + 1:04d}.pdf"
 
                     output_path = output_folder_obj / output_name
-                    output_doc.save(str(output_path), garbage=3, deflate=True)
+                    
+                    output_pdf.save(output_path)
 
                 progress_queue.put(("PROGRESS", i + 1))
 
