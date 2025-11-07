@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 
 from toolkit.constant import FILE_TYPES_PDF
-from toolkit.core.pdf_to_image_worker import pdf_to_image_worker
+from toolkit.core.pdf_to_images_worker import pdf_to_images_worker
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
 from toolkit.ui.widget.file_list import FileListView
@@ -144,7 +144,7 @@ class PDFToImagesApp(ttk.Frame, TaskRunnerMixin):
             )
             return None
 
-        target_function = pdf_to_image_worker
+        target_function = pdf_to_images_worker
         args_tuple = (
             input_files,
             output_dir,

@@ -3,7 +3,7 @@
 from tkinter import messagebox, ttk
 
 from toolkit.constant import FILE_TYPES_IMAGES, FILE_TYPES_PDF
-from toolkit.core.image_to_pdf_worker import image_to_pdf_worker
+from toolkit.core.images_to_pdf_worker import images_to_pdf_worker
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
 from toolkit.ui.widget.file_list import FileListView
@@ -90,7 +90,7 @@ class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
             )
             return None
 
-        target_function = image_to_pdf_worker
+        target_function = images_to_pdf_worker
         args_tuple = (image_files, output_pdf_path)
         initial_label = _("Converting images...")
 

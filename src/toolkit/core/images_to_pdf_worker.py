@@ -1,4 +1,4 @@
-# toolkit/core/image_to_pdf_worker.py
+# toolkit/core/images_to_pdf_worker.py
 
 from pathlib import Path
 from PIL import Image
@@ -6,7 +6,7 @@ from PIL import Image
 from toolkit.i18n import gettext_text as _, ngettext
 
 
-def image_to_pdf_worker(
+def images_to_pdf_worker(
     image_files,
     output_pdf_path,
     cancel_event,

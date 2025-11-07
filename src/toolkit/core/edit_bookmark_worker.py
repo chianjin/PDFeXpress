@@ -1,6 +1,6 @@
 # toolkit/core/edit_bookmark_worker.py
 
-import csv
+
 from pathlib import Path
 from typing import List
 

@@ -1,4 +1,4 @@
-# toolkit/core/pdf_to_image_worker.py
+# toolkit/core/pdf_to_images_worker.py
 
 from pathlib import Path
 from pypdfium2 import PdfDocument
@@ -7,7 +7,7 @@ from PIL import Image
 from toolkit.i18n import gettext_text as _, ngettext
 
 
-def pdf_to_image_worker(
+def pdf_to_images_worker(
     input_files,
     output_dir,
     dpi_value,

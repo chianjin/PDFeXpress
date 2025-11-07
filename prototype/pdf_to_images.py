@@ -1,6 +1,6 @@
 import pypdfium2 as pdfium
 
-def pdf_to_image(
+def pdf_to_images(
         pdf_path,
         output_dir,
         dpi=300,
@@ -31,6 +31,6 @@ def pdf_to_image(
 
 if __name__ == '__main__':
     from pathlib import Path
-    pdf_path = Path(r"C:\Users\Chian\Desktop\进博会\招商处\128.pdf")
-    output_dir = Path(r'C:\Users\Chian\Desktop\pw')
-    pdf_to_image(pdf_path, output_dir)
+    pdf_path = Path('temp/example/128.pdf')
+    output_dir = Path('temp/output')
+    pdf_to_images(pdf_path, output_dir, output_format='jpg')
