@@ -1,52 +1,74 @@
-import pikepdf
 from pathlib import Path
 from typing import List, Any
 
+import pikepdf
+
 
 def _parse_page_ranges(range_string: str, total_pages: int) -> List[List[int]]:
-    """
-    Parse a range string (e.g. "1,3,5-7") into a list of page index lists.
-    """
-    chunks: List[List[int]] = []
-    if not range_string:
-        raise ValueError("Custom range string cannot be empty.")
-    parts: List[str] = range_string.split(",")
-    for part in parts:
-        part = part.strip()
-        if not part:
+    """Parses a complex page range string into lists of 0-based page indices."""
+    file_chunks_str = range_string.split(';')
+    final_chunks = []
+
+    for chunk_str in file_chunks_str:
+        chunk_str = chunk_str.strip()
+        if not chunk_str:
             continue
-        try:
-            chunk: List[int]
-            if "-" in part:
-                start_str, end_str = part.split("-", 1)
-                start: int = int(start_str.strip())
-                end: int = int(end_str.strip())
-                if start < 1 or end > total_pages or start > end:
-                    raise ValueError(
-                        f"Invalid range '{part}': must be between 1-{total_pages}, and start <= end."
-                    )
-                chunk = list(range(start - 1, end))  # Convert to 0-based
+
+        allow_duplicates = chunk_str.startswith('+')
+        if allow_duplicates:
+            chunk_str = chunk_str[1:]
+
+        current_file_pages = [] if allow_duplicates else set()
+        parts = chunk_str.split(',')
+
+        for part in parts:
+            part = part.strip()
+            if not part:
+                continue
+
+            step = 1
+            if ':' in part:
+                range_part, step_str = part.split(':', 1)
+                step = int(step_str.strip())
             else:
-                page: int = int(part)
-                if page < 1 or page > total_pages:
-                    raise ValueError(
-                        f"Invalid page '{part}': must be between 1-{total_pages}."
-                    )
-                chunk = [page - 1]  # Convert to 0-based
-            chunks.append(chunk)
-        except Exception as e:
-            raise ValueError(
-                f"Invalid custom range '{part}' format: {str(e)}"
-            )
-    return chunks
+                range_part = part
+
+            if '-' in range_part:
+                start_str, end_str = range_part.split('-', 1)
+                start = int(start_str.strip()) if start_str.strip() else 1
+                end = int(end_str.strip()) if end_str.strip() else total_pages
+            else:
+                if not range_part:
+                    start = 1
+                    end = total_pages
+                else:
+                    start = int(range_part.strip())
+                    end = start
+
+            if not (1 <= start <= end <= total_pages):
+                raise ValueError(f"Invalid range '{part}': must be within 1-{total_pages}.")
+
+            pages_for_part = range(start, end + 1, step)
+            pages_to_add = [p - 1 for p in pages_for_part]
+
+            if allow_duplicates:
+                current_file_pages.extend(pages_to_add)
+            else:
+                current_file_pages.update(pages_to_add)
+
+        if current_file_pages:
+            if allow_duplicates:
+                final_chunks.append(current_file_pages)
+            else:
+                final_chunks.append(sorted(list(current_file_pages)))
+
+    return final_chunks
 
 
 def _get_page_chunks(
     total_pages: int, split_mode: str, split_value: Any
 ) -> List[List[int]]:
-    """
-    Get page chunks based on split mode.
-    """
+    """Generates lists of page indices based on the selected split mode."""
     if split_mode == "single_page":
         return [[i] for i in range(total_pages)]
 
@@ -55,10 +77,8 @@ def _get_page_chunks(
             num = int(split_value)
             if num <= 0:
                 raise ValueError("Value must be greater than 0")
-        except Exception:
-            raise ValueError(
-                f"Invalid pages per file value: {split_value}"
-            )
+        except Exception as e:
+            raise ValueError(f"Invalid pages per file value: {split_value}: {e}")
 
         return [
             list(range(i, min(i + num, total_pages)))
@@ -70,13 +90,10 @@ def _get_page_chunks(
             num_files = int(split_value)
             if num_files <= 0:
                 raise ValueError("Value must be greater than 0")
-
             if num_files > total_pages:
                 num_files = total_pages
-        except Exception:
-            raise ValueError(
-                f"Invalid number of files value: {split_value}"
-            )
+        except Exception as e:
+            raise ValueError(f"Invalid number of files value: {split_value}: {e}")
 
         base_pages, remainder = divmod(total_pages, num_files)
         chunks: List[List[int]] = []
@@ -96,15 +113,7 @@ def _get_page_chunks(
 
 
 def split_pdf(pdf_path, output_dir, split_mode="single_page", split_value=None):
-    """
-    Split a PDF file into multiple files based on specified mode.
-    
-    Args:
-        pdf_path: Path to the input PDF file
-        output_dir: Directory to save the split PDF files
-        split_mode: How to split the PDF ("single_page", "fixed_pages", "fixed_files", "custom_ranges")
-        split_value: Additional value for split mode (e.g., number of pages per file)
-    """
+    """Splits a PDF into multiple files based on a specified mode."""
     pdf_path_obj = Path(pdf_path)
     output_folder_obj = Path(output_dir)
 
@@ -117,44 +126,36 @@ def split_pdf(pdf_path, output_dir, split_mode="single_page", split_value=None):
         output_folder_obj.mkdir(parents=True, exist_ok=True)
         base_filename = pdf_path_obj.stem
 
+        custom_range_strings = []
+        if split_mode == "custom_ranges":
+            custom_range_strings = [s.strip() for s in str(split_value).split(';') if s.strip()]
+
         for i, page_list in enumerate(page_chunks):
-            # Create output PDF inside the loop and use context manager to save it
             with pikepdf.Pdf.new() as output_pdf:
-                
-                # Add selected pages to the output PDF
                 for page_num in page_list:
                     output_pdf.pages.append(src_pdf.pages[page_num])
 
                 if split_mode == "custom_ranges":
-                    range_name = (
-                        f"p{page_list[0] + 1}"
-                        if len(page_list) == 1
-                        else f"p{page_list[0] + 1}-{page_list[-1] + 1}"
-                    )
-                    output_name = f"{base_filename}_{range_name}.pdf"
+                    range_str = custom_range_strings[i]
+                    if range_str.startswith('+'):
+                        range_str = range_str[1:]
+                    
+                    safe_range_name = range_str.replace(':', 's').replace(',', '_')
+                    output_name = f"{base_filename}_{safe_range_name}.pdf"
                 else:
                     output_name = f"{base_filename}_part_{i + 1:04d}.pdf"
 
                 output_path = output_folder_obj / output_name
-                
                 output_pdf.save(output_path)
 
     print(f"Successfully split {pdf_path} into {len(page_chunks)} PDF files in {output_dir}")
 
 
 if __name__ == "__main__":
-    # Example usage
     pdf_path = Path(r"C:\Users\Chian\Desktop\input.pdf")
     output_dir = Path(r"C:\Users\Chian\Desktop\split_output")
-    
-    # Split into single-page PDFs
+
     split_pdf(pdf_path, output_dir, split_mode="single_page")
-    
-    # Or split into fixed page chunks (e.g. 5 pages per file)
     # split_pdf(pdf_path, output_dir, split_mode="fixed_pages", split_value=5)
-    
-    # Or split into a fixed number of files (e.g. 3 files)
     # split_pdf(pdf_path, output_dir, split_mode="fixed_files", split_value=3)
-    
-    # Or split using custom ranges (e.g. "1-3,5,7-10")
-    # split_pdf(pdf_path, output_dir, split_mode="custom_ranges", split_value="1-3,5,7-10")
+    # split_pdf(pdf_path, output_dir, split_mode="custom_ranges", split_value="1-3;+5-7,6;8-")
