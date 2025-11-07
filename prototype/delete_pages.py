@@ -55,18 +55,14 @@ def delete_pages(pdf_path, output_path, pages_to_delete_str):
         if not pages_to_delete_set:
             raise ValueError(f"No valid pages could be parsed from '{pages_to_delete_str}'.")
 
-        pages_to_keep = [
-            p for p in range(total_pages_doc) if p not in pages_to_delete_set
-        ]
-        if not pages_to_keep:
+        if len(pages_to_delete_set) == total_pages_doc:
             raise ValueError(f"Will delete all pages from {Path(pdf_path).name}.")
 
-        # Create a new PDF with only the pages to keep
-        with Pdf.new() as output_pdf:
-            for page_num in pages_to_keep:
-                output_pdf.pages.append(pdf.pages[page_num])
-            
-            output_pdf.save(output_path)
+        # Delete pages in reverse order to avoid index shifting issues
+        for page_index in sorted(list(pages_to_delete_set), reverse=True):
+            del pdf.pages[page_index]
+        
+        pdf.save(output_path)
 
     print(f"Successfully deleted {len(pages_to_delete_set)} page(s).")
 

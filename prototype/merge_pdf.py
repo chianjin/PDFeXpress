@@ -50,8 +50,7 @@ def merge_pdf(input_files: List[Path], output_file: Path, create_bookmarks: bool
                     bookmark_positions.append((file_path, current_page))
                 
                 # Append all pages from input PDF to output PDF
-                for page in input_pdf.pages:
-                    output_pdf.pages.append(page)
+                output_pdf.pages.extend(input_pdf.pages)
                 
                 current_page += len(input_pdf.pages)
             print(f"Processed {i+1}/{len(input_files)} files")

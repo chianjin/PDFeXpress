@@ -3,44 +3,22 @@ from typing import List
 from pikepdf import Pdf, Array, Page, String, Name, OutlineItem
 
 
-def _get_page_number(self: OutlineItem):
-    page_number = None
-    if self.destination:
-        if isinstance(self.destination, Array):
-            # 12.3.2.2 Explicit destination
-            # [raw_page, /PageLocation.SomeThing, integer parameters for viewport]
-            raw_page = self.destination[0]
-            page = Page(raw_page)
-            page_number = page.label
-        elif isinstance(self.destination, String):
-            # 12.3.2.2 Named destination, byte string reference to Names
-            page_number = (
-                f"<Named Destination in document .Root.Names dictionary: "
-                f"{self.destination}>"
-            )
-        elif isinstance(self.destination, Name):
-            # 12.3.2.2 Named destination, name object (PDF 1.1)
-            page_number = (
-                f"<Named Destination in document .Root.Dests dictionary: "
-                f"{self.destination}>"
-            )
-        elif isinstance(self.destination, int):
-            # Page number
-            page_number = f'<Page {self.destination}>'
-    else:
-        page_number = '<Action>'
-
-    return page_number
-
-OutlineItem.page_number = property(_get_page_number)
-
-def _get_outline_items(outline_item: OutlineItem, outline_list: List = None, level=0):
+def _get_outline_items(pdf: Pdf, outline_item: OutlineItem, outline_list: List, level: int):
     level += 1
-    if outline_list is None:
-        outline_list = []
-    outline_list.append([level, outline_item.page_number, outline_item.title])
+    page_index = -1
+    if outline_item.destination is not None:
+        try:
+            # .destination is a list of [page_obj, /XYZ, left, top, zoom]
+            page_obj = outline_item.destination[0]
+            page_index = pdf.pages.index(page_obj)
+        except (ValueError, IndexError):
+            # Not a valid page destination, or destination is malformed
+            pass
+    
+    # we use 1-based page index for the output
+    outline_list.append([level, page_index + 1, outline_item.title])
     for item in outline_item.children:
-        _get_outline_items(item, outline_list, level)
+        _get_outline_items(pdf, item, outline_list, level)
 
 def get_outlines(pdf_path: str | Path) -> List:
     outlines = []
@@ -48,7 +26,7 @@ def get_outlines(pdf_path: str | Path) -> List:
         with pdf.open_outline() as outline:
             if outline.root:
                 for item in outline.root:
-                        _get_outline_items(item, outlines)
+                    _get_outline_items(pdf, item, outlines, 0)
     return outlines
 
 def set_outlines(pdf_path: str, outlines: List, output_path: str):

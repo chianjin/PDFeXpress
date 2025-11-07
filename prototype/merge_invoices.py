@@ -60,54 +60,37 @@ def merge_invoices(invoice_pdf_paths: List[Path], output_pdf_path: Path):
         # Process Standard Invoices
         i = 0
         while i < len(standard_invoice_paths):
-            # Create a new A4 page for the combined invoices
-            # Create a temporary PDF with one page to hold both invoices
-            with Pdf.new() as temp_page_pdf:
-                temp_page = temp_page_pdf.add_blank_page(page_size=(A4_WIDTH, A4_HEIGHT))
+            # Create a new A4 page directly in the final PDF
+            new_page = final_pdf.add_blank_page(page_size=(A4_WIDTH, A4_HEIGHT))
 
-                # Add first invoice to top half
-                with Pdf.open(standard_invoice_paths[i]) as doc1:
-                    if len(doc1.pages) > 0:
-                        first_page = doc1.pages[0]
-                        # Add as overlay to top half of A4 page
-                        temp_page.add_overlay(first_page, 
-                                             Rectangle(0, A4_HEIGHT/2, A4_WIDTH, A4_HEIGHT))
+            # Add first invoice to top half
+            with Pdf.open(standard_invoice_paths[i]) as doc1:
+                # No need to check len > 0, _is_standard_invoice ensures it's 1
+                first_page = doc1.pages[0]
+                new_page.add_overlay(first_page, Rectangle(0, A4_HEIGHT / 2, A4_WIDTH, A4_HEIGHT))
 
-                # Add second invoice to bottom half if available
-                if i + 1 < len(standard_invoice_paths):
-                    with Pdf.open(standard_invoice_paths[i + 1]) as doc2:
-                        if len(doc2.pages) > 0:
-                            second_page = doc2.pages[0]
-                            # Add as overlay to bottom half of A4 page
-                            temp_page.add_overlay(second_page, 
-                                                 Rectangle(0, 0, A4_WIDTH, A4_HEIGHT/2))
-
-                # Add the combined page to final PDF
-                final_pdf.pages.append(temp_page)
-
+            # Add second invoice to bottom half if available
+            if i + 1 < len(standard_invoice_paths):
+                with Pdf.open(standard_invoice_paths[i + 1]) as doc2:
+                    second_page = doc2.pages[0]
+                    new_page.add_overlay(second_page, Rectangle(0, 0, A4_WIDTH, A4_HEIGHT / 2))
+            
             i += 2  # Process two invoices at a time
 
         # Process Other Invoices
         for pdf_path in other_invoice_paths:
             with Pdf.open(pdf_path) as doc:
                 for page in doc.pages:
-                    # Check if page is A4 size
                     page_width = float(page.MediaBox[2])
                     page_height = float(page.MediaBox[3])
                     
                     if _is_a4_size(page_width, page_height):
-                        # If A4 size, add directly
+                        # If A4 size, add directly by acquiring the page
                         final_pdf.pages.append(page)
                     else:
-                        # If not A4 size, create new A4 page and add the content
-                        with Pdf.new() as temp_pdf:
-                            new_page = temp_pdf.add_blank_page(page_size=(A4_WIDTH, A4_HEIGHT))
-                            
-                            # Add the original page content to the new A4 page at the top
-                            new_page.add_overlay(page, Rectangle(0, 0, page_width, page_height))
-                            
-                            # Add the new page to final PDF
-                            final_pdf.pages.append(new_page)
+                        # If not A4, create a new blank A4 page and overlay the content
+                        new_page = final_pdf.add_blank_page(page_size=(A4_WIDTH, A4_HEIGHT))
+                        new_page.add_overlay(page, Rectangle(0, 0, page_width, page_height))
 
         final_pdf.save(output_pdf_path)
 

@@ -4,7 +4,7 @@ from pathlib import Path
 
 def extract_images(pdf_path, output_dir, min_width=100, min_height=100, extract_all=False):
     with Pdf.open(pdf_path) as pdf:
-        xref_list = []  # Track xrefs to skip duplicates
+        xref_set = set()  # Track xrefs to skip duplicates
         image_count = 0
         extract_count = 0
         
@@ -13,9 +13,9 @@ def extract_images(pdf_path, output_dir, min_width=100, min_height=100, extract_
         for page_num, page in enumerate(pdf.pages, start=1):
             # Use page.images to get all images in the page
             for xref in page.images.keys():
-                if xref in xref_list:
+                if xref in xref_set:
                     continue  # Skip duplicate image
-                xref_list.append(xref)
+                xref_set.add(xref)
                 try:
                     # Try to parse the object as an image
                     pdf_img = PdfImage(page.images[xref])
