@@ -4,11 +4,12 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
 
-from toolkit.constant import FILE_TYPES_PDF
+from toolkit.constant import FILE_TYPES_PDF, HELP_ICON, RANGE_SYNTAX_HELP
 from toolkit.core.delete_pages_worker import delete_pages_worker
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
 from toolkit.ui.widget.file_picker import FilePicker
+from toolkit.ui.widget.folder_picker import FolderPicker
 from toolkit.ui.widget.misc import OptionFrame, TitleFrame
 
 
@@ -29,10 +30,8 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
         self.file_picker.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 5))
         self.file_picker.file_path_var.trace_add("write", self._on_input_changed)
 
-        self.output_file_picker = FilePicker(
-            self, title=_("Output PDF File"), mode="save", file_types=FILE_TYPES_PDF
-        )
-        self.output_file_picker.grid(
+        self.output_folder_picker = FolderPicker(self, title=_("Output Folder"))
+        self.output_folder_picker.grid(
             row=2, column=0, sticky="nsew", padx=10, pady=(0, 5)
         )
 
@@ -48,11 +47,25 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
             self.option_frame, textvariable=self.pages_to_delete_var
         )
         self.pages_to_delete_entry.pack(
-            side="left", fill="x", expand=True, padx=10, pady=5
+            side='left', fill="x", expand=True, padx=10, pady=5
         )
-        ttk.Label(self.option_frame, text=_("Format: 1-3, 5, 7-9")).pack(
-            padx=20, pady=5
+        
+        self.help_icon = tk.PhotoImage(file=HELP_ICON)
+
+        info_icon = ttk.Button(
+            self.option_frame,
+            image=self.help_icon,
+            style='Toolbutton',
+            command=self._show_syntax_help,
+            cursor="hand2"
         )
+        info_icon.pack(side="left", padx=(20, 5))
+
+        ttk.Label(
+            self.option_frame, text=_("Format: 1-3, 5, 7-9;4-5,7;+8-10,12")
+        ).pack(side="left", padx=(5,20))
+
+
 
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky="ew", padx=10, pady=(0, 10))
@@ -66,29 +79,31 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
         )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
+        self._on_input_changed()  # Initialize state
+
     def _on_input_changed(self, *args):
         pdf_path_str = self.file_picker.get()
-        pages_to_delete_str = self.pages_to_delete_var.get()
-
         if pdf_path_str:
             pdf_path = Path(pdf_path_str)
-
-            if pages_to_delete_str:
-                new_stem = f"{pdf_path.stem}_{_('Deleted')}_{pages_to_delete_str}"
-            else:
-                new_stem = f"{pdf_path.stem}_{_('Deleted')}"
-
-            output_file_path = pdf_path.with_name(f"{new_stem}{pdf_path.suffix}")
-            self.output_file_picker.set(str(output_file_path))
+            # Extract filename without extension
+            file_name_without_ext = pdf_path.stem
+            # Construct new output folder name
+            output_folder_name = f"{file_name_without_ext}_{_('Deleted')}"
+            # Set the output folder picker's value
+            output_dir = pdf_path.parent / output_folder_name
+            self.output_folder_picker.set(str(output_dir))
         else:
-            self.output_file_picker.set("")
+            self.output_folder_picker.set("")
+
+    def _show_syntax_help(self, event=None):
+        messagebox.showinfo(_("Range Syntax Help"), RANGE_SYNTAX_HELP)
 
     def _get_root_window(self):
         return self.winfo_toplevel()
 
     def _prepare_task(self):
         pdf_path = self.file_picker.get()
-        output_path = self.output_file_picker.get()
+        output_dir = self.output_folder_picker.get()
         pages_to_delete_str = self.pages_to_delete_var.get()
 
         if not pdf_path:
@@ -97,9 +112,9 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
             )
             return None
 
-        if not output_path:
+        if not output_dir:
             messagebox.showerror(
-                _("Invalid Output"), _("Please specify output PDF path.")
+                _("Invalid Output"), _("Please specify an output folder.")
             )
             return None
 
@@ -110,7 +125,7 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
             return None
 
         target_function = delete_pages_worker
-        args_tuple = (pdf_path, output_path, pages_to_delete_str)
+        args_tuple = (pdf_path, output_dir, pages_to_delete_str)
         initial_label = _("Deleting pages...")
 
         return target_function, args_tuple, initial_label

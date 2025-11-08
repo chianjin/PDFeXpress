@@ -4,7 +4,7 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
 
-from toolkit.constant import FILE_TYPES_PDF
+from toolkit.constant import FILE_TYPES_PDF, HELP_ICON, RANGE_SYNTAX_HELP
 from toolkit.core.split_pdf_worker import split_pdf_worker
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
@@ -63,15 +63,30 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         )
         self.split_value_entry.pack(side="left", fill="x", expand=True, padx=5, pady=5)
 
-        # Fixed description label
+        # 添加信息图标和描述文本
+        description_frame = ttk.Frame(self.option_frame)
+        description_frame.pack(fill="x", padx=10, pady=(0, 5))
+
+        self.icon = tk.PhotoImage(file=HELP_ICON)
+
+        info_icon = ttk.Button(
+            description_frame,
+            image=self.icon,
+            style='Toolbutton',
+            cursor="hand2",
+            command=self._show_syntax_help
+        )
+        info_icon.pack(side="left", padx=(0, 5))
+        
         self.fixed_description_label = ttk.Label(
-            self.option_frame,
+            description_frame,
             text=_(
-                "Value Description: By Pages/By Files: integer, e.g. 5  |  By Range: integer list, e.g. 1,3,5-10"
+                "Value Description: By Pages/By Files: integer, e.g. 5  |  By Range: Supports multiple ranges (use ';' to split), page ranges (use '-' for range), optional start/end (e.g., '-10', '5-'), step (e.g., '1-10:3', ':3'), and duplicate pages (prefix with '+')"
             ),
             justify=tk.LEFT,
+            wraplength=950
         )
-        self.fixed_description_label.pack(fill="x", padx=10, pady=(0, 5))
+        self.fixed_description_label.pack(side="left", fill="x", expand=True)
 
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky="ew", padx=10, pady=(0, 10))
@@ -110,6 +125,9 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         else:
             self.split_value_entry.config(state="normal")
 
+    def _show_syntax_help(self, event=None):
+        messagebox.showinfo(_("Range Syntax Help"), RANGE_SYNTAX_HELP)
+
     def _get_root_window(self):
         return self.winfo_toplevel()
 
@@ -146,3 +164,11 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
 
     def update_status(self, message):
         self.status_label.config(text=message)
+
+
+if __name__ == "__main__":
+    import tkinterdnd2
+    root = tkinterdnd2.Tk()
+    app = SplitPDFApp(root)
+    app.pack(fill="both", expand=True)
+    root.mainloop()

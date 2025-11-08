@@ -1,69 +1,19 @@
 # toolkit/core/delete_pages_worker.py
 
 from pathlib import Path
-from typing import Set
+from typing import List
+from functools import lru_cache
 
 import pymupdf
 
 from toolkit.i18n import gettext_text as _
 from toolkit.i18n import ngettext
-
-
-def _parse_pages_to_delete(range_string: str, total_pages: int) -> Set[int]:
-    pages_to_delete_set: Set[int] = set()
-    if not range_string:
-        return pages_to_delete_set
-
-    parts = range_string.split(",")
-    for part in parts:
-        part = part.strip()
-        if not part:
-            continue
-        try:
-            if "-" in part:
-                start_str, end_str = part.split("-", 1)
-                start = int(start_str.strip())
-                end = int(end_str.strip())
-                if not (1 <= start <= end <= total_pages):
-                    raise ValueError(
-                        _(
-                            "Invalid page range '{part}': must between 1-{total_pages}."
-                        ).format(part=part, total_pages=total_pages)
-                    )
-                current_range_set = set(range(start - 1, end))
-                if not current_range_set.isdisjoint(pages_to_delete_set):
-                    raise ValueError(
-                        _("Overlapping page range detected: '{part}'.").format(
-                            part=part
-                        )
-                    )
-                pages_to_delete_set.update(current_range_set)
-            else:
-                page = int(part)
-                if not (1 <= page <= total_pages):
-                    raise ValueError(
-                        _(
-                            "Invalid page '{part}': must between 1-{total_pages}."
-                        ).format(part=part, total_pages=total_pages)
-                    )
-                if (page - 1) in pages_to_delete_set:
-                    raise ValueError(
-                        _("Duplicate page detected: '{part}'.").format(part=part)
-                    )
-                pages_to_delete_set.add(page - 1)
-        except ValueError as ve:
-            raise ve
-        except Exception as e:
-            raise ValueError(
-                _("Invalid page range format '{part}': {e}").format(part=part, e=str(e))
-            )
-
-    return pages_to_delete_set
+from toolkit.util.range_util import parse_page_ranges
 
 
 def delete_pages_worker(
     pdf_path,
-    output_path,
+    output_dir,
     pages_to_delete_str,
     cancel_event,
     progress_queue,
@@ -79,47 +29,94 @@ def delete_pages_worker(
             if total_pages_doc == 0:
                 raise ValueError(_("PDF file has no pages."))
 
-            progress_queue.put(("INIT", 100))
-
-            pages_to_delete_set = _parse_pages_to_delete(
-                pages_to_delete_str, total_pages_doc
-            )
-            if not pages_to_delete_set:
+            # 解析多组删除范围，不允许重复
+            delete_groups = parse_page_ranges(pages_to_delete_str, total_pages_doc, allow_duplicates=False)
+            
+            if not delete_groups:
                 raise ValueError(
                     _(
                         "No valid pages could be parsed from '{pages_to_delete_str}'."
                     ).format(pages_to_delete_str=pages_to_delete_str)
                 )
 
-            progress_queue.put(("PROGRESS", 50))
+            # 处理多组删除，需要创建子文件夹并保存多个文件
+            pdf_path_obj = Path(pdf_path)
+            base_filename = pdf_path_obj.stem
+            output_dir_obj = Path(output_dir)
+            
+            # 创建输出子文件夹
+            subfolder_name = f"{base_filename}_{_('Deleted')}"
+            subfolder_path = output_dir_obj / subfolder_name
+            subfolder_path.mkdir(parents=True, exist_ok=True)
+            
+            progress_queue.put(("INIT", len(delete_groups)))
 
-            pages_to_keep = [
-                p for p in range(total_pages_doc) if p not in pages_to_delete_set
-            ]
-            if not pages_to_keep:
-                raise ValueError(
-                    _("Will delete all pages from {pdf_path_name}.").format(
-                        pdf_path_name=Path(pdf_path).name
-                    )
-                )
-
-            doc.select(pages_to_keep)
-
-            progress_queue.put(("SAVING", _("Saving PDF...")))
-            while not saving_ack_event.is_set():
+            # 使用缓存避免重复读取原PDF
+            src_doc_bytes = get_pdf_bytes_cached(str(pdf_path))
+            
+            for i, pages_to_delete_list in enumerate(delete_groups):
                 if cancel_event.is_set():
                     result_queue.put(("CANCEL", _("Cancelled by user.")))
                     return
-                saving_ack_event.wait(timeout=0.1)
 
-            doc.save(output_path, garbage=4, deflate=True)
+                # 将删除列表转换为集合，确保唯一性
+                pages_to_delete_set = set(pages_to_delete_list)
+                
+                # 计算要保留的页面
+                pages_to_keep = [
+                    p for p in range(total_pages_doc) if p not in pages_to_delete_set
+                ]
+                if not pages_to_keep:
+                    raise ValueError(
+                        _("Will delete all pages from {pdf_path_name} in group {group_num}.").format(
+                            pdf_path_name=pdf_path_obj.name, group_num=i+1
+                        )
+                    )
 
-        progress_queue.put(("PROGRESS", 100))
+                # 使用缓存的文档创建新文档
+                with pymupdf.open(stream=src_doc_bytes, filetype="pdf") as new_doc:
+                    new_doc.select(pages_to_keep)
 
-        success_msg = ngettext(
-            "Deleted {} page.", "Deleted {} pages.", len(pages_to_delete_set)
-        ).format(len(pages_to_delete_set))
-        result_queue.put(("SUCCESS", success_msg))
+                    # 根据删除的页面范围生成文件名
+                    delete_list = sorted(list(pages_to_delete_set))
+                    range_parts = []
+                    start_idx = 0
+                    while start_idx < len(delete_list):
+                        # 找连续的页码段
+                        end_idx = start_idx
+                        while end_idx < len(delete_list) - 1 and delete_list[end_idx] + 1 == delete_list[end_idx + 1]:
+                            end_idx += 1
+
+                        if start_idx == end_idx:
+                            # 单个页面
+                            range_parts.append(f"P{delete_list[start_idx] + 1}")
+                        else:
+                            # 页面范围
+                            range_parts.append(f"P{delete_list[start_idx] + 1}-{delete_list[end_idx] + 1}")
+
+                        start_idx = end_idx + 1
+
+                    range_str = "_".join(range_parts)
+                    # 替换输出文件名中的逗号为'_'，冒号为's'（虽然删除范围中不会有这些字符，但为了一致性）
+                    range_str = range_str.replace(",", "_").replace(":", "s")
+                    output_name = f"R{range_str}.pdf"
+
+                    output_file_path = subfolder_path / output_name
+                    new_doc.save(str(output_file_path), garbage=4, deflate=True)
+
+                progress_queue.put(("PROGRESS", i + 1))
+
+            success_msg = ngettext(
+                "Deleted pages in {} PDF file.", "Deleted pages in {} PDF files.", len(delete_groups)
+            ).format(len(delete_groups))
+            result_queue.put(("SUCCESS", success_msg))
 
     except Exception as e:
         result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))
+
+
+@lru_cache(maxsize=10)
+def get_pdf_bytes_cached(pdf_path_str):
+    """获取PDF的字节内容，如果已缓存则直接返回"""
+    with pymupdf.open(pdf_path_str) as doc:
+        return doc.tobytes()
