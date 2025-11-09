@@ -47,13 +47,23 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         self.option_frame = OptionFrame(self, text=_("Options"))
         self.option_frame.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 5))
 
+        # Generate Bookmark checkbox
         self.create_bookmarks_var = tk.BooleanVar(value=False)
         self.create_bookmarks_checkbox = ttk.Checkbutton(
             self.option_frame,
             text=_("Generate Bookmark"),
             variable=self.create_bookmarks_var,
         )
-        self.create_bookmarks_checkbox.pack(anchor="w", padx=10, pady=5)
+        self.create_bookmarks_checkbox.pack(side='left', padx=10, pady=5)
+
+        # Duplex Printing checkbox
+        self.duplex_printing_var = tk.BooleanVar(value=False)
+        self.duplex_printing_checkbox = ttk.Checkbutton(
+            self.option_frame,
+            text=_("Support Duplex Printing (Ensure even number of pages)"),
+            variable=self.duplex_printing_var,
+        )
+        self.duplex_printing_checkbox.pack(side='left', padx=10, pady=5)
 
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky="ew", padx=10, pady=(0, 10))
@@ -90,6 +100,7 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         input_files = [str(p) for p in self.file_list_view.get()]
         output_pdf_path = self.output_file_picker.get()
         create_bookmarks = self.create_bookmarks_var.get()
+        duplex_printing = self.duplex_printing_var.get()
 
         if len(input_files) < 2:
             messagebox.showerror(
@@ -103,9 +114,9 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
             )
             return None
 
-        # 将创建书签的选项作为参数传递给worker函数
+        # 将创建书签和双面打印选项作为参数传递给worker函数
         target_function = merge_pdf_worker
-        args_tuple = (input_files, output_pdf_path, create_bookmarks)
+        args_tuple = (input_files, output_pdf_path, create_bookmarks, duplex_printing)
         initial_label = _("Merging PDF...")
 
         return target_function, args_tuple, initial_label

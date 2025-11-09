@@ -19,6 +19,7 @@ def merge_pdf_worker(
     input_files: List[str],
     output_file: str,
     create_bookmarks: bool,
+    duplex_printing: bool,
     cancel_event: Any,
     progress_queue: Any,
     result_queue: Any,
@@ -44,8 +45,15 @@ def merge_pdf_worker(
                         toc.append(
                             [1, bookmark_title, current_page + 1]
                         )  # [level, title, page]
+
                     output_doc.insert_pdf(input_doc)
                     current_page += input_doc.page_count
+
+                    # Check if we need to add blank pages for duplex printing
+                    if duplex_printing and input_doc.page_count % 2 != 0:
+                        # If the current document has odd number of pages, add a blank page
+                        output_doc.new_page()
+                        current_page += 1
                 progress_queue.put(("PROGRESS", i + 1))
 
             if create_bookmarks and toc:
