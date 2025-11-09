@@ -161,7 +161,7 @@ class FileListView(ttk.Labelframe):
             for k in self.filelist_treeview.get_children("")
         ]
         # 确定排序顺序
-        if self._sort_ascending is None or self._sort_ascending == False:
+        if not self._sort_ascending:
             # 升序排列
             items.sort(key=lambda x: x[0].lower())
             self._sort_ascending = True

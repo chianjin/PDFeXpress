@@ -1,7 +1,6 @@
 # toolkit/core/delete_pages_worker.py
 
 from pathlib import Path
-from typing import List
 from functools import lru_cache
 
 import pymupdf
