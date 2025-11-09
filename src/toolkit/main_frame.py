@@ -8,6 +8,7 @@ from tkinter import messagebox, ttk
 # Import i18n and feature modules
 from config import PROJECT_AUTHOR, PROJECT_NAME, PROJECT_URL, PROJECT_VERSION
 from toolkit.i18n import gettext_text as _
+
 from toolkit.ui.feature.delete_pages import DeletePagesApp
 from toolkit.ui.feature.edit_bookmark import EditBookmarkApp
 from toolkit.ui.feature.extract_images import ExtractImagesApp
@@ -71,6 +72,7 @@ class MainFrame(ttk.Frame):
         self._create_nav_button(
             top_nav_frame, _("PDF to Long Image"), PDFToLongImageApp
         )
+
         self._create_nav_button(top_nav_frame, _("Delete Pages"), DeletePagesApp)
         self._create_nav_button(top_nav_frame, _("Edit Bookmark"), EditBookmarkApp)
         self._create_nav_button(top_nav_frame, _("Merge Invoices"), MergeInvoicesApp)
@@ -86,7 +88,8 @@ class MainFrame(ttk.Frame):
 
     def _create_nav_button(self, parent, text: str, app_class):
         button = ttk.Button(
-            parent, text=text, command=lambda ac=app_class: self._show_app(ac)
+            parent, text=text, padding=(5,0,5,0),
+            command=lambda ac=app_class: self._show_app(ac)
         )
         button.pack(fill="x", pady=(5, 0))
         self.nav_buttons[app_class] = button
