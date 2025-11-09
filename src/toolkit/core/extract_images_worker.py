@@ -1,24 +1,25 @@
-# toolkit/core/extract_images_worker.py
+"""Worker module to extract images from PDF files."""
 
 from pathlib import Path
+from typing import Any, List
+
 
 import pymupdf
-
 from toolkit.i18n import gettext_text as _
 
 
 def extract_images_worker(
-    input_files,
-    output_dir,
-    min_width,
-    min_height,
-    save_in_same_folder,
-    extract_all,
-    cancel_event,
-    progress_queue,
-    result_queue,
-    saving_ack_event=None,
-):
+    input_files: List[str],
+    output_dir: str,
+    min_width: int,
+    min_height: int,
+    save_in_same_folder: bool,
+    extract_all: bool,
+    cancel_event: Any,
+    progress_queue: Any,
+    result_queue: Any,
+    saving_ack_event: Any = None,
+) -> None:
     try:
         total_images_found = 0
         images_extracted_count = 0

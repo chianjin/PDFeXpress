@@ -1,8 +1,9 @@
-# toolkit/ui/feature/delete_pages.py
+"""UI module for deleting pages from PDF files."""
 
 import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
+from typing import Any, Optional, Tuple
 
 from toolkit.constant import FILE_TYPES_PDF, HELP_ICON, RANGE_SYNTAX_HELP
 from toolkit.core.delete_pages_worker import delete_pages_worker
@@ -14,7 +15,7 @@ from toolkit.ui.widget.misc import OptionFrame, TitleFrame
 
 
 class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
-    def __init__(self, master, **kwargs):
+    def __init__(self, master: tk.Tk, **kwargs: Any) -> None:
         ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
 
@@ -47,25 +48,23 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
             self.option_frame, textvariable=self.pages_to_delete_var
         )
         self.pages_to_delete_entry.pack(
-            side='left', fill="x", expand=True, padx=10, pady=5
+            side="left", fill="x", expand=True, padx=10, pady=5
         )
-        
+
         self.help_icon = tk.PhotoImage(file=HELP_ICON)
 
         info_icon = ttk.Button(
             self.option_frame,
             image=self.help_icon,
-            style='Toolbutton',
+            style="Toolbutton",
             command=self._show_syntax_help,
-            cursor="hand2"
+            cursor="hand2",
         )
         info_icon.pack(side="left", padx=(20, 5))
 
-        ttk.Label(
-            self.option_frame, text=_("Format: 1-3, 5, 7-9;4-5,7;+8-10,12")
-        ).pack(side="left", padx=(5,20))
-
-
+        ttk.Label(self.option_frame, text=_("Format: 1-3, 5, 7-9;4-5,7;+8-10,12")).pack(
+            side="left", padx=(5, 20)
+        )
 
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky="ew", padx=10, pady=(0, 10))
@@ -81,27 +80,24 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
 
         self._on_input_changed()  # Initialize state
 
-    def _on_input_changed(self, *args):
+    def _on_input_changed(self, *args) -> None:
         pdf_path_str = self.file_picker.get()
         if pdf_path_str:
             pdf_path = Path(pdf_path_str)
-            # Extract filename without extension
             file_name_without_ext = pdf_path.stem
-            # Construct new output folder name
             output_folder_name = f"{file_name_without_ext}_{_('Deleted')}"
-            # Set the output folder picker's value
             output_dir = pdf_path.parent / output_folder_name
             self.output_folder_picker.set(str(output_dir))
         else:
             self.output_folder_picker.set("")
 
-    def _show_syntax_help(self, event=None):
+    def _show_syntax_help(self, event: Optional[tk.Event] = None) -> None:
         messagebox.showinfo(_("Range Syntax Help"), RANGE_SYNTAX_HELP)
 
-    def _get_root_window(self):
+    def _get_root_window(self) -> tk.Tk:
         return self.winfo_toplevel()
 
-    def _prepare_task(self):
+    def _prepare_task(self) -> Optional[Tuple[Any, Tuple[str, str, str], str]]:
         pdf_path = self.file_picker.get()
         output_dir = self.output_folder_picker.get()
         pages_to_delete_str = self.pages_to_delete_var.get()
@@ -130,5 +126,5 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
 
         return target_function, args_tuple, initial_label
 
-    def update_status(self, message):
+    def update_status(self, message: str) -> None:
         self.status_label.config(text=message)

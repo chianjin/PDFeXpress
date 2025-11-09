@@ -1,28 +1,29 @@
-# toolkit/core/merge_pdf_worker.py
+"""Worker module to merge multiple PDF files into one."""
 
 from pathlib import Path
+from typing import Any, List
 
 import pymupdf
-
 from toolkit.i18n import gettext_text as _
 from toolkit.i18n import ngettext
 
 translation_table = str.maketrans("-_.,", "    ")
 
 
-def replace_special_chars(text):
+def replace_special_chars(text: str) -> str:
+    """Replace special characters in text with spaces."""
     return text.translate(translation_table)
 
 
 def merge_pdf_worker(
-    input_files,
-    output_file,
-    create_bookmarks,
-    cancel_event,
-    progress_queue,
-    result_queue,
-    saving_ack_event,
-):  # 添加 saving_ack_event
+    input_files: List[str],
+    output_file: str,
+    create_bookmarks: bool,
+    cancel_event: Any,
+    progress_queue: Any,
+    result_queue: Any,
+    saving_ack_event: Any,
+) -> None:  # 添加 saving_ack_event
     try:
         total_steps = len(input_files)
         progress_queue.put(("INIT", total_steps))

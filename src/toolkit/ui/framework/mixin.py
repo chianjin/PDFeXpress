@@ -1,8 +1,9 @@
-# toolkit/ui/framework/mixin.py
+"""Framework Mixin module for running background tasks with progress display."""
 
 import multiprocessing
 import queue
 from tkinter import messagebox
+from typing import Any, Optional, Tuple, Callable
 
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.progress_dialog import ProgressDialog
@@ -14,7 +15,12 @@ class TaskRunnerMixin:
     background processes, polling queues, and displaying progress.
     """
 
-    def __init__(self, status_callback=None, *args, **kwargs):
+    def __init__(
+        self,
+        status_callback: Optional[Callable[[str], None]] = None,
+        *args: Any,
+        **kwargs: Any
+    ) -> None:
         self.progress_dialog = None
         self.worker_process = None
         self.cancel_event = None
@@ -24,11 +30,11 @@ class TaskRunnerMixin:
         self.saving_ack_event = None  # Event for synchronizing the saving operation
 
     # --- 1. Contract Methods ---
-    def _get_root_window(self):
+    def _get_root_window(self) -> Any:
         """[Contract] Subclasses must implement this to return the top-level tk.Tk() window."""
         raise NotImplementedError
 
-    def _prepare_task(self):
+    def _prepare_task(self) -> Optional[Tuple[Any, Tuple, str]]:
         """
         [Contract] Subclasses must implement this to validate inputs.
         On success: return (target_function, args_tuple, initial_label)
@@ -37,7 +43,7 @@ class TaskRunnerMixin:
         raise NotImplementedError
 
     # --- 2. Template Method ---
-    def run_task_from_ui(self):
+    def run_task_from_ui(self) -> None:
         """
         This is the command for all "Start" buttons.
         It defines the template flow: "prepare -> execute".
@@ -63,7 +69,9 @@ class TaskRunnerMixin:
         self._execute_task(target_function, args_tuple, initial_label)
 
     # --- 3. Private Implementation ---
-    def _execute_task(self, target_function, args_tuple, initial_label):
+    def _execute_task(
+        self, target_function: Callable, args_tuple: Tuple, initial_label: str
+    ) -> None:
         self.cancel_event = multiprocessing.Event()
         self.progress_queue = multiprocessing.Queue()
         self.result_queue = multiprocessing.Queue()
@@ -92,7 +100,7 @@ class TaskRunnerMixin:
 
         self._get_root_window().after(100, self.poll_queues)
 
-    def poll_queues(self):
+    def poll_queues(self) -> None:
         """GUI poller (heartbeat)."""
         # 1. Prioritize checking the result queue
         try:
@@ -163,12 +171,12 @@ class TaskRunnerMixin:
         # Schedule the next poll
         self._get_root_window().after(100, self.poll_queues)
 
-    def request_cancel(self):
+    def request_cancel(self) -> None:
         """Request cancellation."""
         if self.cancel_event:
             self.cancel_event.set()
 
-    def cleanup(self):
+    def cleanup(self) -> None:
         """GUI cleanup."""
         if self.worker_process and self.worker_process.is_alive():
             self.worker_process.join(timeout=0.5)

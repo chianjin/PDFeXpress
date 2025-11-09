@@ -35,28 +35,28 @@ FILE_TYPES_IMAGES = [
 HELP_ICON = "data/help24.png"
 
 RANGE_SYNTAX_HELP = _(
-"""自定义页面范围语法说明：
+    """Custom Page Range Syntax Guide:
 
-基本语法：
-- 逗号分隔：1,3,5 表示第1页、第3页、第5页
-- 连字符范围：3-7 表示第3到第7页（包含两端）
-- 省略范围：-10 表示从首页到第10页，5- 表示从第5页到最后
-- 步长语法：1-10:2 表示从第1到第10页，每隔2页取一页（1,3,5,7,9）
-- 全局步长：:3 表示从首页到最后页，每隔3页取一页
+Basic Syntax:
+- Comma Separation: 1,3,5 means page 1, 3 and 5
+- Hyphen Range: 3-7 means page 3 to 7 (both ends included)
+- Omission Range: -10 means from first page to page 10, 5- means from page 5 to last
+- Step Syntax: 1-10:2 means from page 1 to 10, one page every 2 pages (1,3,5,7,9)
+- Global Step: :3 means from first page to last, one page every 3 pages
 
-组合使用：
-- 混合表达：1,3-5,7-:2 表示第1页，第3-5页，第7页到最后页每隔2页取一页
+Combined Usage:
+- Mixed Expression: 1,3-5,7-:2 means page 1, page 3-5, page 7 to last every 2 pages
 
-多组范围：
-- 分号分隔：1,3,6-9;4-6,8;1-5 表示3个不同的范围组，将生成3个PDF文件
+Multiple Range Groups:
+- Semicolon Separation: 1,3,6-9;4-6,8;1-5 means 3 different range groups, will generate 3 PDF files
 
-重复与反向：
-- 允许重复：+ 号前缀表示允许重复页（如 +4-8,6,9-12）
-- 反向范围：在 + 模式下支持反向（如 +9-5 表示第9页到第5页的反向）
+Duplicates and Reverse:
+- Allow Duplicates: + prefix means allow duplicate pages (e.g. +4-8,6,9-12)
+- Reverse Range: Reverse is supported in + mode (e.g. +9-5 means reverse from page 9 to 5)
 
-注意事项：
-- 默认模式下自动去重
-- 不在 + 模式下使用反向范围会报错
-- 所有页码以1开始计数
+Notes:
+- Deduplication is automatic in default mode
+- Using reverse range without + mode will cause an error
+- All page numbers start counting from 1
 """
 )

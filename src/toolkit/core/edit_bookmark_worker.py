@@ -1,24 +1,27 @@
-# toolkit/core/edit_bookmark_worker.py
+"""Worker module to edit PDF bookmarks."""
 
 import csv
-from typing import List
+from typing import List, Any
 
 import pymupdf
 
 
-def get_bookmarks(pdf_path: str) -> List:
+def get_bookmarks(pdf_path: str) -> List[Any]:
+    """Get bookmarks from a PDF file."""
     with pymupdf.open(pdf_path) as doc:
         toc = doc.get_toc()
     return toc
 
 
-def set_bookmarks(pdf_path: str, toc: List, output_path: str):
+def set_bookmarks(pdf_path: str, toc: List[Any], output_path: str) -> None:
+    """Set bookmarks to a PDF file and save to output path."""
     with pymupdf.open(pdf_path) as doc:
         doc.set_toc(toc)
         doc.save(output_path)
 
 
-def import_bookmarks_from_csv(csv_path: str) -> List:
+def import_bookmarks_from_csv(csv_path: str) -> List[Any]:
+    """Import bookmarks from a CSV file."""
     toc = []
     with open(csv_path, "r", encoding="utf-8") as f:
         reader = csv.reader(f, delimiter="\t")
@@ -37,7 +40,8 @@ def import_bookmarks_from_csv(csv_path: str) -> List:
     return toc
 
 
-def export_bookmarks_to_csv(toc: List, csv_path: str):
+def export_bookmarks_to_csv(toc: List[Any], csv_path: str) -> None:
+    """Export bookmarks to a CSV file."""
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["level", "page", "title"])  # Add header

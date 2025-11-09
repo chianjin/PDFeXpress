@@ -1,7 +1,8 @@
-# toolkit/ui/widget/file_list.py
+"""UI widget for file list with drag-and-drop support."""
 
 from pathlib import Path
 from tkinter import filedialog, ttk
+from typing import Any, Callable, List, Optional, Union
 
 from tkinterdnd2 import DND_FILES
 
@@ -19,13 +20,13 @@ check_file_list_change = create_run_after_decorator("_on_change_callback")
 class FileListView(ttk.Labelframe):
     def __init__(
         self,
-        parent,
-        title=_("File List"),
-        file_types=FILE_TYPES_PDF,
-        sortable=False,
-        on_change_callback=None,
-        **kwargs
-    ):
+        parent: ttk.Frame,
+        title: str = _("File List"),
+        file_types: List = FILE_TYPES_PDF,
+        sortable: bool = False,
+        on_change_callback: Optional[Callable] = None,
+        **kwargs: Any
+    ) -> None:
         super().__init__(parent, text=title, **kwargs)
 
         self._file_types = file_types
@@ -42,7 +43,6 @@ class FileListView(ttk.Labelframe):
         self.treeview_frame.rowconfigure(0, weight=1)
         self.treeview_frame.columnconfigure(0, weight=1)
 
-        # 创建Treeview
         self.filelist_treeview = ttk.Treeview(
             self.treeview_frame,
             columns=("filepath",),
@@ -50,21 +50,17 @@ class FileListView(ttk.Labelframe):
             selectmode="extended",
         )
 
-        # 设置列标题
         self.filelist_treeview.heading("filepath", text=_("File Path"), anchor="w")
         self.filelist_treeview.column("filepath", width=300)
 
-        # 滚动条
         self.filelist_scrollbar = ttk.Scrollbar(
             self.treeview_frame, orient="vertical", command=self.filelist_treeview.yview
         )
         self.filelist_treeview.configure(yscrollcommand=self.filelist_scrollbar.set)
 
-        # 布局
         self.filelist_treeview.grid(row=0, column=0, sticky="nsew", padx=0)
         self.filelist_scrollbar.grid(row=0, column=1, sticky="ns", padx=0)
 
-        # 右侧按钮框架
         self.button_frame = ttk.Frame(self)
         self.button_frame.grid(row=0, column=1, sticky="n", padx=5, pady=5)
         self.button_frame.columnconfigure(
@@ -111,11 +107,11 @@ class FileListView(ttk.Labelframe):
         self.drop_target_register(DND_FILES)
         self.dnd_bind("<<Drop>>", self._on_drop)
 
-    def _make_sortable(self):
+    def _make_sortable(self) -> None:
         self._add_sorting_buttons()
         self.filelist_treeview.heading("filepath", command=self._sort_filepath)
 
-    def _add_sorting_buttons(self):
+    def _add_sorting_buttons(self) -> None:
         separator = ttk.Separator(self.button_frame, orient="horizontal")
         separator.grid(
             row=self.button_row_counter, column=0, sticky="ew", padx=0, pady=(5, 5)
@@ -154,28 +150,23 @@ class FileListView(ttk.Labelframe):
         )
         self.button_row_counter += 1
 
-    def _sort_filepath(self):
-        # 获取当前列的所有项目
+    def _sort_filepath(self) -> None:
         items = [
             (self.filelist_treeview.set(k, "filepath"), k)
             for k in self.filelist_treeview.get_children("")
         ]
-        # 确定排序顺序
         if not self._sort_ascending:
-            # 升序排列
             items.sort(key=lambda x: x[0].lower())
             self._sort_ascending = True
         else:
-            # 降序排列
             items.sort(key=lambda x: x[0].lower(), reverse=True)
             self._sort_ascending = False
 
-        # 重新插入项目以反映排序
         for index, (filepath, k) in enumerate(items):
             self.filelist_treeview.move(k, "", index)
 
     @check_file_list_change
-    def _add_files(self):
+    def _add_files(self) -> Optional[bool]:
         file_paths = filedialog.askopenfilenames(
             title=_("Select input files."), filetypes=self._file_types
         )
@@ -188,7 +179,7 @@ class FileListView(ttk.Labelframe):
         return None
 
     @check_file_list_change
-    def _add_folder(self):
+    def _add_folder(self) -> Optional[bool]:
         folder_path = filedialog.askdirectory(title=_("Select input folder."))
         if not folder_path:
             return None
@@ -200,7 +191,7 @@ class FileListView(ttk.Labelframe):
         return None
 
     @check_file_list_change
-    def _remove_files(self, event=None):
+    def _remove_files(self, event: Optional[Any] = None) -> Optional[bool]:
         selected_items = self.filelist_treeview.selection()
         if not selected_items:
             return None
@@ -211,19 +202,19 @@ class FileListView(ttk.Labelframe):
         return None
 
     @check_file_list_change
-    def _remove_all(self):
+    def _remove_all(self) -> None:
         for item in self.filelist_treeview.get_children():
             self.filelist_treeview.delete(item)
 
     @check_file_list_change
-    def _move_to_first(self):
+    def _move_to_first(self) -> None:
         selected_items = self.filelist_treeview.selection()
         if 0 < len(selected_items) < 2:
             item = self.filelist_treeview.selection()[0]
             self.filelist_treeview.move(item, "", 0)
 
     @check_file_list_change
-    def _move_up(self):
+    def _move_up(self) -> None:
         selected_items = self.filelist_treeview.selection()
         if 0 < len(selected_items) < 2:
             item = self.filelist_treeview.selection()[0]
@@ -233,7 +224,7 @@ class FileListView(ttk.Labelframe):
             )
 
     @check_file_list_change
-    def _move_down(self):
+    def _move_down(self) -> None:
         selected_items = self.filelist_treeview.selection()
         if 0 < len(selected_items) < 2:
             item = self.filelist_treeview.selection()[0]
@@ -243,28 +234,28 @@ class FileListView(ttk.Labelframe):
             )
 
     @check_file_list_change
-    def _move_to_last(self):
+    def _move_to_last(self) -> None:
         selected_items = self.filelist_treeview.selection()
         if 0 < len(selected_items) < 2:
             item = self.filelist_treeview.selection()[0]
             self.filelist_treeview.move(item, "", "end")
 
     @check_file_list_change
-    def _on_drop(self, event):
+    def _on_drop(self, event: Any) -> None:
         top_level = self.winfo_toplevel()
         file_paths = top_level.tk.splitlist(event.data)
         file_paths = get_files_with_extensions(file_paths, self._file_types)
         for file_path in file_paths:
             self.filelist_treeview.insert("", "end", values=(str(Path(file_path)),))
 
-    def get(self):
+    def get(self) -> List[Path]:
         return [
             Path(self.filelist_treeview.item(item)["values"][0])
             for item in self.filelist_treeview.get_children()
         ]
 
     @check_file_list_change
-    def set(self, file_paths):
+    def set(self, file_paths: Union[List[str], List[Path]]) -> Optional[bool]:
         if not file_paths:
             self.clear()
             return None
@@ -275,7 +266,7 @@ class FileListView(ttk.Labelframe):
 
         return None
 
-    def clear(self):
+    def clear(self) -> None:
         for item in self.filelist_treeview.get_children():
             self.filelist_treeview.delete(item)
 

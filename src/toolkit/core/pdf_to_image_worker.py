@@ -1,26 +1,26 @@
-# toolkit/core/pdf_to_image_worker.py
+"""Worker module to convert PDF pages to images."""
 
 from pathlib import Path
+from typing import Any, List
 
 import pymupdf
-
 from toolkit.i18n import gettext_text as _
 from toolkit.i18n import ngettext
 
 
 def pdf_to_image_worker(
-    input_files,
-    output_dir,
-    dpi_value,
-    image_format,
-    jpeg_quality,
-    transparent_background,
-    save_in_same_folder,
-    cancel_event,
-    progress_queue,
-    result_queue,
-    saving_ack_event,
-):
+    input_files: List[str],
+    output_dir: str,
+    dpi_value: float,
+    image_format: str,
+    jpeg_quality: int,
+    transparent_background: bool,
+    save_in_same_folder: bool,
+    cancel_event: Any,
+    progress_queue: Any,
+    result_queue: Any,
+    saving_ack_event: Any,
+) -> None:
     try:
         total_steps = 0
         for file_path in input_files:
