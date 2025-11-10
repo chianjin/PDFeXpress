@@ -8,8 +8,10 @@ if platform.system() == "Windows":
     ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
 import multiprocessing
+import pathlib
 
 from tkinterdnd2 import TkinterDnD
+
 
 from config import PROJECT_NAME, PROJECT_VERSION
 from toolkit.main_frame import MainFrame
@@ -18,7 +20,9 @@ if __name__ == "__main__":
     multiprocessing.freeze_support()
     root = TkinterDnD.Tk()
     root.title(f"{PROJECT_NAME} - Ver. {PROJECT_VERSION}")
-    root.iconbitmap("data/pdfexpress.ico")
+    script_dir = pathlib.Path(__file__).parent
+    icon_path = script_dir / "data" / "pdfexpress.ico"
+    root.iconbitmap(icon_path)
 
     # Center the window
     window_width = 1280

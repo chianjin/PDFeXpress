@@ -5,12 +5,14 @@ from pathlib import Path
 from tkinter import messagebox, ttk
 from typing import Any, Optional, Tuple
 
-from toolkit.constant import FILE_TYPES_PDF, HELP_ICON, RANGE_SYNTAX_HELP
+from toolkit.constant import FILE_TYPES_PDF, HELP_ICON
+from toolkit.page_range_syntax_help import PAGE_RANGE_SYNTAX_HELP
 from toolkit.core.delete_pages_worker import delete_pages_worker
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
 from toolkit.ui.widget.file_picker import FilePicker
 from toolkit.ui.widget.folder_picker import FolderPicker
+from toolkit.ui.widget.help_window import HelpWindow
 from toolkit.ui.widget.misc import OptionFrame, TitleFrame
 
 
@@ -18,6 +20,7 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master: tk.Tk, **kwargs: Any) -> None:
         ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
+        self.help_window = None
 
         self.columnconfigure(0, weight=1)
         # self.rowconfigure(1, weight=1)
@@ -42,8 +45,19 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
         ttk.Label(self.option_frame, text=_("Pages to Delete:")).pack(
             side="left", padx=(10, 5), pady=5
         )
+
+        self.help_icon = tk.PhotoImage(file=HELP_ICON)
+        ttk.Button(
+            self.option_frame,
+            image=self.help_icon,
+            style="Toolbutton",
+            command=self._show_syntax_help,
+            cursor="hand2",
+        ).pack(side="left", padx=5, pady=0, anchor="center")
+
         self.pages_to_delete_var = tk.StringVar()
         self.pages_to_delete_var.trace_add("write", self._on_input_changed)
+
         self.pages_to_delete_entry = ttk.Entry(
             self.option_frame, textvariable=self.pages_to_delete_var
         )
@@ -51,16 +65,8 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
             side="left", fill="x", expand=True, padx=10, pady=5
         )
 
-        self.help_icon = tk.PhotoImage(file=HELP_ICON)
 
-        info_icon = ttk.Button(
-            self.option_frame,
-            image=self.help_icon,
-            style="Toolbutton",
-            command=self._show_syntax_help,
-            cursor="hand2",
-        )
-        info_icon.pack(side="left", padx=(20, 5))
+
 
         ttk.Label(self.option_frame, text=_("Format: 1-3, 5, 7-9;4-5,7;+8-10,12")).pack(
             side="left", padx=(5, 20)
@@ -92,7 +98,13 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
             self.output_folder_picker.set("")
 
     def _show_syntax_help(self, event: Optional[tk.Event] = None) -> None:
-        messagebox.showinfo(_("Range Syntax Help"), RANGE_SYNTAX_HELP)
+        if self.help_window is not None and self.help_window.winfo_exists():
+            self.help_window.lift()
+            return
+        self.help_window = HelpWindow(self, _("Page Range Syntax Guide"), PAGE_RANGE_SYNTAX_HELP, on_close=self.on_help_window_close)
+
+    def on_help_window_close(self):
+        self.help_window = None
 
     def _get_root_window(self) -> tk.Tk:
         return self.winfo_toplevel()

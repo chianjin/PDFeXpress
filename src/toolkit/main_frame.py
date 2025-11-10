@@ -8,6 +8,7 @@ from tkinter import messagebox, ttk
 # Import i18n and feature modules
 from config import PROJECT_AUTHOR, PROJECT_NAME, PROJECT_URL, PROJECT_VERSION
 from toolkit.i18n import gettext_text as _
+from toolkit.third_packages import THIRD_PACKAGES
 
 from toolkit.ui.feature.delete_pages import DeletePagesApp
 from toolkit.ui.feature.edit_bookmark import EditBookmarkApp
@@ -20,6 +21,7 @@ from toolkit.ui.feature.merge_pdf import MergePDFApp
 from toolkit.ui.feature.pdf_to_images import PDFToImagesApp
 from toolkit.ui.feature.pdf_to_long_image import PDFToLongImageApp
 from toolkit.ui.feature.rotate_pdf import RotatePDFApp
+from toolkit.ui.feature.add_page_numbers import AddPageNumbers
 from toolkit.ui.feature.split_pdf import SplitPDFApp
 from toolkit.ui.widget.url import URLLabel
 
@@ -74,6 +76,7 @@ class MainFrame(ttk.Frame):
         )
 
         self._create_nav_button(top_nav_frame, _("Delete Pages"), DeletePagesApp)
+        self._create_nav_button(top_nav_frame, _("Add Page Numbers"), AddPageNumbers)
         self._create_nav_button(top_nav_frame, _("Edit Bookmark"), EditBookmarkApp)
         self._create_nav_button(top_nav_frame, _("Merge Invoices"), MergeInvoicesApp)
 
@@ -153,20 +156,9 @@ class AboutFame(tk.Toplevel):
             row=4, column=0, padx=10, pady=(20, 0)
         )
 
-        third_packages = (
-            ("Python", "https://python.org", "Python Software Foundation License v2"),
-            (
-                "PyMuPDF",
-                "https://github.com/pymupdf/PyMuPDF",
-                "GNU AFFERO GPL 3.0 or Artifex Commercial License",
-            ),
-            ("Pillow", "https://github.com/python-pillow/Pillow", "MIT-CMU"),
-            ("tkinterdnd2", "https://github.com/Eliav2/tkinterdnd2", "MIT License"),
-        )
-
         third_packages_frame = ttk.Frame(self)
         third_packages_frame.grid(row=5, column=0, padx=40, pady=(0, 20))
-        for row_index, (name, url, license_) in enumerate(third_packages):
+        for row_index, (name, url, license_) in enumerate(THIRD_PACKAGES):
             URLLabel(third_packages_frame, text=name, url=url).grid(
                 row=row_index, sticky="e", column=0, padx=10, pady=(5, 0)
             )

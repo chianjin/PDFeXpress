@@ -4,12 +4,14 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
 
-from toolkit.constant import FILE_TYPES_PDF, HELP_ICON, RANGE_SYNTAX_HELP
+from toolkit.constant import FILE_TYPES_PDF, HELP_ICON
+from toolkit.page_range_syntax_help import PAGE_RANGE_SYNTAX_HELP
 from toolkit.core.split_pdf_worker import split_pdf_worker
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
 from toolkit.ui.widget.file_picker import FilePicker
 from toolkit.ui.widget.folder_picker import FolderPicker
+from toolkit.ui.widget.help_window import HelpWindow
 from toolkit.ui.widget.misc import OptionFrame, TitleFrame
 
 
@@ -17,6 +19,7 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
     def __init__(self, master, **kwargs):
         ttk.Frame.__init__(self, master, **kwargs)
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
+        self.help_window = None
 
         self.columnconfigure(0, weight=1)
         # self.rowconfigure(1, weight=1)
@@ -56,6 +59,15 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
 
         self.split_value_label = ttk.Label(radio_frame, text=_("Value:"))
         self.split_value_label.pack(side="left", padx=(10, 5), pady=5)
+        self.icon = tk.PhotoImage(file=HELP_ICON)
+        ttk.Button(
+            radio_frame,
+            image=self.icon,
+            style='Toolbutton',
+            cursor="hand2",
+            command=self._show_syntax_help
+        ).pack(side="left", padx=5, pady=0, anchor="center")
+
 
         self.split_value_var = tk.StringVar()
         self.split_value_entry = ttk.Entry(
@@ -67,17 +79,6 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         description_frame = ttk.Frame(self.option_frame)
         description_frame.pack(fill="x", padx=10, pady=(0, 5))
 
-        self.icon = tk.PhotoImage(file=HELP_ICON)
-
-        info_icon = ttk.Button(
-            description_frame,
-            image=self.icon,
-            style='Toolbutton',
-            cursor="hand2",
-            command=self._show_syntax_help
-        )
-        info_icon.pack(side="left", padx=(0, 5))
-        
         self.fixed_description_label = ttk.Label(
             description_frame,
             text=_(
@@ -126,7 +127,13 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
             self.split_value_entry.config(state="normal")
 
     def _show_syntax_help(self, event=None):
-        messagebox.showinfo(_("Range Syntax Help"), RANGE_SYNTAX_HELP)
+        if self.help_window is not None and self.help_window.winfo_exists():
+            self.help_window.lift()
+            return
+        self.help_window = HelpWindow(self, _("Page Range Syntax Guide"), PAGE_RANGE_SYNTAX_HELP, on_close=self.on_help_window_close)
+
+    def on_help_window_close(self):
+        self.help_window = None
 
     def _get_root_window(self):
         return self.winfo_toplevel()

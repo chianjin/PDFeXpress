@@ -8,7 +8,7 @@ import pymupdf
 
 from toolkit.i18n import gettext_text as _
 from toolkit.i18n import ngettext
-from toolkit.util.range_util import parse_page_ranges
+from toolkit.util.page_range_parser import parse_page_ranges
 
 
 def _get_page_chunks(
