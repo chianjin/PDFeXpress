@@ -1,23 +1,30 @@
 # src/pdfexpress.py
 import platform
-
-if platform.system() == "Windows":
-    import ctypes
-
-    ctypes.windll.shcore.SetProcessDpiAwareness(True)
-
 import multiprocessing
 
 from tkinterdnd2 import TkinterDnD
 
 from toolkit.main_frame import MainFrame
-from config import PROJECT_NAME, PROJECT_VERSION
+from config import PROJECT_NAME, PROJECT_VERSION, EXECUTIVE_NAME
+
+system = platform.system()
+icon_file = f'data/{EXECUTIVE_NAME}.ico'
 
 if __name__ == "__main__":
+
+    if system == "Windows":
+        import ctypes
+        ctypes.windll.shcore.SetProcessDpiAwareness(True)
     multiprocessing.freeze_support()
+
     root = TkinterDnD.Tk()
     root.title(f'{PROJECT_NAME} - Ver. {PROJECT_VERSION}')
-    root.iconbitmap("data/pdfexpress.ico")
+    if system == 'Windows':
+        root.wm_iconbitmap(f'data/{EXECUTIVE_NAME}.ico')
+    else:
+        from ttkthemes import ThemedStyle
+        style = ThemedStyle(root)
+        style.set_theme('arc')
 
     # Center the window
     window_width = 1280
