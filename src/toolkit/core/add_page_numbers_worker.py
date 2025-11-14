@@ -1,6 +1,6 @@
 import queue
 from typing import Any
-import fitz
+import pymupdf
 
 from toolkit.util.page_number_parser import parse_page_format
 
@@ -55,9 +55,9 @@ def add_page_numbers_worker(
             ("Helvetica", "Regular"): "hero", ("Helvetica", "Bold"): "hebo", ("Helvetica", "Italic"): "heit", ("Helvetica", "Bold Italic"): "hebi",
         }
         fitz_font_name = font_map.get((font_name, font_style), "tiro")
-        font = fitz.Font(fitz_font_name)
+        font = pymupdf.Font(fitz_font_name)
 
-        doc = fitz.open(input_path)
+        doc = pymupdf.open(input_path)
         total_pages = len(doc)
         progress_queue.put(("INIT", total_pages))
 
