@@ -24,13 +24,12 @@ def merge_pdf_worker(
     progress_queue: Any,
     result_queue: Any,
     saving_ack_event: Any,
-) -> None:  # 添加 saving_ack_event
+) -> None:
     try:
         total_steps = len(input_files)
         progress_queue.put(("INIT", total_steps))
 
         with pymupdf.open() as output_doc:
-            # list for bookmark entries
             toc = []
             current_page = 0
 
@@ -60,13 +59,13 @@ def merge_pdf_worker(
                 output_doc.set_toc(toc)
 
             progress_queue.put(("SAVING", _("Saving merged PDF...")))
-            # Wait for UI thread to confirm SAVING message processed,
-            # while periodically checking the cancel event.
+            # Wait for the UI thread to acknowledge the SAVING message,
+            # checking for cancellation periodically.
             while not saving_ack_event.is_set():
                 if cancel_event.is_set():
                     result_queue.put(("CANCEL", _("Cancelled by user.")))
                     return
-                # Wait briefly, then check the cancel event again
+                # Wait briefly before re-checking the cancel event.
                 saving_ack_event.wait(timeout=0.1)
             output_doc.save(output_file, garbage=4, deflate=True)
 

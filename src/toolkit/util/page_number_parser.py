@@ -22,7 +22,7 @@ def parse_page_format(format_str: str, total_pages: int) -> list[PageSegment]:
             range_str = seg_str.strip()
             disp_str = ''
 
-        # 解析物理范围
+        # Parse physical range
         pdf_start = last_pdf_end + 1
         pdf_end = total_pages
         if range_str:
@@ -42,7 +42,7 @@ def parse_page_format(format_str: str, total_pages: int) -> list[PageSegment]:
         if pdf_start > pdf_end or pdf_end > total_pages or pdf_start <= last_pdf_end:
             raise ValueError(f"Invalid or overlapping range: {pdf_start}-{pdf_end}")
 
-        # 解析显示格式
+        # Parse display format
         disp_type = 'n'
         disp_start = last_disp + 1
         if disp_str:
@@ -57,7 +57,7 @@ def parse_page_format(format_str: str, total_pages: int) -> list[PageSegment]:
 
         segments.append(PageSegment(pdf_start=pdf_start, pdf_end=pdf_end, disp_type=disp_type, disp_start=disp_start))
 
-        # 更新last
+        # Update last
         page_count = pdf_end - pdf_start + 1
         last_disp = disp_start + page_count - 1
         last_pdf_end = pdf_end

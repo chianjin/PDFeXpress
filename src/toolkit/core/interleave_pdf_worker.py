@@ -1,5 +1,3 @@
-# toolkit/core/interleave_pdf_worker.py
-
 import pymupdf
 
 from toolkit.i18n import gettext_text as _

@@ -1,5 +1,3 @@
-# toolkit/core/extract_text_worker.py
-
 from pathlib import Path
 
 import pymupdf

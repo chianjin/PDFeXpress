@@ -1,5 +1,3 @@
-# toolkit/core/rotate_pdf_worker.py
-
 from pathlib import Path
 
 import pymupdf

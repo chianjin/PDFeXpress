@@ -1,5 +1,3 @@
-# toolkit/core/merge_invoices_worker.py
-
 from typing import List
 
 import pymupdf
@@ -55,7 +53,6 @@ def merge_invoices_worker(
         standard_invoice_paths: List[str] = []
         other_invoice_paths: List[str] = []
 
-        # --- 1. Classify invoices ---
         for i, pdf_path in enumerate(invoice_pdf_paths):
             if cancel_event.is_set():
                 raise InterruptedError
@@ -67,7 +64,6 @@ def merge_invoices_worker(
             progress_queue.put(("PROGRESS", i + 1))
 
         with pymupdf.open() as final_doc:
-            # --- 2. Process Standard Invoices ---
             for i in range(0, len(standard_invoice_paths), 2):
                 if cancel_event.is_set():
                     raise InterruptedError
@@ -87,7 +83,6 @@ def merge_invoices_worker(
                             pymupdf.Rect(0, A4_HEIGHT / 2, A4_WIDTH, A4_HEIGHT), doc2, 0
                         )
 
-            # --- 3. Process Other Invoices ---
             for pdf_path in other_invoice_paths:
                 if cancel_event.is_set():
                     raise InterruptedError
@@ -109,7 +104,6 @@ def merge_invoices_worker(
             if cancel_event.is_set():
                 raise InterruptedError
 
-            # --- 4. Save Final PDF ---
             progress_queue.put(("SAVING", _("Saving merged PDF...")))
             while not saving_ack_event.is_set():
                 if cancel_event.is_set():

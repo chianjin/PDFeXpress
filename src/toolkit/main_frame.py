@@ -1,11 +1,8 @@
-# toolkit/main_frame.py
-
 import tkinter as tk
 from datetime import date
 from tkinter import font as tkfont
 from tkinter import messagebox, ttk
 
-# Import i18n and feature modules
 from config import PROJECT_AUTHOR, PROJECT_NAME, PROJECT_URL, PROJECT_VERSION
 from toolkit.i18n import gettext_text as _
 from toolkit.third_packages import THIRD_PACKAGES
@@ -31,29 +28,22 @@ class MainFrame(ttk.Frame):
         super().__init__(parent, *args, **kwargs)
         self.pack(fill=tk.BOTH, expand=True)
 
-        # Main layout uses grid for fixed sidebar and expanding content
         self.columnconfigure(1, weight=1)
         self.rowconfigure(0, weight=1)
 
-        # Left Navigation Frame
         self.nav_frame = ttk.LabelFrame(self, text=_("Operation"))
         self.nav_frame.grid(row=0, column=0, sticky="ns", padx=(10, 0), pady=5)
         self.nav_frame.columnconfigure(0, weight=1)
 
-        # Bottom frame for About button
         about_frame = ttk.Frame(self.nav_frame)
         about_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=5, padx=5)
         about_frame.columnconfigure(0, weight=1)
-
-        # separator = ttk.Separator(about_frame)
-        # separator.grid(row=0, column=0, sticky="ew", pady=(0, 5))
 
         about_button = ttk.Button(
             about_frame, text=_("About"), command=self._show_about_dialog
         )
         about_button.grid(row=1, column=0, sticky="ew")
 
-        # Top frame for navigation buttons
         top_nav_frame = ttk.Frame(self.nav_frame)
         top_nav_frame.pack(side=tk.TOP, fill=tk.X, pady=5, padx=5)
         top_nav_frame.columnconfigure(0, weight=1)
@@ -62,7 +52,6 @@ class MainFrame(ttk.Frame):
         self.app_instances = {}
         self.nav_buttons = {}
 
-        # Navigation Buttons
         self._create_nav_button(top_nav_frame, _("Merge PDF"), MergePDFApp)
         self._create_nav_button(top_nav_frame, _("Split PDF"), SplitPDFApp)
         self._create_nav_button(top_nav_frame, _("Interleave PDF"), InterleavePDFApp)
@@ -80,13 +69,11 @@ class MainFrame(ttk.Frame):
         self._create_nav_button(top_nav_frame, _("Edit Bookmark"), EditBookmarkApp)
         self._create_nav_button(top_nav_frame, _("Merge Invoices"), MergeInvoicesApp)
 
-        # Right Content Frame
         self.content_frame = ttk.Frame(self)
         self.content_frame.grid(row=0, column=1, sticky="nswe")
         self.content_frame.columnconfigure(0, weight=1)
         self.content_frame.rowconfigure(0, weight=1)
 
-        # Initially display the Merge PDF app
         self._show_app(MergePDFApp)
 
     def _create_nav_button(self, parent, text: str, app_class):
@@ -125,7 +112,6 @@ class AboutFame(tk.Toplevel):
     def __init__(self, parent: ttk.Frame, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
 
-        # Main layout uses grid for fixed sidebar and expanding content
         self.columnconfigure(1, weight=1)
         self.rowconfigure(0, weight=1)
 

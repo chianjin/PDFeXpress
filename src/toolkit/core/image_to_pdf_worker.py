@@ -1,8 +1,6 @@
-# toolkit/core/image_to_pdf_worker.py
-
 from pathlib import Path
 
-import pymupdf  # 导入 PyMuPDF
+import pymupdf
 
 from toolkit.i18n import gettext_text as _
 from toolkit.i18n import ngettext
@@ -53,13 +51,13 @@ def image_to_pdf_worker(
                 raise ValueError(_("No image converted to PDF."))
 
             progress_queue.put(("SAVING", _("Saving PDF...")))
-            # Wait for UI thread to confirm SAVING message processed,
-            # while periodically checking the cancel event.
+            # Wait for the UI thread to acknowledge the SAVING message,
+            # checking for cancellation periodically.
             while not saving_ack_event.is_set():
                 if cancel_event.is_set():
                     result_queue.put(("CANCEL", _("Cancelled by user.")))
                     return
-                # Wait briefly, then check the cancel event again
+                # Wait briefly before re-checking the cancel event.
                 saving_ack_event.wait(timeout=0.1)
             output_doc.save(output_pdf_path, garbage=4, deflate=True)
 

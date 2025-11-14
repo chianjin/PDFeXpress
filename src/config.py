@@ -1,5 +1,3 @@
-# config.py
-
 from pathlib import Path
 
 PROJECT_NAME = "PDF eXpress"

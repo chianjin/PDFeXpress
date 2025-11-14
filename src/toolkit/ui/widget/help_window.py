@@ -7,7 +7,6 @@ class HelpWindow(tk.Toplevel):
         self.on_close = on_close
         self.title(title)
         self.transient(parent)
-        # self.geometry("+800+800")
 
         label = ttk.Label(
             self, text=help_text, wraplength=800, justify="left", relief='groove',

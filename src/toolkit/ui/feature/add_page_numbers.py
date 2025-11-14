@@ -25,24 +25,19 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
     def create_widgets(self):
         TitleFrame(self, _('Add Page Numbers')).grid(row=0, column=0, sticky="ew", padx=10, pady=5)
 
-        # Input file
         self.input_file_picker = FilePicker(self, title=_('PDF File'), file_types=FILE_TYPES_PDF)
         self.input_file_picker.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 5))
 
-        # Output file
         self.output_file_picker = FilePicker(self, title=_('Output PDF'), file_types=FILE_TYPES_PDF, mode='save')
         self.output_file_picker.grid(row=2, column=0, sticky="nsew", padx=10, pady=(0, 5))
 
-        # Options Frame
         options_frame = OptionFrame(self, _('Options'))
         options_frame.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 5))
         options_frame.columnconfigure(0, weight=1)
 
 
-        # Page Format Rule
         rule_option = tk.Frame(options_frame)
         rule_option.grid(row=0, column=0, sticky="ew", padx=10, pady=(0, 5))
-        #rule_option.columnconfigure(1, weight=1)
 
         ttk.Label(
             rule_option, text=_('Page Number Format:')
@@ -60,7 +55,6 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
             wraplength= 600
         ).grid(row=0, column=3, sticky='w', padx=5, pady=5)
 
-        # Position
         pos_option = ttk.Frame(options_frame)
         pos_option.grid(row=1, column=0, sticky="ew", padx=10, pady=(0, 5))
         pos_option.columnconfigure(9, weight=1)
@@ -99,10 +93,8 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
             pos_option, text=_('Inside'), variable=self.h_pos, value='inside'
         ).grid(row=0, column=8, sticky='w', padx=5)
 
-        # Font
         font_option = ttk.Frame(options_frame)
         font_option.grid(row=2, column=0, sticky="ew", padx=10, pady=(0, 5))
-        # font_option.columnconfigure((1, 3, 5), weight=1)
 
         ttk.Label(
             font_option, text=_('Font:')
@@ -132,10 +124,8 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
         self.font_size_spin.set(10)
         self.font_size_spin.grid(row=0, column=5, sticky='ew', padx=5)
 
-        # Margin
         margin_option = ttk.Frame(options_frame)
         margin_option.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 5))
-        # margin_option.columnconfigure((1, 3), weight=1)
 
         self.v_margin_label = ttk.Label(margin_option)
         self.v_margin_label.grid(row=0, column=0, sticky='w', padx=5, pady=5)
@@ -148,13 +138,11 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
         self.h_margin_spin = ttk.Spinbox(margin_option, from_=0, to=10, increment=0.1, format="%.1f")
         self.h_margin_spin.set(1.0)
         self.h_margin_spin.grid(row=0, column=3, sticky='ew', padx=5)
-        #
         self.v_pos.trace_add('write', self.update_margin_labels)
         self.h_pos.trace_add('write', self.update_margin_labels)
         self.update_margin_labels()
 
 
-        # Bottom frame
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=6, column=0, sticky="ew", padx=10, pady=(0, 10))
         bottom_frame.columnconfigure(0, weight=1)
@@ -171,7 +159,6 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
         else:
             self.v_margin_label.config(text=_('Bottom Margin (cm):'))
 
-        # Update horizontal margin label and state
         h_pos = self.h_pos.get()
         if h_pos == 'left':
             self.h_margin_label.config(text=_('Left Margin (cm):'))
@@ -188,7 +175,7 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
             self.h_margin_label.grid(row=0, column=2, sticky='w', padx=5)
             self.h_margin_spin.grid(row=0, column=3, sticky='ew', padx=5)
             self.h_margin_spin.config(state='normal')
-        else:  # center
+        else:
             self.h_margin_label.grid_forget()
             self.h_margin_spin.grid_forget()
 

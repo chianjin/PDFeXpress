@@ -1,4 +1,3 @@
-# src/pdfexpress.py
 import platform
 import multiprocessing
 
@@ -31,7 +30,6 @@ if __name__ == "__main__":
         except:
             style.set_theme('clam')
 
-    # Center the window
     window_width = 1280
     window_height = 768
     screen_width = root.winfo_screenwidth()

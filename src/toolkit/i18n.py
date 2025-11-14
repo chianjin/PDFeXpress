@@ -1,4 +1,3 @@
-# toolkit/i18n.py
 import gettext
 import os
 import platform

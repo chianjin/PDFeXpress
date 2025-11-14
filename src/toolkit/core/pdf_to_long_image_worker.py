@@ -1,5 +1,3 @@
-# toolkit/core/pdf_to_long_image_worker.py
-
 import pymupdf
 from PIL import Image
 

@@ -1,5 +1,3 @@
-# toolkit/ui/feature/edit_bookmark.py
-
 import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
@@ -26,11 +24,9 @@ class EditBookmarkApp(ttk.Frame):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(2, weight=1)
 
-        # Title
         self.title_frame = TitleFrame(self, text=_("Edit Bookmark"))
         self.title_frame.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
 
-        # Input PDF
         self.input_file_picker = FilePicker(
             self, title=_("PDF File"), mode="open", file_types=FILE_TYPES_PDF
         )
@@ -40,7 +36,6 @@ class EditBookmarkApp(ttk.Frame):
             "write", self._on_input_pdf_changed
         )
 
-        # Bookmark List
         list_frame = ttk.Labelframe(self, text=_("Bookmark"))
         list_frame.grid(row=2, column=0, sticky="nsew", padx=10, pady=(0, 5))
         list_frame.columnconfigure(0, weight=1)
@@ -54,7 +49,7 @@ class EditBookmarkApp(ttk.Frame):
         self.toc_tree.heading("title", text=_("Title"))
         self.toc_tree.column("level", width=50, anchor="center", stretch=False)
         self.toc_tree.column("page", width=60, anchor="center", stretch=False)
-        self.toc_tree.column("title", width=100)  # Set a minwidth for the title
+        self.toc_tree.column("title", width=100)
         self.toc_tree.bind("<<TreeviewSelect>>", self.on_tree_select)
 
         vsb = ttk.Scrollbar(list_frame, orient="vertical", command=self.toc_tree.yview)
@@ -62,7 +57,6 @@ class EditBookmarkApp(ttk.Frame):
         self.toc_tree.configure(yscrollcommand=vsb.set)
         self.toc_tree.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
 
-        # Action Buttons
         button_frame = ttk.Frame(list_frame)
         button_frame.grid(row=0, column=2, sticky="ns", padx=5, pady=5)
 
@@ -94,7 +88,6 @@ class EditBookmarkApp(ttk.Frame):
             button_frame, text=_("Delete All"), command=self.delete_all_bookmarks
         ).pack(fill="x", pady=2)
 
-        # Edit Bookmark
         edit_frame = ttk.Labelframe(self, text=_("Entry"))
         edit_frame.grid(row=3, column=0, sticky="ew", padx=10, pady=5)
         edit_frame.columnconfigure(5, weight=1)
@@ -124,13 +117,11 @@ class EditBookmarkApp(ttk.Frame):
             row=0, column=7, padx=5, pady=5
         )
 
-        # Output
         self.output_file_picker = FilePicker(
             self, title=_("Output PDF"), mode="save", file_types=FILE_TYPES_PDF
         )
         self.output_file_picker.grid(row=4, column=0, sticky="ew", padx=10, pady=5)
 
-        # Start Button
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=5, column=0, sticky="e", padx=15, pady=10)
         self.start_button = ttk.Button(

@@ -1,5 +1,3 @@
-# toolkit/ui/feature/split_pdf.py
-
 import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
@@ -22,7 +20,6 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         self.help_window = None
 
         self.columnconfigure(0, weight=1)
-        # self.rowconfigure(1, weight=1)
 
         self.title_frame = TitleFrame(self, text=_("Split PDF"))
         self.title_frame.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
@@ -74,10 +71,6 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         )
         self.split_value_entry.pack(side="left", fill="x", expand=True, padx=5, pady=5)
 
-        # 添加信息图标和描述文本
-        # description_frame = ttk.Frame(self.option_frame)
-        # description_frame.pack(fill="x", padx=10, pady=(0, 5))
-
         ttk.Label(
             self.option_frame,
             text=_(
@@ -102,17 +95,14 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
 
         self.file_picker.file_path_var.trace_add("write", self._on_input_pdf_changed)
 
-        self._on_split_mode_changed()  # Initial state
+        self._on_split_mode_changed()
 
     def _on_input_pdf_changed(self, *args):
         pdf_path_str = self.file_picker.get()
         if pdf_path_str:
             pdf_path = Path(pdf_path_str)
-            # Extract filename without extension
             file_name_without_ext = pdf_path.stem
-            # Construct new output folder name
             output_folder_name = f"{file_name_without_ext}_{_('Split')}"
-            # Set the output folder picker's value
             output_dir = pdf_path.parent / output_folder_name
             self.output_folder_picker.set(str(output_dir))
         else:
