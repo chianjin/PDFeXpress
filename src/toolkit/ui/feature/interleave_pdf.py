@@ -1,5 +1,3 @@
-# toolkit/ui/feature/interleave_pdf.py
-
 import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
@@ -18,7 +16,6 @@ class InterleavePDFApp(ttk.Frame, TaskRunnerMixin):
         TaskRunnerMixin.__init__(self, status_callback=self.update_status)
 
         self.columnconfigure(0, weight=1)
-        # self.rowconfigure(1, weight=1)
 
         self.title_frame = TitleFrame(self, text=_("Interleave PDF"))
         self.title_frame.grid(row=0, column=0, sticky="ew", padx=10, pady=5)

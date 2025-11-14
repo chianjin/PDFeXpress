@@ -29,7 +29,6 @@ class TaskRunnerMixin:
         self.status_callback = status_callback
         self.saving_ack_event = None  # Event for synchronizing the saving operation
 
-    # --- 1. Contract Methods ---
     def _get_root_window(self) -> Any:
         """[Contract] Subclasses must implement this to return the top-level tk.Tk() window."""
         raise NotImplementedError
@@ -57,7 +56,6 @@ class TaskRunnerMixin:
             return
 
         if task_data is None:
-            # Task preparation failed (validation failed)
             return
 
         try:
@@ -68,7 +66,6 @@ class TaskRunnerMixin:
 
         self._execute_task(target_function, args_tuple, initial_label)
 
-    # --- 3. Private Implementation ---
     def _execute_task(
         self, target_function: Callable, args_tuple: Tuple, initial_label: str
     ) -> None:
@@ -81,8 +78,8 @@ class TaskRunnerMixin:
 
         self.progress_dialog = ProgressDialog(
             self._get_root_window(),
-            _("Processing..."),  # Progress dialog title
-            initial_label,  # Initial text for the progress dialog
+            _("Processing..."),
+            initial_label,
             self.request_cancel,
         )
 
@@ -102,12 +99,10 @@ class TaskRunnerMixin:
 
     def poll_queues(self) -> None:
         """GUI poller (heartbeat)."""
-        # 1. Prioritize checking the result queue
         try:
             result = self.result_queue.get_nowait()
             result_type, message = result
 
-            # Task finished
             if self.progress_dialog:
                 self.progress_dialog.progressbar.stop()
                 if result_type == "SUCCESS":
@@ -131,19 +126,17 @@ class TaskRunnerMixin:
                     self.status_callback(_("Error: ") + message)
 
             self.cleanup()
-            return  # Task is finished, stop polling
+            return
 
         except queue.Empty:
-            pass  # Result queue is empty, continue to check the progress queue
+            pass
 
-        # 2. Check the progress queue
         try:
             msg = self.progress_queue.get_nowait()
             if not self.progress_dialog:
-                pass  # Or handle it, e.g., by logging
+                pass
             elif isinstance(msg, tuple):
                 if msg[0] == "INIT":
-                    # Switch to a determinate progress bar
                     self.progress_dialog.label.config(text=_("Processing..."))
                     self.progress_dialog.progressbar.stop()
                     self.progress_dialog.progressbar.config(
@@ -152,23 +145,19 @@ class TaskRunnerMixin:
                     if self.status_callback:
                         self.status_callback(_("Processing..."))
                 elif msg[0] == "PROGRESS":
-                    # Update progress
                     self.progress_dialog.progressbar["value"] = msg[1]
                 elif msg[0] == "SAVING":
-                    # Switch to an indeterminate progress bar and update the text
                     self.progress_dialog.progressbar.stop()
                     self.progress_dialog.progressbar.config(mode="indeterminate")
                     self.progress_dialog.progressbar.start()
                     self.progress_dialog.label.config(text=msg[1])
                     if self.status_callback:
                         self.status_callback(msg[1])
-                    # Force UI update
                     self._get_root_window().update_idletasks()
-                    self.saving_ack_event.set()  # Notify the worker process that the UI has processed the SAVING message
+                    self.saving_ack_event.set()
         except queue.Empty:
-            pass  # No progress message
+            pass
 
-        # Schedule the next poll
         self._get_root_window().after(100, self.poll_queues)
 
     def request_cancel(self) -> None:

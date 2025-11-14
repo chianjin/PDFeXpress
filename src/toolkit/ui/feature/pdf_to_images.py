@@ -1,5 +1,3 @@
-# toolkit/ui/feature/pdf_to_images.py
-
 import tkinter as tk
 from tkinter import messagebox, ttk
 

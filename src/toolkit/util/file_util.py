@@ -1,4 +1,3 @@
-# toolkit/util/file_util.py
 from pathlib import Path
 
 

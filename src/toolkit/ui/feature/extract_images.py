@@ -1,5 +1,3 @@
-# toolkit/ui/feature/extract_images.py
-
 import tkinter as tk
 from tkinter import messagebox, ttk
 
@@ -94,8 +92,8 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
         )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
-        self._on_save_in_same_folder_changed()  # Initial state
-        self._on_extract_all_changed()  # Initial state
+        self._on_save_in_same_folder_changed()
+        self._on_extract_all_changed()
 
     def _on_extract_all_changed(self):
         if self.extract_all_var.get():

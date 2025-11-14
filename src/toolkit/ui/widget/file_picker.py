@@ -1,5 +1,3 @@
-# toolkit/ui/widget/file_picker.py
-
 import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, ttk
@@ -15,7 +13,7 @@ check_file_path_change = create_run_after_decorator("_on_change_callback")
 
 
 class FilePicker(ttk.Labelframe):
-    """文件选择组件，支持open和save两种模式"""
+    """File selection component, supports 'open' and 'save' modes."""
 
     def __init__(
         self,
@@ -31,7 +29,7 @@ class FilePicker(ttk.Labelframe):
 
         self.file_path_var = tk.StringVar()
 
-        self._mode = mode  # open or save
+        self._mode = mode
         self._file_types = file_types
 
         self.columnconfigure(0, weight=1)
@@ -90,7 +88,7 @@ class FilePicker(ttk.Labelframe):
             self.file_path_var.set(str(Path(file_path)))
 
     def _on_browse_file(self):
-        """处理文件选择按钮点击事件"""
+        """Handles the browse file button click event."""
         if self._mode == "open":
             self._open_file()
         elif self._mode == "save":
@@ -118,19 +116,16 @@ class FilePicker(ttk.Labelframe):
 
 
 if __name__ == "__main__":
-    # 测试文件选择组件
     import tkinterdnd2
 
     root = tkinterdnd2.Tk()
     root.title("File Selector Test")
     root.geometry("500x150")
 
-    # 测试open模式
-    open_selector = FilePicker(root, title="输入文件", mode="open")
+    open_selector = FilePicker(root, title="Input File", mode="open")
     open_selector.pack(fill="x", padx=10, pady=5)
 
-    # 测试save模式
-    save_selector = FilePicker(root, title="输出文件", mode="save")
+    save_selector = FilePicker(root, title="Output File", mode="save")
     save_selector.pack(fill="x", padx=10, pady=5)
 
     root.mainloop()

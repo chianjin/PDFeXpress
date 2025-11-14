@@ -1,5 +1,3 @@
-# toolkit/ui/feature/extract_text.py
-
 import tkinter as tk
 from tkinter import messagebox, ttk
 
@@ -63,7 +61,7 @@ class ExtractTextApp(ttk.Frame, TaskRunnerMixin):
         )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
-        self._on_save_in_same_folder_changed()  # Initial state
+        self._on_save_in_same_folder_changed()
 
     def _on_save_in_same_folder_changed(self):
         if self.save_in_same_folder_var.get():

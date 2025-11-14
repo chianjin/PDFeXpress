@@ -1,5 +1,3 @@
-# toolkit/ui/feature/images_to_pdf.py
-
 from tkinter import messagebox, ttk
 
 from toolkit.constant import FILE_TYPES_IMAGES, FILE_TYPES_PDF
@@ -70,7 +68,6 @@ class ImagesToPDFApp(ttk.Frame, TaskRunnerMixin):
         else:
             self.output_file_picker.clear()
 
-    # Implementation of Mixin contract
     def _get_root_window(self):
         return self.winfo_toplevel()
 

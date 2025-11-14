@@ -1,5 +1,3 @@
-# toolkit/ui/feature/merge_pdf.py
-
 import tkinter as tk
 from tkinter import messagebox, ttk
 
@@ -47,7 +45,6 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         self.option_frame = OptionFrame(self, text=_("Options"))
         self.option_frame.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 5))
 
-        # Generate Bookmark checkbox
         self.create_bookmarks_var = tk.BooleanVar(value=False)
         self.create_bookmarks_checkbox = ttk.Checkbutton(
             self.option_frame,
@@ -56,7 +53,6 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         )
         self.create_bookmarks_checkbox.pack(side='left', padx=10, pady=5)
 
-        # Duplex Printing checkbox
         self.duplex_printing_var = tk.BooleanVar(value=False)
         self.duplex_printing_checkbox = ttk.Checkbutton(
             self.option_frame,
@@ -92,7 +88,6 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         else:
             self.output_file_picker.clear()
 
-    # Implementation of Mixin contract
     def _get_root_window(self):
         return self.winfo_toplevel()
 
@@ -114,7 +109,7 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
             )
             return None
 
-        # 将创建书签和双面打印选项作为参数传递给worker函数
+        # Pass create bookmark and duplex printing options as parameters to the worker function
         target_function = merge_pdf_worker
         args_tuple = (input_files, output_pdf_path, create_bookmarks, duplex_printing)
         initial_label = _("Merging PDF...")

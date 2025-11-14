@@ -16,26 +16,21 @@ def _parse_range(range_string: str, total_pages: int) -> List[int]:
         step = int(step_part)
 
         if range_part == "":
-            # Global range: from first page to last page
             return list(range(0, total_pages, step))
 
     if "-" in range_part:
         if range_part.startswith("-") and range_part.count("-") == 1:
-            # Format '-10': from page 1 to page 10
             start = 1
             end = int(range_part[1:])
         elif range_part.endswith("-") and range_part.count("-") == 1:
-            # Format '5-': from page 5 to last
             start = int(range_part[:-1])
             end = total_pages
         else:
-            # Standard format '1-10' or '1-10:3' (where :3 has been processed)
             start_str, end_str = range_part.split("-", 1)
             start = int(start_str)
             end = int(end_str)
 
             if start > end:
-                # Reverse range, need to generate page list in reverse with negative step
                 return list(range(start - 1, end - 2, -step))
 
         if start < 1 or end > total_pages:
@@ -45,10 +40,8 @@ def _parse_range(range_string: str, total_pages: int) -> List[int]:
                 )
             )
 
-        # Generate page list with specified step
         chunk = list(range(start - 1, end, step))
     else:
-        # Single page
         page = int(range_part)
         if page < 1 or page > total_pages:
             raise ValueError(

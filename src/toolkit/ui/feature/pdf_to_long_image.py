@@ -1,5 +1,3 @@
-# toolkit/ui/feature/pdf_to_long_image.py
-
 import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
@@ -82,11 +80,8 @@ class PDFToLongImageApp(ttk.Frame, TaskRunnerMixin):
         pdf_path_str = self.file_picker.get()
         if pdf_path_str:
             pdf_path = Path(pdf_path_str)
-            # Extract filename without extension
             file_name_without_ext = pdf_path.stem
-            # Construct new output filename with .jpg extension
             output_filename = f"{file_name_without_ext}.jpg"
-            # Set the output file picker's value
             output_file_path = pdf_path.parent / output_filename
             self.output_file_picker.set(str(output_file_path))
         else:

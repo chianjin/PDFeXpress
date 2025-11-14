@@ -1,5 +1,3 @@
-# toolkit/ui/feature/merge_invoices.py
-
 from pathlib import Path
 from tkinter import messagebox, ttk
 

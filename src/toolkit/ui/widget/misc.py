@@ -1,5 +1,3 @@
-# toolkit/ui/widget/misc.py
-
 from tkinter import font as tkfont
 from tkinter import ttk
 

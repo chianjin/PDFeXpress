@@ -65,7 +65,7 @@ class FileListView(ttk.Labelframe):
         self.button_frame.grid(row=0, column=1, sticky="n", padx=5, pady=5)
         self.button_frame.columnconfigure(
             0, weight=1
-        )  # Make buttons expand horizontally
+        )
 
         self.button_row_counter = 0
 
@@ -278,7 +278,7 @@ if __name__ == "__main__":
     root.title("File List Test")
     root.geometry("800x500")
 
-    file_list2 = FileListView(root, title="测试文件列表", sortable=True)
+    file_list2 = FileListView(root, title="Test File List", sortable=True)
     file_list2.pack(fill="both", expand=True, padx=10, pady=10)
 
     root.mainloop()

@@ -1,5 +1,3 @@
-# toolkit/ui/widget/url.py
-
 import tkinter as tk
 import webbrowser
 from tkinter import font as tkfont

@@ -1,5 +1,3 @@
-# toolkit/ui/feature/rotate_pdf.py
-
 import tkinter as tk
 from tkinter import messagebox, ttk
 
@@ -36,7 +34,6 @@ class RotatePDFApp(ttk.Frame, TaskRunnerMixin):
         self.option_frame = OptionFrame(self, text=_("Options"))
         self.option_frame.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 5))
 
-        # Save to same folder checkbox
         self.save_to_same_folder_var = tk.BooleanVar(value=False)
         self.save_to_same_folder_checkbox = ttk.Checkbutton(
             self.option_frame,
@@ -46,7 +43,6 @@ class RotatePDFApp(ttk.Frame, TaskRunnerMixin):
         )
         self.save_to_same_folder_checkbox.pack(side="left", padx=10, pady=5)
 
-        # Rotation angle
         ttk.Label(self.option_frame, text=_("Rotation Angle:")).pack(
             side="left", padx=(10, 5), pady=5
         )
@@ -73,7 +69,7 @@ class RotatePDFApp(ttk.Frame, TaskRunnerMixin):
         )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
-        self._on_save_to_same_folder_changed()  # Initial state
+        self._on_save_to_same_folder_changed()
 
     def _on_save_to_same_folder_changed(self):
         if self.save_to_same_folder_var.get():
