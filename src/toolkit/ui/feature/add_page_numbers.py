@@ -9,6 +9,7 @@ from toolkit.ui.widget.file_picker import FilePicker
 from toolkit.ui.widget.help_window import HelpWindow
 from toolkit.ui.widget.misc import OptionFrame, TitleFrame
 from toolkit.constant import HELP_ICON
+from toolkit.util.help_contents import PAGE_NUMBERING_FORMAT
 
 
 class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
@@ -40,18 +41,22 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
         # Page Format Rule
         rule_option = tk.Frame(options_frame)
         rule_option.grid(row=0, column=0, sticky="ew", padx=10, pady=(0, 5))
-        rule_option.columnconfigure(2, weight=1)
+        #rule_option.columnconfigure(1, weight=1)
 
         ttk.Label(
             rule_option, text=_('Page Number Format:')
         ).grid(row=0, column=0, sticky='w', padx=5, pady=5)
+        self.rule_entry = ttk.Entry(rule_option)
+        self.rule_entry.grid(row=0, column=1, sticky='ew', padx=5, pady=5)
         self.help_icon = tk.PhotoImage(file=HELP_ICON)
         ttk.Button(
             rule_option, text=_('Help'), command=self.show_help,
             style='Toolbutton', image=self.help_icon
-        ).grid(row=0, column=1, sticky='w', padx=5, pady=0)
-        self.rule_entry = ttk.Entry(rule_option)
-        self.rule_entry.grid(row=0, column=2, sticky='ew', padx=5, pady=5)
+        ).grid(row=0, column=2, sticky='w', padx=5, pady=0)
+        ttk.Label(
+            rule_option, text=_(PAGE_NUMBERING_FORMAT['brief']),
+            wraplength= 600
+        ).grid(row=0, column=3, sticky='w', padx=5, pady=5)
 
         # Position
         pos_option = ttk.Frame(options_frame)
@@ -105,7 +110,7 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
         self.font_combo = ttk.Combobox(font_option, values=available_fonts)
         
         # Set a safe default font
-        safe_fonts = ["Arial", "Helvetica", "Calibri", "Times New Roman"]
+        safe_fonts = ["Times New Roman", "Arial", "Helvetica", "Calibri"]
         default_font_set = False
         for f in safe_fonts:
             if f in available_fonts:
@@ -121,7 +126,7 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
             font_option, text=_('Size:')
         ).grid(row=0, column=2, sticky='w', padx=5)
         self.font_size_spin = ttk.Spinbox(font_option, from_=6, to=72, increment=1)
-        self.font_size_spin.set(9)
+        self.font_size_spin.set(10)
         self.font_size_spin.grid(row=0, column=3, sticky='ew', padx=5)
 
         # Margin
@@ -154,7 +159,7 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
         self.status_label = ttk.Label(bottom_frame, text=_("Ready"), anchor="w")
         self.status_label.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
 
-        self.run_button = ttk.Button(bottom_frame, text=_('Run'), command=self.run_task_from_ui)
+        self.run_button = ttk.Button(bottom_frame, text=_('Add'), command=self.run_task_from_ui)
         self.run_button.grid(row=0, column=1, padx=10, pady=5)
 
     def update_margin_labels(self, *args):
@@ -192,34 +197,13 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
             self.help_window.lift()
             return
 
-        help_text = _(
-            """Page Number Format Rules:
 
-1. Structure:
-   - Use ';' to separate different formatting segments.
-   - e.g., "1-4:R;5-:"
-
-2. Physical Page Range (before ':'):
-   - 1-based index for pages.
-   - "5-": Page 5 to end.
-   - "-10": Page 1 to 10.
-   - "5": Only page 5.
-   - Omit for all pages or remaining pages.
-
-3. Display Format (after ':'):
-   - Format: [Type][StartValue], e.g., R1, n5.
-   - Types: n (number), r (lowercase roman), R (uppercase roman), a (lowercase letter), A (uppercase letter).
-   - StartValue: Integer to start counting from.
-   - If omitted, defaults to 'n' and continues from the previous segment or starts at 1.
-
-4. Examples (for a 30-page PDF):
-   - "": All pages numbered 1-30.
-   - ":10": All pages numbered 10-39.
-   - "1-4:R;5-:": Pages 1-4 as I-IV, pages 5-30 as 5-30.
-   - "1-4:R;5-6:r1;7-:1": Pages 1-4 as I-IV, 5-6 as i-ii, 7-30 as 1-24.
-"""
+        self.help_window = HelpWindow(
+            self,
+            title=PAGE_NUMBERING_FORMAT['title'],
+            help_text= PAGE_NUMBERING_FORMAT['content'],
+            on_close=self.on_help_window_close
         )
-        self.help_window = HelpWindow(self, _('Page Number Syntax Guide'), help_text, on_close=self.on_help_window_close)
 
     def on_help_window_close(self):
         self.help_window = None

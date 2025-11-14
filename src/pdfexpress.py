@@ -26,7 +26,10 @@ if __name__ == "__main__":
     else:
         from ttkthemes import ThemedStyle
         style = ThemedStyle(root)
-        style.set_theme('arc')
+        try:
+            style.set_theme('plastik')
+        except:
+            style.set_theme('clam')
 
     # Center the window
     window_width = 1280

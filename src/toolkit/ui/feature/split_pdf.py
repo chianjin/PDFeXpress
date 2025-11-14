@@ -5,7 +5,6 @@ from pathlib import Path
 from tkinter import messagebox, ttk
 
 from toolkit.constant import FILE_TYPES_PDF, HELP_ICON
-from toolkit.page_range_syntax_help import PAGE_RANGE_SYNTAX_HELP
 from toolkit.core.split_pdf_worker import split_pdf_worker
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.mixin import TaskRunnerMixin
@@ -13,6 +12,7 @@ from toolkit.ui.widget.file_picker import FilePicker
 from toolkit.ui.widget.folder_picker import FolderPicker
 from toolkit.ui.widget.help_window import HelpWindow
 from toolkit.ui.widget.misc import OptionFrame, TitleFrame
+from toolkit.util.help_contents import PAGE_RANGE_SELECTION
 
 
 class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
@@ -68,7 +68,6 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
             command=self._show_syntax_help
         ).pack(side="left", padx=5, pady=0, anchor="center")
 
-
         self.split_value_var = tk.StringVar()
         self.split_value_entry = ttk.Entry(
             radio_frame, textvariable=self.split_value_var
@@ -76,18 +75,18 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         self.split_value_entry.pack(side="left", fill="x", expand=True, padx=5, pady=5)
 
         # 添加信息图标和描述文本
-        description_frame = ttk.Frame(self.option_frame)
-        description_frame.pack(fill="x", padx=10, pady=(0, 5))
+        # description_frame = ttk.Frame(self.option_frame)
+        # description_frame.pack(fill="x", padx=10, pady=(0, 5))
 
-        self.fixed_description_label = ttk.Label(
-            description_frame,
+        ttk.Label(
+            self.option_frame,
             text=_(
-                "Value Description: By Pages/By Files: integer, e.g. 5  |  By Range: Supports multiple ranges (use ';' to split), page ranges (use '-' for range), optional start/end (e.g., '-10', '5-'), step (e.g., '1-10:3', ':3'), and duplicate pages (prefix with '+')"
+                "By Pages/By Files: integer, for example: 5.    |    "
+                'Custom Ranges: 1-5;7-:2. Click "Help" button for more detail.'
             ),
-            justify=tk.LEFT,
+            justify='left',
             wraplength=950
-        )
-        self.fixed_description_label.pack(side="left", fill="x", expand=True)
+        ).pack(anchor='w', fill="x", expand=True)
 
         bottom_frame = ttk.Frame(self)
         bottom_frame.grid(row=4, column=0, sticky="ew", padx=10, pady=(0, 10))
@@ -130,7 +129,12 @@ class SplitPDFApp(ttk.Frame, TaskRunnerMixin):
         if self.help_window is not None and self.help_window.winfo_exists():
             self.help_window.lift()
             return
-        self.help_window = HelpWindow(self, _("Page Range Syntax Guide"), PAGE_RANGE_SYNTAX_HELP, on_close=self.on_help_window_close)
+        self.help_window = HelpWindow(
+            self,
+            title=PAGE_RANGE_SELECTION['title'],
+            help_text=PAGE_RANGE_SELECTION['content'],
+            on_close=self.on_help_window_close
+        )
 
     def on_help_window_close(self):
         self.help_window = None
