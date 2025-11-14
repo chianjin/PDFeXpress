@@ -10,37 +10,41 @@ PAGE_NUMBERING_FORMAT = {
 """        Page Numbering Format Syntax Guide
 
 1. Structure
-   - Use ';' to separate different page range segments.
-   - Segment Format: [Physical Page Range]:[Display Format], e.g., "1-4:R;5-:"
+   - Use semicolon (;) to separate different page range segments. 
+   - Segment Format: [Physical Page Range]:[Display Format]. E.g., "1-4:R;5-:". 
 
-2. Physical Page Range (Before ':')
-   - Pages use a 1-based index (physical page number).
-       - "5-": Page 5 to the last page.
-       - "-10": Page 1 to page 10.
-       - "5": Only page 5.
+2. Physical Page Range (Before :)
+   - Physical page number: 1-based index. 
+   - Range: start - end 
+     5-: Page 5 to the last page. 
+     -10: Page 1 to page 10. 
+     5: Only page 5.
    - Omission:
-       - Omit the start index (e.g., "-10") to begin at page 1.
-       - Omit the end index (e.g., "5-") to end at the last page.
-       - Omit the entire range (e.g., ":R1") to apply the format to all pages.
+     Omit the start index (e.g., -10) to begin at page 1.
+     Omit the end index (e.g., 5-) to end at the last page. 
+     Omit the entire range (e.g., :R1) to apply the format to all pages. 
 
-3. Display Format (After ':')
-   - Format: [Type][StartValue] (optional), e.g., R1, n5.
-   - Types (Case-Sensitive):
-      - n: Arabic numbers (1, 2, 3...)
-      - r: Lowercase Roman numerals (i, ii, iii...)
-      - R: Uppercase Roman numerals (I, II, III...)
-      - a: Lowercase letters (a, b, c...)
-      - A: Uppercase letters (A, B, C...)
-   - StartValue: An integer specifying the number to begin counting from.
+3. Display Format (After :)
+   - Format: [Type][StartValue] (optional). E.g., R1, n5. 
+   - Types (Case-Sensitive): 
+     n: Arabic numbers (1, 2, 3...)
+     r: Lowercase Roman numerals (i, ii, iii...)
+     R: Uppercase Roman numerals (I, II, III...)
+     a: Lowercase letters (a, b, c...)
+     A: Uppercase letters (A, B, C...)
+   - StartValue: An integer specifying the number to begin counting from. 
    - Default Behavior:
-      - If omitted, the Type defaults to 'n' (Arabic numbers).
-      - The StartValue continues sequentially from the previous segment's end page number, or starts at 1 if this is the first segment with an omitted StartValue.
+     If Type is omitted, it defaults to 'n' (Arabic numbers). 
+     If StartValue is omitted, it continues sequentially from the previous segment's end page number, or starts at 1 if this is the first segment with an omitted StartValue. 
 
 4. Examples (for a 30-page PDF)
-   - "": All pages are numbered 1-30.
-   - ":10": All pages (1-30) are numbered starting from 10 (i.e., display 10-39).
-   - "1-4:R;5-:": Pages 1-4 use uppercase Roman numerals (I-IV), pages 5-30 continue numbering sequentially (5-30).
-   - "1-4:R;5-6:r1;7-:1": Pages 1-4 as I-IV; Pages 5-6 use lowercase Roman starting at i; Pages 7-30 use Arabic numbers starting at 1.
+   - "": All pages are numbered 1-30. 
+   - ":10": All pages (1-30) are numbered starting from 10 (i.e., display 10-39). 
+   - "1-4:R;5-:": Pages 1-4 use uppercase Roman numerals (I-IV), pages 5-30 continue numbering sequentially (5-30). 
+   - "1-4:R;5-6:r1;7-:1": 
+     Pages 1-4 as I-IV. 
+     Pages 5-6 use lowercase Roman starting at i. 
+     Pages 7-30 use Arabic numbers starting at 1.
 """
     )
 }
@@ -52,7 +56,7 @@ PAGE_RANGE_SELECTION = {
 """        Page Range Selection Syntax Guide
 
 1. Basic Selection and Range Definition
-   - Comma Separation (,): Separates individual page numbers or ranges.
+   - Comma Separation (,): Separates individual page numbers or ranges. 
      Example: 1,5,10    Result: (1, 5, 10)
    - Hyphen Range (-): Defines a consecutive range, including both start and end pages.
      Example: 3-7   Result: (3, 4, 5, 6, 7)

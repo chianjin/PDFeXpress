@@ -10,6 +10,7 @@ from toolkit.ui.widget.help_window import HelpWindow
 from toolkit.ui.widget.misc import OptionFrame, TitleFrame
 from toolkit.constant import HELP_ICON
 from toolkit.util.help_contents import PAGE_NUMBERING_FORMAT
+from toolkit.constant import FILE_TYPES_PDF
 
 
 class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
@@ -25,11 +26,11 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
         TitleFrame(self, _('Add Page Numbers')).grid(row=0, column=0, sticky="ew", padx=10, pady=5)
 
         # Input file
-        self.input_file_picker = FilePicker(self, title=_('PDF File'), file_types=[(_('PDF document'), '*.pdf')])
+        self.input_file_picker = FilePicker(self, title=_('PDF File'), file_types=FILE_TYPES_PDF)
         self.input_file_picker.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 5))
 
         # Output file
-        self.output_file_picker = FilePicker(self, title=_('Output PDF'), file_types=[(_('PDF document'), '*.pdf')], mode='save')
+        self.output_file_picker = FilePicker(self, title=_('Output PDF'), file_types=FILE_TYPES_PDF, mode='save')
         self.output_file_picker.grid(row=2, column=0, sticky="nsew", padx=10, pady=(0, 5))
 
         # Options Frame
@@ -47,6 +48,7 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
             rule_option, text=_('Page Number Format:')
         ).grid(row=0, column=0, sticky='w', padx=5, pady=5)
         self.rule_entry = ttk.Entry(rule_option)
+        self.rule_entry.insert(0, "1-")
         self.rule_entry.grid(row=0, column=1, sticky='ew', padx=5, pady=5)
         self.help_icon = tk.PhotoImage(file=HELP_ICON)
         ttk.Button(
@@ -100,50 +102,51 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
         # Font
         font_option = ttk.Frame(options_frame)
         font_option.grid(row=2, column=0, sticky="ew", padx=10, pady=(0, 5))
-        font_option.columnconfigure((1, 3), weight=1)
+        # font_option.columnconfigure((1, 3, 5), weight=1)
 
         ttk.Label(
             font_option, text=_('Font:')
         ).grid(row=0, column=0, sticky='w', padx=5, pady=5)
         
-        available_fonts = sorted(list(tkfont.families()))
-        self.font_combo = ttk.Combobox(font_option, values=available_fonts)
-        
-        # Set a safe default font
-        safe_fonts = ["Times New Roman", "Arial", "Helvetica", "Calibri"]
-        default_font_set = False
-        for f in safe_fonts:
-            if f in available_fonts:
-                self.font_combo.set(f)
-                default_font_set = True
-                break
-        if not default_font_set and available_fonts:
-            self.font_combo.set(available_fonts[0])
-
+        supported_fonts = ["Courier", "Times", "Helvetica"]
+        self.font_combo = ttk.Combobox(font_option, values=supported_fonts)
+        self.font_combo.set("Times") # Default to Times
         self.font_combo.grid(row=0, column=1, sticky='ew', padx=5)
 
         ttk.Label(
-            font_option, text=_('Size:')
+            font_option, text=_('Style:')
         ).grid(row=0, column=2, sticky='w', padx=5)
+        
+        self.style_keys = ["Regular", "Bold", "Italic", "Bold Italic"]
+        translated_styles = [_("Regular"), _("Bold"), _("Italic"), _("Bold Italic")]
+        self.style_map = dict(zip(translated_styles, self.style_keys))
+
+        self.font_style_combo = ttk.Combobox(font_option, values=translated_styles)
+        self.font_style_combo.set(_("Regular")) # Default to Regular
+        self.font_style_combo.grid(row=0, column=3, sticky='ew', padx=5)
+
+        ttk.Label(
+            font_option, text=_('Size:')
+        ).grid(row=0, column=4, sticky='w', padx=5)
         self.font_size_spin = ttk.Spinbox(font_option, from_=6, to=72, increment=1)
         self.font_size_spin.set(10)
-        self.font_size_spin.grid(row=0, column=3, sticky='ew', padx=5)
+        self.font_size_spin.grid(row=0, column=5, sticky='ew', padx=5)
 
         # Margin
         margin_option = ttk.Frame(options_frame)
         margin_option.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 5))
-        margin_option.columnconfigure((1, 3), weight=1)
+        # margin_option.columnconfigure((1, 3), weight=1)
 
-        self.v_margin_label = ttk.Label(margin_option, text=_('Bottom Margin:'))
+        self.v_margin_label = ttk.Label(margin_option)
         self.v_margin_label.grid(row=0, column=0, sticky='w', padx=5, pady=5)
-        self.v_margin_spin = ttk.Spinbox(margin_option, from_=0, to=100, increment=1)
-        self.v_margin_spin.set(10)
-        self.v_margin_spin.grid(row=0, column=1, sticky='ew', padx=5)
+        self.v_margin_spin = ttk.Spinbox(margin_option, from_=0, to=10, increment=0.1, format="%.1f")
+        self.v_margin_spin.set(1.0)
+        self.v_margin_spin.grid(row=0, column=1, sticky='w', padx=5)
 
-        self.h_margin_label = ttk.Label(margin_option, text=_('Horizontal Margin:'))
+        self.h_margin_label = ttk.Label(margin_option)
         self.h_margin_label.grid(row=0, column=2, sticky='w', padx=5)
-        self.h_margin_spin = ttk.Spinbox(margin_option, from_=0, to=100, increment=1)
-        self.h_margin_spin.set(0)
+        self.h_margin_spin = ttk.Spinbox(margin_option, from_=0, to=10, increment=0.1, format="%.1f")
+        self.h_margin_spin.set(1.0)
         self.h_margin_spin.grid(row=0, column=3, sticky='ew', padx=5)
         #
         self.v_pos.trace_add('write', self.update_margin_labels)
@@ -164,29 +167,26 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
 
     def update_margin_labels(self, *args):
         if self.v_pos.get() == 'header':
-            self.v_margin_label.config(text=_('Top Margin:'))
+            self.v_margin_label.config(text=_('Top Margin (cm):'))
         else:
-            self.v_margin_label.config(text=_('Bottom Margin:'))
+            self.v_margin_label.config(text=_('Bottom Margin (cm):'))
 
         # Update horizontal margin label and state
         h_pos = self.h_pos.get()
         if h_pos == 'left':
-            self.h_margin_label.config(text=_('Left Margin:'))
+            self.h_margin_label.config(text=_('Left Margin (cm):'))
             self.h_margin_label.grid(row=0, column=2, sticky='w', padx=5)
             self.h_margin_spin.grid(row=0, column=3, sticky='ew', padx=5)
-            self.h_margin_spin.set(10)
             self.h_margin_spin.config(state='normal')
         elif h_pos == 'right':
-            self.h_margin_label.config(text=_('Right Margin:'))
+            self.h_margin_label.config(text=_('Right Margin (cm):'))
             self.h_margin_label.grid(row=0, column=2, sticky='w', padx=5)
             self.h_margin_spin.grid(row=0, column=3, sticky='ew', padx=5)
-            self.h_margin_spin.set(10)
             self.h_margin_spin.config(state='normal')
         elif h_pos in ('outside', 'inside'):
-            self.h_margin_label.config(text=_('Edge Margin:'))
+            self.h_margin_label.config(text=_('Edge Margin (cm):'))
             self.h_margin_label.grid(row=0, column=2, sticky='w', padx=5)
             self.h_margin_spin.grid(row=0, column=3, sticky='ew', padx=5)
-            self.h_margin_spin.set(10)
             self.h_margin_spin.config(state='normal')
         else:  # center
             self.h_margin_label.grid_forget()
@@ -214,6 +214,7 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
     def _prepare_task(self):
         input_path = self.input_file_picker.get()
         output_path = self.output_file_picker.get()
+        rule = self.rule_entry.get()
 
         if not input_path:
             messagebox.showerror(_('Error'), _('Please select an input PDF file.'))
@@ -222,21 +223,29 @@ class AddPageNumbers(ttk.Frame, TaskRunnerMixin):
         if not output_path:
             messagebox.showerror(_('Error'), _('Please specify an output PDF file.'))
             return None
+
+        if not rule:
+            messagebox.showerror(_('Error'), _('Page number format rule cannot be empty.'))
+            return None
         
         try:
-            h_margin_val = 0
+            h_margin_val = 0.0
             if self.h_pos.get() != 'center':
-                h_margin_val = int(self.h_margin_spin.get())
+                h_margin_val = float(self.h_margin_spin.get())
+
+            selected_style = self.font_style_combo.get()
+            english_style = self.style_map.get(selected_style, "Regular")
 
             args = (
                 input_path,
                 output_path,
-                self.rule_entry.get(),
+                rule,
                 self.v_pos.get(),
                 self.h_pos.get(),
                 self.font_combo.get(),
+                english_style,
                 int(self.font_size_spin.get()),
-                int(self.v_margin_spin.get()),
+                float(self.v_margin_spin.get()),
                 h_margin_val
             )
         except ValueError:

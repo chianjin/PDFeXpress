@@ -14,12 +14,13 @@ def parse_page_format(format_str: str, total_pages: int) -> list[PageSegment]:
     for seg_str in format_str.split(';'):
         if not seg_str:
             continue
-        parts = seg_str.split(':', 1)
-        if len(parts) != 2:
-            raise ValueError("Each segment must have ':'")
-
-        range_str = parts[0].strip()
-        disp_str = parts[1].strip()
+        if ':' in seg_str:
+            parts = seg_str.split(':', 1)
+            range_str = parts[0].strip()
+            disp_str = parts[1].strip()
+        else:
+            range_str = seg_str.strip()
+            disp_str = ''
 
         # 解析物理范围
         pdf_start = last_pdf_end + 1

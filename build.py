@@ -41,7 +41,6 @@ DATA_FILES = (
     "CHANGELOG.md",
     "CHANGELOG.zh_CN.md",
     "COPYRIGHT.md",
-    "COPYRIGHT.zh_CN.md",
 )
 
 

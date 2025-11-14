@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PDF eXpress 1.0.0\n"
-"POT-Creation-Date: 2025-11-10 00:17+0800\n"
+"POT-Creation-Date: 2025-11-15 05:08+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: chian.jin@gmail.com\n"
@@ -77,7 +77,7 @@ msgstr "PDF 文件没有页面。"
 msgid "No valid pages could be parsed from '{pages_to_delete_str}'."
 msgstr "无法从“{pages_to_delete_str}”中解析出有效的页面。"
 
-#: toolkit/core/delete_pages_worker.py:46 toolkit/ui/feature/delete_pages.py:94
+#: toolkit/core/delete_pages_worker.py:46 toolkit/ui/feature/delete_pages.py:91
 msgid "Deleted"
 msgstr "删除"
 
@@ -101,15 +101,13 @@ msgstr "用户已取消。"
 #: toolkit/core/delete_pages_worker.py:67
 #, python-brace-format
 msgid "Will delete all pages from {pdf_path_name} in group {group_num}."
-msgstr "将删除 {pdf_path_name} 的所有页面。"
+msgstr "将删除 {pdf_path_name} 中 {group_num} 组的所有页面。"
 
 #: toolkit/core/delete_pages_worker.py:104
-#, fuzzy, python-brace-format
-#| msgid "Split into {} PDF file."
-#| msgid_plural "Split into {} PDF files."
+#, python-brace-format
 msgid "Deleted pages in {} PDF file."
 msgid_plural "Deleted pages in {} PDF files."
-msgstr[0] "拆分为 {} 份 PDF 文件。"
+msgstr[0] "已删除 {} 文件中的页面。"
 
 #: toolkit/core/delete_pages_worker.py:111
 #: toolkit/core/extract_images_worker.py:78
@@ -238,8 +236,8 @@ msgstr "未知的拆分模式：{split_mode}"
 msgid "PDF file is empty, no pages to split."
 msgstr "PDF 文件为空，没有要拆分的页面。"
 
-#: toolkit/core/split_pdf_worker.py:133 toolkit/ui/feature/split_pdf.py:100
-#: toolkit/ui/feature/split_pdf.py:115
+#: toolkit/core/split_pdf_worker.py:133 toolkit/ui/feature/split_pdf.py:99
+#: toolkit/ui/feature/split_pdf.py:114
 msgid "Split"
 msgstr "拆分"
 
@@ -297,7 +295,7 @@ msgstr "PDF 转长图"
 msgid "Delete Pages"
 msgstr "删除页面"
 
-#: toolkit/main_frame.py:79 toolkit/ui/feature/add_page_numbers.py:24
+#: toolkit/main_frame.py:79 toolkit/ui/feature/add_page_numbers.py:26
 msgid "Add Page Numbers"
 msgstr "添加页码"
 
@@ -327,142 +325,20 @@ msgid "Copyright © 2022-{} {}, All rights reserved."
 msgstr "版权所有 © 2022-{} {}，保留所有权利。"
 
 #: toolkit/main_frame.py:155
-#, fuzzy
-#| msgid "------ The third software or packages ------- "
 msgid "------ The third software or packages -------"
-msgstr "------ 第三方软件或包 ------- "
+msgstr "------ 第三方软件或包 -------"
 
 #: toolkit/main_frame.py:169
 msgid "OK"
 msgstr "确定"
 
-#: toolkit/page_number_syntax_help.py:4
-#, fuzzy
-#| msgid ""
-#| "Page Number Format Rules:\n"
-#| "\n"
-#| "1. Structure:\n"
-#| "   - Use ';' to separate different formatting segments.\n"
-#| "   - e.g., \"1-4:R;5-:\"\n"
-#| "\n"
-#| "2. Physical Page Range (before ':'):\n"
-#| "   - 1-based index for pages.\n"
-#| "   - \"5-\": Page 5 to end.\n"
-#| "   - \"-10\": Page 1 to 10.\n"
-#| "   - \"5\": Only page 5.\n"
-#| "   - Omit for all pages or remaining pages.\n"
-#| "\n"
-#| "3. Display Format (after ':'):\n"
-#| "   - Format: [Type][StartValue], e.g., R1, n5.\n"
-#| "   - Types: n (number), r (lowercase roman), R (uppercase roman), a "
-#| "(lowercase letter), A (uppercase letter).\n"
-#| "   - StartValue: Integer to start counting from.\n"
-#| "   - If omitted, defaults to 'n' and continues from the previous segment "
-#| "or starts at 1.\n"
-#| "\n"
-#| "4. Examples (for a 30-page PDF):\n"
-#| "   - \"\": All pages numbered 1-30.\n"
-#| "   - \">:10\": All pages numbered 10-39.\n"
-#| "   - \"1-4:R;5-:\": Pages 1-4 as I-IV, pages 5-30 as 5-30.\n"
-#| "   - \"1-4:R;5-6:r1;7-:1\": Pages 1-4 as I-IV, 5-6 as i-ii, 7-30 as 1-24."
-msgid ""
-"Page Range Syntax Guide\n"
-"\n"
-"1. Structure:\n"
-"   - Use ';' to separate different formatting segments.\n"
-"   - e.g., \"1-4:R;5-:\"\n"
-"\n"
-"2. Physical Page Range (before ':'):\n"
-"   - 1-based index for pages.\n"
-"   - \"5-\": Page 5 to end.\n"
-"   - \"-10\": Page 1 to 10.\n"
-"   - \"5\": Only page 5.\n"
-"   - Omit for all pages or remaining pages.\n"
-"\n"
-"3. Display Format (after ':'):\n"
-"   - Format: [Type][StartValue], e.g., R1, n5.\n"
-"   - Types: n (number), r (lowercase roman), R (uppercase roman), a "
-"(lowercase letter), A (uppercase letter).\n"
-"   - StartValue: Integer to start counting from.\n"
-"   - If omitted, defaults to 'n' and continues from the previous segment or "
-"starts at 1.\n"
-"\n"
-"4. Examples (for a 30-page PDF):\n"
-"   - \"\": All pages numbered 1-30.\n"
-"   - \":10\": All pages numbered 10-39.\n"
-"   - \"1-4:R;5-:\": Pages 1-4 as I-IV, pages 5-30 as 5-30.\n"
-"   - \"1-4:R;5-6:r1;7-:1\": Pages 1-4 as I-IV, 5-6 as i-ii, 7-30 as 1-24.\n"
-msgstr ""
-"页码格式规则：\n"
-"\n"
-"1. 结构：\n"
-"   - 使用“;”分隔不同的格式段。\n"
-"   - 例如：“1-4:R;5-:”\n"
-"\n"
-"2. 物理页面范围（在“:”之前）：\n"
-"   - 基于1的页面索引。\n"
-"   - “5-”：第5页到结尾。\n"
-"   - “-10”：第1页到第10页。\n"
-"   - “5”：仅第5页。\n"
-"   - 省略则表示所有页面或剩余页面。\n"
-"\n"
-"3. 显示格式（在“:”之后）：\n"
-"   - 格式：[类型][起始值]，例如：R1, n5。\n"
-"   - 类型：n (数字), r (小写罗马), R (大写罗马), a (小写字母), A (大写字"
-"母)。\n"
-"   - 起始值：开始计数的整数。\n"
-"   - 如果省略，默认为“n”并从上一段继续或从1开始。\n"
-"\n"
-"4. 示例（对于30页的PDF）：\n"
-"   - “”：所有页面编号为1-30。\n"
-"   - “:10”：所有页面编号为10-39。\n"
-"   - “1-4:R;5-:”：第1-4页为I-IV，第5-30页为5-30。\n"
-"   - “1-4:R;5-6:r1;7-:1”：第1-4页为I-IV，5-6为i-ii，7-30为1-24。"
-
-#: toolkit/page_range_syntax_help.py:4
-msgid ""
-"Page Range Syntax Guide\n"
-"\n"
-"Basic Syntax:\n"
-"- Comma Separation: 1,3,5 means page 1, 3 and 5\n"
-"- Hyphen Range: 3-7 means page 3 to 7 (both ends included)\n"
-"- Omission Range: -10 means from first page to page 10, 5- means from page 5 "
-"to last\n"
-"- Step Syntax: 1-10:2 means from page 1 to 10, one page every 2 pages "
-"(1,3,5,7,9)\n"
-"- Global Step: :3 means from first page to last, one page every 3 pages\n"
-"\n"
-"Combined Usage:\n"
-"- Mixed Expression: 1,3-5,7-:2 means page 1, page 3-5, page 7 to last every "
-"2 pages\n"
-"\n"
-"Multiple Range Groups:\n"
-"- Semicolon Separation: 1,3,6-9;4-6,8;1-5 means 3 different range groups, "
-"will generate 3 PDF files\n"
-"\n"
-"Duplicates and Reverse:\n"
-"- Allow Duplicates: + prefix means allow duplicate pages (e.g. +4-8,6,9-12)\n"
-"- Reverse Range: Reverse is supported in + mode (e.g. +9-5 means reverse "
-"from page 9 to 5)\n"
-"\n"
-"Notes:\n"
-"- Deduplication is automatic in default mode\n"
-"- Using reverse range without + mode will cause an error\n"
-"- All page numbers start counting from 1\n"
-msgstr ""
-
-#: toolkit/ui/feature/add_page_numbers.py:27
+#: toolkit/ui/feature/add_page_numbers.py:29
 #: toolkit/ui/feature/delete_pages.py:32 toolkit/ui/feature/edit_bookmark.py:35
 #: toolkit/ui/feature/pdf_to_long_image.py:26
 msgid "PDF File"
 msgstr "PDF 文件"
 
-#: toolkit/ui/feature/add_page_numbers.py:27
-#: toolkit/ui/feature/add_page_numbers.py:31
-msgid "PDF document"
-msgstr ""
-
-#: toolkit/ui/feature/add_page_numbers.py:31
+#: toolkit/ui/feature/add_page_numbers.py:33
 #: toolkit/ui/feature/edit_bookmark.py:129
 #: toolkit/ui/feature/images_to_pdf.py:38
 #: toolkit/ui/feature/interleave_pdf.py:38
@@ -470,7 +346,7 @@ msgstr ""
 msgid "Output PDF"
 msgstr "输出 PDF"
 
-#: toolkit/ui/feature/add_page_numbers.py:35
+#: toolkit/ui/feature/add_page_numbers.py:37
 #: toolkit/ui/feature/delete_pages.py:42
 #: toolkit/ui/feature/extract_images.py:36
 #: toolkit/ui/feature/extract_text.py:36
@@ -482,187 +358,116 @@ msgstr "输出 PDF"
 msgid "Options"
 msgstr "选项"
 
-#: toolkit/ui/feature/add_page_numbers.py:46
+#: toolkit/ui/feature/add_page_numbers.py:48
 msgid "Page Number Format:"
-msgstr "页码规则"
+msgstr "页码规则："
 
-#: toolkit/ui/feature/add_page_numbers.py:50
+#: toolkit/ui/feature/add_page_numbers.py:55
 msgid "Help"
 msgstr "帮助"
 
-#: toolkit/ui/feature/add_page_numbers.py:65
+#: toolkit/ui/feature/add_page_numbers.py:72
 msgid "Position:"
 msgstr "位置："
 
-#: toolkit/ui/feature/add_page_numbers.py:69
+#: toolkit/ui/feature/add_page_numbers.py:76
 msgid "Header"
 msgstr "页眉"
 
-#: toolkit/ui/feature/add_page_numbers.py:72
+#: toolkit/ui/feature/add_page_numbers.py:79
 msgid "Footer"
 msgstr "页脚"
 
-#: toolkit/ui/feature/add_page_numbers.py:80
+#: toolkit/ui/feature/add_page_numbers.py:87
 msgid "Left"
 msgstr "左侧"
 
-#: toolkit/ui/feature/add_page_numbers.py:83
+#: toolkit/ui/feature/add_page_numbers.py:90
 msgid "Center"
 msgstr "居中"
 
-#: toolkit/ui/feature/add_page_numbers.py:86
+#: toolkit/ui/feature/add_page_numbers.py:93
 msgid "Right"
 msgstr "右侧"
 
-#: toolkit/ui/feature/add_page_numbers.py:89
+#: toolkit/ui/feature/add_page_numbers.py:96
 msgid "Outside"
 msgstr "外侧"
 
-#: toolkit/ui/feature/add_page_numbers.py:92
+#: toolkit/ui/feature/add_page_numbers.py:99
 msgid "Inside"
 msgstr "内侧"
 
-#: toolkit/ui/feature/add_page_numbers.py:101
+#: toolkit/ui/feature/add_page_numbers.py:108
 msgid "Font:"
 msgstr "字体："
 
+#: toolkit/ui/feature/add_page_numbers.py:117
+msgid "Style:"
+msgstr "字形："
+
 #: toolkit/ui/feature/add_page_numbers.py:121
+#: toolkit/ui/feature/add_page_numbers.py:125
+msgid "Regular"
+msgstr "常规"
+
+#: toolkit/ui/feature/add_page_numbers.py:121
+msgid "Bold"
+msgstr "粗体"
+
+#: toolkit/ui/feature/add_page_numbers.py:121
+msgid "Italic"
+msgstr "斜体"
+
+#: toolkit/ui/feature/add_page_numbers.py:121
+msgid "Bold Italic"
+msgstr "粗斜体"
+
+#: toolkit/ui/feature/add_page_numbers.py:129
 msgid "Size:"
 msgstr "字号："
 
-#: toolkit/ui/feature/add_page_numbers.py:132
-#: toolkit/ui/feature/add_page_numbers.py:164
-msgid "Bottom Margin:"
-msgstr "下边距："
-
-#: toolkit/ui/feature/add_page_numbers.py:138
-msgid "Horizontal Margin:"
-msgstr "水平边距："
-
-#: toolkit/ui/feature/add_page_numbers.py:154
-#: toolkit/ui/feature/delete_pages.py:79
+#: toolkit/ui/feature/add_page_numbers.py:162
+#: toolkit/ui/feature/delete_pages.py:76
 #: toolkit/ui/feature/extract_images.py:89
 #: toolkit/ui/feature/extract_text.py:58 toolkit/ui/feature/images_to_pdf.py:52
 #: toolkit/ui/feature/interleave_pdf.py:57
 #: toolkit/ui/feature/merge_invoices.py:48 toolkit/ui/feature/merge_pdf.py:74
 #: toolkit/ui/feature/pdf_to_images.py:96
 #: toolkit/ui/feature/pdf_to_long_image.py:73
-#: toolkit/ui/feature/rotate_pdf.py:68 toolkit/ui/feature/split_pdf.py:96
+#: toolkit/ui/feature/rotate_pdf.py:68 toolkit/ui/feature/split_pdf.py:95
 msgid "Ready"
 msgstr "就绪"
 
-#: toolkit/ui/feature/add_page_numbers.py:157
-msgid "Run"
-msgstr ""
+#: toolkit/ui/feature/add_page_numbers.py:165
+#: toolkit/ui/feature/edit_bookmark.py:123
+msgid "Add"
+msgstr "添加"
 
-#: toolkit/ui/feature/add_page_numbers.py:162
-msgid "Top Margin:"
-msgstr "上边距："
+#: toolkit/ui/feature/add_page_numbers.py:170
+msgid "Top Margin (cm):"
+msgstr "上边距（厘米）："
 
-#: toolkit/ui/feature/add_page_numbers.py:169
-msgid "Left Margin:"
-msgstr "左边距："
+#: toolkit/ui/feature/add_page_numbers.py:172
+msgid "Bottom Margin (cm):"
+msgstr "下边距（厘米）："
 
-#: toolkit/ui/feature/add_page_numbers.py:175
-msgid "Right Margin:"
-msgstr "右边距："
+#: toolkit/ui/feature/add_page_numbers.py:177
+msgid "Left Margin (cm):"
+msgstr "左边距（厘米）："
 
-#: toolkit/ui/feature/add_page_numbers.py:181
-msgid "Edge Margin:"
-msgstr "外边距："
+#: toolkit/ui/feature/add_page_numbers.py:182
+msgid "Right Margin (cm):"
+msgstr "右边距（厘米）："
 
-#: toolkit/ui/feature/add_page_numbers.py:196
-#, fuzzy
-#| msgid ""
-#| "Page Number Format Rules:\n"
-#| "\n"
-#| "1. Structure:\n"
-#| "   - Use ';' to separate different formatting segments.\n"
-#| "   - e.g., \"1-4:R;5-:\"\n"
-#| "\n"
-#| "2. Physical Page Range (before ':'):\n"
-#| "   - 1-based index for pages.\n"
-#| "   - \"5-\": Page 5 to end.\n"
-#| "   - \"-10\": Page 1 to 10.\n"
-#| "   - \"5\": Only page 5.\n"
-#| "   - Omit for all pages or remaining pages.\n"
-#| "\n"
-#| "3. Display Format (after ':'):\n"
-#| "   - Format: [Type][StartValue], e.g., R1, n5.\n"
-#| "   - Types: n (number), r (lowercase roman), R (uppercase roman), a "
-#| "(lowercase letter), A (uppercase letter).\n"
-#| "   - StartValue: Integer to start counting from.\n"
-#| "   - If omitted, defaults to 'n' and continues from the previous segment "
-#| "or starts at 1.\n"
-#| "\n"
-#| "4. Examples (for a 30-page PDF):\n"
-#| "   - \"\": All pages numbered 1-30.\n"
-#| "   - \">:10\": All pages numbered 10-39.\n"
-#| "   - \"1-4:R;5-:\": Pages 1-4 as I-IV, pages 5-30 as 5-30.\n"
-#| "   - \"1-4:R;5-6:r1;7-:1\": Pages 1-4 as I-IV, 5-6 as i-ii, 7-30 as 1-24."
-msgid ""
-"Page Number Format Rules:\n"
-"\n"
-"1. Structure:\n"
-"   - Use ';' to separate different formatting segments.\n"
-"   - e.g., \"1-4:R;5-:\"\n"
-"\n"
-"2. Physical Page Range (before ':'):\n"
-"   - 1-based index for pages.\n"
-"   - \"5-\": Page 5 to end.\n"
-"   - \"-10\": Page 1 to 10.\n"
-"   - \"5\": Only page 5.\n"
-"   - Omit for all pages or remaining pages.\n"
-"\n"
-"3. Display Format (after ':'):\n"
-"   - Format: [Type][StartValue], e.g., R1, n5.\n"
-"   - Types: n (number), r (lowercase roman), R (uppercase roman), a "
-"(lowercase letter), A (uppercase letter).\n"
-"   - StartValue: Integer to start counting from.\n"
-"   - If omitted, defaults to 'n' and continues from the previous segment or "
-"starts at 1.\n"
-"\n"
-"4. Examples (for a 30-page PDF):\n"
-"   - \"\": All pages numbered 1-30.\n"
-"   - \":10\": All pages numbered 10-39.\n"
-"   - \"1-4:R;5-:\": Pages 1-4 as I-IV, pages 5-30 as 5-30.\n"
-"   - \"1-4:R;5-6:r1;7-:1\": Pages 1-4 as I-IV, 5-6 as i-ii, 7-30 as 1-24.\n"
-msgstr ""
-"页码格式规则：\n"
-"\n"
-"1. 结构：\n"
-"   - 使用“;”分隔不同的格式段。\n"
-"   - 例如：“1-4:R;5-:”\n"
-"\n"
-"2. 物理页面范围（在“:”之前）：\n"
-"   - 基于1的页面索引。\n"
-"   - “5-”：第5页到结尾。\n"
-"   - “-10”：第1页到第10页。\n"
-"   - “5”：仅第5页。\n"
-"   - 省略则表示所有页面或剩余页面。\n"
-"\n"
-"3. 显示格式（在“:”之后）：\n"
-"   - 格式：[类型][起始值]，例如：R1, n5。\n"
-"   - 类型：n (数字), r (小写罗马), R (大写罗马), a (小写字母), A (大写字"
-"母)。\n"
-"   - 起始值：开始计数的整数。\n"
-"   - 如果省略，默认为“n”并从上一段继续或从1开始。\n"
-"\n"
-"4. 示例（对于30页的PDF）：\n"
-"   - “”：所有页面编号为1-30。\n"
-"   - “:10”：所有页面编号为10-39。\n"
-"   - “1-4:R;5-:”：第1-4页为I-IV，第5-30页为5-30。\n"
-"   - “1-4:R;5-6:r1;7-:1”：第1-4页为I-IV，5-6为i-ii，7-30为1-24。"
+#: toolkit/ui/feature/add_page_numbers.py:187
+msgid "Edge Margin (cm):"
+msgstr "边距（厘米）："
 
-#: toolkit/ui/feature/add_page_numbers.py:222
-#, fuzzy
-#| msgid "Page Number Rule"
-msgid "Page Number Syntax Guide"
-msgstr "页码规则"
-
-#: toolkit/ui/feature/add_page_numbers.py:235
-#: toolkit/ui/feature/add_page_numbers.py:239
-#: toolkit/ui/feature/add_page_numbers.py:259
+#: toolkit/ui/feature/add_page_numbers.py:220
+#: toolkit/ui/feature/add_page_numbers.py:224
+#: toolkit/ui/feature/add_page_numbers.py:228
+#: toolkit/ui/feature/add_page_numbers.py:252
 #: toolkit/ui/feature/edit_bookmark.py:163
 #: toolkit/ui/feature/edit_bookmark.py:287
 #: toolkit/ui/feature/edit_bookmark.py:300
@@ -670,26 +475,26 @@ msgstr "页码规则"
 msgid "Error"
 msgstr "错误"
 
-#: toolkit/ui/feature/add_page_numbers.py:235
-#: toolkit/ui/feature/delete_pages.py:119
+#: toolkit/ui/feature/add_page_numbers.py:220
+#: toolkit/ui/feature/delete_pages.py:121
 msgid "Please select an input PDF file."
 msgstr "请选择一个输入的 PDF 文件。"
 
-#: toolkit/ui/feature/add_page_numbers.py:239
-#, fuzzy
-#| msgid "Please specify an output JPEG file."
+#: toolkit/ui/feature/add_page_numbers.py:224
 msgid "Please specify an output PDF file."
 msgstr "请指定一个输出的 JPEG 文件。"
 
-#: toolkit/ui/feature/add_page_numbers.py:259
+#: toolkit/ui/feature/add_page_numbers.py:228
+msgid "Page number format rule cannot be empty."
+msgstr "页码格式不可为空。"
+
+#: toolkit/ui/feature/add_page_numbers.py:252
 msgid "Please enter valid numbers for font size and margins."
 msgstr "请输入有效的字号和边距数值。"
 
-#: toolkit/ui/feature/add_page_numbers.py:262
-#, fuzzy
-#| msgid "Adding Page Numbers"
+#: toolkit/ui/feature/add_page_numbers.py:255
 msgid "Adding Page Numbers..."
-msgstr "正在添加页码"
+msgstr "正在添加页码……"
 
 #: toolkit/ui/feature/delete_pages.py:37
 #: toolkit/ui/feature/extract_images.py:31
@@ -703,21 +508,11 @@ msgstr "输出文件夹"
 msgid "Pages to Delete:"
 msgstr "要删除的页面："
 
-#: toolkit/ui/feature/delete_pages.py:71
-#, fuzzy
-#| msgid "Format: 1-3, 5, 7-9"
-msgid "Format: 1-3, 5, 7-9;4-5,7;+8-10,12"
-msgstr "格式：1-3, 5, 7-9"
-
-#: toolkit/ui/feature/delete_pages.py:83 toolkit/ui/feature/edit_bookmark.py:91
+#: toolkit/ui/feature/delete_pages.py:80 toolkit/ui/feature/edit_bookmark.py:91
 msgid "Delete"
 msgstr "删除"
 
-#: toolkit/ui/feature/delete_pages.py:104 toolkit/ui/feature/split_pdf.py:133
-msgid "Page Range Syntax Guide"
-msgstr ""
-
-#: toolkit/ui/feature/delete_pages.py:119
+#: toolkit/ui/feature/delete_pages.py:121
 #: toolkit/ui/feature/edit_bookmark.py:201
 #: toolkit/ui/feature/edit_bookmark.py:210
 #: toolkit/ui/feature/edit_bookmark.py:224
@@ -732,12 +527,12 @@ msgstr ""
 #: toolkit/ui/feature/pdf_to_images.py:137
 #: toolkit/ui/feature/pdf_to_long_image.py:105
 #: toolkit/ui/feature/pdf_to_long_image.py:110
-#: toolkit/ui/feature/rotate_pdf.py:95 toolkit/ui/feature/split_pdf.py:148
-#: toolkit/ui/feature/split_pdf.py:153 toolkit/ui/feature/split_pdf.py:162
+#: toolkit/ui/feature/rotate_pdf.py:95 toolkit/ui/feature/split_pdf.py:152
+#: toolkit/ui/feature/split_pdf.py:157 toolkit/ui/feature/split_pdf.py:166
 msgid "Invalid Input"
 msgstr "无效输入"
 
-#: toolkit/ui/feature/delete_pages.py:125
+#: toolkit/ui/feature/delete_pages.py:127
 #: toolkit/ui/feature/extract_images.py:133
 #: toolkit/ui/feature/extract_text.py:91 toolkit/ui/feature/images_to_pdf.py:89
 #: toolkit/ui/feature/interleave_pdf.py:90 toolkit/ui/feature/merge_pdf.py:113
@@ -745,22 +540,22 @@ msgstr "无效输入"
 msgid "Invalid Output"
 msgstr "无效输出"
 
-#: toolkit/ui/feature/delete_pages.py:125
+#: toolkit/ui/feature/delete_pages.py:127
 #: toolkit/ui/feature/extract_images.py:133
 #: toolkit/ui/feature/extract_text.py:91
 #: toolkit/ui/feature/pdf_to_images.py:143 toolkit/ui/feature/rotate_pdf.py:101
 msgid "Please specify an output folder."
 msgstr "请指定一个输出文件夹。"
 
-#: toolkit/ui/feature/delete_pages.py:131
+#: toolkit/ui/feature/delete_pages.py:133
 msgid "Invalid Page Numbers"
 msgstr "无效页码"
 
-#: toolkit/ui/feature/delete_pages.py:131
+#: toolkit/ui/feature/delete_pages.py:133
 msgid "Please specify page numbers."
 msgstr "请指定页码。"
 
-#: toolkit/ui/feature/delete_pages.py:137
+#: toolkit/ui/feature/delete_pages.py:139
 msgid "Deleting pages..."
 msgstr "正在删除页面..."
 
@@ -824,10 +619,6 @@ msgstr "标题："
 #: toolkit/ui/feature/edit_bookmark.py:119
 msgid "Edit"
 msgstr "编辑"
-
-#: toolkit/ui/feature/edit_bookmark.py:123
-msgid "Add"
-msgstr "添加"
 
 #: toolkit/ui/feature/edit_bookmark.py:137
 msgid "Save"
@@ -1004,7 +795,7 @@ msgstr "票据列表"
 msgid "Merge"
 msgstr "合并"
 
-#: toolkit/ui/feature/merge_invoices.py:81 toolkit/ui/feature/split_pdf.py:153
+#: toolkit/ui/feature/merge_invoices.py:81 toolkit/ui/feature/split_pdf.py:157
 msgid "Please specify an output path."
 msgstr "请指定一个输出路径。"
 
@@ -1018,7 +809,7 @@ msgstr "生成书签"
 
 #: toolkit/ui/feature/merge_pdf.py:63
 msgid "Support Duplex Printing (Ensure even number of pages)"
-msgstr ""
+msgstr "支持双面打印（偶数页数）"
 
 #: toolkit/ui/feature/merge_pdf.py:107
 msgid "Please add at least two PDF files."
@@ -1058,7 +849,7 @@ msgid "Image Quality:"
 msgstr "图像质量："
 
 #: toolkit/ui/feature/pdf_to_long_image.py:105
-#: toolkit/ui/feature/split_pdf.py:148
+#: toolkit/ui/feature/split_pdf.py:152
 msgid "Please select an input PDF."
 msgstr "请选择一个输入的 PDF。"
 
@@ -1106,19 +897,19 @@ msgstr "自定义范围"
 msgid "Value:"
 msgstr "拆分参数："
 
-#: toolkit/ui/feature/split_pdf.py:85
+#: toolkit/ui/feature/split_pdf.py:84
 msgid ""
-"Value Description: By Pages/By Files: integer, e.g. 5  |  By Range: Supports "
-"multiple ranges (use ';' to split), page ranges (use '-' for range), "
-"optional start/end (e.g., '-10', '5-'), step (e.g., '1-10:3', ':3'), and "
-"duplicate pages (prefix with '+')"
+"By Pages/By Files: integer, for example: 5.    |    Custom Ranges: 1-5;7-:2. "
+"Click \"Help\" button for more detail."
 msgstr ""
+"按页数/按份数：整数，例如：5。    |    自定义范围：1-5;7-:2。点击“帮助”查看详"
+"细说明。"
 
-#: toolkit/ui/feature/split_pdf.py:162
+#: toolkit/ui/feature/split_pdf.py:166
 msgid "Please specify a value for the split mode."
 msgstr "请为拆分模式指定一个值。"
 
-#: toolkit/ui/feature/split_pdf.py:168
+#: toolkit/ui/feature/split_pdf.py:172
 msgid "Splitting PDF..."
 msgstr "正在拆分 PDF..."
 
@@ -1228,11 +1019,205 @@ msgstr "选择输出文件"
 msgid "Select Path"
 msgstr "选择路径"
 
+#: toolkit/util/help_contents.py:5
+msgid "Page Numbering Format Syntax Guide"
+msgstr "页码格式规则说明"
+
+#: toolkit/util/help_contents.py:7
+msgid ""
+"Default: Continuous numbering starting at 1. Click \"Help\" button for more "
+"detail."
+msgstr "默认：从 1 开始连续编号。点击“帮助”查看详细说明。"
+
+#: toolkit/util/help_contents.py:10
+msgid ""
+"        Page Numbering Format Syntax Guide\n"
+"\n"
+"1. Structure\n"
+"   - Use semicolon (;) to separate different page range segments. \n"
+"   - Segment Format: [Physical Page Range]:[Display Format]. E.g., "
+"\"1-4:R;5-:\". \n"
+"\n"
+"2. Physical Page Range (Before :)\n"
+"   - Physical page number: 1-based index. \n"
+"   - Range: start - end \n"
+"     5-: Page 5 to the last page. \n"
+"     -10: Page 1 to page 10. \n"
+"     5: Only page 5.\n"
+"   - Omission:\n"
+"     Omit the start index (e.g., -10) to begin at page 1.\n"
+"     Omit the end index (e.g., 5-) to end at the last page. \n"
+"     Omit the entire range (e.g., :R1) to apply the format to all pages. \n"
+"\n"
+"3. Display Format (After :)\n"
+"   - Format: [Type][StartValue] (optional). E.g., R1, n5. \n"
+"   - Types (Case-Sensitive): \n"
+"     n: Arabic numbers (1, 2, 3...)\n"
+"     r: Lowercase Roman numerals (i, ii, iii...)\n"
+"     R: Uppercase Roman numerals (I, II, III...)\n"
+"     a: Lowercase letters (a, b, c...)\n"
+"     A: Uppercase letters (A, B, C...)\n"
+"   - StartValue: An integer specifying the number to begin counting from. \n"
+"   - Default Behavior:\n"
+"     If Type is omitted, it defaults to 'n' (Arabic numbers). \n"
+"     If StartValue is omitted, it continues sequentially from the previous "
+"segment's end page number, or starts at 1 if this is the first segment with "
+"an omitted StartValue. \n"
+"\n"
+"4. Examples (for a 30-page PDF)\n"
+"   - \"\": All pages are numbered 1-30. \n"
+"   - \":10\": All pages (1-30) are numbered starting from 10 (i.e., display "
+"10-39). \n"
+"   - \"1-4:R;5-:\": Pages 1-4 use uppercase Roman numerals (I-IV), pages "
+"5-30 continue numbering sequentially (5-30). \n"
+"   - \"1-4:R;5-6:r1;7-:1\": \n"
+"     Pages 1-4 as I-IV. \n"
+"     Pages 5-6 use lowercase Roman starting at i. \n"
+"     Pages 7-30 use Arabic numbers starting at 1.\n"
+msgstr ""
+"        页码格式语法指南\n"
+"\n"
+"1. 结构\n"
+"   - 使用分号 (;) 来分隔不同的页码范围段 。\n"
+"   - 段格式为：[物理页面范围]:[显示格式] 。例如: \"1-4:R;5-:\" 。\n"
+"\n"
+"2. 物理页面范围 (冒号 : 之前的部分)\n"
+"   - 物理页码：基于 1 的索引 。\n"
+"   - 范围定义：使用连字符 (-) 定义起始页和结束页 。\n"
+"     5-: 第 5 页到最后一页 。\n"
+"     -10: 第 1 页到第 10 页 。\n"
+"     5: 仅第 5 页 。\n"
+"   - 省略规则：\n"
+"     省略起始索引（例如：-10）表示从第 1 页开始 。\n"
+"     省略结束索引（例如：5-）表示到最后一页结束 。\n"
+"     省略整个范围（例如：:R1）表示将格式应用于所有页面 。\n"
+"\n"
+"3. 显示格式 (冒号 : 之后的部分)\n"
+"   - 格式：[类型][起始值] (起始值可选) 。例如: R1, n5 。\n"
+"   - 类型 (区分大小写) ：\n"
+"     n: 阿拉伯数字 (1, 2, 3...)。\n"
+"     r: 小写罗马数字 (i, ii, iii...)。\n"
+"     R: 大写罗马数字 (I, II, III...)。\n"
+"     a: 小写字母 (a, b, c...)。\n"
+"     A: 大写字母 (A, B, C...)。\n"
+"   - 起始值：整数，指定开始计数的数字 。\n"
+"   - 默认行为：\n"
+"     如果省略 类型，则默认为 'n' (阿拉伯数字) 。\n"
+"     如果省略 起始值，则从前一段的结束页码顺序延续 ；若是第一个省略起始值的"
+"段，则从 1 开始 。\n"
+"\n"
+"4. 示例 (以 30 页 PDF 为例)\n"
+"   - \"\": 所有页面编号为 1-30 。\n"
+"   - \":10\": 所有页面 (1-30) 从 10 开始编号 (即显示 10-39) 。\n"
+"   - \"1-4:R;5-:\": 第 1-4 页使用大写罗马数字 (I-IV) ，第 5-30 页顺序延续编"
+"号 (5-30) 。\n"
+"   - \"1-4:R;5-6:r1;7-:1\":\n"
+"     第 1-4 页使用大写罗马数字 (I-IV) 。\n"
+"     第 5-6 页使用小写罗马数字，从 i 开始 。\n"
+"     第 7-30 页使用阿拉伯数字，从 1 开始 。\n"
+
+#: toolkit/util/help_contents.py:53
+msgid "Page Range Selection Syntax Guide"
+msgstr "页面范围选择语法指南"
+
+#: toolkit/util/help_contents.py:54
+msgid "Example: 3,7-9,12;:2. Click \"Help\" button for more description."
+msgstr "示例：3,7-9,12;:2。点击“帮助”查看详细说明。"
+
+#: toolkit/util/help_contents.py:56
+msgid ""
+"        Page Range Selection Syntax Guide\n"
+"\n"
+"1. Basic Selection and Range Definition\n"
+"   - Comma Separation (,): Separates individual page numbers or ranges. \n"
+"     Example: 1,5,10    Result: (1, 5, 10)\n"
+"   - Hyphen Range (-): Defines a consecutive range, including both start and "
+"end pages.\n"
+"     Example: 3-7   Result: (3, 4, 5, 6, 7)\n"
+"   - Omission Start (-N): Selects pages from the first page (1) up to page "
+"N.\n"
+"     Example: -10   Result: (1, 2, ..., 10)\n"
+"   - Omission End (N-): Selects pages from page N up to the last page.\n"
+"     Example: 5-    Result: (5, 6, ..., Last)\n"
+"\n"
+"2. Step and Skip Syntax\n"
+"   Use the colon (:) to specify the step interval within a range.\n"
+"   - Step Syntax (A-B:S): Selects pages from A to B, choosing one page every "
+"S pages.\n"
+"     Example: 1-10:2    Result: (1, 3, 5, 7, 9)\n"
+"   - Global Step (:S): Applies the step S to the entire document range (from "
+"first to last page).\n"
+"     Example: :3    Result: (1, 4, 7, 10, ...)\n"
+"\n"
+"3. Combination and Output Control\n"
+"   - Mixed Expression: Various syntax combinations connected by commas.\n"
+"     Example: 1,3-5,7-:2    Result: (1, 3, 4, 5, 7, 9, 11, ...)\n"
+"   - Semicolon Separation (;): Multiple File Output. Semicolons separate "
+"distinct range groups; each group will generate a separate PDF file.\n"
+"     Example: 1-5;8,10- Result: File 1: (1, 2, 3, 4, 5); File 2: (8, 10, "
+"11, ..., Last)\n"
+"\n"
+"4. Special Mode: Duplicates and Reverse (+ Mode), only for Split PDF\n"
+"   Adding the prefix + activates a special mode that allows for duplicate "
+"pages and reverse selection.\n"
+"   - Allow Duplicates (+ Prefix): Disables automatic deduplication, allowing "
+"page numbers to appear multiple times.\n"
+"     Example: +4-8,6,9  Result: (4, 5, 6, 7, 8, 6, 9)\n"
+"   - Reverse Range (+N-M where N>M): Supported only in + mode. Selects pages "
+"in descending order from N to M.\n"
+"     Example: +9-5  Result: (9, 8, 7, 6, 5)\n"
+"\n"
+"5. Important Notes\n"
+"   - Deduplication: In the default mode (without the + prefix), the system "
+"automatically removes all duplicate page numbers.\n"
+"   - Page Start: All page numbers start counting from 1.\n"
+"   - Reverse Error: Using a reverse range (e.g., 9-5) in the default mode "
+"will result in an error.\n"
+msgstr ""
+"        页面范围语法指南\n"
+"\n"
+"1. 基础选择与范围定义\n"
+"   - 逗号 (,)：用于分隔独立的页码或页码范围 。\n"
+"     示例: 1,5,10 结果: (1, 5, 10) 。\n"
+"   - 连字符 (-)：定义连续页码范围，包括起始页和结束页 。\n"
+"     示例: 3-7 结果: (3, 4, 5, 6, 7) 。\n"
+"   - 省略起始页 (-N): 选择从第 1 页到第 N 页的范围 。\n"
+"     示例: -10 结果: (1, 2, ..., 10)。\n"
+"   - 省略结束页 (N-): 选择从第 N 页到文档最后一页的范围 。\n"
+"     示例: 5- 结果：(5, 6, ..., Last) 。\n"
+"\n"
+"2. 步进与跳跃语法\n"
+"   - 使用冒号 (:) 来指定范围内的步进间隔 。\n"
+"   - 步进语法 (A-B:S)：选择从 A 到 B 的页面，每 S 页选取一页 。\n"
+"     示例：1-10:2 结果：(1, 3, 5, 7, 9) 。\n"
+"   - 全局步进 (:S)：对整个文档范围 (从第 1 页到最后一页) 应用步进 S 。\n"
+"     示例：:3 结果：(1, 4, 7, 10, ...) 。\n"
+"\n"
+"3. 组合与输出控制\n"
+"   - 混合表达式：使用逗号连接多种语法组合 。\n"
+"     示例：1,3-5,7-:2 结果：(1, 3, 4, 5, 7, 9, 11, ...) 。\n"
+"   - 分号分隔 (;)：用于多文件输出 。分号分隔不同的范围组；每个组将生成一个单"
+"独的 PDF 文件 。\n"
+"     示例：1-5;8,10- 结果：文件 1：(1, 2, 3, 4, 5) ；文件 2：(8, 10, "
+"11, ..., Last) 。\n"
+"\n"
+"4. 特殊模式：允许重复与反向选择（仅用于拆分 PDF）\n"
+"   - 添加前缀 + 可激活特殊模式，允许页码重复和反向选择 。\n"
+"   - 允许重复 (+ 前缀)：禁用自动去重，允许页码多次出现 。\n"
+"     示例：+4-8,6,9 结果：(4, 5, 6, 7, 8, 6, 9) 。\n"
+"   - 反向范围 (+N-M 且 N>M)：仅在 + 模式下支持 。按降序选择从 N 到 M 的页"
+"面 。\n"
+"     示例：+9-5 结果：(9, 8, 7, 6, 5)。\n"
+"\n"
+"5. 重要须知\n"
+"   - 去重：在默认模式 (无 + 前缀) 下，系统会自动移除所有重复的页码 。\n"
+"   - 页码起始：所有页码均从 1 开始计数 。\n"
+"   - 反向错误：在默认模式下使用反向范围 (例如 9-5) 将导致错误 。\n"
+
 #: toolkit/util/page_range_parser.py:43
-#, fuzzy, python-brace-format
-#| msgid "Invalid page '{part}': must be between 1-{total_pages}."
+#, python-brace-format
 msgid "Invalid range '{part}': must be between 1-{total_pages}."
-msgstr "无效页码 '{part}'：必须在 1-{total_pages} 之间。"
+msgstr "无效范围 '{part}'：必须在 1-{total_pages} 之间。"
 
 #: toolkit/util/page_range_parser.py:55
 #, python-brace-format
@@ -1241,7 +1226,100 @@ msgstr "无效页码 '{part}'：必须在 1-{total_pages} 之间。"
 
 #: toolkit/util/page_range_parser.py:115
 msgid "Duplicates are not allowed"
-msgstr ""
+msgstr "不允许重复页面"
+
+#, fuzzy
+#~| msgid "Horizontal Margin:"
+#~ msgid "Horizontal Margin (cm):"
+#~ msgstr "水平边距："
+
+#, fuzzy
+#~| msgid ""
+#~| "Page Number Format Rules:\n"
+#~| "\n"
+#~| "1. Structure:\n"
+#~| "   - Use ';' to separate different formatting segments.\n"
+#~| "   - e.g., \"1-4:R;5-:\"\n"
+#~| "\n"
+#~| "2. Physical Page Range (before ':'):\n"
+#~| "   - 1-based index for pages.\n"
+#~| "   - \"5-\": Page 5 to end.\n"
+#~| "   - \"-10\": Page 1 to 10.\n"
+#~| "   - \"5\": Only page 5.\n"
+#~| "   - Omit for all pages or remaining pages.\n"
+#~| "\n"
+#~| "3. Display Format (after ':'):\n"
+#~| "   - Format: [Type][StartValue], e.g., R1, n5.\n"
+#~| "   - Types: n (number), r (lowercase roman), R (uppercase roman), a "
+#~| "(lowercase letter), A (uppercase letter).\n"
+#~| "   - StartValue: Integer to start counting from.\n"
+#~| "   - If omitted, defaults to 'n' and continues from the previous segment "
+#~| "or starts at 1.\n"
+#~| "\n"
+#~| "4. Examples (for a 30-page PDF):\n"
+#~| "   - \"\": All pages numbered 1-30.\n"
+#~| "   - \">:10\": All pages numbered 10-39.\n"
+#~| "   - \"1-4:R;5-:\": Pages 1-4 as I-IV, pages 5-30 as 5-30.\n"
+#~| "   - \"1-4:R;5-6:r1;7-:1\": Pages 1-4 as I-IV, 5-6 as i-ii, 7-30 as 1-24."
+#~ msgid ""
+#~ "Page Range Syntax Guide\n"
+#~ "\n"
+#~ "1. Structure:\n"
+#~ "   - Use ';' to separate different formatting segments.\n"
+#~ "   - e.g., \"1-4:R;5-:\"\n"
+#~ "\n"
+#~ "2. Physical Page Range (before ':'):\n"
+#~ "   - 1-based index for pages.\n"
+#~ "   - \"5-\": Page 5 to end.\n"
+#~ "   - \"-10\": Page 1 to 10.\n"
+#~ "   - \"5\": Only page 5.\n"
+#~ "   - Omit for all pages or remaining pages.\n"
+#~ "\n"
+#~ "3. Display Format (after ':'):\n"
+#~ "   - Format: [Type][StartValue], e.g., R1, n5.\n"
+#~ "   - Types: n (number), r (lowercase roman), R (uppercase roman), a "
+#~ "(lowercase letter), A (uppercase letter).\n"
+#~ "   - StartValue: Integer to start counting from.\n"
+#~ "   - If omitted, defaults to 'n' and continues from the previous segment "
+#~ "or starts at 1.\n"
+#~ "\n"
+#~ "4. Examples (for a 30-page PDF):\n"
+#~ "   - \"\": All pages numbered 1-30.\n"
+#~ "   - \":10\": All pages numbered 10-39.\n"
+#~ "   - \"1-4:R;5-:\": Pages 1-4 as I-IV, pages 5-30 as 5-30.\n"
+#~ "   - \"1-4:R;5-6:r1;7-:1\": Pages 1-4 as I-IV, 5-6 as i-ii, 7-30 as "
+#~ "1-24.\n"
+#~ msgstr ""
+#~ "页码格式规则：\n"
+#~ "\n"
+#~ "1. 结构：\n"
+#~ "   - 使用“;”分隔不同的格式段。\n"
+#~ "   - 例如：“1-4:R;5-:”\n"
+#~ "\n"
+#~ "2. 物理页面范围（在“:”之前）：\n"
+#~ "   - 基于1的页面索引。\n"
+#~ "   - “5-”：第5页到结尾。\n"
+#~ "   - “-10”：第1页到第10页。\n"
+#~ "   - “5”：仅第5页。\n"
+#~ "   - 省略则表示所有页面或剩余页面。\n"
+#~ "\n"
+#~ "3. 显示格式（在“:”之后）：\n"
+#~ "   - 格式：[类型][起始值]，例如：R1, n5。\n"
+#~ "   - 类型：n (数字), r (小写罗马), R (大写罗马), a (小写字母), A (大写字"
+#~ "母)。\n"
+#~ "   - 起始值：开始计数的整数。\n"
+#~ "   - 如果省略，默认为“n”并从上一段继续或从1开始。\n"
+#~ "\n"
+#~ "4. 示例（对于30页的PDF）：\n"
+#~ "   - “”：所有页面编号为1-30。\n"
+#~ "   - “:10”：所有页面编号为10-39。\n"
+#~ "   - “1-4:R;5-:”：第1-4页为I-IV，第5-30页为5-30。\n"
+#~ "   - “1-4:R;5-6:r1;7-:1”：第1-4页为I-IV，5-6为i-ii，7-30为1-24。"
+
+#, fuzzy
+#~| msgid "Format: 1-3, 5, 7-9"
+#~ msgid "Format: 1-3, 5, 7-9;4-5,7;+8-10,12"
+#~ msgstr "格式：1-3, 5, 7-9"
 
 #, python-brace-format
 #~ msgid "Invalid page range '{part}': must between 1-{total_pages}."

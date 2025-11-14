@@ -1,4 +1,5 @@
 import queue
+from typing import Any
 import fitz  # PyMuPDF
 
 from toolkit.util.page_number_parser import parse_page_format
@@ -28,111 +29,97 @@ def to_alpha(n, upper=True):
     return alpha_str
 
 def add_page_numbers_worker(
-    q: queue.Queue,
     input_path: str,
     output_path: str,
     rule: str,
     v_pos: str,
     h_pos: str,
     font_name: str,
+    font_style: str,
     font_size: int,
-    v_margin: int,
-    h_margin: int,
+    v_margin_cm: float,
+    h_margin_cm: float,
+    cancel_event: Any,
+    progress_queue: Any,
+    result_queue: Any,
+    saving_ack_event: Any,
 ):
     try:
+        # --- 1. Initialization ---
+        CM_TO_POINTS = 72 / 2.54
+        v_margin_points = v_margin_cm * CM_TO_POINTS
+        h_margin_points = h_margin_cm * CM_TO_POINTS
+
+        font_map = {
+            ("Courier", "Regular"): "cour", ("Courier", "Bold"): "cobo", ("Courier", "Italic"): "coit", ("Courier", "Bold Italic"): "cobi",
+            ("Times", "Regular"): "tiro", ("Times", "Bold"): "tibo", ("Times", "Italic"): "tiit", ("Times", "Bold Italic"): "tibi",
+            ("Helvetica", "Regular"): "hero", ("Helvetica", "Bold"): "hebo", ("Helvetica", "Italic"): "heit", ("Helvetica", "Bold Italic"): "hebi",
+        }
+        fitz_font_name = font_map.get((font_name, font_style), "tiro") # Default to tiro
+        font = fitz.Font(fitz_font_name)
+
         doc = fitz.open(input_path)
         total_pages = len(doc)
-        q.put((0, "Parsing page number rule..."))
+        progress_queue.put(("INIT", total_pages))
 
+        # --- 2. Create Page Number Map ---
         segments = parse_page_format(rule, total_pages)
-        
-        # Create a map of {page_index: text_to_display}
         page_text_map = {}
         for seg in segments:
             disp_num = seg.disp_start
             for page_num in range(seg.pdf_start, seg.pdf_end + 1):
                 text = ''
-                if seg.disp_type == 'n':
-                    text = str(disp_num)
-                elif seg.disp_type == 'r':
-                    text = to_roman(disp_num, upper=False)
-                elif seg.disp_type == 'R':
-                    text = to_roman(disp_num, upper=True)
-                elif seg.disp_type == 'a':
-                    text = to_alpha(disp_num, upper=False)
-                elif seg.disp_type == 'A':
-                    text = to_alpha(disp_num, upper=True)
-                
+                if seg.disp_type == 'n': text = str(disp_num)
+                elif seg.disp_type == 'r': text = to_roman(disp_num, upper=False)
+                elif seg.disp_type == 'R': text = to_roman(disp_num, upper=True)
+                elif seg.disp_type == 'a': text = to_alpha(disp_num, upper=False)
+                elif seg.disp_type == 'A': text = to_alpha(disp_num, upper=True)
                 page_text_map[page_num - 1] = text
                 disp_num += 1
 
-        q.put((0, f"Adding page numbers to {total_pages} pages..."))
-
-        # Font mapping for fitz
-        fitz_font_name = {
-            "Courier": "Cour",
-            "Times": "TiRo",
-            "Helvetica": "HeBo" # Using Bold for better visibility
-        }.get(font_name, "HeBo")
-
+        # --- 3. Iterate and Insert Text ---
         for i, page in enumerate(doc):
+            if cancel_event.is_set():
+                result_queue.put(("CANCEL", "Cancelled by user."))
+                return
+
             if i in page_text_map:
                 text = page_text_map[i]
                 page_rect = page.rect
-                
-                # Vertical position
-                if v_pos == 'header':
-                    y = v_margin
-                else: # footer
-                    y = page_rect.height - v_margin - font_size
+                text_width = font.text_length(text, fontsize=font_size)
 
-                # Horizontal position and alignment
-                align = fitz.TEXT_ALIGN_CENTER
+                # Calculate X coordinate
                 if h_pos == 'left':
-                    align = fitz.TEXT_ALIGN_LEFT
-                    x = h_margin
+                    x = h_margin_points
                 elif h_pos == 'right':
-                    align = fitz.TEXT_ALIGN_RIGHT
-                    x = page_rect.width - h_margin
+                    x = page_rect.width - text_width - h_margin_points
                 elif h_pos == 'center':
-                    x = page_rect.width / 2
+                    x = (page_rect.width - text_width) / 2
                 elif h_pos == 'outside':
-                    if (i + 1) % 2 == 0: # Even page
-                        align = fitz.TEXT_ALIGN_LEFT
-                        x = h_margin
-                    else: # Odd page
-                        align = fitz.TEXT_ALIGN_RIGHT
-                        x = page_rect.width - h_margin
+                    x = h_margin_points if (i + 1) % 2 == 0 else page_rect.width - text_width - h_margin_points
                 elif h_pos == 'inside':
-                    if (i + 1) % 2 == 0: # Even page
-                        align = fitz.TEXT_ALIGN_RIGHT
-                        x = page_rect.width - h_margin
-                    else: # Odd page
-                        align = fitz.TEXT_ALIGN_LEFT
-                        x = h_margin
+                    x = page_rect.width - text_width - h_margin_points if (i + 1) % 2 == 0 else h_margin_points
+                else:
+                    x = (page_rect.width - text_width) / 2 # Default to center
 
-                # Create rect for textbox
-                if align == fitz.TEXT_ALIGN_LEFT:
-                    rect = fitz.Rect(x, y, page_rect.width, y + font_size + 5)
-                elif align == fitz.TEXT_ALIGN_RIGHT:
-                    rect = fitz.Rect(0, y, x, y + font_size + 5)
-                else: # Center
-                    rect = fitz.Rect(0, y, page_rect.width, y + font_size + 5)
+                # Calculate Y coordinate (baseline of the text)
+                if v_pos == 'header':
+                    y = v_margin_points + font_size
+                else:  # footer
+                    y = page_rect.height - v_margin_points
+                
+                page.insert_text((x, y), text, fontname=fitz_font_name, fontsize=font_size)
 
-                page.insert_textbox(
-                    rect,
-                    text,
-                    fontname=fitz_font_name,
-                    fontsize=font_size,
-                    align=align
-                )
+            progress_queue.put(("PROGRESS", i + 1))
 
-            progress = int((i + 1) / total_pages * 100)
-            q.put((progress, f"Processing page {i + 1}/{total_pages}"))
-
+        # --- 4. Save Document ---
+        progress_queue.put(("SAVING", "Saving PDF..."))
+        saving_ack_event.wait()
         doc.save(output_path, garbage=4, deflate=True)
         doc.close()
-        q.put((100, "Completed"))
+        result_queue.put(("SUCCESS", "Page numbers added successfully."))
 
     except Exception as e:
-        q.put(e)
+        import traceback
+        traceback.print_exc()
+        result_queue.put(("ERROR", str(e)))
