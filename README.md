@@ -14,7 +14,7 @@
 
 ## Current Version
 
-The current version is 1.0.0, which has been tested on 64-bit Windows 11.
+The current version is 1.1.0, which has been tested on 64-bit Windows 11.
 
 ## Main Functions
 
@@ -28,6 +28,7 @@ The current version is 1.0.0, which has been tested on 64-bit Windows 11.
 * **PDF to Images**: Convert each page to image
 * **PDF to Long Image**: Convert each page to image and merge into a long image
 * **Delete Pages**: Delete specified pages from a PDF file
+* **Add Page Numbers**: Add page numbers to a PDF file with various formatting options
 * **Edit Bookmark**: Edit the bookmark of PDF
 * **Merge Invoices**: Merge multiple Chinese invoice PDFs into one for easy printing
 
@@ -79,7 +80,7 @@ This project utilizes several third-party libraries. The following is a list of 
 | Python      | [Python Software Foundation License](https://docs.python.org/3/license.html)                          | [python.org](https://www.python.org/)                                 |
 | PyMuPDF     | [GNU AGPLv3](https://www.gnu.org/licenses/agpl-3.0.en.html)                                           | [PyMuPdf - GitHub](https://github.com/pymupdf/PyMuPDF)                |
 | Pillow      | [Pillow License (MIT-CMU)](https://github.com/python-pillow/Pillow/blob/main/LICENSE)                 | [python-pillow.org](https://python-pillow.org/)                       |
-| tkinterdnd2 | [MIT License](https://github.com/pmgagne/tkinterdnd2/blob/master/LICENSE)                             | [pypi.org/project/tkinterdnd2](https://pypi.org/project/tkinterdnd2/) |
-| PyInstaller | [GPL 2.0 with linking exception](https://github.com/pyinstaller/pyinstaller/blob/develop/COPYING.txt) | [pyinstaller.org](https://pyinstaller.org/)                           |
+| tkinterdnd2 | [MIT License](https://github.com/Eliav2/tkinterdnd2/blob/master/LICENSE)                             | [pypi.org/project/tkinterdnd2](https://pypi.org/project/tkinterdnd2/) |
+| PyInstaller | [GPL 2.0 with linking exception](https://github.com/pyinstaller/pyinstaller/blob/develop/LICENSE.txt) | [pyinstaller.org](https://pyinstaller.org/)                           |
 
 The application is built using PyInstaller, which has a special license that allows for the distribution of bundled applications (including commercial ones) without being subject to the GPL.

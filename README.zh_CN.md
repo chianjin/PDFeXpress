@@ -14,7 +14,7 @@
 
 ## 当前版本
 
-当前版本为 1.0.0，已经在64位的Windows 11上测试通过。
+当前版本为 1.1.0，已经在64位的Windows 11上测试通过。
 
 ## 主要功能
 
@@ -28,6 +28,7 @@
 * **PDF转图像**：将 PDF 文件的每页转换为图像
 * **PDF转长图**：将 PDF 转换成图像并拼合成长图
 * **删除页面**：从 PDF 文件中删除指定页面
+* **添加页码**：为 PDF 文件添加页码，支持多种格式
 * **编辑书签**：编辑 PDF 的书签
 * **合并发票**：合并多个 PDF 格式的中国发票方便打印
 
@@ -81,6 +82,6 @@ Copyright (c) 2025 chian.jin@gmail.com.
 | PyMuPDF     | [GNU AGPLv3](https://www.gnu.org/licenses/agpl-3.0.zh-cn.html)                                        | [PyMuPdf - GitHub](https://github.com/pymupdf/PyMuPDF)                |
 | Pillow      | [Pillow License (MIT-CMU)](https://github.com/python-pillow/Pillow/blob/main/LICENSE)                 | [python-pillow.org](https://python-pillow.org/)                       |
 | tkinterdnd2 | [MIT License](https://github.com/pmgagne/tkinterdnd2/blob/master/LICENSE)                             | [pypi.org/project/tkinterdnd2](https://pypi.org/project/tkinterdnd2/) |
-| PyInstaller | [GPL 2.0 with linking exception](https://github.com/pyinstaller/pyinstaller/blob/develop/COPYING.txt) | [pyinstaller.org](https://pyinstaller.org/)                           |
+| PyInstaller | [GPL 2.0 with linking exception](https://github.com/pyinstaller/pyinstaller/blob/develop/LICENSE.txt) | [pyinstaller.org](https://pyinstaller.org/)                           |
 
 本应用程序使用 PyInstaller 打包。该工具的许可协议包含特殊例外，允许分发捆绑后的应用程序（包括商业应用）而不受 GPL 的限制。

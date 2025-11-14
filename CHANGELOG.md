@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 1.1.0
+
+2025-11-15
+
+- Add "Add Page Numbers" feature.
+- Unify PDF library import to `pymupdf`.
+- Clean up source code comments.
+
 ## 1.0.0
 
 2025-11-02
