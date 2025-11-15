@@ -5,7 +5,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from config import (
+from src.config import (
     EXECUTIVE_NAME,
     PROJECT_AUTHOR,
     PROJECT_NAME,

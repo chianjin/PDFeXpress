@@ -97,90 +97,55 @@ def split_pdf_worker(
             progress_queue.put(("INIT", total_files_to_create))
 
             output_folder_obj.mkdir(parents=True, exist_ok=True)
-            base_filename = pdf_path_obj.stem
-            
-            if total_files_to_create == 1:
-                # Single file output - create file directly in the same directory as the input file
-                if split_mode == "custom_ranges":
-                    # Name by range, "R{range_str}.pdf", "," is replaced by "_", ":" is replaced by "s"
-                    range_str = split_value  # Use original split_value
-                    safe_range_str = range_str.replace(",", "_").replace(":", "s")
-                    output_name = f"{base_filename}_R{safe_range_str}.pdf"
-                elif split_mode in ["fixed_pages", "fixed_files"]:
-                    # Name by number of pages/files, "P{start_page_number}-{end_page_number}.pdf"
-                    page_list = page_chunks[0]
-                    start_page = page_list[0] + 1
-                    end_page = page_list[-1] + 1
-                    output_name = f"{base_filename}_P{start_page}-{end_page}.pdf"
-                else:  # "single_page"
-                    # Name for single page split, "P{page_number}.pdf"
-                    page_list = page_chunks[0]
-                    page_num = page_list[0] + 1
-                    output_name = f"{base_filename}_P{page_num}.pdf"
-                    
-                output_path = output_folder_obj / output_name
 
-                # Handle single file output
-                with pymupdf.open(stream=get_pdf_bytes_cached(str(pdf_path_obj)), filetype="pdf") as temp_doc:
-                    temp_doc.select(page_chunks[0])  # Keep required pages
-                    temp_doc.save(str(output_path), garbage=3, deflate=True)
+            # Determine padding length for page numbers
+            padding_length = len(str(total_pages))
+            if padding_length == 0:
+                padding_length = 1
 
-                progress_queue.put(("PROGRESS", 1))
-            else:
-                # Multi-file output - create a subfolder named after the input file without extension
-                subfolder_name = f"{base_filename}_{_('Split')}"
-                subfolder_path = output_folder_obj / subfolder_name
-                subfolder_path.mkdir(parents=True, exist_ok=True)
-                
-                for i, page_list in enumerate(page_chunks):
-                    if cancel_event.is_set():
-                        result_queue.put(("CANCEL", _("Cancelled by user.")))
-                        return
+            range_groups = []
+            if split_mode == "custom_ranges":
+                range_groups = [
+                    rg.strip() for rg in split_value.split(";") if rg.strip()
+                ]
 
-                    with pymupdf.open(stream=get_pdf_bytes_cached(str(pdf_path_obj)), filetype="pdf") as temp_doc:
-                        temp_doc.select(page_list)  # Keep required pages
+            for i, page_list in enumerate(page_chunks):
+                if cancel_event.is_set():
+                    result_queue.put(("CANCEL", _("Cancelled by user.")))
+                    return
 
-                        if split_mode == "custom_ranges":
-                            # Name by range, "R{range_str}.pdf", "," is replaced by "_", ":" is replaced by "s"
-                            # Generate range description for each chunk separately
-                            range_parts = []
-                            start_idx = 0
-                            while start_idx < len(page_list):
-                                # Find consecutive page segments
-                                end_idx = start_idx
-                                while end_idx < len(page_list) - 1 and page_list[end_idx] + 1 == page_list[end_idx + 1]:
-                                    end_idx += 1
+                with pymupdf.open(
+                    stream=get_pdf_bytes_cached(str(pdf_path_obj)), filetype="pdf"
+                ) as temp_doc:
+                    temp_doc.select(page_list)
 
-                                if start_idx == end_idx:
-                                    # Single page
-                                    range_parts.append(f"P{page_list[start_idx] + 1}")
-                                else:
-                                    # Page range
-                                    range_parts.append(f"P{page_list[start_idx] + 1}-{page_list[end_idx] + 1}")
-
-                                start_idx = end_idx + 1
-
-                            range_str = "_".join(range_parts)
-                            # Replace comma with '_' and colon with 's' in the output filename
-                            range_str = range_str.replace(",", "_").replace(":", "s")
-                            output_name = f"R{range_str}.pdf"
-                        elif split_mode in ["fixed_pages", "fixed_files"]:
-                            # Name by number of pages/files, "P{start_page_number}-{end_page_number}.pdf"
+                    output_name = ""
+                    if split_mode == "single_page":
+                        page_num = page_list[0] + 1
+                        output_name = f"P{page_num:0{padding_length}d}.pdf"
+                    elif split_mode in ["fixed_pages", "fixed_files"]:
+                        start_page = page_list[0] + 1
+                        end_page = page_list[-1] + 1
+                        output_name = f"P{start_page:0{padding_length}d}-{end_page:0{padding_length}d}.pdf"
+                    elif split_mode == "custom_ranges":
+                        if i < len(range_groups):
+                            range_str = range_groups[i].replace(":", "S")
+                            output_name = f"P{range_str}.pdf"
+                        else:
+                            # Fallback naming, also needs padding for consistency if it's a fallback
                             start_page = page_list[0] + 1
                             end_page = page_list[-1] + 1
-                            output_name = f"P{start_page}-{end_page}.pdf"
-                        else:  # "single_page"
-                            # Name for single page split, "P{page_number}.pdf"
-                            page_num = page_list[0] + 1
-                            output_name = f"P{page_num}.pdf"
+                            output_name = f"P{start_page:0{padding_length}d}-{end_page:0{padding_length}d}.pdf"
 
-                        output_path = subfolder_path / output_name
-                        temp_doc.save(str(output_path), garbage=3, deflate=True)
+                    output_path = output_folder_obj / output_name
+                    temp_doc.save(str(output_path), garbage=3, deflate=True)
 
-                    progress_queue.put(("PROGRESS", i + 1))
+                progress_queue.put(("PROGRESS", i + 1))
 
         success_msg = ngettext(
-            "Split into {} PDF file.", "Split into {} PDF files.", total_files_to_create
+            "Split into {} PDF file.",
+            "Split into {} PDF files.",
+            total_files_to_create,
         ).format(total_files_to_create)
         result_queue.put(("SUCCESS", success_msg))
 

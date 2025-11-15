@@ -87,7 +87,7 @@ class DeletePagesApp(ttk.Frame, TaskRunnerMixin):
         if pdf_path_str:
             pdf_path = Path(pdf_path_str)
             file_name_without_ext = pdf_path.stem
-            output_folder_name = f"{file_name_without_ext}_{_('Deleted')}"
+            output_folder_name = f"{file_name_without_ext}_{_('Delete')}"
             output_dir = pdf_path.parent / output_folder_name
             self.output_folder_picker.set(str(output_dir))
         else:

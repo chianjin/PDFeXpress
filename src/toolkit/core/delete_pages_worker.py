@@ -40,16 +40,16 @@ def delete_pages_worker(
                 )
 
             pdf_path_obj = Path(pdf_path)
-            base_filename = pdf_path_obj.stem
             output_dir_obj = Path(output_dir)
 
-            subfolder_name = f"{base_filename}_{_('Deleted')}"
-            subfolder_path = output_dir_obj / subfolder_name
-            subfolder_path.mkdir(parents=True, exist_ok=True)
+            output_dir_obj.mkdir(parents=True, exist_ok=True)
 
             progress_queue.put(("INIT", len(delete_groups)))
 
             src_doc_bytes = get_pdf_bytes_cached(str(pdf_path))
+
+            # Get original range strings for naming
+            original_range_groups = [rg.strip() for rg in pages_to_delete_str.split(';') if rg.strip()]
 
             for i, pages_to_delete_list in enumerate(delete_groups):
                 if cancel_event.is_set():
@@ -71,31 +71,16 @@ def delete_pages_worker(
                 with pymupdf.open(stream=src_doc_bytes, filetype="pdf") as new_doc:
                     new_doc.select(pages_to_keep)
 
-                    delete_list = sorted(list(pages_to_delete_set))
-                    range_parts = []
-                    start_idx = 0
-                    while start_idx < len(delete_list):
-                        end_idx = start_idx
-                        while (
-                            end_idx < len(delete_list) - 1
-                            and delete_list[end_idx] + 1 == delete_list[end_idx + 1]
-                        ):
-                            end_idx += 1
+                    output_name = ""
+                    if i < len(original_range_groups):
+                        range_str = original_range_groups[i].replace(":", "S")
+                        output_name = f"D{range_str}.pdf"
+                    else:
+                        # Fallback if something goes wrong with range group parsing
+                        # This fallback is less specific, but better than crashing
+                        output_name = f"D_group_{i+1}.pdf"
 
-                        if start_idx == end_idx:
-                            range_parts.append(f"P{delete_list[start_idx] + 1}")
-                        else:
-                            range_parts.append(
-                                f"P{delete_list[start_idx] + 1}-{delete_list[end_idx] + 1}"
-                            )
-
-                        start_idx = end_idx + 1
-
-                    range_str = "_".join(range_parts)
-                    range_str = range_str.replace(",", "_").replace(":", "s")
-                    output_name = f"R{range_str}.pdf"
-
-                    output_file_path = subfolder_path / output_name
+                    output_file_path = output_dir_obj / output_name
                     new_doc.save(str(output_file_path), garbage=4, deflate=True)
 
                 progress_queue.put(("PROGRESS", i + 1))
