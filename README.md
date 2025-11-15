@@ -14,7 +14,7 @@
 
 ## Current Version
 
-The current version is 1.1.0, which has been tested on 64-bit Windows 11.
+The current version is 1.1.0, which has been tested on Windows 11 AMD64 and Ubuntu 25.10 x86_64.
 
 ## Main Functions
 
