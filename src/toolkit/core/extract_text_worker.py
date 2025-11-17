@@ -18,31 +18,31 @@ def extract_text_worker(
 ):
     try:
         total_steps = len(input_files)
-        progress_queue.put(("INIT", total_steps))
+        progress_queue.put(('INIT', total_steps))
 
         for i, file_path in enumerate(input_files):
             if cancel_event.is_set():
-                result_queue.put(("CANCEL", _("Cancelled by user.")))
+                result_queue.put(('CANCEL', _('Cancelled by user.')))
                 return
 
             with pymupdf.open(file_path) as doc:
-                text = ""
+                text = ''
                 for page in doc:
                     text += page.get_text(sort=sort_text)
 
                 pdf_path_obj = Path(file_path)
                 if save_in_same_folder:
-                    output_path = pdf_path_obj.parent / f"{pdf_path_obj.stem}.txt"
+                    output_path = pdf_path_obj.parent / f'{pdf_path_obj.stem}.txt'
                 else:
-                    output_path = Path(output_dir) / f"{pdf_path_obj.stem}.txt"
-                output_path.write_text(text, encoding="utf-8")
+                    output_path = Path(output_dir) / f'{pdf_path_obj.stem}.txt'
+                output_path.write_text(text, encoding='utf-8')
 
-            progress_queue.put(("PROGRESS", i + 1))
+            progress_queue.put(('PROGRESS', i + 1))
 
         success_msg = ngettext(
-            "Extracted text from {} file.", "Extracted text from {} files.", total_steps
+            'Extracted text from {} file.', 'Extracted text from {} files.', total_steps
         ).format(total_steps)
-        result_queue.put(("SUCCESS", success_msg))
+        result_queue.put(('SUCCESS', success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))
+        result_queue.put(('ERROR', _('Unexpected error occurred. {}').format(e)))

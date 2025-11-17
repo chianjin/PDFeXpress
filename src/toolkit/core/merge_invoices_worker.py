@@ -1,5 +1,3 @@
-from typing import List
-
 import pymupdf
 
 from toolkit.i18n import gettext_text as _
@@ -37,7 +35,7 @@ def _is_standard_invoice(doc: pymupdf.Document) -> bool:
 
 
 def merge_invoices_worker(
-    invoice_pdf_paths: List[str],
+    invoice_pdf_paths: list[str],
     output_pdf_path: str,
     cancel_event,
     progress_queue,
@@ -46,12 +44,12 @@ def merge_invoices_worker(
 ):
     try:
         if not invoice_pdf_paths:
-            raise ValueError(_("No invoice files provided."))
+            raise ValueError(_('No invoice files provided.'))
 
-        progress_queue.put(("INIT", len(invoice_pdf_paths)))
+        progress_queue.put(('INIT', len(invoice_pdf_paths)))
 
-        standard_invoice_paths: List[str] = []
-        other_invoice_paths: List[str] = []
+        standard_invoice_paths: list[str] = []
+        other_invoice_paths: list[str] = []
 
         for i, pdf_path in enumerate(invoice_pdf_paths):
             if cancel_event.is_set():
@@ -61,7 +59,7 @@ def merge_invoices_worker(
                     standard_invoice_paths.append(pdf_path)
                 else:
                     other_invoice_paths.append(pdf_path)
-            progress_queue.put(("PROGRESS", i + 1))
+            progress_queue.put(('PROGRESS', i + 1))
 
         with pymupdf.open() as final_doc:
             for i in range(0, len(standard_invoice_paths), 2):
@@ -104,7 +102,7 @@ def merge_invoices_worker(
             if cancel_event.is_set():
                 raise InterruptedError
 
-            progress_queue.put(("SAVING", _("Saving merged PDF...")))
+            progress_queue.put(('SAVING', _('Saving merged PDF...')))
             while not saving_ack_event.is_set():
                 if cancel_event.is_set():
                     raise InterruptedError
@@ -112,10 +110,10 @@ def merge_invoices_worker(
 
             final_doc.save(output_pdf_path, garbage=4, deflate=True)
 
-        success_msg = _("Merged {} invoices.").format(len(invoice_pdf_paths))
-        result_queue.put(("SUCCESS", success_msg))
+        success_msg = _('Merged {} invoices.').format(len(invoice_pdf_paths))
+        result_queue.put(('SUCCESS', success_msg))
 
     except InterruptedError:
-        result_queue.put(("CANCEL", _("Cancelled by user.")))
+        result_queue.put(('CANCEL', _('Cancelled by user.')))
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))
+        result_queue.put(('ERROR', _('Unexpected error occurred. {}').format(e)))

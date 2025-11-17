@@ -18,33 +18,33 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(1, weight=1)
 
-        self.title_frame = TitleFrame(self, text=_("Extract Images"))
-        self.title_frame.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
+        self.title_frame = TitleFrame(self, text=_('Extract Images'))
+        self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         self.file_list_view = FileListView(
-            self, title=_("PDF List"), file_types=FILE_TYPES_PDF, sortable=True
+            self, title=_('PDF List'), file_types=FILE_TYPES_PDF, sortable=True
         )
-        self.file_list_view.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 5))
+        self.file_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
-        self.output_folder_picker = FolderPicker(self, title=_("Output Folder"))
+        self.output_folder_picker = FolderPicker(self, title=_('Output Folder'))
         self.output_folder_picker.grid(
-            row=2, column=0, sticky="nsew", padx=10, pady=(0, 5)
+            row=2, column=0, sticky='nsew', padx=10, pady=(0, 5)
         )
 
-        self.option_frame = OptionFrame(self, text=_("Options"))
-        self.option_frame.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 5))
+        self.option_frame = OptionFrame(self, text=_('Options'))
+        self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
 
         self.save_in_same_folder_var = tk.BooleanVar(value=False)
         self.save_in_same_folder_checkbox = ttk.Checkbutton(
             self.option_frame,
-            text=_("Save in the same folder"),
+            text=_('Save in the same folder'),
             variable=self.save_in_same_folder_var,
             command=self._on_save_in_same_folder_changed,
         )
-        self.save_in_same_folder_checkbox.pack(side="left", padx=10, pady=5)
+        self.save_in_same_folder_checkbox.pack(side='left', padx=10, pady=5)
 
-        ttk.Label(self.option_frame, text=_("Min Width:")).pack(
-            side="left", padx=(10, 5), pady=5
+        ttk.Label(self.option_frame, text=_('Min Width:')).pack(
+            side='left', padx=(10, 5), pady=5
         )
         self.min_width_var = tk.IntVar(value=50)
         self.min_width_spinbox = ttk.Spinbox(
@@ -55,10 +55,10 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
             textvariable=self.min_width_var,
             width=5,
         )
-        self.min_width_spinbox.pack(side="left", padx=5, pady=5)
+        self.min_width_spinbox.pack(side='left', padx=5, pady=5)
 
-        ttk.Label(self.option_frame, text=_("Min Height:")).pack(
-            side="left", padx=(10, 5), pady=5
+        ttk.Label(self.option_frame, text=_('Min Height:')).pack(
+            side='left', padx=(10, 5), pady=5
         )
         self.min_height_var = tk.IntVar(value=50)
         self.min_height_spinbox = ttk.Spinbox(
@@ -69,26 +69,26 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
             textvariable=self.min_height_var,
             width=5,
         )
-        self.min_height_spinbox.pack(side="left", padx=5, pady=5)
+        self.min_height_spinbox.pack(side='left', padx=5, pady=5)
 
         self.extract_all_var = tk.BooleanVar(value=False)
         self.extract_all_checkbox = ttk.Checkbutton(
             self.option_frame,
-            text=_("Extract all images"),
+            text=_('Extract all images'),
             variable=self.extract_all_var,
             command=self._on_extract_all_changed,
         )
-        self.extract_all_checkbox.pack(side="left", padx=10, pady=5)
+        self.extract_all_checkbox.pack(side='left', padx=10, pady=5)
 
         bottom_frame = ttk.Frame(self)
-        bottom_frame.grid(row=4, column=0, sticky="ew", padx=10, pady=(0, 10))
+        bottom_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=(0, 10))
         bottom_frame.columnconfigure(0, weight=1)
 
-        self.status_label = ttk.Label(bottom_frame, text=_("Ready"), anchor="w")
-        self.status_label.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
+        self.status_label = ttk.Label(bottom_frame, text=_('Ready'), anchor='w')
+        self.status_label.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         self.start_button = ttk.Button(
-            bottom_frame, text=_("Extract"), command=self.run_task_from_ui
+            bottom_frame, text=_('Extract'), command=self.run_task_from_ui
         )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
@@ -97,17 +97,17 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
 
     def _on_extract_all_changed(self):
         if self.extract_all_var.get():
-            self.min_width_spinbox.config(state="disabled")
-            self.min_height_spinbox.config(state="disabled")
+            self.min_width_spinbox.config(state='disabled')
+            self.min_height_spinbox.config(state='disabled')
         else:
-            self.min_width_spinbox.config(state="normal")
-            self.min_height_spinbox.config(state="normal")
+            self.min_width_spinbox.config(state='normal')
+            self.min_height_spinbox.config(state='normal')
 
     def _on_save_in_same_folder_changed(self):
         if self.save_in_same_folder_var.get():
-            self.output_folder_picker.set_state("disabled")
+            self.output_folder_picker.set_state('disabled')
         else:
-            self.output_folder_picker.set_state("normal")
+            self.output_folder_picker.set_state('normal')
 
     def _get_root_window(self):
         return self.winfo_toplevel()
@@ -122,13 +122,13 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
 
         if not input_files:
             messagebox.showerror(
-                _("Invalid Input"), _("Please add at least one PDF file.")
+                _('Invalid Input'), _('Please add at least one PDF file.')
             )
             return None
 
         if not save_in_same_folder and not output_dir:
             messagebox.showerror(
-                _("Invalid Output"), _("Please specify an output folder.")
+                _('Invalid Output'), _('Please specify an output folder.')
             )
             return None
 
@@ -141,7 +141,7 @@ class ExtractImagesApp(ttk.Frame, TaskRunnerMixin):
             save_in_same_folder,
             extract_all,
         )
-        initial_label = _("Extracting images...")
+        initial_label = _('Extracting images...')
 
         return target_function, args_tuple, initial_label
 

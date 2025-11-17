@@ -1,13 +1,12 @@
 from toolkit.i18n import gettext_text as _
 
-
 PAGE_NUMBERING_FORMAT = {
-    "title" : _("Page Numbering Format Syntax Guide"),
-    "brief" : _(
+    'title': _('Page Numbering Format Syntax Guide'),
+    'brief': _(
         'Default: Continuous numbering starting at 1. Click "Help" button for more detail.'
     ),
-    "content": _(
-"""        Page Numbering Format Syntax Guide
+    'content': _(
+        """        Page Numbering Format Syntax Guide
 
 1. Structure
    - Use semicolon (;) to separate different page range segments. 
@@ -46,14 +45,14 @@ PAGE_NUMBERING_FORMAT = {
      Pages 5-6 use lowercase Roman starting at i. 
      Pages 7-30 use Arabic numbers starting at 1.
 """
-    )
+    ),
 }
 
 PAGE_RANGE_SELECTION = {
-    "title" : _("Page Range Selection Syntax Guide"),
-    "brief" : _('Example: 3,7-9,12;:2. Click "Help" button for more description.'),
-    "content": _(
-"""        Page Range Selection Syntax Guide
+    'title': _('Page Range Selection Syntax Guide'),
+    'brief': _('Example: 3,7-9,12;:2. Click "Help" button for more description.'),
+    'content': _(
+        """        Page Range Selection Syntax Guide
 
 1. Basic Selection and Range Definition
    - Comma Separation (,): Separates individual page numbers or ranges. 
@@ -90,5 +89,5 @@ PAGE_RANGE_SELECTION = {
    - Page Start: All page numbers start counting from 1.
    - Reverse Error: Using a reverse range (e.g., 9-5) in the default mode will result in an error.
 """
-    )
+    ),
 }

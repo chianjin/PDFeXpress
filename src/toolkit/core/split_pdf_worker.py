@@ -1,6 +1,6 @@
-from pathlib import Path
-from typing import Any, List
 from functools import lru_cache
+from pathlib import Path
+from typing import Any
 
 import pymupdf
 
@@ -11,18 +11,18 @@ from toolkit.util.page_range_parser import parse_page_ranges
 
 def _get_page_chunks(
     total_pages: int, split_mode: str, split_value: Any
-) -> List[List[int]]:
-    if split_mode == "single_page":
+) -> list[list[int]]:
+    if split_mode == 'single_page':
         return [[i] for i in range(total_pages)]
 
-    elif split_mode == "fixed_pages":
+    elif split_mode == 'fixed_pages':
         try:
             num = int(split_value)
             if num <= 0:
-                raise ValueError(_("Value must be greater than 0"))
+                raise ValueError(_('Value must be greater than 0'))
         except Exception:
             raise ValueError(
-                _("Invalid pages per file value: {split_value}").format(
+                _('Invalid pages per file value: {split_value}').format(
                     split_value=split_value
                 )
             )
@@ -32,23 +32,22 @@ def _get_page_chunks(
             for i in range(0, total_pages, num)
         ]
 
-    elif split_mode == "fixed_files":
+    elif split_mode == 'fixed_files':
         try:
             num_files = int(split_value)
             if num_files <= 0:
-                raise ValueError(_("Value must be greater than 0"))
+                raise ValueError(_('Value must be greater than 0'))
 
-            if num_files > total_pages:
-                num_files = total_pages
+            num_files = min(num_files, total_pages)
         except Exception:
             raise ValueError(
-                _("Invalid number of files value: {split_value}").format(
+                _('Invalid number of files value: {split_value}').format(
                     split_value=split_value
                 )
             )
 
         base_pages, remainder = divmod(total_pages, num_files)
-        chunks: List[List[int]] = []
+        chunks: list[list[int]] = []
         current_page = 0
         for i in range(num_files):
             pages_in_this_chunk = base_pages + (1 if i < remainder else 0)
@@ -57,12 +56,12 @@ def _get_page_chunks(
             current_page = end
         return chunks
 
-    elif split_mode == "custom_ranges":
+    elif split_mode == 'custom_ranges':
         return parse_page_ranges(str(split_value), total_pages, allow_duplicates=True)
 
     else:
         raise ValueError(
-            _("Unknown split mode: {split_mode}").format(split_mode=split_mode)
+            _('Unknown split mode: {split_mode}').format(split_mode=split_mode)
         )
 
 
@@ -90,11 +89,11 @@ def split_pdf_worker(
         with pymupdf.open(pdf_path_obj) as src_doc:
             total_pages = len(src_doc)
             if total_pages == 0:
-                raise ValueError(_("PDF file is empty, no pages to split."))
+                raise ValueError(_('PDF file is empty, no pages to split.'))
 
             page_chunks = _get_page_chunks(total_pages, split_mode, split_value)
             total_files_to_create = len(page_chunks)
-            progress_queue.put(("INIT", total_files_to_create))
+            progress_queue.put(('INIT', total_files_to_create))
 
             output_folder_obj.mkdir(parents=True, exist_ok=True)
 
@@ -104,50 +103,50 @@ def split_pdf_worker(
                 padding_length = 1
 
             range_groups = []
-            if split_mode == "custom_ranges":
+            if split_mode == 'custom_ranges':
                 range_groups = [
-                    rg.strip() for rg in split_value.split(";") if rg.strip()
+                    rg.strip() for rg in split_value.split(';') if rg.strip()
                 ]
 
             for i, page_list in enumerate(page_chunks):
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Cancelled by user.")))
+                    result_queue.put(('CANCEL', _('Cancelled by user.')))
                     return
 
                 with pymupdf.open(
-                    stream=get_pdf_bytes_cached(str(pdf_path_obj)), filetype="pdf"
+                    stream=get_pdf_bytes_cached(str(pdf_path_obj)), filetype='pdf'
                 ) as temp_doc:
                     temp_doc.select(page_list)
 
-                    output_name = ""
-                    if split_mode == "single_page":
+                    output_name = ''
+                    if split_mode == 'single_page':
                         page_num = page_list[0] + 1
-                        output_name = f"P{page_num:0{padding_length}d}.pdf"
-                    elif split_mode in ["fixed_pages", "fixed_files"]:
+                        output_name = f'P{page_num:0{padding_length}d}.pdf'
+                    elif split_mode in ['fixed_pages', 'fixed_files']:
                         start_page = page_list[0] + 1
                         end_page = page_list[-1] + 1
-                        output_name = f"P{start_page:0{padding_length}d}-{end_page:0{padding_length}d}.pdf"
-                    elif split_mode == "custom_ranges":
+                        output_name = f'P{start_page:0{padding_length}d}-{end_page:0{padding_length}d}.pdf'
+                    elif split_mode == 'custom_ranges':
                         if i < len(range_groups):
-                            range_str = range_groups[i].replace(":", "S")
-                            output_name = f"P{range_str}.pdf"
+                            range_str = range_groups[i].replace(':', 'S')
+                            output_name = f'P{range_str}.pdf'
                         else:
                             # Fallback naming, also needs padding for consistency if it's a fallback
                             start_page = page_list[0] + 1
                             end_page = page_list[-1] + 1
-                            output_name = f"P{start_page:0{padding_length}d}-{end_page:0{padding_length}d}.pdf"
+                            output_name = f'P{start_page:0{padding_length}d}-{end_page:0{padding_length}d}.pdf'
 
                     output_path = output_folder_obj / output_name
                     temp_doc.save(str(output_path), garbage=3, deflate=True)
 
-                progress_queue.put(("PROGRESS", i + 1))
+                progress_queue.put(('PROGRESS', i + 1))
 
         success_msg = ngettext(
-            "Split into {} PDF file.",
-            "Split into {} PDF files.",
+            'Split into {} PDF file.',
+            'Split into {} PDF files.',
             total_files_to_create,
         ).format(total_files_to_create)
-        result_queue.put(("SUCCESS", success_msg))
+        result_queue.put(('SUCCESS', success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))
+        result_queue.put(('ERROR', _('Unexpected error occurred. {}').format(e)))

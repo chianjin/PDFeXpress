@@ -1,10 +1,11 @@
 """Worker module to delete pages from PDF files."""
 
-from pathlib import Path
 from functools import lru_cache
+from pathlib import Path
 from typing import Any
 
 import pymupdf
+
 from toolkit.i18n import gettext_text as _
 from toolkit.i18n import ngettext
 from toolkit.util.page_range_parser import parse_page_ranges
@@ -21,12 +22,12 @@ def delete_pages_worker(
 ) -> None:
     try:
         if not pages_to_delete_str:
-            raise ValueError(_("No pages specified to delete."))
+            raise ValueError(_('No pages specified to delete.'))
 
         with pymupdf.open(pdf_path) as doc:
             total_pages_doc = len(doc)
             if total_pages_doc == 0:
-                raise ValueError(_("PDF file has no pages."))
+                raise ValueError(_('PDF file has no pages.'))
 
             delete_groups = parse_page_ranges(
                 pages_to_delete_str, total_pages_doc, allow_duplicates=False
@@ -44,16 +45,18 @@ def delete_pages_worker(
 
             output_dir_obj.mkdir(parents=True, exist_ok=True)
 
-            progress_queue.put(("INIT", len(delete_groups)))
+            progress_queue.put(('INIT', len(delete_groups)))
 
             src_doc_bytes = get_pdf_bytes_cached(str(pdf_path))
 
             # Get original range strings for naming
-            original_range_groups = [rg.strip() for rg in pages_to_delete_str.split(';') if rg.strip()]
+            original_range_groups = [
+                rg.strip() for rg in pages_to_delete_str.split(';') if rg.strip()
+            ]
 
             for i, pages_to_delete_list in enumerate(delete_groups):
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Cancelled by user.")))
+                    result_queue.put(('CANCEL', _('Cancelled by user.')))
                     return
 
                 pages_to_delete_set = set(pages_to_delete_list)
@@ -64,36 +67,36 @@ def delete_pages_worker(
                 if not pages_to_keep:
                     raise ValueError(
                         _(
-                            "Will delete all pages from {pdf_path_name} in group {group_num}."
+                            'Will delete all pages from {pdf_path_name} in group {group_num}.'
                         ).format(pdf_path_name=pdf_path_obj.name, group_num=i + 1)
                     )
 
-                with pymupdf.open(stream=src_doc_bytes, filetype="pdf") as new_doc:
+                with pymupdf.open(stream=src_doc_bytes, filetype='pdf') as new_doc:
                     new_doc.select(pages_to_keep)
 
-                    output_name = ""
+                    output_name = ''
                     if i < len(original_range_groups):
-                        range_str = original_range_groups[i].replace(":", "S")
-                        output_name = f"D{range_str}.pdf"
+                        range_str = original_range_groups[i].replace(':', 'S')
+                        output_name = f'D{range_str}.pdf'
                     else:
                         # Fallback if something goes wrong with range group parsing
                         # This fallback is less specific, but better than crashing
-                        output_name = f"D_group_{i+1}.pdf"
+                        output_name = f'D_group_{i + 1}.pdf'
 
                     output_file_path = output_dir_obj / output_name
                     new_doc.save(str(output_file_path), garbage=4, deflate=True)
 
-                progress_queue.put(("PROGRESS", i + 1))
+                progress_queue.put(('PROGRESS', i + 1))
 
             success_msg = ngettext(
-                "Deleted pages in {} PDF file.",
-                "Deleted pages in {} PDF files.",
+                'Deleted pages in {} PDF file.',
+                'Deleted pages in {} PDF files.',
                 len(delete_groups),
             ).format(len(delete_groups))
-            result_queue.put(("SUCCESS", success_msg))
+            result_queue.put(('SUCCESS', success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))
+        result_queue.put(('ERROR', _('Unexpected error occurred. {}').format(e)))
 
 
 @lru_cache(maxsize=10)

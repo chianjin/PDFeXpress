@@ -10,7 +10,7 @@ def generate_extension_set(*file_types_args, with_star=False):
             else:
                 extensions.extend(extension)
         if not with_star:
-            extensions = [ext.replace("*", "") for ext in extensions]
+            extensions = [ext.replace('*', '') for ext in extensions]
     return set(extensions)
 
 

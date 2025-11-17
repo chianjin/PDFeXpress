@@ -1,15 +1,15 @@
 """Worker module to extract images from PDF files."""
 
 from pathlib import Path
-from typing import Any, List
-
+from typing import Any
 
 import pymupdf
+
 from toolkit.i18n import gettext_text as _
 
 
 def extract_images_worker(
-    input_files: List[str],
+    input_files: list[str],
     output_dir: str,
     min_width: int,
     min_height: int,
@@ -30,11 +30,11 @@ def extract_images_worker(
                     len(page.get_images(full=True)) for page in doc
                 )
 
-        progress_queue.put(("INIT", total_images_found))
+        progress_queue.put(('INIT', total_images_found))
 
         for file_path in input_files:
             if cancel_event.is_set():
-                result_queue.put(("CANCEL", _("Cancelled by user.")))
+                result_queue.put(('CANCEL', _('Cancelled by user.')))
                 return
 
             pdf_path_obj = Path(file_path)
@@ -57,22 +57,22 @@ def extract_images_worker(
                             if not img_dict:
                                 continue
 
-                            img_bytes = img_dict["image"]
-                            img_ext = img_dict["ext"]
+                            img_bytes = img_dict['image']
+                            img_ext = img_dict['ext']
 
                             img_filename = (
-                                f"{pdf_path_obj.stem}_p{page_num + 1}_{xref}.{img_ext}"
+                                f'{pdf_path_obj.stem}_p{page_num + 1}_{xref}.{img_ext}'
                             )
                             img_path = output_subfolder / img_filename
                             img_path.write_bytes(img_bytes)
                             images_extracted_count += 1
 
-                        progress_queue.put(("PROGRESS", images_extracted_count))
+                        progress_queue.put(('PROGRESS', images_extracted_count))
 
-        success_msg = _("Found {} images, extracted {} images.").format(
+        success_msg = _('Found {} images, extracted {} images.').format(
             total_images_found, images_extracted_count
         )
-        result_queue.put(("SUCCESS", success_msg))
+        result_queue.put(('SUCCESS', success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))
+        result_queue.put(('ERROR', _('Unexpected error occurred. {}').format(e)))

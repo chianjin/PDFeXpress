@@ -2,8 +2,9 @@
 
 import multiprocessing
 import queue
+from collections.abc import Callable
 from tkinter import messagebox
-from typing import Any, Optional, Tuple, Callable
+from typing import Any
 
 from toolkit.i18n import gettext_text as _
 from toolkit.ui.framework.progress_dialog import ProgressDialog
@@ -17,9 +18,9 @@ class TaskRunnerMixin:
 
     def __init__(
         self,
-        status_callback: Optional[Callable[[str], None]] = None,
+        status_callback: Callable[[str], None] | None = None,
         *args: Any,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         self.progress_dialog = None
         self.worker_process = None
@@ -33,7 +34,7 @@ class TaskRunnerMixin:
         """[Contract] Subclasses must implement this to return the top-level tk.Tk() window."""
         raise NotImplementedError
 
-    def _prepare_task(self) -> Optional[Tuple[Any, Tuple, str]]:
+    def _prepare_task(self) -> tuple[Any, tuple, str] | None:
         """
         [Contract] Subclasses must implement this to validate inputs.
         On success: return (target_function, args_tuple, initial_label)
@@ -51,7 +52,7 @@ class TaskRunnerMixin:
             task_data = self._prepare_task()
         except Exception as e:
             messagebox.showerror(
-                _("Internal Error"), _("Failed to prepare task:\n{}").format(e)
+                _('Internal Error'), _('Failed to prepare task:\n{}').format(e)
             )
             return
 
@@ -61,13 +62,13 @@ class TaskRunnerMixin:
         try:
             target_function, args_tuple, initial_label = task_data
         except (ValueError, TypeError):
-            messagebox.showerror(_("Internal Error"), _("Invalid data provided."))
+            messagebox.showerror(_('Internal Error'), _('Invalid data provided.'))
             return
 
         self._execute_task(target_function, args_tuple, initial_label)
 
     def _execute_task(
-        self, target_function: Callable, args_tuple: Tuple, initial_label: str
+        self, target_function: Callable, args_tuple: tuple, initial_label: str
     ) -> None:
         self.cancel_event = multiprocessing.Event()
         self.progress_queue = multiprocessing.Queue()
@@ -78,7 +79,7 @@ class TaskRunnerMixin:
 
         self.progress_dialog = ProgressDialog(
             self._get_root_window(),
-            _("Processing..."),
+            _('Processing...'),
             initial_label,
             self.request_cancel,
         )
@@ -105,25 +106,25 @@ class TaskRunnerMixin:
 
             if self.progress_dialog:
                 self.progress_dialog.progressbar.stop()
-                if result_type == "SUCCESS":
+                if result_type == 'SUCCESS':
                     self.progress_dialog.progressbar.config(
-                        mode="determinate",
-                        maximum=self.progress_dialog.progressbar["maximum"],
-                        value=self.progress_dialog.progressbar["maximum"],
+                        mode='determinate',
+                        maximum=self.progress_dialog.progressbar['maximum'],
+                        value=self.progress_dialog.progressbar['maximum'],
                     )
 
-            if result_type == "SUCCESS":
-                messagebox.showinfo(_("Complete"), message)
+            if result_type == 'SUCCESS':
+                messagebox.showinfo(_('Complete'), message)
                 if self.status_callback:
-                    self.status_callback(_("Complete: ") + message)
-            elif result_type == "CANCEL":
-                messagebox.showwarning(_("Cancelled"), message)
+                    self.status_callback(_('Complete: ') + message)
+            elif result_type == 'CANCEL':
+                messagebox.showwarning(_('Cancelled'), message)
                 if self.status_callback:
-                    self.status_callback(_("Cancelled: ") + message)
-            elif result_type == "ERROR":
-                messagebox.showerror(_("Error"), message)
+                    self.status_callback(_('Cancelled: ') + message)
+            elif result_type == 'ERROR':
+                messagebox.showerror(_('Error'), message)
                 if self.status_callback:
-                    self.status_callback(_("Error: ") + message)
+                    self.status_callback(_('Error: ') + message)
 
             self.cleanup()
             return
@@ -136,19 +137,19 @@ class TaskRunnerMixin:
             if not self.progress_dialog:
                 pass
             elif isinstance(msg, tuple):
-                if msg[0] == "INIT":
-                    self.progress_dialog.label.config(text=_("Processing..."))
+                if msg[0] == 'INIT':
+                    self.progress_dialog.label.config(text=_('Processing...'))
                     self.progress_dialog.progressbar.stop()
                     self.progress_dialog.progressbar.config(
-                        mode="determinate", maximum=msg[1], value=0
+                        mode='determinate', maximum=msg[1], value=0
                     )
                     if self.status_callback:
-                        self.status_callback(_("Processing..."))
-                elif msg[0] == "PROGRESS":
-                    self.progress_dialog.progressbar["value"] = msg[1]
-                elif msg[0] == "SAVING":
+                        self.status_callback(_('Processing...'))
+                elif msg[0] == 'PROGRESS':
+                    self.progress_dialog.progressbar['value'] = msg[1]
+                elif msg[0] == 'SAVING':
                     self.progress_dialog.progressbar.stop()
-                    self.progress_dialog.progressbar.config(mode="indeterminate")
+                    self.progress_dialog.progressbar.config(mode='indeterminate')
                     self.progress_dialog.progressbar.start()
                     self.progress_dialog.label.config(text=msg[1])
                     if self.status_callback:

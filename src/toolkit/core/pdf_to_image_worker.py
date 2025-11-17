@@ -1,15 +1,16 @@
 """Worker module to convert PDF pages to images."""
 
 from pathlib import Path
-from typing import Any, List
+from typing import Any
 
 import pymupdf
+
 from toolkit.i18n import gettext_text as _
 from toolkit.i18n import ngettext
 
 
 def pdf_to_image_worker(
-    input_files: List[str],
+    input_files: list[str],
     output_dir: str,
     dpi_value: float,
     image_format: str,
@@ -26,12 +27,12 @@ def pdf_to_image_worker(
         for file_path in input_files:
             with pymupdf.open(file_path) as doc:
                 total_steps += doc.page_count
-        progress_queue.put(("INIT", total_steps))
+        progress_queue.put(('INIT', total_steps))
 
         current_step = 0
         for file_path in input_files:
             if cancel_event.is_set():
-                result_queue.put(("CANCEL", _("Cancelled by user.")))
+                result_queue.put(('CANCEL', _('Cancelled by user.')))
                 return
 
             pdf_path_obj = Path(file_path)
@@ -53,7 +54,7 @@ def pdf_to_image_worker(
 
                 for i in range(doc.page_count):
                     if cancel_event.is_set():
-                        result_queue.put(("CANCEL", _("Cancelled by user.")))
+                        result_queue.put(('CANCEL', _('Cancelled by user.')))
                         return
 
                     page = doc.load_page(i)
@@ -61,21 +62,21 @@ def pdf_to_image_worker(
 
                     # Zero-pad the page number
                     page_num_str = str(i + 1).zfill(num_digits)
-                    new_filename = f"{pdf_name_only}_page_{page_num_str}.{image_format}"
+                    new_filename = f'{pdf_name_only}_page_{page_num_str}.{image_format}'
                     output_filename = sub_output_dir / new_filename
 
-                    if image_format == "jpg":
+                    if image_format == 'jpg':
                         pix.save(str(output_filename), jpg_quality=jpeg_quality)
                     else:
                         pix.save(str(output_filename))
 
                     current_step += 1
-                    progress_queue.put(("PROGRESS", current_step))
+                    progress_queue.put(('PROGRESS', current_step))
 
         success_msg = ngettext(
-            "Converted {} page to image.", "Converted {} pages to images.", total_steps
+            'Converted {} page to image.', 'Converted {} pages to images.', total_steps
         ).format(total_steps)
-        result_queue.put(("SUCCESS", success_msg))
+        result_queue.put(('SUCCESS', success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))
+        result_queue.put(('ERROR', _('Unexpected error occurred. {}').format(e)))

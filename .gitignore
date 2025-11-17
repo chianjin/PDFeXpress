@@ -140,3 +140,4 @@ example
 /test_standalone
 /resource
 test
+/.ruff_cache

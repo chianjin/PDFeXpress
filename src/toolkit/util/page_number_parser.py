@@ -1,11 +1,16 @@
-from collections import namedtuple
 import re
+from collections import namedtuple
 
-PageSegment = namedtuple('PageSegment', ['pdf_start', 'pdf_end', 'disp_type', 'disp_start'])
+PageSegment = namedtuple(
+    'PageSegment', ['pdf_start', 'pdf_end', 'disp_type', 'disp_start']
+)
+
 
 def parse_page_format(format_str: str, total_pages: int) -> list[PageSegment]:
     if not format_str:
-        return [PageSegment(pdf_start=1, pdf_end=total_pages, disp_type='n', disp_start=1)]
+        return [
+            PageSegment(pdf_start=1, pdf_end=total_pages, disp_type='n', disp_start=1)
+        ]
 
     segments = []
     last_pdf_end = 0
@@ -32,7 +37,7 @@ def parse_page_format(format_str: str, total_pages: int) -> list[PageSegment]:
             else:
                 match = re.match(r'^(\d*)-(\d*)$', range_str)
                 if not match:
-                    raise ValueError(f"Invalid range: {range_str}")
+                    raise ValueError(f'Invalid range: {range_str}')
                 start_str, end_str = match.groups()
                 if start_str:
                     pdf_start = int(start_str)
@@ -40,7 +45,7 @@ def parse_page_format(format_str: str, total_pages: int) -> list[PageSegment]:
                     pdf_end = int(end_str)
 
         if pdf_start > pdf_end or pdf_end > total_pages or pdf_start <= last_pdf_end:
-            raise ValueError(f"Invalid or overlapping range: {pdf_start}-{pdf_end}")
+            raise ValueError(f'Invalid or overlapping range: {pdf_start}-{pdf_end}')
 
         # Parse display format
         disp_type = 'n'
@@ -53,9 +58,16 @@ def parse_page_format(format_str: str, total_pages: int) -> list[PageSegment]:
                 try:
                     disp_start = int(disp_str)
                 except ValueError:
-                    raise ValueError(f"Invalid start: {disp_str}")
+                    raise ValueError(f'Invalid start: {disp_str}')
 
-        segments.append(PageSegment(pdf_start=pdf_start, pdf_end=pdf_end, disp_type=disp_type, disp_start=disp_start))
+        segments.append(
+            PageSegment(
+                pdf_start=pdf_start,
+                pdf_end=pdf_end,
+                disp_type=disp_type,
+                disp_start=disp_start,
+            )
+        )
 
         # Update last
         page_count = pdf_end - pdf_start + 1

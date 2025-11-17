@@ -20,35 +20,35 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(1, weight=1)
 
-        self.title_frame = TitleFrame(self, text=_("Merge PDF"))
-        self.title_frame.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
+        self.title_frame = TitleFrame(self, text=_('Merge PDF'))
+        self.title_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         self.file_list_view = FileListView(
             self,
-            title=_("PDF List"),
+            title=_('PDF List'),
             file_types=FILE_TYPES_PDF,
             sortable=True,
             on_change_callback=self._on_file_list_changed,
         )
-        self.file_list_view.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 5))
+        self.file_list_view.grid(row=1, column=0, sticky='nsew', padx=10, pady=(0, 5))
 
         self.output_file_picker = FilePicker(
             self,
-            title=_("Output PDF"),
-            mode="save",
+            title=_('Output PDF'),
+            mode='save',
             file_types=FILE_TYPES_PDF,
         )
         self.output_file_picker.grid(
-            row=2, column=0, sticky="nsew", padx=10, pady=(0, 5)
+            row=2, column=0, sticky='nsew', padx=10, pady=(0, 5)
         )
 
-        self.option_frame = OptionFrame(self, text=_("Options"))
-        self.option_frame.grid(row=3, column=0, sticky="ew", padx=10, pady=(0, 5))
+        self.option_frame = OptionFrame(self, text=_('Options'))
+        self.option_frame.grid(row=3, column=0, sticky='ew', padx=10, pady=(0, 5))
 
         self.create_bookmarks_var = tk.BooleanVar(value=False)
         self.create_bookmarks_checkbox = ttk.Checkbutton(
             self.option_frame,
-            text=_("Generate Bookmark"),
+            text=_('Generate Bookmark'),
             variable=self.create_bookmarks_var,
         )
         self.create_bookmarks_checkbox.pack(side='left', padx=10, pady=5)
@@ -56,24 +56,24 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         self.duplex_printing_var = tk.BooleanVar(value=False)
         self.duplex_printing_checkbox = ttk.Checkbutton(
             self.option_frame,
-            text=_("Support Duplex Printing (Ensure even number of pages)"),
+            text=_('Support Duplex Printing (Ensure even number of pages)'),
             variable=self.duplex_printing_var,
         )
         self.duplex_printing_checkbox.pack(side='left', padx=10, pady=5)
 
         bottom_frame = ttk.Frame(self)
-        bottom_frame.grid(row=4, column=0, sticky="ew", padx=10, pady=(0, 10))
+        bottom_frame.grid(row=4, column=0, sticky='ew', padx=10, pady=(0, 10))
         bottom_frame.columnconfigure(0, weight=1)
 
         self.status_label = ttk.Label(
             bottom_frame,
-            text=_("Ready"),
-            anchor="w",
+            text=_('Ready'),
+            anchor='w',
         )
-        self.status_label.grid(row=0, column=0, sticky="ew", padx=10, pady=5)
+        self.status_label.grid(row=0, column=0, sticky='ew', padx=10, pady=5)
 
         self.start_button = ttk.Button(
-            bottom_frame, text=_("Merge"), command=self.run_task_from_ui
+            bottom_frame, text=_('Merge'), command=self.run_task_from_ui
         )
         self.start_button.grid(row=0, column=1, padx=10, pady=5)
 
@@ -83,7 +83,7 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
             first_file_path = files[0]
             containing_folder = first_file_path.parent
             output_dir = containing_folder.parent
-            new_filename = (output_dir / containing_folder.name).with_suffix(".pdf")
+            new_filename = (output_dir / containing_folder.name).with_suffix('.pdf')
             self.output_file_picker.set(str(new_filename))
         else:
             self.output_file_picker.clear()
@@ -99,20 +99,20 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
 
         if len(input_files) < 2:
             messagebox.showerror(
-                _("Invalid Input"), _("Please add at least two PDF files.")
+                _('Invalid Input'), _('Please add at least two PDF files.')
             )
             return None
 
         if not output_pdf_path:
             messagebox.showerror(
-                _("Invalid Output"), _("Please specify an output PDF.")
+                _('Invalid Output'), _('Please specify an output PDF.')
             )
             return None
 
         # Pass create bookmark and duplex printing options as parameters to the worker function
         target_function = merge_pdf_worker
         args_tuple = (input_files, output_pdf_path, create_bookmarks, duplex_printing)
-        initial_label = _("Merging PDF...")
+        initial_label = _('Merging PDF...')
 
         return target_function, args_tuple, initial_label
 
@@ -120,11 +120,11 @@ class MergePDFApp(ttk.Frame, TaskRunnerMixin):
         self.status_label.config(text=message)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     import tkinterdnd2
 
     root = tkinterdnd2.Tk()
-    root.geometry("1024x600")
+    root.geometry('1024x600')
     app = MergePDFApp(root)
-    app.pack(fill="both", expand=True)
+    app.pack(fill='both', expand=True)
     root.mainloop()

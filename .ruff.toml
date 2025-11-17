@@ -1,0 +1,38 @@
+# .ruff.toml
+
+target-version = "py313"
+include = [
+    "build.py",
+    "pyproject.toml",
+    "src/**/*.py",
+    "src/**/*.pyi",
+]
+
+[lint]
+select = [
+    "E", # pycodestyle Error
+    "W", # pycodestyle Warning
+    "F", # Pyflakes
+    "I", # isort
+    "B", # bugbear
+    "UP", # pyupgrade
+    "TID", # flake8-tidy-imports
+    "PL", # pylint
+]
+
+ignore = [
+    "PLW2901", # `for` loop variable overwritten by assignment target
+    "B008", # Do not use mutable default arguments
+]
+
+exclude = [
+    ".git",
+    "__pycache__",
+    "src/data",
+    "src/locale",
+    "src/toolkit/util/help_contents.py"
+]
+
+
+[format]
+quote-style = "single"

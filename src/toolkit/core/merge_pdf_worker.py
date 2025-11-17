@@ -1,13 +1,14 @@
 """Worker module to merge multiple PDF files into one."""
 
 from pathlib import Path
-from typing import Any, List
+from typing import Any
 
 import pymupdf
+
 from toolkit.i18n import gettext_text as _
 from toolkit.i18n import ngettext
 
-translation_table = str.maketrans("-_.,", "    ")
+translation_table = str.maketrans('-_.,', '    ')
 
 
 def replace_special_chars(text: str) -> str:
@@ -16,7 +17,7 @@ def replace_special_chars(text: str) -> str:
 
 
 def merge_pdf_worker(
-    input_files: List[str],
+    input_files: list[str],
     output_file: str,
     create_bookmarks: bool,
     duplex_printing: bool,
@@ -27,7 +28,7 @@ def merge_pdf_worker(
 ) -> None:
     try:
         total_steps = len(input_files)
-        progress_queue.put(("INIT", total_steps))
+        progress_queue.put(('INIT', total_steps))
 
         with pymupdf.open() as output_doc:
             toc = []
@@ -35,7 +36,7 @@ def merge_pdf_worker(
 
             for i, file_path in enumerate(input_files):
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Cancelled by user.")))
+                    result_queue.put(('CANCEL', _('Cancelled by user.')))
                     return
                 with pymupdf.open(file_path) as input_doc:
                     if create_bookmarks:
@@ -53,26 +54,26 @@ def merge_pdf_worker(
                         # If the current document has odd number of pages, add a blank page
                         output_doc.new_page()
                         current_page += 1
-                progress_queue.put(("PROGRESS", i + 1))
+                progress_queue.put(('PROGRESS', i + 1))
 
             if create_bookmarks and toc:
                 output_doc.set_toc(toc)
 
-            progress_queue.put(("SAVING", _("Saving merged PDF...")))
+            progress_queue.put(('SAVING', _('Saving merged PDF...')))
             # Wait for the UI thread to acknowledge the SAVING message,
             # checking for cancellation periodically.
             while not saving_ack_event.is_set():
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Cancelled by user.")))
+                    result_queue.put(('CANCEL', _('Cancelled by user.')))
                     return
                 # Wait briefly before re-checking the cancel event.
                 saving_ack_event.wait(timeout=0.1)
             output_doc.save(output_file, garbage=4, deflate=True)
 
         success_msg = ngettext(
-            "Merged {} PDF file.", "Merged {} PDF files.", total_steps
+            'Merged {} PDF file.', 'Merged {} PDF files.', total_steps
         ).format(total_steps)
-        result_queue.put(("SUCCESS", success_msg))
+        result_queue.put(('SUCCESS', success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))
+        result_queue.put(('ERROR', _('Unexpected error occurred. {}').format(e)))

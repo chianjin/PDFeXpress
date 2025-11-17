@@ -14,23 +14,25 @@ def interleave_pdf_worker(
     saving_ack_event,
 ):
     try:
-        with pymupdf.open(pdf_path_a) as doc_a, pymupdf.open(
-            pdf_path_b
-        ) as doc_b, pymupdf.open() as new_doc:
+        with (
+            pymupdf.open(pdf_path_a) as doc_a,
+            pymupdf.open(pdf_path_b) as doc_b,
+            pymupdf.open() as new_doc,
+        ):
             len_a = len(doc_a)
             len_b = len(doc_b)
             total_pages_to_insert = len_a + len_b
-            progress_queue.put(("INIT", total_pages_to_insert))
+            progress_queue.put(('INIT', total_pages_to_insert))
 
             if total_pages_to_insert == 0:
-                raise ValueError(_("Input files are empty, no pages to merge."))
+                raise ValueError(_('Input files are empty, no pages to merge.'))
 
             max_len = max(len_a, len_b)
             pages_processed = 0
 
             for i in range(max_len):
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Cancelled by user.")))
+                    result_queue.put(('CANCEL', _('Cancelled by user.')))
                     return
 
                 if i < len_a:
@@ -44,19 +46,19 @@ def interleave_pdf_worker(
                     )
                     pages_processed += 1
 
-                progress_queue.put(("PROGRESS", pages_processed))
+                progress_queue.put(('PROGRESS', pages_processed))
 
-            progress_queue.put(("SAVING", _("Saving PDF...")))
+            progress_queue.put(('SAVING', _('Saving PDF...')))
             while not saving_ack_event.is_set():
                 if cancel_event.is_set():
-                    result_queue.put(("CANCEL", _("Cancelled by user.")))
+                    result_queue.put(('CANCEL', _('Cancelled by user.')))
                     return
                 saving_ack_event.wait(timeout=0.1)
 
             new_doc.save(output_pdf_path, garbage=4, deflate=True)
 
-        success_msg = _("PDF interleaved.")
-        result_queue.put(("SUCCESS", success_msg))
+        success_msg = _('PDF interleaved.')
+        result_queue.put(('SUCCESS', success_msg))
 
     except Exception as e:
-        result_queue.put(("ERROR", _("Unexpected error occurred. {}").format(e)))
+        result_queue.put(('ERROR', _('Unexpected error occurred. {}').format(e)))
