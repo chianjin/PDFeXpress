@@ -25,7 +25,7 @@ from toolkit.ui.widget.url import URLLabel
 class MainFrame(ttk.Frame):
     def __init__(self, parent, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
-        self.pack(fill=tk.BOTH, expand=True)
+        self.pack(fill='both', expand=True)
 
         self.columnconfigure(1, weight=1)
         self.rowconfigure(0, weight=1)
@@ -35,7 +35,7 @@ class MainFrame(ttk.Frame):
         self.nav_frame.columnconfigure(0, weight=1)
 
         about_frame = ttk.Frame(self.nav_frame)
-        about_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=5, padx=5)
+        about_frame.pack(side='bottom', fill='x', pady=5, padx=5)
         about_frame.columnconfigure(0, weight=1)
 
         about_button = ttk.Button(
@@ -44,7 +44,7 @@ class MainFrame(ttk.Frame):
         about_button.grid(row=1, column=0, sticky='ew')
 
         top_nav_frame = ttk.Frame(self.nav_frame)
-        top_nav_frame.pack(side=tk.TOP, fill=tk.X, pady=5, padx=5)
+        top_nav_frame.pack(side='top', fill='x', pady=5, padx=5)
         top_nav_frame.columnconfigure(0, weight=1)
 
         self.current_app_frame = None
@@ -81,6 +81,7 @@ class MainFrame(ttk.Frame):
             text=text,
             padding=(5, 0, 5, 0),
             command=lambda ac=app_class: self._show_app(ac),
+            # style='Toolbutton',
         )
         button.pack(fill='x', pady=(5, 0))
         self.nav_buttons[app_class] = button
@@ -118,10 +119,11 @@ class AboutFame(tk.Toplevel):
 
         self.grab_set()
 
+
         default_font = tkfont.nametofont('TkDefaultFont').actual()
         default_font_family = default_font['family']
 
-        name_font = tkfont.Font(family=default_font_family, size=16, weight='bold')
+        name_font = tkfont.Font(family=default_font_family, size=20, weight='bold')
         version_font = tkfont.Font(family=default_font_family, size=12, weight='bold')
 
         ttk.Label(self, text=PROJECT_NAME, font=name_font).grid(

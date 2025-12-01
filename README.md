@@ -1,6 +1,6 @@
 # PDF Express
 
-[[English]](https://github.com/chianjin/PDFeXpress/blob/main/README.md)  [[Simplified Chinese]](https://github.com/chianjin/PDFeXpress/blob/main/README.zh_CN.md)
+[[English]](https://github.com/chianjin/PDFeXpress/blob/main/README.md)  [[简体中文]](https://github.com/chianjin/PDFeXpress/blob/main/README.zh_CN.md)
 
 **PDF Express** is a Python-based application for PDF file operations.
 
@@ -38,7 +38,7 @@ The current version is 1.1.0, which has been tested on Windows 11 AMD64 and Ubun
 
 There are two types of pre-compiled packages, installers and portable packages. [Download](https://github.com/chianjin/PDFeXpress/releases) and install or unzip it, run `PDFeXpress.exe`.
 
-You can also download from: [Quark Cloud Drive](https://pan.quark.cn/s/c50973b1f9c8?pwd=5RTu)
+You can also download from: [Quark Cloud Drive](https://pan.quark.cn/s/abc772612ee5?pwd=97sh)
 
 ## Build
 

@@ -1,6 +1,7 @@
 import multiprocessing
 import platform
 from tkinter import TclError
+import tkinter.font as tkfont
 
 from tkinterdnd2 import TkinterDnD
 
@@ -25,15 +26,15 @@ if __name__ == '__main__':
         root.iconbitmap(icon_path)
     else:
         from ttkthemes import ThemedStyle
-
+        tkfont.nametofont('TkDefaultFont').configure(size=12)
         style = ThemedStyle(root)
         try:
             style.set_theme('plastik')
         except TclError:
             style.set_theme('clam')
 
-    window_width = 1280
-    window_height = 768
+    window_width = 960
+    window_height = 640
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     x = (screen_width - window_width) // 2
