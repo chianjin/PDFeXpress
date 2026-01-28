@@ -141,3 +141,5 @@ example
 /resource
 test
 /.ruff_cache
+doc
+temp
