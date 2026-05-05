@@ -4,7 +4,6 @@ from tkinter import ttk
 
 from ui.components.file_list_view import FileListView
 from ui.functions.base_function_frame import BaseFunctionFrame
-from utils.file_types import FILE_TYPES
 
 
 class MergePdfFrame(BaseFunctionFrame):
@@ -37,22 +36,22 @@ class MergePdfFrame(BaseFunctionFrame):
     def _setup_auto_output(self):
         """设置自动输出：监听第一个文件的变化"""
         first_file_var = self.file_list_view.get_first_file_var()
-        
-        def update_output(*args):
+
+        def update_output(*_args):
             if not self.output_path_picker.is_auto_output_enabled():
                 return
-                
+
             first_file_str = first_file_var.get()
             if not first_file_str:
                 # 清空列表时，清除输出路径
                 self.output_path_picker.path.set('')
                 return
-            
+
             first_file = Path(first_file_str)
             output_name = f"{first_file.stem}_合并.pdf"
             output_path = first_file.parent / output_name
             self.output_path_picker.set_path(output_path)
-        
+
         # 绑定 trace
         first_file_var.trace_add('write', update_output)
 

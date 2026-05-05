@@ -85,7 +85,7 @@ class SplitPdfFrame(BaseFunctionFrame):
         """设置输出路径（仅在 auto_output 启用时）"""
         if not self.output_path_picker.is_auto_output_enabled():
             return
-            
+
         input_path = self.input_path_picker.get_path()
         if input_path and input_path.exists():
             self.output_path_picker.set_path(input_path.parent)

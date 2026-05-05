@@ -6,7 +6,7 @@ from tkinter.filedialog import askdirectory, askopenfilenames
 from tkinterdnd2 import DND_FILES, Tk
 
 from utils.file_types import FILE_TYPES
-from utils.helpers import filter_dropped_files, filter_dropped_folders, filter_files
+from utils.helpers import filter_dropped_files, filter_files
 
 
 class FileListView(tk.Frame):
