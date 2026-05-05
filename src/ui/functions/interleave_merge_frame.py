@@ -37,8 +37,11 @@ class InterleaveMergeFrame(BaseFunctionFrame):
             offvalue=False,
         ).pack(anchor=tk.W)
 
-    def _set_output_path(self):
-        """设置输出路径"""
+    def _set_output_path(self, *_args):
+        """设置输出路径（仅在 auto_output 启用时）"""
+        if not self.output_path_picker.is_auto_output_enabled():
+            return
+            
         output_path = self.input_patha_picker.get_path().with_suffix('')
         output_path = f'{output_path}_交错合并.pdf'
         self.output_path_picker.set_path(output_path)

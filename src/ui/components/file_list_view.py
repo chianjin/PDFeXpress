@@ -23,6 +23,7 @@ class FileListView(tk.Frame):
         self._sortable = sortable
         self._allow_duplicates = allow_duplicates
         self._sort_state = 'unknown'  # 'unknown', 'ascending', 'descending'
+        self._first_file_var = tk.StringVar()  # 第一个文件路径（用于 trace 联动）
 
         self._setup_ui()
 
@@ -210,6 +211,20 @@ class FileListView(tk.Frame):
 
         if _changed:
             self._reset_sort_state()
+            # 更新第一个文件变量（触发 auto_output 联动）
+            self._update_first_file_var()
+
+    def _update_first_file_var(self):
+        """更新第一个文件路径变量"""
+        files = self.get_file_paths()
+        if files:
+            self._first_file_var.set(str(files[0]))
+        else:
+            self._first_file_var.set('')
+
+    def get_first_file_var(self):
+        """获取第一个文件的 StringVar（供外部 trace 监听）"""
+        return self._first_file_var
 
     def _add_files(self):
         file_paths = askopenfilenames(
@@ -232,12 +247,16 @@ class FileListView(tk.Frame):
             self.filelist_treeview.delete(item)
         if len(self.filelist_treeview.get_children()) < 2:
             self._reset_sort_state()
+        # 更新第一个文件变量
+        self._update_first_file_var()
 
     def _clear_list(self):
         all_items = self.filelist_treeview.get_children()
         for item in all_items[::-1]:
             self.filelist_treeview.delete(item)
         self._reset_sort_state()
+        # 清空后更新第一个文件变量
+        self._update_first_file_var()
 
     def _move_to_top(self):
         selected = self.filelist_treeview.selection()

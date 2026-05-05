@@ -17,6 +17,8 @@ class MergePdfFrame(BaseFunctionFrame):
     def _set_input_frame(self):
         self.file_list_view = FileListView(self.input_frame)
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
+        # 设置 auto_output 联动：第一个文件名_合并.pdf
+        self._setup_auto_output()
 
     def _set_options_frame(self):
         self._generate_bookmarks = tk.BooleanVar(value=True)
@@ -31,6 +33,26 @@ class MergePdfFrame(BaseFunctionFrame):
             text='双面打印',
             variable=self._double_side_print,
         ).pack(side=tk.LEFT, padx=(10, 0))
+
+    def _setup_auto_output(self):
+        """设置自动输出：监听第一个文件的变化"""
+        first_file_var = self.file_list_view.get_first_file_var()
+        
+        def update_output(*args):
+            if not self.output_path_picker.is_auto_output_enabled():
+                return
+                
+            first_file_str = first_file_var.get()
+            if not first_file_str:
+                return
+            
+            first_file = Path(first_file_str)
+            output_name = f"{first_file.stem}_合并.pdf"
+            output_path = first_file.parent / output_name
+            self.output_path_picker.set_path(output_path)
+        
+        # 绑定 trace
+        first_file_var.trace_add('write', update_output)
 
     def get_input_files(self) -> list[Path]:
         return self.file_list_view.get_file_paths()

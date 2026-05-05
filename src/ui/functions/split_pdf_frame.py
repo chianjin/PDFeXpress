@@ -82,8 +82,13 @@ class SplitPdfFrame(BaseFunctionFrame):
         ).pack(side=tk.LEFT)
 
     def _set_output_path(self, *_args):
-        """设置输出路径"""
-        self.output_path_picker.set_path(self.input_path_picker.get_path().parent)
+        """设置输出路径（仅在 auto_output 启用时）"""
+        if not self.output_path_picker.is_auto_output_enabled():
+            return
+            
+        input_path = self.input_path_picker.get_path()
+        if input_path and input_path.exists():
+            self.output_path_picker.set_path(input_path.parent)
 
     def _set_split_value_entry_state(self):
         """设置 split_value 的状态"""
