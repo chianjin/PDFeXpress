@@ -1,11 +1,18 @@
 from pathlib import Path
 
-PROJECT_NAME = 'PDF eXpress'
-PROJECT_VERSION = '1.1.0'
-PROJECT_AUTHOR = 'chian.jin@gmail.com'
-PROJECT_URL = 'https://github.com/chianjin/PDFeXpress'
-PROJECT_UUID = '{2DA5BF84-B973-4D88-B278-EC0474D4BF3A}'
+APPLICATION_NAME = 'PDF eXpress'
+APPLICATION_VERSION = '1.9.1-alpha'
+APPLICATION_URL = 'https://github.com/chianjin/PDFeXpress'
 
-EXECUTIVE_NAME = PROJECT_NAME.replace(' ', '').lower()
-SOURCE_DIR = Path(__file__).parent.resolve()
-PROJECT_DIR = SOURCE_DIR.parent
+EXECUTABLE_NAME = APPLICATION_NAME.replace(' ', '').lower()
+
+BASE_PATH = Path(__file__).resolve().parent
+ASSETS_PATH = BASE_PATH / 'assets'
+ICONS_PATH = ASSETS_PATH / 'icons'
+FUNCTIONS_PATH = BASE_PATH / 'ui' / 'functions'
+HELP_ICON = ICONS_PATH / 'help.png'
+
+PAGE_RANGE_SYNTEX = ASSETS_PATH / 'page_range_syntax_guide.txt'
+
+# 标题字体配置
+HEADER_FONT_SIZE = 20

@@ -1,0 +1,170 @@
+[project]
+name = "pdfexpress"
+version = "1.9.1-alpha"
+description = "PDF eXpress - A powerful PDF processing tool"
+readme = "README.md"
+license = {text = "AGPL-3.0"}
+requires-python = ">=3.14"
+dependencies = [
+    "PyMuPDF>=1.27.0",
+    "pydantic>=2.0.0",
+    "tkinterdnd2>=0.4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.3.0",
+    "mypy>=1.8.0",
+    "pytest>=8.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+# ==========================================
+# Ruff 配置
+# ==========================================
+
+[tool.ruff]
+# Python 版本
+target-version = "py314"
+
+# 行长度限制
+line-length = 98
+
+#  src 目录
+src = ["src"]
+
+# 排除的文件和目录
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+]
+
+# ==========================================
+# Ruff Linter 配置
+# ==========================================
+
+[tool.ruff.lint]
+# 启用的规则
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort (导入排序)
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "ARG",    # flake8-unused-arguments
+    "SIM",    # flake8-simplify
+    "TCH",    # flake8-type-checking
+    "DTZ",    # flake8-datetimez
+    "RUF",    # ruff-specific rules
+]
+
+# 忽略的规则
+ignore = [
+    "E501",   # 行长度由 line-length 控制
+    "B008",   # 允许在函数签名中调用函数（用于依赖注入）
+    "RUF001", # 允许字符串中的 Unicode 字符（中文等）
+    "RUF002", # 允许文档字符串中的 Unicode 字符
+    "RUF003", # 允许注释中的 Unicode 字符
+    "TC003",  # Pydantic模型需要运行时Path,即使有future annotations
+]
+
+# ==========================================
+# Ruff Formatter 配置
+# ==========================================
+
+[tool.ruff.format]
+# 引号风格：single 或 double
+quote-style = "single"
+
+# 缩进风格：space 或 tab
+indent-style = "space"
+
+# 是否保留魔法尾随逗号
+skip-magic-trailing-comma = false
+
+# 行结束符：auto, lf, crlf, native
+line-ending = "auto"
+
+# ==========================================
+# Isort 配置（导入排序）
+# ==========================================
+
+[tool.ruff.lint.isort]
+# 已知的第一方模块
+known-first-party = ["config", "core", "ui", "utils"]
+
+# 已知的第三方模块
+known-third-party = ["pymupdf", "pydantic"]
+
+# 强制单行导入
+force-single-line = false
+
+# 强制排序 within sections
+force-sort-within-sections = true
+
+# 相对导入的层级
+relative-imports-order = "closest-to-furthest"
+
+# 额外的标准库模块
+extra-standard-library = ["typing_extensions"]
+
+# 分组方式
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+# ==========================================
+# Mypy 配置
+# ==========================================
+
+[tool.mypy]
+python_version = "3.14"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_equality = true
+
+# 忽略某些模块的类型检查
+[[tool.mypy.overrides]]
+module = [
+    "fitz.*",
+    "tkinter.*",
+]
+ignore_missing_imports = true
+
+# ==========================================
+# Pytest 配置
+# ==========================================
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
