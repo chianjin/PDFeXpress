@@ -40,13 +40,14 @@ def filter_files(file_paths: list[Path], file_types: FILE_TYPES) -> list[Path]:
     return [file for file in file_paths if file.suffix in allowed_extensions]
 
 
-def filter_dropped_files(event: tk.Event, file_types: FILE_TYPES):
+def filter_dropped_files(event: tk.Event, file_types: FILE_TYPES, include_folders: bool = False):
     """
     处理拖拽的文件，排除目录并过滤扩展名
 
     Args:
         event: 拖拽事件
         file_types: 允许的扩展名列表，如 ['图像文件', ('*.png', '*.jpg')]
+        include_folders: 包括文件夹内文件
 
     Returns:
         有效的文件路径列表
@@ -56,9 +57,15 @@ def filter_dropped_files(event: tk.Event, file_types: FILE_TYPES):
 
     root = event.widget.winfo_toplevel()
     dropped_paths = root.tk.splitlist(event.data)
-    dropped_paths = [Path(path) for path in dropped_paths if Path(path).is_file()]
 
-    return filter_files(dropped_paths, file_types)
+    file_paths = [Path(path) for path in dropped_paths if Path(path).is_file()]
+
+    if include_folders:
+        folder_paths = [Path(path) for path in dropped_paths if Path(path).is_dir()]
+        for folder in folder_paths:
+            file_paths.extend(folder.glob('*.*'))
+
+    return filter_files(file_paths, file_types)
 
 
 def filter_dropped_folders(event: tk.Event):

@@ -5,7 +5,7 @@ from tkinter import ttk
 
 from config import ICONS_PATH
 from core.function_list import FUNCTION_LIST
-from utils import get_title_font
+from utils.helpers import get_title_font
 
 
 class HeaderFrame(ttk.Frame):

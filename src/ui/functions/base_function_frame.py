@@ -6,7 +6,7 @@ from typing import Literal, final
 
 from core.function_list import FUNCTION_LIST
 from ui.components import ExecuteFrame, HeaderFrame, PathPicker
-from utils import FILE_TYPES
+from utils.file_types import FILE_TYPES
 
 
 class BaseFunctionFrame(ttk.Frame, ABC):
@@ -82,9 +82,9 @@ class BaseFunctionFrame(ttk.Frame, ABC):
         pass
 
     @abstractmethod
-    def get_input_files(self) -> tuple[Path, ...]:
+    def get_input_files(self) -> list[Path]:
         """获取输入文件列表"""
-        return (Path(''),)
+        return [Path('')]
 
     @final
     def get_output_path(self) -> Path:

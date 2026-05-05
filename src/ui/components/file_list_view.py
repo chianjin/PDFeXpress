@@ -3,8 +3,10 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askdirectory, askopenfilenames
 
+from tkinterdnd2 import DND_FILES, Tk
+
 from utils.file_types import FILE_TYPES
-from utils.helpers import filter_files
+from utils.helpers import filter_dropped_files, filter_dropped_folders, filter_files
 
 
 class FileListView(tk.Frame):
@@ -32,6 +34,7 @@ class FileListView(tk.Frame):
         self._create_treeview()
         self._create_buttons()
         self._create_context_menu()
+        self._setup_drag_drop()
 
     def _create_treeview(self):
         self.filelist_treeview = ttk.Treeview(
@@ -113,6 +116,19 @@ class FileListView(tk.Frame):
         all_items = self.filelist_treeview.get_children()
         self.filelist_treeview.selection_remove(all_items)
 
+    def _setup_drag_drop(self):
+        """设置拖拽功能"""
+        # 使用 tkinterdnd2 注册拖拽目标
+        self.drop_target_register(DND_FILES)
+        self.dnd_bind('<<Drop>>', self._on_drop)
+
+    def _on_drop(self, event):
+        """处理拖拽释放事件"""
+        paths = filter_dropped_files(event, self._file_types, include_folders=True)
+        if not paths:
+            return
+        self._add_files_to_treeview(paths)
+
     def _update_header_text(self):
         """更新表头文本以反映当前排序状态"""
         if not self._sortable:
@@ -168,11 +184,32 @@ class FileListView(tk.Frame):
             self._sort_state = 'unknown'
             self._update_header_text()
 
+    def _get_existing_file_paths(self):
+        """获取已添加的文件路径列表"""
+        file_paths = []
+        for item_id in self.filelist_treeview.get_children():
+            fullpath, _ = self.filelist_treeview.item(item_id, 'values')
+            file_paths.append(fullpath)
+        return file_paths
+
     def _add_files_to_treeview(self, file_paths):
+        _changed = False
+
+        if not self._allow_duplicates:
+            existing_paths = set(self._get_existing_file_paths())
+
         for file_path in file_paths:
+            if not self._allow_duplicates and str(file_path) in existing_paths:
+                continue
+
             self.filelist_treeview.insert('', tk.END, values=(str(file_path), file_path.name))
-        # 添加文件后重置排序状态
-        self._reset_sort_state()
+            _changed = True
+
+            if not self._allow_duplicates:
+                existing_paths.add(str(file_path))
+
+        if _changed:
+            self._reset_sort_state()
 
     def _add_files(self):
         file_paths = askopenfilenames(
@@ -204,6 +241,8 @@ class FileListView(tk.Frame):
 
     def _move_to_top(self):
         selected = self.filelist_treeview.selection()
+        if not selected:
+            return
         for item in selected[::-1]:
             index = self.filelist_treeview.index(item)
             if index == 0:
@@ -214,6 +253,8 @@ class FileListView(tk.Frame):
 
     def _move_up(self):
         selected = self.filelist_treeview.selection()
+        if not selected:
+            return
         for item in selected:
             index = self.filelist_treeview.index(item)
             if index == 0:
@@ -223,8 +264,9 @@ class FileListView(tk.Frame):
         self._reset_sort_state()
 
     def _move_down(self):
-        print('move down')
         selected = self.filelist_treeview.selection()
+        if not selected:
+            return
         total_items = len(self.filelist_treeview.get_children())
         for item in selected[::-1]:
             index = self.filelist_treeview.index(item)
@@ -236,14 +278,26 @@ class FileListView(tk.Frame):
 
     def _move_to_bottom(self):
         selected = self.filelist_treeview.selection()
+        if not selected:
+            return
         total_items = len(self.filelist_treeview.get_children())
         for item in selected:
             self.filelist_treeview.move(item, '', total_items - 1)
         # 手动调整后重置排序状态
         self._reset_sort_state()
 
+    def get_file_paths(self) -> list[Path]:
+        """获取文件列表"""
+        file_paths = []
+        all_items = self.filelist_treeview.get_children()
+        for item_id in all_items:
+            fullpath, _ = self.filelist_treeview.item(item_id, 'values')
+            file_paths.append(Path(fullpath))
+        return file_paths
+
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    root = Tk()
     FileListView(root).pack(fill='both', expand=True, padx=10, pady=10)
+    FileListView(root, allow_duplicates=False).pack(fill='both', expand=True, padx=10, pady=10)
     root.mainloop()

@@ -6,7 +6,8 @@ from typing import Literal
 
 from tkinterdnd2 import DND_FILES, Tk
 
-from utils import FILE_TYPES, filter_dropped_files, filter_dropped_folders
+from utils.file_types import FILE_TYPES
+from utils.helpers import filter_dropped_files, filter_dropped_folders
 
 
 class PathPicker(ttk.Frame):

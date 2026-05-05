@@ -2,8 +2,6 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
 
-from tkinterdnd2 import Tk
-
 from ui.components import PathPicker
 from ui.functions.base_function_frame import BaseFunctionFrame
 
@@ -57,6 +55,8 @@ class InterleaveMergeFrame(BaseFunctionFrame):
 
 
 if __name__ == '__main__':
+    from tkinterdnd2 import Tk
+
     root = Tk()
     frame = InterleaveMergeFrame(root)
     frame.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)

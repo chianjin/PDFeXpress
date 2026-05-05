@@ -2,8 +2,6 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
 
-from tkinterdnd2 import Tk
-
 from config import ICONS_PATH, PAGE_RANGE_SYNTEX
 from ui.components import HelpWindow, PathPicker
 from ui.functions.base_function_frame import BaseFunctionFrame
@@ -123,6 +121,8 @@ class SplitPdfFrame(BaseFunctionFrame):
 
 
 if __name__ == '__main__':
+    from tkinterdnd2 import Tk
+
     root = Tk()
     frame = SplitPdfFrame(root)
     frame.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
