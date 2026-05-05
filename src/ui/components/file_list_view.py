@@ -82,7 +82,7 @@ class FileListView(tk.Frame):
         botton_frame = tk.Frame(self)
         for text, command in buttons:
             if text == 'separator':
-                ttk.Separator(botton_frame, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=(0, 5))
+                ttk.Separator(botton_frame, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=(2, 7))
             else:
                 ttk.Button(botton_frame, text=text, command=command).pack(fill=tk.X, pady=(0, 5))
         botton_frame.grid(row=0, column=2, sticky='nsew', padx=(5, 0))
@@ -178,6 +178,8 @@ class FileListView(tk.Frame):
         # 更新排序状态和表头
         self._sort_state = new_state
         self._update_header_text()
+        # 排序后第一个文件可能改变，更新第一个文件变量
+        self._update_first_file_var()
 
     def _reset_sort_state(self):
         """重置排序状态为未知（在手动调整后调用）"""
@@ -269,6 +271,8 @@ class FileListView(tk.Frame):
             self.filelist_treeview.move(item, '', 0)
         # 手动调整后重置排序状态
         self._reset_sort_state()
+        # 更新第一个文件变量（可能改变了第一个文件）
+        self._update_first_file_var()
 
     def _move_up(self):
         selected = self.filelist_treeview.selection()
@@ -281,6 +285,8 @@ class FileListView(tk.Frame):
             self.filelist_treeview.move(item, '', index - 1)
         # 手动调整后重置排序状态
         self._reset_sort_state()
+        # 更新第一个文件变量（可能改变了第一个文件）
+        self._update_first_file_var()
 
     def _move_down(self):
         selected = self.filelist_treeview.selection()
@@ -294,6 +300,8 @@ class FileListView(tk.Frame):
             self.filelist_treeview.move(item, '', index + 1)
         # 手动调整后重置排序状态
         self._reset_sort_state()
+        # 更新第一个文件变量（可能改变了第一个文件）
+        self._update_first_file_var()
 
     def _move_to_bottom(self):
         selected = self.filelist_treeview.selection()
@@ -304,6 +312,8 @@ class FileListView(tk.Frame):
             self.filelist_treeview.move(item, '', total_items - 1)
         # 手动调整后重置排序状态
         self._reset_sort_state()
+        # 更新第一个文件变量（可能改变了第一个文件）
+        self._update_first_file_var()
 
     def get_file_paths(self) -> list[Path]:
         """获取文件列表"""

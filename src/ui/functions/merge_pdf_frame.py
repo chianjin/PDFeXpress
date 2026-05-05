@@ -44,6 +44,8 @@ class MergePdfFrame(BaseFunctionFrame):
                 
             first_file_str = first_file_var.get()
             if not first_file_str:
+                # 清空列表时，清除输出路径
+                self.output_path_picker.path.set('')
                 return
             
             first_file = Path(first_file_str)
