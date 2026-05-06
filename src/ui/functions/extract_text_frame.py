@@ -44,7 +44,7 @@ class ExtractTextFrame(BaseFunctionFrame):
 
         ttk.Checkbutton(
             options_frame,
-            text='尝试重建阅读顺序',
+            text='重建阅读顺序',
             variable=self._rebuild_order,
         ).pack(side=tk.LEFT, padx=(15, 0))
 

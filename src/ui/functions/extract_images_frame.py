@@ -27,7 +27,6 @@ class ExtractImagesFrame(BaseFunctionFrame):
             options_frame,
             text='忽略小图像',
             variable=self._ignore_small,
-            command=self._update_size_entry_state,
         ).pack(side=tk.LEFT, anchor=tk.W)
 
         ttk.Label(options_frame, text='最小宽度:').pack(side=tk.LEFT, padx=(10, 0))
@@ -48,9 +47,10 @@ class ExtractImagesFrame(BaseFunctionFrame):
         self.height_entry.pack(side=tk.LEFT, padx=(5, 0))
         ttk.Label(options_frame, text='px').pack(side=tk.LEFT, padx=(2, 0))
 
+        self._ignore_small.trace_add('write', self._update_size_entry_state)
         self._update_size_entry_state()
 
-    def _update_size_entry_state(self):
+    def _update_size_entry_state(self, *_args):
         if self._ignore_small.get():
             self.width_entry.configure(state=tk.NORMAL)
             self.height_entry.configure(state=tk.NORMAL)
