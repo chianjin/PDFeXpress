@@ -2,7 +2,7 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
 
-from config import ICONS_PATH, PAGE_LABEL_SYNTAX
+from config import ICONS_PATH, PAGE_NUMBER_SYNTAX
 from ui.components.path_picker import PathPicker
 from ui.functions.base_function_frame import BaseFunctionFrame
 
@@ -35,8 +35,13 @@ class AddPageNumbersFrame(BaseFunctionFrame):
         self.input_path_picker = PathPicker(self.input_frame, mode='open')
         self.input_path_picker.pack(side=tk.TOP, fill=tk.X)
 
-    def _generate_output_filename(self, first_file: Path) -> str:
-        return f"{first_file.stem}_页码.pdf"
+    def _get_auto_output_strategy(self):
+        from utils.auto_output_helpers import setup_auto_output_single_to_single
+        return lambda frame: setup_auto_output_single_to_single(
+            frame.input_path_picker,
+            frame.output_path_picker,
+            path_generator=lambda input_path: input_path.parent / f"{input_path.stem}_页码.pdf",
+        )
 
     def _set_options_frame(self):
         self._page_rule = tk.StringVar(value='')
@@ -228,7 +233,7 @@ class AddPageNumbersFrame(BaseFunctionFrame):
     def _show_help(self):
         """显示页码规则帮助信息"""
         from ui.components.help_window import HelpWindow
-        with PAGE_LABEL_SYNTAX.open('r', encoding='utf-8') as f:
+        with PAGE_NUMBER_SYNTAX.open('r', encoding='utf-8') as f:
             help_title = f.readline().strip()
             f.seek(0)
             help_text = f.read()
