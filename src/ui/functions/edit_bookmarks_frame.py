@@ -2,6 +2,8 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
+import pymupdf
+
 from ui.components.path_picker import PathPicker
 from ui.functions.base_function_frame import BaseFunctionFrame
 from utils.file_types import FILE_TYPES
@@ -175,31 +177,26 @@ class EditBookmarksFrame(BaseFunctionFrame):
 
     def _on_input_pdf_changed(self, *_):
         """输入PDF文件改变时的处理"""
-        input_path = self.input_path_picker.get()
+        input_path = self.input_path_picker.get_path()
         if input_path:
             pdf_path = Path(input_path)
             # 自动生成输出文件名
             new_stem = f'{pdf_path.stem}_书签'
             output_file_path = pdf_path.with_name(f'{new_stem}{pdf_path.suffix}')
-            self.output_path_picker.set(str(output_file_path))
+            self.output_path_picker.set_path(str(output_file_path))
             # 加载书签
             self._load_bookmarks()
         else:
-            self.output_path_picker.set('')
+            self.output_path_picker.set_path('')
 
     def _load_bookmarks(self):
         """从PDF加载书签"""
-        input_path = self.input_path_picker.get()
+        input_path = self.input_path_picker.get_path()
         if not input_path:
             return
-        try:
-            # TODO: 调用核心模块加载书签
-            # from core.edit_bookmark_worker import get_bookmarks
-            # bookmarks = get_bookmarks(input_path)
-            # self._update_treeview(bookmarks)
-            pass
-        except Exception as e:
-            messagebox.showerror('错误', f'加载失败：{e}')
+        with pymupdf.open(input_path) as pdf:
+            bookmarks = pdf.get_toc()
+            self._update_treeview(bookmarks)
 
     def _update_treeview(self, bookmarks: list):
         """更新Treeview显示"""
@@ -378,9 +375,9 @@ class EditBookmarksFrame(BaseFunctionFrame):
             self._bookmarks.append({'level': int(values[0]), 'page': int(values[1]), 'title': values[2]})
 
     def get_input_files(self) -> list[Path]:
-        input_path = self.input_path_picker.get()
+        input_path = self.input_path_picker.get_path()
         if input_path:
-            return [Path(input_path)]
+            return [input_path]
         return []
 
     def get_options(self) -> dict:
