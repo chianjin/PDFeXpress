@@ -23,28 +23,33 @@ class AddWatermarkFrame(BaseFunctionFrame):
         self._watermark_text = tk.StringVar()
         self._invisible = tk.BooleanVar(value=False)
 
-        options_frame = ttk.Frame(self.options_frame)
-        options_frame.pack(side=tk.TOP, fill=tk.X)
+        # 第一行：水印文字 + 隐水印复选框
+        text_frame = ttk.Frame(self.options_frame)
+        text_frame.pack(side=tk.TOP, fill=tk.X)
 
-        ttk.Label(options_frame, text='水印文字:').pack(side=tk.LEFT)
+        ttk.Label(text_frame, text='水印文字:').pack(side=tk.LEFT)
         ttk.Entry(
-            options_frame,
+            text_frame,
             textvariable=self._watermark_text,
             width=20,
         ).pack(side=tk.LEFT, padx=(5, 10))
 
-        ttk.Label(options_frame, text='水印图片:').pack(side=tk.LEFT)
-        self.watermark_image_picker = PathPicker(
-            options_frame,
-            mode='open',
-        )
-        self.watermark_image_picker.pack(side=tk.LEFT, padx=(5, 10))
-
         ttk.Checkbutton(
-            options_frame,
+            text_frame,
             text='隐水印',
             variable=self._invisible,
         ).pack(side=tk.LEFT)
+
+        # 第二行：水印图片
+        image_frame = ttk.Frame(self.options_frame)
+        image_frame.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
+
+        ttk.Label(image_frame, text='水印图片:').pack(side=tk.LEFT)
+        self.watermark_image_picker = PathPicker(
+            image_frame,
+            mode='open',
+        )
+        self.watermark_image_picker.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
     def get_input_files(self) -> list[Path]:
         return self.file_list_view.get_files()
