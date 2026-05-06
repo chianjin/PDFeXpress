@@ -21,7 +21,6 @@ class AddWatermarkFrame(BaseFunctionFrame):
 
     def _set_options_frame(self):
         self._watermark_text = tk.StringVar()
-        self._watermark_image_path = tk.StringVar()
         self._invisible = tk.BooleanVar(value=False)
 
         options_frame = ttk.Frame(self.options_frame)
@@ -35,11 +34,11 @@ class AddWatermarkFrame(BaseFunctionFrame):
         ).pack(side=tk.LEFT, padx=(5, 10))
 
         ttk.Label(options_frame, text='水印图片:').pack(side=tk.LEFT)
-        PathPicker(
+        self.watermark_image_picker = PathPicker(
             options_frame,
             mode='open',
-            variable=self._watermark_image_path,
-        ).pack(side=tk.LEFT, padx=(5, 10))
+        )
+        self.watermark_image_picker.pack(side=tk.LEFT, padx=(5, 10))
 
         ttk.Checkbutton(
             options_frame,
@@ -53,6 +52,15 @@ class AddWatermarkFrame(BaseFunctionFrame):
     def get_options(self) -> dict:
         return {
             'watermark_text': self._watermark_text.get(),
-            'watermark_image': self._watermark_image_path.get(),
+            'watermark_image': self.watermark_image_picker.path.get(),
             'invisible': self._invisible.get(),
         }
+
+
+if __name__ == '__main__':
+    from tkinterdnd2 import Tk
+
+    root = Tk()
+    app = AddWatermarkFrame(root)
+    app.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+    app.mainloop()
