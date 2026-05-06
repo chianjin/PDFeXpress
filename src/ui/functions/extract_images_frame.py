@@ -48,7 +48,6 @@ class ExtractImagesFrame(BaseFunctionFrame):
         ttk.Label(options_frame, text='px').pack(side=tk.LEFT, padx=(2, 0))
 
         self._ignore_small.trace_add('write', self._update_size_entry_state)
-        self._update_size_entry_state()
 
     def _update_size_entry_state(self, *_args):
         if self._ignore_small.get():
