@@ -49,7 +49,7 @@ class AddPageNumbersFrame(BaseFunctionFrame):
         self._margin_bottom = tk.DoubleVar(value=1.0)
         self._margin_left = tk.DoubleVar(value=1.0)
         self._margin_right = tk.DoubleVar(value=1.0)
-        self._margin_gap = tk.DoubleVar(value=0.5)
+        self._margin_side = tk.DoubleVar(value=0.5)
 
         self._position_v.trace_add('write', self._update_margin_v_widgets)
         self._position_h.trace_add('write', self._update_margin_h_widgets)
@@ -171,7 +171,7 @@ class AddPageNumbersFrame(BaseFunctionFrame):
             'margin_bottom': ValueSpinbox(self.margin_v_frame, '下边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_bottom),
             'margin_left': ValueSpinbox(self.margin_h_frame, '左边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_left),
             'margin_right': ValueSpinbox(self.margin_h_frame, '右边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_right),
-            'margin_gap': ValueSpinbox(self.margin_h_frame, '边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_gap),
+            'margin_side': ValueSpinbox(self.margin_h_frame, '侧边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_side),
         }
 
         # Pack所有边距控件（初始只显示需要的）
@@ -187,7 +187,7 @@ class AddPageNumbersFrame(BaseFunctionFrame):
         self._margin_widgets['margin_top'].pack_forget()
         self._margin_widgets['margin_left'].pack_forget()
         self._margin_widgets['margin_right'].pack_forget()
-        self._margin_widgets['margin_gap'].pack_forget()
+        self._margin_widgets['margin_side'].pack_forget()
 
     def _update_margin_v_widgets(self, *args):
         """根据垂直位置（页眉/页脚）更新显示的边距控件"""
@@ -205,8 +205,9 @@ class AddPageNumbersFrame(BaseFunctionFrame):
 
     def _update_margin_h_widgets(self, *args):
         """根据水平位置（左/中/右/外/内）更新显示的边距控件"""
-        # 隐藏当前控件
-        self._current_margin_h_widget.pack_forget()
+        # 隐藏当前控件（如果存在）
+        if self._current_margin_h_widget:
+            self._current_margin_h_widget.pack_forget()
 
         # 选择新控件
         position = self._position_h.get()
@@ -217,8 +218,8 @@ class AddPageNumbersFrame(BaseFunctionFrame):
             # 居中：不显示水平边距
             self._current_margin_h_widget = None
         else:  # outer or inner
-            # 外侧或内侧：显示边距（gap）
-            self._current_margin_h_widget = self._margin_widgets['margin_gap']
+            # 外侧或内侧：显示侧边距
+            self._current_margin_h_widget = self._margin_widgets['margin_side']
 
         # 显示新控件
         if self._current_margin_h_widget:
@@ -252,7 +253,7 @@ class AddPageNumbersFrame(BaseFunctionFrame):
             'margin_bottom': self._margin_bottom.get(),
             'margin_left': self._margin_left.get(),
             'margin_right': self._margin_right.get(),
-            'margin_gap': self._margin_gap.get(),
+            'margin_side': self._margin_side.get(),
         }
 
 
