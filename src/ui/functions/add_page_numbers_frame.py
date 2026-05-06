@@ -167,11 +167,11 @@ class AddPageNumbersFrame(BaseFunctionFrame):
         self.margin_h_frame.pack(side=tk.LEFT, fill=tk.Y, padx=(0, 10))
 
         self._margin_widgets = {
-            'margin_top': ValueSpinbox(self.margin_v_frame, '上边距：', '厘米', from_=0, to=10, increment=0.1, textvariable=self._margin_top),
-            'margin_bottom': ValueSpinbox(self.margin_v_frame, '下边距：', '厘米', from_=0, to=10, increment=0.1, textvariable=self._margin_bottom),
-            'margin_left': ValueSpinbox(self.margin_h_frame, '左边距：', '厘米', from_=0, to=10, increment=0.1, textvariable=self._margin_left),
-            'margin_right': ValueSpinbox(self.margin_h_frame, '右边距：', '厘米', from_=0, to=10, increment=0.1, textvariable=self._margin_right),
-            'margin_gap': ValueSpinbox(self.margin_h_frame, '边距：', '厘米', from_=0, to=10, increment=0.1, textvariable=self._margin_gap),
+            'margin_top': ValueSpinbox(self.margin_v_frame, '上边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_top),
+            'margin_bottom': ValueSpinbox(self.margin_v_frame, '下边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_bottom),
+            'margin_left': ValueSpinbox(self.margin_h_frame, '左边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_left),
+            'margin_right': ValueSpinbox(self.margin_h_frame, '右边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_right),
+            'margin_gap': ValueSpinbox(self.margin_h_frame, '边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_gap),
         }
 
         # Pack所有边距控件（初始只显示需要的）
@@ -198,8 +198,8 @@ class AddPageNumbersFrame(BaseFunctionFrame):
         else:  # footer
             self._current_margin_v_widget = self._margin_widgets['margin_bottom']
 
-        # 显示新控件
-        self._current_margin_v_widget.pack(side=tk.LEFT, padx=(0, 5), before=self.margin_h_frame)
+        # 显示新控件（在margin_v_frame中pack即可）
+        self._current_margin_v_widget.pack(side=tk.LEFT, padx=(0, 5))
 
     def _update_margin_h_widgets(self, *args):
         """根据水平位置（左/中/右/外/内）更新显示的边距控件"""
