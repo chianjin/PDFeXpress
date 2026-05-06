@@ -178,12 +178,14 @@ class AddPageNumbersFrame(BaseFunctionFrame):
         for widget in self._margin_widgets.values():
             widget.pack(side=tk.LEFT, padx=(0, 5))
 
-        # 初始化当前显示的控件
-        self._current_margin_v_widget = self._margin_widgets['margin_top']
-        self._current_margin_h_widget = self._margin_widgets['margin_left']
+        # 初始化当前显示的控件（根据默认值）
+        # 默认：页脚(footer) + 居中(center)
+        self._current_margin_v_widget = self._margin_widgets['margin_bottom']
+        self._current_margin_h_widget = None  # 居中时不显示水平边距
 
         # 隐藏不需要的控件
-        self._margin_widgets['margin_bottom'].pack_forget()
+        self._margin_widgets['margin_top'].pack_forget()
+        self._margin_widgets['margin_left'].pack_forget()
         self._margin_widgets['margin_right'].pack_forget()
         self._margin_widgets['margin_gap'].pack_forget()
 
