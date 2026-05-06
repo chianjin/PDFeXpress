@@ -7,11 +7,11 @@ from typing import Literal, final
 
 from core.function_list import FUNCTION_LIST
 from ui.components import ExecuteFrame, HeaderFrame, PathPicker
-from ui.functions.auto_output_helpers import (
-    setup_auto_output_single_file,
+from utils.auto_output_helpers import (
+    setup_auto_output_file_to_file,
+    setup_auto_output_list_to_file,
+    setup_auto_output_list_to_folder,
     setup_auto_output_single_to_folder,
-    setup_auto_output_to_parent_folder,
-    setup_auto_output_with_custom_name,
 )
 from utils.file_types import FILE_TYPES
 
@@ -96,11 +96,11 @@ class BaseFunctionFrame(ttk.Frame, ABC):
         """
         if hasattr(self, 'file_list_view'):
             if self.output_mode == 'folder':
-                return lambda frame: setup_auto_output_to_parent_folder(
+                return lambda frame: setup_auto_output_list_to_folder(
                     frame.file_list_view, frame.output_path_picker
                 )
             else:
-                return lambda frame: setup_auto_output_with_custom_name(
+                return lambda frame: setup_auto_output_list_to_file(
                     frame.file_list_view,
                     frame.output_path_picker,
                     frame._generate_output_filename,
@@ -111,7 +111,7 @@ class BaseFunctionFrame(ttk.Frame, ABC):
                     frame.input_path_picker, frame.output_path_picker
                 )
             else:
-                return lambda frame: setup_auto_output_single_file(
+                return lambda frame: setup_auto_output_file_to_file(
                     frame.input_path_picker, frame.output_path_picker
                 )
         return None

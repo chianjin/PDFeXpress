@@ -1,8 +1,19 @@
+from collections.abc import Callable
 from pathlib import Path
 
 
-def setup_auto_output_to_parent_folder(file_list_view, output_path_picker):
-    """多文件 -> 文件夹：输出路径为第一个文件的父目录"""
+def setup_auto_output_list_to_folder(
+    file_list_view, output_path_picker, path_generator: Callable[[Path], Path] | None = None
+):
+    """
+    多文件 -> 文件夹：输出路径基于第一个文件的父目录
+
+    Args:
+        file_list_view: 文件列表视图
+        output_path_picker: 输出路径选择器
+        path_generator: 可选的路径生成函数，接收第一个文件的Path，返回目标Path
+                       如果为None，则默认使用第一个文件的父目录
+    """
     first_file_var = file_list_view.get_first_file_var()
 
     def update_output(*_args):
@@ -15,12 +26,13 @@ def setup_auto_output_to_parent_folder(file_list_view, output_path_picker):
             return
 
         first_file = Path(first_file_str)
-        output_path_picker.set_path(first_file.parent)
+        output_path = path_generator(first_file) if path_generator else first_file.parent
+        output_path_picker.set_path(output_path)
 
     first_file_var.trace_add('write', update_output)
 
 
-def setup_auto_output_with_custom_name(file_list_view, output_path_picker, name_generator):
+def setup_auto_output_list_to_file(file_list_view, output_path_picker, name_generator):
     """多文件 -> 单文件：根据自定义规则生成输出文件名"""
     first_file_var = file_list_view.get_first_file_var()
 
@@ -41,28 +53,7 @@ def setup_auto_output_with_custom_name(file_list_view, output_path_picker, name_
     first_file_var.trace_add('write', update_output)
 
 
-def setup_auto_output_to_subfolder(file_list_view, output_path_picker):
-    """多文件 -> 文件夹（子文件夹）：在第一个文件所在目录创建以其命名的子文件夹"""
-    first_file_var = file_list_view.get_first_file_var()
-
-    def update_output(*_args):
-        if not output_path_picker.is_auto_output_enabled():
-            return
-
-        first_file_str = first_file_var.get()
-        if not first_file_str:
-            output_path_picker.path.set('')
-            return
-
-        first_file = Path(first_file_str)
-        folder_name = first_file.stem
-        auto_path = first_file.parent / folder_name
-        output_path_picker.set_path(auto_path)
-
-    first_file_var.trace_add('write', update_output)
-
-
-def setup_auto_output_single_file(input_path_picker, output_path_picker):
+def setup_auto_output_file_to_file(input_path_picker, output_path_picker):
     """单文件 -> 单文件：输出路径与输入文件同目录同名（可扩展）"""
     input_path_var = input_path_picker.path
 
