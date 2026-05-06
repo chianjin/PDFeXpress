@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from collections.abc import Callable
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
@@ -6,6 +7,12 @@ from typing import Literal, final
 
 from core.function_list import FUNCTION_LIST
 from ui.components import ExecuteFrame, HeaderFrame, PathPicker
+from ui.functions.auto_output_helpers import (
+    setup_auto_output_single_file,
+    setup_auto_output_single_to_folder,
+    setup_auto_output_to_parent_folder,
+    setup_auto_output_with_custom_name,
+)
 from utils.file_types import FILE_TYPES
 
 
@@ -71,28 +78,50 @@ class BaseFunctionFrame(ttk.Frame, ABC):
 
     @final
     def _setup_auto_output(self):
-        if not hasattr(self, 'file_list_view'):
+        """
+        设置auto_output联动机制。
+        子类可通过覆盖 _get_auto_output_strategy 方法来自定义策略。
+        """
+        strategy = self._get_auto_output_strategy()
+        if strategy is None:
             return
 
-        first_file_var = self.file_list_view.get_first_file_var()
+        strategy(self)
 
-        def update_output(*_args):
-            if not self.output_path_picker.is_auto_output_enabled():
-                return
+    def _get_auto_output_strategy(self) -> Callable | None:
+        """
+        返回auto_output策略函数。
+        默认根据output_mode和输入组件类型选择策略。
+        子类可覆盖此方法以自定义策略。
+        """
+        if hasattr(self, 'file_list_view'):
+            if self.output_mode == 'folder':
+                return lambda frame: setup_auto_output_to_parent_folder(
+                    frame.file_list_view, frame.output_path_picker
+                )
+            else:
+                return lambda frame: setup_auto_output_with_custom_name(
+                    frame.file_list_view,
+                    frame.output_path_picker,
+                    frame._generate_output_filename,
+                )
+        elif hasattr(self, 'input_path_picker'):
+            if self.output_mode == 'folder':
+                return lambda frame: setup_auto_output_single_to_folder(
+                    frame.input_path_picker, frame.output_path_picker
+                )
+            else:
+                return lambda frame: setup_auto_output_single_file(
+                    frame.input_path_picker, frame.output_path_picker
+                )
+        return None
 
-            first_file_str = first_file_var.get()
-            if not first_file_str:
-                self.output_path_picker.path.set('')
-                return
-
-            first_file = Path(first_file_str)
-            auto_path = self._get_auto_output_path(first_file)
-            self.output_path_picker.set_path(auto_path)
-
-        first_file_var.trace_add('write', update_output)
-
-    def _get_auto_output_path(self, first_file: Path) -> Path:
-        return first_file.parent
+    def _generate_output_filename(self, first_file: Path) -> str:
+        """
+        生成输出文件名（用于多文件->单文件场景）。
+        子类应覆盖此方法以提供自定义命名规则。
+        """
+        return first_file.name
 
     @abstractmethod
     def _set_options_frame(self):
