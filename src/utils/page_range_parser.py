@@ -1,16 +1,4 @@
 def parse_page_ranges(expr, total_pages):
-    """解析页面范围表达式，返回基于0的页码索引列表（每个分组对应一个PDF文件）。
-
-    Args:
-        expr: 页面范围字符串（页码从1开始），如 "1,3-5;8-"
-        total_pages: 文档总页数，整数且 >= 1
-
-    Returns:
-        List[List[int]]：每个内层列表为0起始索引，供程序直接使用
-
-    Raises:
-        ValueError: 当表达式无效或生成结果与原始文件完全相同时
-    """
     if total_pages < 1:
         raise ValueError('总页数必须为正整数')
 
@@ -18,7 +6,6 @@ def parse_page_ranges(expr, total_pages):
     if not expr:
         return []
 
-    # 增强模式检测
     plus_mode = False
     if expr.startswith('+'):
         plus_mode = True
@@ -32,28 +19,26 @@ def parse_page_ranges(expr, total_pages):
     for group_str in groups:
         group_str = group_str.strip()
         if not group_str:
-            continue  # 跳过空分组
+            continue
 
         atoms = group_str.split(',')
         pages_1based = []
         for atom_str in atoms:
             atom_str = atom_str.strip()
             if not atom_str:
-                continue  # 跳过空原子
+                continue
             pages_1based.extend(_parse_atom(atom_str, total_pages, plus_mode))
 
         if not pages_1based:
-            continue  # 分组无有效页码则跳过
+            continue
 
         if not plus_mode:
-            pages_1based = sorted(set(pages_1based))  # 去重 + 升序
+            pages_1based = sorted(set(pages_1based))
 
-        # 检查结果是否与原始文件完全相同
         full_range = list(range(1, total_pages + 1))
         if pages_1based == full_range:
             raise ValueError('所选页面与原始文件完全相同，请检查范围表达式')
 
-        # 转换为 0‑based 索引
         pages_0based = [p - 1 for p in pages_1based]
         result.append(pages_0based)
 
@@ -61,7 +46,6 @@ def parse_page_ranges(expr, total_pages):
 
 
 def _parse_atom(atom_str, total_pages, plus_mode):
-    """解析单个原子，返回 1 起始页码列表"""
     try:
         if ':' in atom_str:
             range_part, step_str = atom_str.split(':', 1)
@@ -90,7 +74,6 @@ def _parse_atom(atom_str, total_pages, plus_mode):
 
 
 def _parse_range(range_str, total_pages, plus_mode):
-    """解析范围部分，返回 (start, end) 1 起始页码"""
     if range_str == '-' or range_str == '':
         return 1, total_pages
 
@@ -138,7 +121,6 @@ def _parse_range(range_str, total_pages, plus_mode):
 
 
 def _generate_range(start, end, step, plus_mode):
-    """根据起止和步长生成 1 起始页码列表"""
     if start <= end:
         pages = []
         cur = start
@@ -157,24 +139,18 @@ def _generate_range(start, end, step, plus_mode):
         return pages
 
 
-# ========= 测试示例 =========
 if __name__ == '__main__':
     total = 10
 
-    # 正常选择部分页面
-    print(parse_page_ranges('1,3,5', total))  # [[0, 2, 4]]
-
-    # 全选（报错）
+    print(parse_page_ranges('1,3,5', total))
     try:
         parse_page_ranges('-', total)
     except ValueError as e:
-        print(e)  # 所选页面与原始文件完全相同，请检查范围表达式
+        print(e)
 
-    # 增强模式全选（报错）
     try:
         parse_page_ranges('+1-10', total)
     except ValueError as e:
         print(e)
 
-    # 增强模式带重复页（通过了检查）
-    print(parse_page_ranges('+1-10,5', total))  # 不报错，列表包含重复5
+    print(parse_page_ranges('+1-10,5', total))

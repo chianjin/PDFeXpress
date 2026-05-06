@@ -5,7 +5,6 @@ function = namedtuple('Function', ['display_name', 'execute_text', 'row', 'colum
 FUNCTION_LIST = defaultdict(lambda: function('尚未实现', '执行', -1, -1))
 FUNCTION_LIST.update(
     {
-        # 功能标识符: (显示名称, 执行按钮文本 ,行, 列)
         'merge_pdf': function('合并 PDF', '合并', 0, 0),
         'interleave_merge': function('交错合并', '合并', 0, 1),
         'split_pdf': function('拆分 PDF', '拆分', 0, 2),

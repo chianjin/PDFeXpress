@@ -24,7 +24,7 @@ class PathPicker(ttk.Frame):
         self._mode = mode
         self._file_types = file_types
         self._default_extension = default_extension
-        self._auto_output = True  # 是否自动设置输出路径
+        self._auto_output = True
 
         self._setup_ui()
         self._setup_drag_drop()
@@ -55,7 +55,7 @@ class PathPicker(ttk.Frame):
                 path = askdirectory()
 
         if path:
-            self.disable_auto_output()  # 用户手动选择，禁用自动输出
+            self.disable_auto_output()
             self.set_path(Path(path), force=True)
 
     def _setup_drag_drop(self):
@@ -70,19 +70,16 @@ class PathPicker(ttk.Frame):
         if self._mode == 'folder':
             paths = filter_dropped_folders(event)
         if paths:
-            self.disable_auto_output()  # 用户拖拽选择，禁用自动输出
+            self.disable_auto_output()
             self.set_path(paths[0], force=True)
 
     def enable_auto_output(self):
-        """启用自动输出路径"""
         self._auto_output = True
 
     def disable_auto_output(self):
-        """禁用自动输出路径（用户手动选择后）"""
         self._auto_output = False
 
     def is_auto_output_enabled(self):
-        """检查是否启用自动输出"""
         return self._auto_output
 
     def set_trace(self, mode, callback):
@@ -95,13 +92,8 @@ class PathPicker(ttk.Frame):
         return Path(self.path.get())
 
     def set_path(self, path, force=False):
-        """
-        设置路径
-        - force=True: 强制设置，忽略 auto_output 状态
-        - force=False: 仅在 auto_output=True 时更新
-        """
         if not force and not self._auto_output:
-            return  # 已手动选择，不自动更新
+            return
         self.path.set(str(path))
 
 

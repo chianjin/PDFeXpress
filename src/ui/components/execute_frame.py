@@ -10,16 +10,13 @@ class ExecuteFrame(ttk.LabelFrame):
         self.progress = tk.IntVar(value=0)
         self.status = tk.StringVar(value='就绪')
 
-        # 进度条
         self.progress_bar = ttk.Progressbar(self, variable=self.progress)
         self.progress_bar.pack(side=tk.TOP, fill=tk.X, pady=(0, 5))
 
-        # 状态栏与按钮
         execute_frame = ttk.Frame(self)
         execute_frame.pack(side=tk.TOP, fill=tk.X)
         execute_frame.columnconfigure(0, weight=1)
 
-        # 状态栏
         self.state_label = ttk.Label(execute_frame, textvariable=self.status)
         self.state_label.grid(row=0, column=0, sticky=tk.EW)
         self.execute_button = ttk.Button(

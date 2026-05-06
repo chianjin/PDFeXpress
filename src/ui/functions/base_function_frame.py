@@ -33,34 +33,27 @@ class BaseFunctionFrame(ttk.Frame, ABC):
         self._set_options_frame()
 
     def _setup_ui(self):
-        # 创建功能图标和标题的框架
         HeaderFrame(self, function_id=self.function_id).pack(side=tk.TOP, fill=tk.X, padx=10)
 
-        # 创建输入文件框架
         self.input_frame = ttk.LabelFrame(self, text='PDF 文件', padding=5)
         self.input_frame.pack(side=tk.TOP, expand=True, fill=tk.BOTH, pady=(5, 0))
 
-        # 创建输出文件框架
         self.output_frame = ttk.LabelFrame(self, text='输出 PDF', padding=5)
         self.output_frame.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
 
-        # 创建选项框架
         self.options_frame = ttk.LabelFrame(self, text='选项', padding=5)
         self.options_frame.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
 
-        # 创建执行框架
         self.execute_frame = ExecuteFrame(self, FUNCTION_LIST[self.function_id].execute_text)
         self.execute_frame.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
 
     @abstractmethod
     def _set_input_frame(self):
-        """创建输入文件框架"""
         ttk.Label(self.input_frame, text='输入文件框架').pack(side=tk.TOP)
         pass
 
     @final
     def _set_output_frame(self):
-        """创建输出文件框架"""
 
         if self.output_mode == 'save':
             self.output_frame.configure(text='输出文件')
@@ -77,28 +70,23 @@ class BaseFunctionFrame(ttk.Frame, ABC):
 
     @abstractmethod
     def _set_options_frame(self):
-        """创建选项框架"""
         ttk.Label(self.options_frame, text='选项框架').pack(side=tk.TOP)
         pass
 
     @abstractmethod
     def get_input_files(self) -> list[Path]:
-        """获取输入文件列表"""
         return [Path('')]
 
     @final
     def get_output_path(self) -> Path:
-        """获取输出文件路径"""
         return self.output_path_picker.get_path()
 
     @abstractmethod
     def get_options(self) -> dict:
-        """获取选项"""
         return {}
 
     @final
     def get_pramas(self) -> dict:
-        """获取参数"""
         return {
             'input_files': self.get_input_files(),
             'output_path': self.get_output_path(),

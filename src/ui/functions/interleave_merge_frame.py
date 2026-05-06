@@ -11,7 +11,6 @@ class InterleaveMergeFrame(BaseFunctionFrame):
         super().__init__(master, function_id='interleave_merge')
 
     def _set_input_frame(self):
-        """创建输入文件框架"""
 
         self.input_frame.columnconfigure(1, weight=1)
 
@@ -27,7 +26,6 @@ class InterleaveMergeFrame(BaseFunctionFrame):
         self.input_pathb_picker.grid(row=1, column=1, sticky=tk.EW)
 
     def _set_options_frame(self):
-        """创建选项框架"""
         self._revert_pdfb = tk.BooleanVar(value=True)
         ttk.Checkbutton(
             self.options_frame,
@@ -38,7 +36,6 @@ class InterleaveMergeFrame(BaseFunctionFrame):
         ).pack(anchor=tk.W)
 
     def _set_output_path(self, *_args):
-        """设置输出路径（仅在 auto_output 启用时）"""
         if not self.output_path_picker.is_auto_output_enabled():
             return
 
@@ -47,11 +44,9 @@ class InterleaveMergeFrame(BaseFunctionFrame):
         self.output_path_picker.set_path(output_path)
 
     def get_input_files(self) -> tuple[Path, ...]:
-        """获取输入文件列表"""
         return self.input_patha_picker.get_path(), self.input_pathb_picker.get_path()
 
     def get_options(self) -> dict:
-        """获取选项"""
         return {
             'revert_pdfb': self._revert_pdfb.get(),
         }

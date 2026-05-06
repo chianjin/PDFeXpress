@@ -14,20 +14,16 @@ class SplitPdfFrame(BaseFunctionFrame):
         self.help_window = None
 
     def _set_input_frame(self):
-        """创建输入文件框架"""
         self.input_path_picker = PathPicker(self.input_frame, mode='open')
         self.input_path_picker.pack(side=tk.TOP, fill=tk.X)
         self.input_path_picker.set_trace('write', self._set_output_path)
 
     def _set_options_frame(self):
-        """创建选项框架"""
 
         self.split_mode = tk.StringVar(value='singel')
-        # 跟踪拆分模式，决定输入框是否可用
         self.split_mode.trace_add('write', self._set_split_value_entry_state)
         self.split_value = tk.StringVar()
 
-        # 选项
         radio_frame = ttk.Frame(self.options_frame)
         radio_frame.pack(side=tk.TOP, fill=tk.X, pady=(0, 5))
 
@@ -62,9 +58,9 @@ class SplitPdfFrame(BaseFunctionFrame):
             state=tk.DISABLED,
         )
         self.split_value_entry.pack(side=tk.LEFT, padx=(5, 0))
-        # 帮助
+
         help_frame = ttk.Frame(self.options_frame)
-        help_frame.pack(side=tk.TOP, pady=(5, 0))
+        help_frame.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
         self._help_icon = tk.PhotoImage(file=ICONS_PATH / 'help.png')
         ttk.Label(
             help_frame,
@@ -82,7 +78,6 @@ class SplitPdfFrame(BaseFunctionFrame):
         ).pack(side=tk.LEFT)
 
     def _set_output_path(self, *_args):
-        """设置输出路径（仅在 auto_output 启用时）"""
         if not self.output_path_picker.is_auto_output_enabled():
             return
 
@@ -91,20 +86,18 @@ class SplitPdfFrame(BaseFunctionFrame):
             self.output_path_picker.set_path(input_path.parent)
 
     def _set_split_value_entry_state(self):
-        """设置 split_value 的状态"""
         if self.split_mode.get() == 'singel':
             self.split_value_entry.configure(state=tk.DISABLED)
         else:
             self.split_value_entry.configure(state=tk.NORMAL)
 
     def _show_help_window(self):
-        """显示帮助窗口"""
         if self.help_window is not None and self.help_window.winfo_exists():
             self.help_window.lift()
             return
 
         with PAGE_RANGE_SYNTEX.open('r', encoding='utf-8') as help_file:
-            help_title = help_file.readline()
+            help_title = help_file.readline().strip()
             help_file.seek(0)
             help_text = help_file.read()
 
@@ -112,11 +105,9 @@ class SplitPdfFrame(BaseFunctionFrame):
         self.help_window.focus()
 
     def get_input_files(self) -> tuple[Path]:
-        """获取输入文件列表"""
         return (self.input_path_picker.get_path(),)
 
     def get_options(self) -> dict:
-        """获取选项"""
         split_mode = self.split_mode.get()
         split_value = self.split_value.get()
         return {

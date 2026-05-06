@@ -16,7 +16,6 @@ class MergePdfFrame(BaseFunctionFrame):
     def _set_input_frame(self):
         self.file_list_view = FileListView(self.input_frame)
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
-        # 设置 auto_output 联动：第一个文件名_合并.pdf
         self._setup_auto_output()
 
     def _set_options_frame(self):
@@ -34,7 +33,6 @@ class MergePdfFrame(BaseFunctionFrame):
         ).pack(side=tk.LEFT, padx=(10, 0))
 
     def _setup_auto_output(self):
-        """设置自动输出：监听第一个文件的变化"""
         first_file_var = self.file_list_view.get_first_file_var()
 
         def update_output(*_args):
@@ -43,7 +41,6 @@ class MergePdfFrame(BaseFunctionFrame):
 
             first_file_str = first_file_var.get()
             if not first_file_str:
-                # 清空列表时，清除输出路径
                 self.output_path_picker.path.set('')
                 return
 
@@ -52,7 +49,6 @@ class MergePdfFrame(BaseFunctionFrame):
             output_path = first_file.parent / output_name
             self.output_path_picker.set_path(output_path)
 
-        # 绑定 trace
         first_file_var.trace_add('write', update_output)
 
     def get_input_files(self) -> list[Path]:

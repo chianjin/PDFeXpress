@@ -133,4 +133,5 @@ misc
 /venv.bat
 doc
 .vscode
-.ruff_cache
+*cache
+.venv*
