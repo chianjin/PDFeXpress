@@ -20,6 +20,9 @@ class MergeInvoicesFrame(BaseFunctionFrame):
         )
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
 
+    def _set_options_frame(self):
+        self.options_frame.pack_forget()
+
     def _generate_output_filename(self, first_file: Path) -> str:
         return f'{first_file.stem}_合并发票.pdf'
 
