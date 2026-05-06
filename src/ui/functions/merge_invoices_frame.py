@@ -14,7 +14,11 @@ class MergeInvoicesFrame(BaseFunctionFrame):
         )
 
     def _set_input_frame(self):
-        self.file_list_view = FileListView(self.input_frame)
+        self.file_list_view = FileListView(
+            self.input_frame,
+            sortable=False,
+            allow_duplicates=False,
+        )
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
 
     def _set_options_frame(self):
