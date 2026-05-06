@@ -20,36 +20,33 @@ class ExtractImagesFrame(BaseFunctionFrame):
         self._min_width = tk.IntVar(value=100)
         self._min_height = tk.IntVar(value=100)
 
-        options_top_frame = ttk.Frame(self.options_frame)
-        options_top_frame.pack(side=tk.TOP, fill=tk.X, pady=(0, 5))
+        options_frame = ttk.Frame(self.options_frame)
+        options_frame.pack(side=tk.TOP, fill=tk.X)
 
         ttk.Checkbutton(
-            options_top_frame,
+            options_frame,
             text='忽略小图像',
             variable=self._ignore_small,
             command=self._update_size_entry_state,
         ).pack(side=tk.LEFT, anchor=tk.W)
 
-        size_frame = ttk.Frame(self.options_frame)
-        size_frame.pack(side=tk.TOP, fill=tk.X)
-
-        ttk.Label(size_frame, text='最小宽度:').pack(side=tk.LEFT)
+        ttk.Label(options_frame, text='最小宽度:').pack(side=tk.LEFT, padx=(10, 0))
         self.width_entry = ttk.Entry(
-            size_frame,
+            options_frame,
             textvariable=self._min_width,
             width=8,
         )
         self.width_entry.pack(side=tk.LEFT, padx=(5, 0))
-        ttk.Label(size_frame, text='px').pack(side=tk.LEFT, padx=(2, 10))
+        ttk.Label(options_frame, text='px').pack(side=tk.LEFT, padx=(2, 10))
 
-        ttk.Label(size_frame, text='最小高度:').pack(side=tk.LEFT)
+        ttk.Label(options_frame, text='最小高度:').pack(side=tk.LEFT)
         self.height_entry = ttk.Entry(
-            size_frame,
+            options_frame,
             textvariable=self._min_height,
             width=8,
         )
         self.height_entry.pack(side=tk.LEFT, padx=(5, 0))
-        ttk.Label(size_frame, text='px').pack(side=tk.LEFT, padx=(2, 0))
+        ttk.Label(options_frame, text='px').pack(side=tk.LEFT, padx=(2, 0))
 
         self._update_size_entry_state()
 
