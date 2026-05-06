@@ -5,6 +5,7 @@ from tkinter import ttk
 from ui.components.file_list_view import FileListView
 from ui.components.path_picker import PathPicker
 from ui.functions.base_function_frame import BaseFunctionFrame
+from utils.file_types import FILE_TYPES
 
 
 class AddWatermarkFrame(BaseFunctionFrame):
@@ -27,12 +28,12 @@ class AddWatermarkFrame(BaseFunctionFrame):
         text_frame = ttk.Frame(self.options_frame)
         text_frame.pack(side=tk.TOP, fill=tk.X)
 
-        ttk.Label(text_frame, text='水印文字:').pack(side=tk.LEFT)
+        ttk.Label(text_frame, text='水印文字：').pack(side=tk.LEFT)
         ttk.Entry(
             text_frame,
             textvariable=self._watermark_text,
-            width=20,
-        ).pack(side=tk.LEFT, padx=(5, 10))
+            width=60,
+        ).pack(side=tk.LEFT, fill=tk.X, padx=(0, 40))
 
         ttk.Checkbutton(
             text_frame,
@@ -44,10 +45,9 @@ class AddWatermarkFrame(BaseFunctionFrame):
         image_frame = ttk.Frame(self.options_frame)
         image_frame.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
 
-        ttk.Label(image_frame, text='水印图片:').pack(side=tk.LEFT)
+        ttk.Label(image_frame, text='水印图片：').pack(side=tk.LEFT)
         self.watermark_image_picker = PathPicker(
-            image_frame,
-            mode='open',
+            image_frame, mode='open', file_types=FILE_TYPES[('IMAGES', 'IMAGE_LIST')]
         )
         self.watermark_image_picker.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
