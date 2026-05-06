@@ -28,44 +28,142 @@ class EditBookmarksFrame(BaseFunctionFrame):
         self._page = tk.StringVar()
         self._title = tk.StringVar()
 
-        options_frame = ttk.Frame(self.options_frame)
-        options_frame.pack(side=tk.TOP, fill=tk.X)
+        # 书签输入区域
+        input_frame = ttk.Frame(self.options_frame)
+        input_frame.pack(side=tk.TOP, fill=tk.X)
 
-        ttk.Label(options_frame, text='层级：').pack(side=tk.LEFT)
+        ttk.Label(input_frame, text='层级：').pack(side=tk.LEFT)
         ttk.Entry(
-            options_frame,
+            input_frame,
             textvariable=self._level,
             width=8,
         ).pack(side=tk.LEFT, padx=(5, 10))
 
-        ttk.Label(options_frame, text='页码：').pack(side=tk.LEFT)
+        ttk.Label(input_frame, text='页码：').pack(side=tk.LEFT)
         ttk.Entry(
-            options_frame,
+            input_frame,
             textvariable=self._page,
             width=8,
         ).pack(side=tk.LEFT, padx=(5, 10))
 
-        ttk.Label(options_frame, text='标题：').pack(side=tk.LEFT)
+        ttk.Label(input_frame, text='标题：').pack(side=tk.LEFT)
         ttk.Entry(
-            options_frame,
+            input_frame,
             textvariable=self._title,
             width=30,
         ).pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(5, 10))
 
+        # 按钮区域
         button_frame = ttk.Frame(self.options_frame)
         button_frame.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
 
-        ttk.Button(
-            button_frame,
-            text='编辑',
-            width=10,
-        ).pack(side=tk.RIGHT, padx=(5, 0))
-
-        ttk.Button(
+        self._add_button = ttk.Button(
             button_frame,
             text='添加',
             width=10,
-        ).pack(side=tk.RIGHT)
+            command=self._add_bookmark,
+        )
+        self._add_button.pack(side=tk.RIGHT, padx=(5, 0))
+
+        self._edit_button = ttk.Button(
+            button_frame,
+            text='编辑',
+            width=10,
+            command=self._edit_bookmark,
+        )
+        self._edit_button.pack(side=tk.RIGHT, padx=(5, 0))
+
+        self._delete_button = ttk.Button(
+            button_frame,
+            text='删除',
+            width=10,
+            command=self._delete_bookmark,
+        )
+        self._delete_button.pack(side=tk.RIGHT, padx=(5, 0))
+
+        # 书签列表区域
+        list_frame = ttk.Frame(self.options_frame)
+        list_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True, pady=(10, 0))
+
+        # 创建 Treeview
+        columns = ('level', 'page', 'title')
+        self._bookmark_tree = ttk.Treeview(
+            list_frame,
+            columns=columns,
+            show='headings',
+            height=10,
+        )
+
+        # 设置列标题
+        self._bookmark_tree.heading('level', text='层级')
+        self._bookmark_tree.heading('page', text='页码')
+        self._bookmark_tree.heading('title', text='标题')
+
+        # 设置列宽
+        self._bookmark_tree.column('level', width=60, anchor='center')
+        self._bookmark_tree.column('page', width=60, anchor='center')
+        self._bookmark_tree.column('title', width=300, anchor='w')
+
+        # 添加滚动条
+        scrollbar = ttk.Scrollbar(list_frame, orient=tk.VERTICAL, command=self._bookmark_tree.yview)
+        self._bookmark_tree.configure(yscrollcommand=scrollbar.set)
+
+        self._bookmark_tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        # 存储所有书签数据
+        self._bookmarks = []
+
+    def _add_bookmark(self):
+        """添加书签到列表"""
+        level = self._level.get().strip()
+        page = self._page.get().strip()
+        title = self._title.get().strip()
+
+        if not level or not page or not title:
+            return
+
+        # 添加到树形视图
+        self._bookmark_tree.insert('', tk.END, values=(level, page, title))
+        self._bookmarks.append({'level': level, 'page': page, 'title': title})
+
+        # 清空输入框
+        self._level.set('')
+        self._page.set('')
+        self._title.set('')
+
+    def _edit_bookmark(self):
+        """编辑选中的书签"""
+        selection = self._bookmark_tree.selection()
+        if not selection:
+            return
+
+        # 获取选中的项
+        item = selection[0]
+        values = self._bookmark_tree.item(item, 'values')
+
+        # 填充到输入框
+        self._level.set(values[0])
+        self._page.set(values[1])
+        self._title.set(values[2])
+
+        # 删除旧项
+        self._bookmark_tree.delete(item)
+
+    def _delete_bookmark(self):
+        """删除选中的书签"""
+        selection = self._bookmark_tree.selection()
+        if not selection:
+            return
+
+        for item in selection:
+            self._bookmark_tree.delete(item)
+
+        # 重新构建书签列表
+        self._bookmarks = []
+        for item in self._bookmark_tree.get_children():
+            values = self._bookmark_tree.item(item, 'values')
+            self._bookmarks.append({'level': values[0], 'page': values[1], 'title': values[2]})
 
     def get_input_files(self) -> list[Path]:
         input_path = self.input_path_picker.get()
@@ -75,9 +173,7 @@ class EditBookmarksFrame(BaseFunctionFrame):
 
     def get_options(self) -> dict:
         return {
-            'level': self._level.get(),
-            'page': self._page.get(),
-            'title': self._title.get(),
+            'bookmarks': self._bookmarks,
         }
 
 
