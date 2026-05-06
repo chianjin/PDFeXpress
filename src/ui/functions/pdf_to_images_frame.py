@@ -9,6 +9,7 @@ from ui.functions.base_function_frame import BaseFunctionFrame
 class PdfToImagesFrame(BaseFunctionFrame):
     def __init__(self, master):
         super().__init__(master, function_id='pdf_to_images', output_mode='folder')
+        self._setup_auto_output()
 
     def _set_input_frame(self):
         self.file_list_view = FileListView(
@@ -17,7 +18,27 @@ class PdfToImagesFrame(BaseFunctionFrame):
             allow_duplicates=False,
         )
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
-        self._setup_auto_output()
+
+    def _setup_auto_output(self):
+        first_file_var = self.file_list_view.get_first_file_var()
+
+        def update_output(*_args):
+            if not self.output_path_picker.is_auto_output_enabled():
+                return
+
+            first_file = first_file_var.get()
+            if first_file:
+                from pathlib import Path
+
+                path = Path(first_file)
+                folder_name = path.stem
+                parent_dir = path.parent
+                auto_path = parent_dir / folder_name
+                self.output_path_picker.set(auto_path, is_auto=True)
+            else:
+                self.output_path_picker.set('', is_auto=True)
+
+        first_file_var.trace_add('write', update_output)
 
     def _set_options_frame(self):
         self._dpi = tk.IntVar(value=300)

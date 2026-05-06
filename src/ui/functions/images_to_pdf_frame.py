@@ -1,3 +1,4 @@
+from contextlib import suppress
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
@@ -132,13 +133,18 @@ class ImagesToPdfFrame(BaseFunctionFrame):
             self.height_entry.configure(state=tk.DISABLED)
 
     def _update_size_options_state(self, *_args):
+        uniform_frame = self.options_frame.winfo_children()[1]
         if self._size_mode.get() == 'uniform':
-            for widget in self.options_frame.winfo_children()[1].winfo_children():
-                widget.configure(state=tk.NORMAL)
+            for widget in uniform_frame.winfo_children():
+                for child in widget.winfo_children():
+                    with suppress(tk.TclError):
+                        child.configure(state=tk.NORMAL)
             self._on_page_size_changed()
         else:
-            for widget in self.options_frame.winfo_children()[1].winfo_children():
-                widget.configure(state=tk.DISABLED)
+            for widget in uniform_frame.winfo_children():
+                for child in widget.winfo_children():
+                    with suppress(tk.TclError):
+                        child.configure(state=tk.DISABLED)
 
     def get_input_files(self) -> list[Path]:
         return self.file_list_view.get_files()
