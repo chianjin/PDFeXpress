@@ -14,6 +14,14 @@ class PdfToLongImageFrame(BaseFunctionFrame):
         self.input_path_picker = PathPicker(self.input_frame, mode='open')
         self.input_path_picker.pack(side=tk.TOP, fill=tk.X)
 
+    def _get_auto_output_strategy(self):
+        from utils.auto_output_helpers import setup_auto_output_single_to_single
+        return lambda frame: setup_auto_output_single_to_single(
+            frame.input_path_picker,
+            frame.output_path_picker,
+            path_generator=lambda input_path: input_path.parent / f"{input_path.stem}.jpg",
+        )
+
     def _set_options_frame(self):
         self._dpi = tk.IntVar(value=150)
         self._quality = tk.IntVar(value=75)

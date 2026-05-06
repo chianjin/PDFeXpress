@@ -5,6 +5,7 @@ from tkinter import ttk
 
 from ui.components.file_list_view import FileListView
 from ui.functions.base_function_frame import BaseFunctionFrame
+from utils.file_types import FILE_TYPES
 
 
 class ImagesToPdfFrame(BaseFunctionFrame):
@@ -16,8 +17,12 @@ class ImagesToPdfFrame(BaseFunctionFrame):
             self.input_frame,
             sortable=True,
             allow_duplicates=True,
+            file_types=FILE_TYPES['IMAGES', 'IMAGE_LIST'],
         )
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
+
+    def _generate_output_filename(self, first_file: Path) -> str:
+        return f"{first_file.stem}.pdf"
 
     def _set_options_frame(self):
         self._size_mode = tk.StringVar(value='original')
