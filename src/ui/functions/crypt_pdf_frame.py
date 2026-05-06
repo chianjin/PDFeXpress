@@ -30,7 +30,6 @@ class CryptPdfFrame(BaseFunctionFrame):
             options_frame,
             textvariable=self._password,
             width=20,
-            show='*',
         ).pack(side=tk.LEFT, padx=(5, 15))
 
         ttk.Label(options_frame, text='模式:').pack(side=tk.LEFT)
