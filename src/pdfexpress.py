@@ -11,10 +11,12 @@ def setup_dpi_awareness() -> None:
     if sys.platform == 'win32':
         try:
             import ctypes
+
             ctypes.windll.shcore.SetProcessDpiAwareness(2)
         except Exception:
             with contextlib.suppress(Exception):
                 ctypes.windll.user32.SetProcessDPIAware()
+
 
 def main() -> None:
     setup_dpi_awareness()
@@ -25,7 +27,7 @@ def main() -> None:
     if sys.platform == 'win32':
         icon_path = ICONS_PATH / f'{EXECUTABLE_NAME}.ico'
         if icon_path.exists():
-             root.iconbitmap(str(icon_path))
+            root.iconbitmap(str(icon_path))
 
     app = MainFrame(root)
     app.pack(fill='both', expand=True)

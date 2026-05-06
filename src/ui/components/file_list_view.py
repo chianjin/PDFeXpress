@@ -22,7 +22,7 @@ class FileListView(tk.Frame):
         self._file_types = file_types
         self._sortable = sortable
         self._allow_duplicates = allow_duplicates
-        self._sort_state = 'unknown' # 'unknown', 'ascending' 'descending'
+        self._sort_state = 'unknown'  # 'unknown', 'ascending' 'descending'
         self._first_file_var = tk.StringVar()
 
         self._setup_ui()

@@ -25,4 +25,3 @@ FUNCTION_LIST.update(
         'pdf_to_docx': function('PDF 转 DOCX', '转换', 2, 5),
     }
 )
-

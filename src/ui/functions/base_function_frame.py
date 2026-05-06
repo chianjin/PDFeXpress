@@ -8,10 +8,10 @@ from typing import Literal, final
 from core.function_list import FUNCTION_LIST
 from ui.components import ExecuteFrame, HeaderFrame, PathPicker
 from utils.auto_output_helpers import (
-    setup_auto_output_file_to_file,
-    setup_auto_output_file_to_folder,
-    setup_auto_output_list_to_file,
     setup_auto_output_list_to_folder,
+    setup_auto_output_list_to_single,
+    setup_auto_output_single_to_folder,
+    setup_auto_output_single_to_single,
 )
 from utils.file_types import FILE_TYPES
 
@@ -100,18 +100,18 @@ class BaseFunctionFrame(ttk.Frame, ABC):
                     frame.file_list_view, frame.output_path_picker
                 )
             else:
-                return lambda frame: setup_auto_output_list_to_file(
+                return lambda frame: setup_auto_output_list_to_single(
                     frame.file_list_view,
                     frame.output_path_picker,
                     frame._generate_output_filename,
                 )
         elif hasattr(self, 'input_path_picker'):
             if self.output_mode == 'folder':
-                return lambda frame: setup_auto_output_file_to_folder(
+                return lambda frame: setup_auto_output_single_to_folder(
                     frame.input_path_picker, frame.output_path_picker
                 )
             else:
-                return lambda frame: setup_auto_output_file_to_file(
+                return lambda frame: setup_auto_output_single_to_single(
                     frame.input_path_picker, frame.output_path_picker
                 )
         return None

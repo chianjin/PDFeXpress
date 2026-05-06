@@ -32,7 +32,7 @@ class MergePdfFrame(BaseFunctionFrame):
         ).pack(side=tk.LEFT, padx=(10, 0))
 
     def _generate_output_filename(self, first_file: Path) -> str:
-        return f"{first_file.stem}_合并.pdf"
+        return f'{first_file.stem}_合并.pdf'
 
     def get_input_files(self) -> list[Path]:
         return self.file_list_view.get_file_paths()
