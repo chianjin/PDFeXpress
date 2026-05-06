@@ -27,6 +27,7 @@ class DeletePagesFrame(BaseFunctionFrame):
 
     def _set_options_frame(self):
         self._page_range = tk.StringVar()
+        self._help_icon = tk.PhotoImage(file=ICONS_PATH / 'help.png')
 
         options_frame = ttk.Frame(self.options_frame)
         options_frame.pack(side=tk.TOP, fill=tk.X)
@@ -37,22 +38,15 @@ class DeletePagesFrame(BaseFunctionFrame):
             textvariable=self._page_range,
             width=30,
         ).pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(5, 10))
-
-        help_frame = ttk.Frame(self.options_frame)
-        help_frame.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
-        self._help_icon = tk.PhotoImage(file=ICONS_PATH / 'help.png')
-        ttk.Label(
-            help_frame,
-            text='示例：3,7-9,12。点击',
-        ).pack(side=tk.LEFT)
+        ttk.Label(options_frame, text='示例：3,7-9,12。点击').pack(side=tk.LEFT)
         ttk.Button(
-            help_frame,
+            options_frame,
             image=self._help_icon,
             command=self._show_help,
             style='Toolbutton',
             padding=0,
         ).pack(side=tk.LEFT)
-        ttk.Label(help_frame, text='查看详情。').pack(side=tk.LEFT)
+        ttk.Label(options_frame, text='查看详情。').pack(side=tk.LEFT)
 
     def _show_help(self):
         """显示页面范围规则帮助信息"""
