@@ -39,7 +39,7 @@ class AddWatermarkFrame(BaseFunctionFrame):
             text_frame,
             text='隐水印',
             variable=self._invisible,
-        ).pack(side=tk.LEFT)
+        ).pack(side=tk.RIGHT)
 
         # 第二行：水印图片
         image_frame = ttk.Frame(self.options_frame)
@@ -47,7 +47,7 @@ class AddWatermarkFrame(BaseFunctionFrame):
 
         ttk.Label(image_frame, text='水印图片：').pack(side=tk.LEFT)
         self.watermark_image_picker = PathPicker(
-            image_frame, mode='open', file_types=FILE_TYPES[('IMAGES', 'IMAGE_LIST')]
+            image_frame, mode='open', file_types=FILE_TYPES['IMAGES', 'IMAGE_LIST']
         )
         self.watermark_image_picker.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
