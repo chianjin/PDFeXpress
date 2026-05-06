@@ -16,7 +16,6 @@ class MergePdfFrame(BaseFunctionFrame):
     def _set_input_frame(self):
         self.file_list_view = FileListView(self.input_frame)
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
-        self._setup_auto_output()
 
     def _set_options_frame(self):
         self._generate_bookmarks = tk.BooleanVar(value=True)
