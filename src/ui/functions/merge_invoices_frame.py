@@ -1,6 +1,5 @@
 from pathlib import Path
 import tkinter as tk
-from tkinter import ttk
 
 from ui.components.file_list_view import FileListView
 from ui.functions.base_function_frame import BaseFunctionFrame
@@ -21,15 +20,6 @@ class MergeInvoicesFrame(BaseFunctionFrame):
         )
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
 
-    def _set_options_frame(self):
-        self._merge_non_standard = tk.BooleanVar(value=True)
-
-        ttk.Checkbutton(
-            self.options_frame,
-            text='合并非标准尺寸发票',
-            variable=self._merge_non_standard,
-        ).pack(side=tk.LEFT)
-
     def _generate_output_filename(self, first_file: Path) -> str:
         return f'{first_file.stem}_合并发票.pdf'
 
@@ -37,9 +27,7 @@ class MergeInvoicesFrame(BaseFunctionFrame):
         return self.file_list_view.get_file_paths()
 
     def get_options(self) -> dict:
-        return {
-            'merge_non_standard': self._merge_non_standard.get(),
-        }
+        return {}
 
 
 if __name__ == '__main__':
