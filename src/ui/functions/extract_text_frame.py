@@ -11,7 +11,11 @@ class ExtractTextFrame(BaseFunctionFrame):
         super().__init__(master, function_id='extract_text', output_mode='folder')
 
     def _set_input_frame(self):
-        self.file_list_view = FileListView(self.input_frame)
+        self.file_list_view = FileListView(
+            self.input_frame,
+            sortable=False,
+            allow_duplicates=False,
+        )
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
         self._setup_auto_output()
 
