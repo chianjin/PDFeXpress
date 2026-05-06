@@ -15,7 +15,7 @@ class EditBookmarksFrame(BaseFunctionFrame):
         self.input_path_picker = PathPicker(self.input_frame, mode='open')
         self.input_path_picker.pack(side=tk.TOP, fill=tk.X)
         # 输入文件改变时自动加载书签和更新输出路径
-        self.input_path_picker.path_var.trace_add('write', self._on_input_pdf_changed)
+        self.input_path_picker.set_trace('write', self._on_input_pdf_changed)
 
     def _get_auto_output_strategy(self):
         from utils.auto_output_helpers import setup_auto_output_single_to_single
