@@ -31,6 +31,7 @@ class BaseFunctionFrame(ttk.Frame, ABC):
         self._set_input_frame()
         self._set_output_frame()
         self._set_options_frame()
+        self._setup_auto_output()
 
     def _setup_ui(self):
         HeaderFrame(self, function_id=self.function_id).pack(side=tk.TOP, fill=tk.X, padx=10)
@@ -67,6 +68,31 @@ class BaseFunctionFrame(ttk.Frame, ABC):
             default_extension=self.output_default_extension,
         )
         self.output_path_picker.pack(side=tk.TOP, fill=tk.X)
+
+    @final
+    def _setup_auto_output(self):
+        if not hasattr(self, 'file_list_view'):
+            return
+
+        first_file_var = self.file_list_view.get_first_file_var()
+
+        def update_output(*_args):
+            if not self.output_path_picker.is_auto_output_enabled():
+                return
+
+            first_file_str = first_file_var.get()
+            if not first_file_str:
+                self.output_path_picker.path.set('')
+                return
+
+            first_file = Path(first_file_str)
+            auto_path = self._get_auto_output_path(first_file)
+            self.output_path_picker.set_path(auto_path)
+
+        first_file_var.trace_add('write', update_output)
+
+    def _get_auto_output_path(self, first_file: Path) -> Path:
+        return first_file.parent
 
     @abstractmethod
     def _set_options_frame(self):

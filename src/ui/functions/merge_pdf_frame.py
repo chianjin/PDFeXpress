@@ -32,24 +32,9 @@ class MergePdfFrame(BaseFunctionFrame):
             variable=self._double_side_print,
         ).pack(side=tk.LEFT, padx=(10, 0))
 
-    def _setup_auto_output(self):
-        first_file_var = self.file_list_view.get_first_file_var()
-
-        def update_output(*_args):
-            if not self.output_path_picker.is_auto_output_enabled():
-                return
-
-            first_file_str = first_file_var.get()
-            if not first_file_str:
-                self.output_path_picker.path.set('')
-                return
-
-            first_file = Path(first_file_str)
-            output_name = f"{first_file.stem}_合并.pdf"
-            output_path = first_file.parent / output_name
-            self.output_path_picker.set_path(output_path)
-
-        first_file_var.trace_add('write', update_output)
+    def _get_auto_output_path(self, first_file: Path) -> Path:
+        output_name = f"{first_file.stem}_合并.pdf"
+        return first_file.parent / output_name
 
     def get_input_files(self) -> list[Path]:
         return self.file_list_view.get_file_paths()

@@ -17,11 +17,10 @@ class ExtractTextFrame(BaseFunctionFrame):
             allow_duplicates=False,
         )
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
-        self._setup_auto_output()
 
     def _set_options_frame(self):
         self._output_format = tk.StringVar(value='txt')
-        self._rebuild_order = tk.BooleanVar(value=False)
+        self._rebuild_order = tk.BooleanVar(value=True)
 
         options_frame = ttk.Frame(self.options_frame)
         options_frame.pack(side=tk.TOP, fill=tk.X)
@@ -51,23 +50,6 @@ class ExtractTextFrame(BaseFunctionFrame):
             text='重建阅读顺序',
             variable=self._rebuild_order,
         ).pack(side=tk.LEFT, padx=(15, 0))
-
-    def _setup_auto_output(self):
-        first_file_var = self.file_list_view.get_first_file_var()
-
-        def update_output(*_args):
-            if not self.output_path_picker.is_auto_output_enabled():
-                return
-
-            first_file_str = first_file_var.get()
-            if not first_file_str:
-                self.output_path_picker.path.set('')
-                return
-
-            first_file = Path(first_file_str)
-            self.output_path_picker.set_path(first_file.parent)
-
-        first_file_var.trace_add('write', update_output)
 
     def get_input_files(self) -> list[Path]:
         return self.file_list_view.get_file_paths()

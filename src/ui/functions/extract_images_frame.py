@@ -17,7 +17,6 @@ class ExtractImagesFrame(BaseFunctionFrame):
             allow_duplicates=False,
         )
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
-        self._setup_auto_output()
 
     def _set_options_frame(self):
         self._ignore_small = tk.BooleanVar(value=True)
@@ -60,23 +59,6 @@ class ExtractImagesFrame(BaseFunctionFrame):
         else:
             self.width_entry.configure(state=tk.DISABLED)
             self.height_entry.configure(state=tk.DISABLED)
-
-    def _setup_auto_output(self):
-        first_file_var = self.file_list_view.get_first_file_var()
-
-        def update_output(*_args):
-            if not self.output_path_picker.is_auto_output_enabled():
-                return
-
-            first_file_str = first_file_var.get()
-            if not first_file_str:
-                self.output_path_picker.path.set('')
-                return
-
-            first_file = Path(first_file_str)
-            self.output_path_picker.set_path(first_file.parent)
-
-        first_file_var.trace_add('write', update_output)
 
     def get_input_files(self) -> list[Path]:
         return self.file_list_view.get_file_paths()
