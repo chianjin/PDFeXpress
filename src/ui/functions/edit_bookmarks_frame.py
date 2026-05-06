@@ -372,7 +372,9 @@ class EditBookmarksFrame(BaseFunctionFrame):
         self._bookmarks = []
         for item in self._bookmark_tree.get_children():
             values = self._bookmark_tree.item(item, 'values')
-            self._bookmarks.append({'level': int(values[0]), 'page': int(values[1]), 'title': values[2]})
+            self._bookmarks.append(
+                {'level': int(values[0]), 'page': int(values[1]), 'title': values[2]}
+            )
 
     def get_input_files(self) -> list[Path]:
         input_path = self.input_path_picker.get_path()

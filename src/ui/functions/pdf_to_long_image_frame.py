@@ -4,11 +4,18 @@ from tkinter import ttk
 
 from ui.components.path_picker import PathPicker
 from ui.functions.base_function_frame import BaseFunctionFrame
+from utils.file_types import FILE_TYPES
 
 
 class PdfToLongImageFrame(BaseFunctionFrame):
     def __init__(self, master):
-        super().__init__(master, function_id='pdf_to_long_image', output_mode='file')
+        super().__init__(
+            master,
+            function_id='pdf_to_long_image',
+            output_mode='save',
+            output_file_types=FILE_TYPES['JPEG'],
+            output_default_extension='.jpg',
+        )
 
     def _set_input_frame(self):
         self.input_path_picker = PathPicker(self.input_frame, mode='open')
@@ -16,10 +23,11 @@ class PdfToLongImageFrame(BaseFunctionFrame):
 
     def _get_auto_output_strategy(self):
         from utils.auto_output_helpers import setup_auto_output_single_to_single
+
         return lambda frame: setup_auto_output_single_to_single(
             frame.input_path_picker,
             frame.output_path_picker,
-            path_generator=lambda input_path: input_path.parent / f"{input_path.stem}.jpg",
+            path_generator=lambda input_path: input_path.parent / f'{input_path.stem}.jpg',
         )
 
     def _set_options_frame(self):
@@ -54,3 +62,12 @@ class PdfToLongImageFrame(BaseFunctionFrame):
             'dpi': self._dpi.get(),
             'quality': self._quality.get(),
         }
+
+
+if __name__ == '__main__':
+    from tkinterdnd2 import Tk
+
+    root = Tk()
+    app = PdfToLongImageFrame(root)
+    app.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+    app.mainloop()

@@ -2,7 +2,7 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
 
-from config import ICONS_PATH, PAGE_RANGE_SYNTEX
+from config import ICONS_PATH, PAGE_RANGE_SYNTAX
 from ui.components import HelpWindow, PathPicker
 from ui.functions.base_function_frame import BaseFunctionFrame
 
@@ -96,7 +96,7 @@ class SplitPdfFrame(BaseFunctionFrame):
             self.help_window.lift()
             return
 
-        with PAGE_RANGE_SYNTEX.open('r', encoding='utf-8') as help_file:
+        with PAGE_RANGE_SYNTAX.open('r', encoding='utf-8') as help_file:
             help_title = help_file.readline().strip()
             help_file.seek(0)
             help_text = help_file.read()

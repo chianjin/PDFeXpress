@@ -55,8 +55,10 @@ class CryptPdfFrame(BaseFunctionFrame):
             'mode': self._mode.get(),
         }
 
+
 if __name__ == '__main__':
     from tkinterdnd2 import Tk
+
     root = Tk()
     app = CryptPdfFrame(root)
     app.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)

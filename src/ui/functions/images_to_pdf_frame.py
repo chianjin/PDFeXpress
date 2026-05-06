@@ -10,7 +10,7 @@ from utils.file_types import FILE_TYPES
 
 class ImagesToPdfFrame(BaseFunctionFrame):
     def __init__(self, master):
-        super().__init__(master, function_id='images_to_pdf', output_mode='file')
+        super().__init__(master, function_id='images_to_pdf', output_mode='save')
 
     def _set_input_frame(self):
         self.file_list_view = FileListView(
@@ -22,7 +22,7 @@ class ImagesToPdfFrame(BaseFunctionFrame):
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
 
     def _generate_output_filename(self, first_file: Path) -> str:
-        return f"{first_file.stem}.pdf"
+        return f'{first_file.stem}.pdf'
 
     def _set_options_frame(self):
         self._size_mode = tk.StringVar(value='original')
@@ -163,3 +163,12 @@ class ImagesToPdfFrame(BaseFunctionFrame):
             'orientation': self._orientation.get(),
             'fit_mode': self._fit_mode.get(),
         }
+
+
+if __name__ == '__main__':
+    from tkinterdnd2 import Tk
+
+    root = Tk()
+    app = ImagesToPdfFrame(root)
+    app.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+    app.mainloop()

@@ -27,6 +27,7 @@ class ValueSpinbox(ttk.Frame):
     def get_value(self):
         return self._value.get()
 
+
 class AddPageNumbersFrame(BaseFunctionFrame):
     def __init__(self, master):
         super().__init__(master, function_id='add_page_numbers', output_mode='save')
@@ -37,10 +38,11 @@ class AddPageNumbersFrame(BaseFunctionFrame):
 
     def _get_auto_output_strategy(self):
         from utils.auto_output_helpers import setup_auto_output_single_to_single
+
         return lambda frame: setup_auto_output_single_to_single(
             frame.input_path_picker,
             frame.output_path_picker,
-            path_generator=lambda input_path: input_path.parent / f"{input_path.stem}_页码.pdf",
+            path_generator=lambda input_path: input_path.parent / f'{input_path.stem}_页码.pdf',
         )
 
     def _set_options_frame(self):
@@ -76,7 +78,7 @@ class AddPageNumbersFrame(BaseFunctionFrame):
             image=self._help_icon,
             command=self._show_help,
             style='Toolbutton',
-            padding=0
+            padding=0,
         ).pack(side=tk.LEFT)
         ttk.Label(rule_frame, text='查看详细说明。').pack(side=tk.LEFT)
 
@@ -172,11 +174,56 @@ class AddPageNumbersFrame(BaseFunctionFrame):
         self.margin_h_frame.pack(side=tk.LEFT, fill=tk.Y, padx=(0, 10))
 
         self._margin_widgets = {
-            'margin_top': ValueSpinbox(self.margin_v_frame, '上边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_top),
-            'margin_bottom': ValueSpinbox(self.margin_v_frame, '下边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_bottom),
-            'margin_left': ValueSpinbox(self.margin_h_frame, '左边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_left),
-            'margin_right': ValueSpinbox(self.margin_h_frame, '右边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_right),
-            'margin_side': ValueSpinbox(self.margin_h_frame, '侧边距：', '厘米', width=10, from_=0, to=10, increment=0.1, textvariable=self._margin_side),
+            'margin_top': ValueSpinbox(
+                self.margin_v_frame,
+                '上边距：',
+                '厘米',
+                width=10,
+                from_=0,
+                to=10,
+                increment=0.1,
+                textvariable=self._margin_top,
+            ),
+            'margin_bottom': ValueSpinbox(
+                self.margin_v_frame,
+                '下边距：',
+                '厘米',
+                width=10,
+                from_=0,
+                to=10,
+                increment=0.1,
+                textvariable=self._margin_bottom,
+            ),
+            'margin_left': ValueSpinbox(
+                self.margin_h_frame,
+                '左边距：',
+                '厘米',
+                width=10,
+                from_=0,
+                to=10,
+                increment=0.1,
+                textvariable=self._margin_left,
+            ),
+            'margin_right': ValueSpinbox(
+                self.margin_h_frame,
+                '右边距：',
+                '厘米',
+                width=10,
+                from_=0,
+                to=10,
+                increment=0.1,
+                textvariable=self._margin_right,
+            ),
+            'margin_side': ValueSpinbox(
+                self.margin_h_frame,
+                '侧边距：',
+                '厘米',
+                width=10,
+                from_=0,
+                to=10,
+                increment=0.1,
+                textvariable=self._margin_side,
+            ),
         }
 
         # Pack所有边距控件（初始只显示需要的）
@@ -194,7 +241,7 @@ class AddPageNumbersFrame(BaseFunctionFrame):
         self._margin_widgets['margin_right'].pack_forget()
         self._margin_widgets['margin_side'].pack_forget()
 
-    def _update_margin_v_widgets(self, *args):
+    def _update_margin_v_widgets(self, *_args):
         """根据垂直位置（页眉/页脚）更新显示的边距控件"""
         # 隐藏当前控件
         self._current_margin_v_widget.pack_forget()
@@ -208,7 +255,7 @@ class AddPageNumbersFrame(BaseFunctionFrame):
         # 显示新控件（在margin_v_frame中pack即可）
         self._current_margin_v_widget.pack(side=tk.LEFT, padx=(0, 5))
 
-    def _update_margin_h_widgets(self, *args):
+    def _update_margin_h_widgets(self, *_args):
         """根据水平位置（左/中/右/外/内）更新显示的边距控件"""
         # 隐藏当前控件（如果存在）
         if self._current_margin_h_widget:
@@ -233,6 +280,7 @@ class AddPageNumbersFrame(BaseFunctionFrame):
     def _show_help(self):
         """显示页码规则帮助信息"""
         from ui.components.help_window import HelpWindow
+
         with PAGE_NUMBER_SYNTAX.open('r', encoding='utf-8') as f:
             help_title = f.readline().strip()
             f.seek(0)
