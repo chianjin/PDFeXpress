@@ -4,7 +4,6 @@ from tkinter import ttk
 
 from ui.components.file_list_view import FileListView
 from ui.functions.base_function_frame import BaseFunctionFrame
-from utils.auto_output_helpers import setup_auto_output_list_to_folder
 
 
 class PdfToImagesFrame(BaseFunctionFrame):
@@ -18,13 +17,6 @@ class PdfToImagesFrame(BaseFunctionFrame):
             allow_duplicates=False,
         )
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
-
-    def _get_auto_output_strategy(self):
-        return lambda frame: setup_auto_output_list_to_folder(
-            frame.file_list_view,
-            frame.output_path_picker,
-            path_generator=lambda first_file: first_file.parent / first_file.stem,
-        )
 
     def _set_options_frame(self):
         self._dpi = tk.IntVar(value=300)
