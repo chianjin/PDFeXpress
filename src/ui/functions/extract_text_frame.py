@@ -19,34 +19,34 @@ class ExtractTextFrame(BaseFunctionFrame):
         self._output_format = tk.StringVar(value='txt')
         self._rebuild_order = tk.BooleanVar(value=False)
 
-        format_frame = ttk.Frame(self.options_frame)
-        format_frame.pack(side=tk.TOP, fill=tk.X, pady=(0, 5))
+        options_frame = ttk.Frame(self.options_frame)
+        options_frame.pack(side=tk.TOP, fill=tk.X)
 
-        ttk.Label(format_frame, text='输出格式').pack(side=tk.LEFT)
+        ttk.Label(options_frame, text='输出格式').pack(side=tk.LEFT)
         ttk.Radiobutton(
-            format_frame,
+            options_frame,
             text='TXT',
             value='txt',
             variable=self._output_format,
         ).pack(side=tk.LEFT, padx=(5, 0))
         ttk.Radiobutton(
-            format_frame,
+            options_frame,
             text='HTML',
             value='html',
             variable=self._output_format,
         ).pack(side=tk.LEFT, padx=(5, 0))
         ttk.Radiobutton(
-            format_frame,
+            options_frame,
             text='JSON',
             value='json',
             variable=self._output_format,
         ).pack(side=tk.LEFT, padx=(5, 0))
 
         ttk.Checkbutton(
-            self.options_frame,
+            options_frame,
             text='尝试重建阅读顺序',
             variable=self._rebuild_order,
-        ).pack(side=tk.LEFT, anchor=tk.W)
+        ).pack(side=tk.LEFT, padx=(15, 0))
 
     def _setup_auto_output(self):
         first_file_var = self.file_list_view.get_first_file_var()
