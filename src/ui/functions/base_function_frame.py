@@ -9,9 +9,9 @@ from core.function_list import FUNCTION_LIST
 from ui.components import ExecuteFrame, HeaderFrame, PathPicker
 from utils.auto_output_helpers import (
     setup_auto_output_file_to_file,
+    setup_auto_output_file_to_folder,
     setup_auto_output_list_to_file,
     setup_auto_output_list_to_folder,
-    setup_auto_output_single_to_folder,
 )
 from utils.file_types import FILE_TYPES
 
@@ -107,7 +107,7 @@ class BaseFunctionFrame(ttk.Frame, ABC):
                 )
         elif hasattr(self, 'input_path_picker'):
             if self.output_mode == 'folder':
-                return lambda frame: setup_auto_output_single_to_folder(
+                return lambda frame: setup_auto_output_file_to_folder(
                     frame.input_path_picker, frame.output_path_picker
                 )
             else:

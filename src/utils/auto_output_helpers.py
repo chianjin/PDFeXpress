@@ -72,7 +72,7 @@ def setup_auto_output_file_to_file(input_path_picker, output_path_picker):
     input_path_var.trace_add('write', update_output)
 
 
-def setup_auto_output_single_to_folder(input_path_picker, output_path_picker):
+def setup_auto_output_file_to_folder(input_path_picker, output_path_picker):
     """单文件 -> 文件夹：输出文件夹为输入文件所在目录"""
     input_path_var = input_path_picker.path
 
