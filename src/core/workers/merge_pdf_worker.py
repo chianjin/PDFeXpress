@@ -15,14 +15,16 @@ class MergePdfWorker(BaseWorker):
         """执行 PDF 合并任务
 
         Args:
-            params: 包含 inputs（输入文件列表）和 output（输出文件路径）
+            params: 包含 inputs（输入文件列表）、output（输出文件路径）和 options（选项）
             progress_callback: 进度回调
             status_callback: 状态回调
             cancel_event: 取消事件
         """
         input_files = params['inputs']
         output_file = params['output']
-        params.get('options', {})
+        options = params.get('options', {})
+        generate_bookmarks = options.get('generate_bookmarks', True)
+        double_side_print = options.get('double_side_print', False)
 
         # 1. 初始化阶段
         total_files = len(input_files)
@@ -48,7 +50,25 @@ class MergePdfWorker(BaseWorker):
                 progress_callback(index)  # 后续发送：只传 value
 
                 with pymupdf.open(input_path) as input_doc:
+                    # 记录当前页码（用于书签和双面打印）
+                    start_page = len(output_doc)
+                    page_count = len(input_doc)
+
+                    # 合并 PDF
                     output_doc.insert_pdf(input_doc)
+
+                    # 如果启用了生成书签，添加书签
+                    if generate_bookmarks:
+                        bookmark_title = input_path.stem
+                        output_doc.add_toc_item(
+                            level=1,
+                            title=bookmark_title,
+                            page=start_page
+                        )
+
+                    # 如果启用了双面打印且页数为奇数，插入空白页
+                    if double_side_print and page_count % 2 == 1:
+                        output_doc.new_page()
 
             # 4. 保存阶段
             status_callback(TaskState.SAVE, "正在保存...")
