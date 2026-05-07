@@ -43,6 +43,7 @@ class BaseFunctionFrame(ttk.Frame, ABC):
         # 设置执行处理器
         self.execute_frame.set_execute_handler(self._execute_handler)
 
+    @final
     def _setup_ui(self):
         HeaderFrame(self, function_id=self.function_id).pack(side=tk.TOP, fill=tk.X, padx=10)
 
@@ -143,6 +144,7 @@ class BaseFunctionFrame(ttk.Frame, ABC):
     def get_options(self) -> dict:
         return {}
 
+    @final
     def _execute_handler(self):
         """执行处理器，返回 function_id 和 params"""
         params = {
