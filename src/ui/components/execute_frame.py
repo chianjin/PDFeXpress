@@ -60,6 +60,18 @@ class ExecuteFrame(ttk.LabelFrame):
         """
         self._execute_handler = handler
 
+    def reset_to_ready(self):
+        """重置到就绪状态（当输入输出改变时调用）"""
+        # 只有在任务完成后才重置，避免中断正在运行的任务
+        if self.task_manager.is_running:
+            return
+        
+        # 重置状态栏和进度条
+        self.status.set('就绪')
+        self.progress_bar.stop()
+        self.progress_bar.configure(mode='determinate', maximum=100)
+        self.progress.set(0)
+
     def _on_execute(self):
         """执行按钮点击"""
         if not self._execute_handler:

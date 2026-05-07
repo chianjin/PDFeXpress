@@ -28,6 +28,9 @@ def setup_auto_output_list_to_folder(
         first_file = Path(first_file_str)
         output_path = path_generator(first_file) if path_generator else first_file.parent
         output_path_picker.set_path(output_path)
+        
+        # 重置任务状态到就绪
+        _reset_task_state(file_list_view)
 
     first_file_var.trace_add('write', update_output)
 
@@ -59,6 +62,9 @@ def setup_auto_output_list_to_single(
         output_name = name_generator(first_file) if name_generator else first_file.name
         output_path = first_file.parent / output_name
         output_path_picker.set_path(output_path)
+        
+        # 重置任务状态到就绪
+        _reset_task_state(file_list_view)
 
     first_file_var.trace_add('write', update_output)
 
@@ -89,6 +95,9 @@ def setup_auto_output_single_to_single(
         input_path = Path(input_path_str)
         output_path = path_generator(input_path) if path_generator else input_path.parent
         output_path_picker.set_path(output_path)
+        
+        # 重置任务状态到就绪
+        _reset_task_state(input_path_picker)
 
     input_path_var.trace_add('write', update_output)
 
@@ -119,5 +128,28 @@ def setup_auto_output_single_to_folder(
         input_path = Path(input_path_str)
         output_path = path_generator(input_path) if path_generator else input_path.parent
         output_path_picker.set_path(output_path)
+        
+        # 重置任务状态到就绪
+        _reset_task_state(input_path_picker)
 
     input_path_var.trace_add('write', update_output)
+
+
+def _reset_task_state(component):
+    """
+    重置任务状态到就绪
+    
+    Args:
+        component: UI组件（FileListView 或 PathPicker），用于查找 ExecuteFrame
+    """
+    try:
+        # 向上查找 ExecuteFrame
+        parent = component.master
+        while parent is not None:
+            if hasattr(parent, 'execute_frame'):
+                parent.execute_frame.reset_to_ready()
+                break
+            parent = parent.master if hasattr(parent, 'master') else None
+    except Exception:
+        # 静默失败，不影响主要功能
+        pass

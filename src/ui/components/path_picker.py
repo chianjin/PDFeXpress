@@ -77,7 +77,27 @@ class PathPicker(ttk.Frame):
         self._auto_output = True
 
     def disable_auto_output(self):
+        """禁用自动输出，并重置任务状态"""
+        was_enabled = self._auto_output
         self._auto_output = False
+        
+        # 如果之前是启用状态，现在被禁用（说明用户手动修改了输出），重置任务状态
+        if was_enabled:
+            self._reset_task_state()
+    
+    def _reset_task_state(self):
+        """重置任务状态到就绪"""
+        try:
+            # 向上查找 ExecuteFrame
+            parent = self.master
+            while parent is not None:
+                if hasattr(parent, 'execute_frame'):
+                    parent.execute_frame.reset_to_ready()
+                    break
+                parent = parent.master if hasattr(parent, 'master') else None
+        except Exception:
+            # 静默失败，不影响主要功能
+            pass
 
     def is_auto_output_enabled(self):
         return self._auto_output
