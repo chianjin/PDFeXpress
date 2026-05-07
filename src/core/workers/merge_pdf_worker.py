@@ -52,7 +52,7 @@ class MergePdfWorker(BaseWorker):
 
                 with pymupdf.open(input_path) as input_doc:
                     # 记录当前页码（用于书签）
-                    start_page = len(output_doc)
+                    current_total_page = len(output_doc)
 
                     # 合并 PDF
                     output_doc.insert_pdf(input_doc)
@@ -60,7 +60,7 @@ class MergePdfWorker(BaseWorker):
                     # 如果启用了生成书签，添加书签（PyMuPDF 页码从 1 开始）
                     if generate_bookmarks:
                         bookmark_title = input_path.stem
-                        toc_items.append([1, bookmark_title, start_page + 1])
+                        toc_items.append([1, bookmark_title, current_total_page + 1])
 
                     # 如果启用了双面打印且页数为奇数，插入空白页
                     if double_side_print and len(input_doc) % 2 == 1:
