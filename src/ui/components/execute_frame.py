@@ -17,6 +17,9 @@ class ExecuteFrame(ttk.LabelFrame):
 
         # 任务管理器
         self.task_manager = TaskManager()
+        
+        # 跟踪当前状态，避免重复切换进度条模式
+        self._current_state: TaskState | None = None
 
         self._setup_ui()
 
@@ -71,6 +74,9 @@ class ExecuteFrame(ttk.LabelFrame):
         self.progress_bar.stop()
         self.progress_bar.configure(mode='determinate', maximum=100)
         self.progress.set(0)
+        
+        # 重置当前状态跟踪
+        self._current_state = None
 
     def _on_execute(self):
         """执行按钮点击"""
@@ -188,41 +194,56 @@ class ExecuteFrame(ttk.LabelFrame):
             value: 当前进度值
             total: 进度最大值（仅在 PROCESS 阶段首次发送时有效）
         """
+        print(f"[DEBUG] Progress: value={value}, total={total}")
         if total > 0:
             # PROCESS 阶段首次收到消息：设置进度条最大值
+            print(f"[DEBUG] Setting progress bar maximum to {total}")
             self.progress_bar.stop()
             self.progress_bar.configure(mode='determinate', maximum=total)
             self.progress.set(int(value))
         else:
             # 后续进度更新：直接设置进度值
             self.progress.set(int(value))
+        print(f"[DEBUG] Progress bar value set to {self.progress.get()}")
 
     def _handle_status(self, state: TaskState, message: str):
         """处理状态消息"""
+        print(f"[DEBUG] Status received: state={state.value}, message={message}")
         # 根据状态码获取中文显示
         state_cn = STATE_MESSAGES.get(state.value, state.value)
         self.status.set(f'{state_cn}：{message}')
+        print(f"[DEBUG] Status label set to: '{state_cn}：{message}'")
 
-        # 根据状态切换进度条模式
-        if state in (TaskState.INIT, TaskState.SAVE):
-            # 不定模式（跑马灯）
-            self.progress_bar.stop()           # 1. 停止之前的动画
-            self.progress.set(0)               # 2. 数值归零
-            self.progress_bar.configure(mode='indeterminate')  # 3. 切换模式
-            self.progress_bar.start(10)        # 4. 重新启动
-        elif state == TaskState.PROCESS:
-            # 确定模式（Worker 会在第一条进度消息中设置 maximum）
-            self.progress_bar.stop()
-            self.progress_bar.configure(mode='determinate')
+        # 只在状态改变时切换进度条模式
+        if state != self._current_state:
+            print(f"[DEBUG] State changed from {self._current_state.value if self._current_state else 'None'} to {state.value}")
+            
+            # 根据状态切换进度条模式
+            if state in (TaskState.INIT, TaskState.SAVE):
+                # 不定模式（跑马灯）- 初始化或保存阶段
+                print(f"[DEBUG] Switching to indeterminate mode for {state.value}")
+                self.progress_bar.stop()           # 1. 停止之前的动画
+                self.progress.set(0)               # 2. 数值归零
+                self.progress_bar.configure(mode='indeterminate', maximum=100)  # 3. 切换模式并重置最大值
+                self.progress_bar.start(10)        # 4. 重新启动
+            elif state == TaskState.PROCESS:
+                # 确定模式（Worker 会在第一条进度消息中设置 maximum）
+                print(f"[DEBUG] Switching to determinate mode for PROCESS")
+                self.progress_bar.stop()
+                self.progress_bar.configure(mode='determinate')
+                # 注意：不在这里设置 maximum，等待 Worker 发送第一条进度消息时设置
+            
+            # 更新当前状态
+            self._current_state = state
 
         self._update_buttons(state)
 
     def _handle_complete(self, success: bool, cancelled: bool = False, error: Exception | None = None):
         """处理完成消息"""
         self.progress_bar.stop()
-
+    
         if success:
-            # 成功：进度条显示满，与"成功"状态语义一致
+            # 成功：进度条显示满，与“成功”状态语义一致
             self.progress_bar.configure(mode='determinate')
             self.progress.set(100)
             self.status.set('成功：任务完成')
@@ -239,7 +260,10 @@ class ExecuteFrame(ttk.LabelFrame):
                 self.status.set(f'错误：{error!s}')
                 import traceback
                 traceback.print_exception(type(error), error, error.__traceback__)
-
+    
+        # 重置当前状态，为下次任务做准备
+        self._current_state = None
+            
         self._update_buttons(TaskState.SUCCESS)
 
     def _update_buttons(self, state: TaskState):
