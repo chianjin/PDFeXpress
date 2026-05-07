@@ -39,6 +39,9 @@ class BaseFunctionFrame(ttk.Frame, ABC):
         self._set_output_frame()
         self._set_options_frame()
         self._setup_auto_output()
+        
+        # 设置执行处理器
+        self.execute_frame.set_execute_handler(self._execute_handler)
 
     def _setup_ui(self):
         HeaderFrame(self, function_id=self.function_id).pack(side=tk.TOP, fill=tk.X, padx=10)
@@ -140,13 +143,14 @@ class BaseFunctionFrame(ttk.Frame, ABC):
     def get_options(self) -> dict:
         return {}
 
-    @final
-    def get_pramas(self) -> dict:
-        return {
-            'input_files': self.get_input_files(),
-            'output_path': self.get_output_path(),
+    def _execute_handler(self):
+        """执行处理器，返回 function_id 和 params"""
+        params = {
+            'inputs': self.get_input_files(),
+            'output': self.get_output_path(),
             'options': self.get_options(),
         }
+        return self.function_id, params
 
 
 if __name__ == '__main__':

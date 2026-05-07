@@ -13,19 +13,6 @@ class MergePdfFrame(BaseFunctionFrame):
             function_id='merge_pdf',
         )
 
-        # 设置执行处理器
-        self.execute_frame.set_execute_handler(self._execute_handler)
-
-    def _execute_handler(self):
-        """执行处理器，返回 function_id 和 params"""
-        function_id = 'merge_pdf'
-        params = {
-            'inputs': self.get_input_files(),
-            'output': self.get_output_path(),
-            'options': self.get_options(),
-        }
-        return function_id, params
-
     def _set_input_frame(self):
         self.file_list_view = FileListView(self.input_frame)
         self.file_list_view.pack(fill=tk.BOTH, expand=True)
