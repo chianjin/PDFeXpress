@@ -38,6 +38,7 @@ class MergePdfWorker(BaseWorker):
         progress_callback(0, total_files)  # 首次发送：value=0, total=总数
 
         # 3. 合并所有 PDF 文件
+        toc_items = []  # 收集书签
         with pymupdf.open() as output_doc:
             for index, input_path in enumerate(input_files, 1):
                 if cancel_event.is_set():
@@ -50,25 +51,24 @@ class MergePdfWorker(BaseWorker):
                 progress_callback(index)  # 后续发送：只传 value
 
                 with pymupdf.open(input_path) as input_doc:
-                    # 记录当前页码（用于书签和双面打印）
+                    # 记录当前页码（用于书签）
                     start_page = len(output_doc)
-                    page_count = len(input_doc)
 
                     # 合并 PDF
                     output_doc.insert_pdf(input_doc)
 
-                    # 如果启用了生成书签，添加书签
+                    # 如果启用了生成书签，添加书签（PyMuPDF 页码从 1 开始）
                     if generate_bookmarks:
                         bookmark_title = input_path.stem
-                        output_doc.add_toc_item(
-                            level=1,
-                            title=bookmark_title,
-                            page=start_page
-                        )
+                        toc_items.append([1, bookmark_title, start_page + 1])
 
                     # 如果启用了双面打印且页数为奇数，插入空白页
-                    if double_side_print and page_count % 2 == 1:
+                    if double_side_print and len(input_doc) % 2 == 1:
                         output_doc.new_page()
+
+            # 设置所有书签
+            if toc_items:
+                output_doc.set_toc(toc_items)
 
             # 4. 保存阶段
             status_callback(TaskState.SAVE, "正在保存...")
