@@ -133,7 +133,15 @@ class TaskManager:
             queue.put(CompleteMessage(success=False, cancelled=True))
 
         except Exception as e:
-            # 其他异常
+            # 其他异常 - 打印到控制台以便调试
+            import traceback
+            print(f"\n{'='*60}")
+            print(f"Worker 执行异常: {type(e).__name__}: {e}")
+            print(f"{'='*60}")
+            traceback.print_exc()
+            print(f"{'='*60}\n")
+            
+            # 同时放入消息队列通知 UI
             queue.put(CompleteMessage(success=False, error=e))
 
     @staticmethod
