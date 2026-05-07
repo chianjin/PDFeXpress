@@ -115,19 +115,10 @@ class ExecuteFrame(ttk.LabelFrame):
             self._handle_message(timeout_msg)
             return
 
-        # 检查进程是否存活
-        if (self.task_manager._worker_process and
-            not self.task_manager._worker_process.is_alive()):
-            if self.task_manager.is_running:
-                self._handle_message(CompleteMessage(
-                    success=False,
-                    error=RuntimeError("进程意外终止")
-                ))
-            return
-
         # 取出所有消息，分类处理
         last_progress = None
         other_messages = []
+        has_complete_message = False
 
         while not queue.empty():
             try:
@@ -136,6 +127,8 @@ class ExecuteFrame(ttk.LabelFrame):
                     last_progress = msg  # 只保留最新的进度消息
                 else:
                     other_messages.append(msg)  # 其他消息全部保留
+                    if isinstance(msg, CompleteMessage):
+                        has_complete_message = True
             except Exception:
                 break
 
@@ -146,6 +139,20 @@ class ExecuteFrame(ttk.LabelFrame):
         # 最后处理最新的进度消息
         if last_progress:
             self._handle_message(last_progress)
+
+        # 如果收到了完成消息，不再检查进程状态
+        if has_complete_message:
+            return
+
+        # 检查进程是否存活（仅在未收到完成消息时）
+        if (self.task_manager._worker_process and
+            not self.task_manager._worker_process.is_alive()):
+            if self.task_manager.is_running:
+                self._handle_message(CompleteMessage(
+                    success=False,
+                    error=RuntimeError("进程意外终止")
+                ))
+            return
 
         # 继续检查
         if self.task_manager.is_running:
