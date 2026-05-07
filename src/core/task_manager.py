@@ -9,6 +9,19 @@ from core.messages import CompleteMessage
 from core.states import TaskCancelledError
 
 
+class WorkerBusinessError(Exception):
+    """Worker 业务逻辑错误
+    
+    表示与程序逻辑无关、用户可理解的错误，例如：
+    - 文件打不开
+    - 没有权限
+    - 无效的内容
+    
+    这类错误应该包装成可读性消息发送给用户。
+    """
+    pass
+
+
 class TaskManager:
     """任务管理器
 
@@ -132,16 +145,20 @@ class TaskManager:
             # 用户主动取消
             queue.put(CompleteMessage(success=False, cancelled=True))
 
+        except WorkerBusinessError as e:
+            # 业务逻辑错误 - 包装成可读消息
+            queue.put(CompleteMessage(success=False, error=e))
+
         except Exception as e:
-            # 其他异常 - 打印到控制台以便调试
+            # 程序逻辑错误 - 打印完整堆栈到控制台以便调试
             import traceback
             print(f"\n{'='*60}")
-            print(f"Worker 执行异常: {type(e).__name__}: {e}")
+            print(f"Worker 程序错误: {type(e).__name__}: {e}")
             print(f"{'='*60}")
             traceback.print_exc()
             print(f"{'='*60}\n")
             
-            # 同时放入消息队列通知 UI
+            # 同时放入消息队列通知 UI（显示原始错误）
             queue.put(CompleteMessage(success=False, error=e))
 
     @staticmethod

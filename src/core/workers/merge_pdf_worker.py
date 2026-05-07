@@ -5,6 +5,7 @@
 import pymupdf
 
 from core.states import TaskCancelledError, TaskState
+from core.task_manager import WorkerBusinessError
 from core.workers.base_worker import BaseWorker
 
 
@@ -22,9 +23,9 @@ class MergePdfWorker(BaseWorker):
         """
         input_files = params['inputs']
         output_file = params['output']
-        options = params.get('options', {})
-        generate_bookmarks = options.get('generate_bookmarks', True)
-        double_side_print = options.get('double_side_print', False)
+        options = params['options']
+        generate_bookmarks = options['generate_bookmarks']
+        double_side_print = options['double_side_print']
 
         # 1. 初始化阶段
         total_files = len(input_files)
@@ -50,21 +51,24 @@ class MergePdfWorker(BaseWorker):
                 )
                 progress_callback(index)  # 后续发送：只传 value
 
-                with pymupdf.open(input_path) as input_doc:
-                    # 记录当前页码（用于书签）
-                    current_total_page = len(output_doc)
+                try:
+                    with pymupdf.open(input_path) as input_doc:
+                        # 记录当前页码（用于书签）
+                        current_total_page = len(output_doc)
 
-                    # 合并 PDF
-                    output_doc.insert_pdf(input_doc)
+                        # 合并 PDF
+                        output_doc.insert_pdf(input_doc)
 
-                    # 如果启用了生成书签，添加书签（PyMuPDF 页码从 1 开始）
-                    if generate_bookmarks:
-                        bookmark_title = input_path.stem
-                        toc_items.append([1, bookmark_title, current_total_page + 1])
+                        # 如果启用了生成书签，添加书签（PyMuPDF 页码从 1 开始）
+                        if generate_bookmarks:
+                            bookmark_title = input_path.stem
+                            toc_items.append([1, bookmark_title, current_total_page + 1])
 
-                    # 如果启用了双面打印且页数为奇数，插入空白页
-                    if double_side_print and len(input_doc) % 2 == 1:
-                        output_doc.new_page()
+                        # 如果启用了双面打印且页数为奇数，插入空白页
+                        if double_side_print and len(input_doc) % 2 == 1:
+                            output_doc.new_page()
+                except Exception as e:
+                    raise WorkerBusinessError(f"无法打开文件: {input_path.name}\n{str(e)}")
 
             # 设置所有书签
             if toc_items:
@@ -76,7 +80,10 @@ class MergePdfWorker(BaseWorker):
             if cancel_event.is_set():
                 raise TaskCancelledError("任务已取消")
 
-            output_doc.save(output_file, garbage=4, deflate=True)
+            try:
+                output_doc.save(output_file, garbage=4, deflate=True)
+            except Exception as e:
+                raise WorkerBusinessError(f"保存文件失败: {output_file.name}\n{str(e)}")
 
         # 5. 完成
         status_callback(TaskState.SUCCESS, "合并完成")
