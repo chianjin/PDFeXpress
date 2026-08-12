@@ -82,6 +82,18 @@ class MergePdfFrame(BaseFeatureFrame):
             'support_delux_print': self._support_delux_print.get(),
         }
 
+    def _execute_handler(self):
+        # Override the base @final stub: build params and run the merge
+        # with a progress dialog instead of just printing.
+        params = {
+            'inputs': self.get_input_pathes(),
+            'output': self.get_output_path(),
+            'options': self.get_options(),
+        }
+        if self._validate_input_files():
+            from feature.merge_pdf.merge_pdf_worker import run_merge_with_progress
+            run_merge_with_progress(self.winfo_toplevel(), params)
+
     def _validate_input_files(self):
         current_input_pathes = self.get_input_pathes()
         if len(current_input_pathes) < 2:
