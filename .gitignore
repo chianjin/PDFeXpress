@@ -143,3 +143,4 @@ test
 /.ruff_cache
 doc
 temp
+.workbuddy
