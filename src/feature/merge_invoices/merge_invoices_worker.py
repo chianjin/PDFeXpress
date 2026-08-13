@@ -1,0 +1,213 @@
+"""Merge invoices worker.
+
+Invoices are auto-classified, then stitched onto A4 pages:
+
+* **Regular invoice** -- a single page whose height is <= 15 cm. Two of them
+  are stacked top/bottom onto one A4 page (slots of 14 cm each, leaving a
+  small bottom margin).
+* **Other invoice** -- multi-page, or a single page taller than 15 cm. Every
+  source page is placed onto its own A4 page, top-left aligned (the original
+  top margin is preserved) and only scaled down when it would exceed the A4
+  bounds.
+
+The two result sets are concatenated (regular pages first, then other pages)
+into a single output PDF.
+
+The heavy work runs in a separate process so the UI stays responsive; progress
+is reported through a ``multiprocessing.Queue`` and shown via
+``core.progress_dialog.ProgressDialog`` (see ``run_merge_invoices_with_progress``).
+"""
+
+import pymupdf
+from multiprocessing import Process, Queue, Event
+from pathlib import Path
+from queue import Empty
+from tkinter.messagebox import showerror, showinfo
+from typing import Any, Dict, List, Tuple
+
+from util.i18n import gettext_text as _
+
+
+# ---------------------------------------------------------------------------
+# Geometry constants (PyMuPDF works in points: 1 cm = 28.3464567 pt).
+# ---------------------------------------------------------------------------
+CM = 28.3464567
+A4_W, A4_H = pymupdf.paper_size('a4')          # (595, 842)
+REGULAR_SLOT_H = 14 * CM                        # 14 cm slot for the 2-up layout
+REGULAR_MAX_H = 15 * CM                         # classification threshold (relaxed)
+
+
+def classify(doc: 'pymupdf.Document') -> str:
+    """Return 'regular' or 'other' for a (baked) invoice document."""
+    if doc.page_count > 1:
+        return 'other'
+    return 'regular' if doc[0].rect.height <= REGULAR_MAX_H else 'other'
+
+
+def _place_regular(out: 'pymupdf.Document', docs: List['pymupdf.Document'],
+                   refs: List[Tuple[int, int]]) -> None:
+    """Place regular invoice pages two-up (top/bottom) onto A4 pages."""
+    for i in range(0, len(refs), 2):
+        page = out.new_page(width=A4_W, height=A4_H)
+        d0, p0 = refs[i]
+        page.show_pdf_page(
+            pymupdf.Rect(0, 0, A4_W, REGULAR_SLOT_H), docs[d0], p0,
+            keep_proportion=True,
+        )
+        if i + 1 < len(refs):
+            d1, p1 = refs[i + 1]
+            page.show_pdf_page(
+                pymupdf.Rect(0, REGULAR_SLOT_H, A4_W, 2 * REGULAR_SLOT_H),
+                docs[d1], p1, keep_proportion=True,
+            )
+
+
+def _place_other(out: 'pymupdf.Document', docs: List['pymupdf.Document'],
+                 refs: List[Tuple[int, int]]) -> None:
+    """Place other invoice pages one-per-A4, top-left aligned, fit-to-A4."""
+    for d_idx, pno in refs:
+        src = docs[d_idx]
+        w = src[pno].rect.width
+        h = src[pno].rect.height
+        scale = min(1.0, A4_W / w, A4_H / h)
+        rect = pymupdf.Rect(0, 0, w * scale, h * scale)
+        page = out.new_page(width=A4_W, height=A4_H)
+        page.show_pdf_page(rect, src, pno, keep_proportion=True)
+
+
+# ---------------------------------------------------------------------------
+# Subprocess: pure logic, no tkinter dependency.
+# ---------------------------------------------------------------------------
+def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+    """Classify and merge invoice PDFs into one output PDF, report progress.
+
+    Messages put on ``progress_queue`` are tuples:
+        ('progress', current, total, message)
+        ('done', output_path)
+        ('error', message)
+        ('cancelled', None)
+    """
+    inputs = params.get('inputs', [])
+    output = params.get('output')
+
+    try:
+        total = len(inputs)
+        if total == 0:
+            progress_queue.put(('error', _('No input files.')))
+            return
+
+        output_path = Path(output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        opened: List[pymupdf.Document] = []   # baked source docs, kept open
+        regular: List[Tuple[int, int]] = []    # (doc_index, page_index)
+        other: List[Tuple[int, int]] = []
+
+        for index, in_path in enumerate(inputs, start=1):
+            if cancel_event.is_set():
+                progress_queue.put(('cancelled', None))
+                return
+
+            src_path = Path(in_path)
+            progress_queue.put(
+                ('progress', index, total,
+                 f'{_("Merging...")} {index}/{total}')
+            )
+
+            src = pymupdf.open(str(src_path))
+            src.bake()  # flatten form fields / annotations in place
+            di = len(opened)
+            opened.append(src)
+            kind = classify(src)
+            bucket = regular if kind == 'regular' else other
+            for pno in range(src.page_count):
+                bucket.append((di, pno))
+
+        out = pymupdf.open()
+        _place_regular(out, opened, regular)
+        _place_other(out, opened, other)
+
+        progress_queue.put(('progress', total, total, _('Saving...')))
+        out.save(str(output_path))
+        out.close()
+        for d in opened:
+            d.close()
+
+        progress_queue.put(('done', str(output_path)))
+
+    except Exception as exc:  # surface any failure to the UI
+        progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))
+
+
+# ---------------------------------------------------------------------------
+# Main-thread controller: wires the dialog, the process and the queue.
+# ---------------------------------------------------------------------------
+def run_merge_invoices_with_progress(master, params: Dict[str, Any]) -> None:
+    """Run the invoice merge in a subprocess and show progress."""
+    # Lazy import so the subprocess (which re-imports this module under
+    # spawn) does not pay the cost of importing tkinter.
+    from core.progress_dialog import ProgressDialog
+
+    progress_queue: Queue = Queue()
+    cancel_event: Event = Event()
+    process = None
+    state = {'finished': False}
+
+    dialog = ProgressDialog(
+        master,
+        title=_('Merge Invoices'),
+        label_text=_('Preparing...'),
+        cancel_command=lambda: _on_cancel(),
+        mode='determinate',
+    )
+
+    def _finish():
+        if state['finished']:
+            return
+        state['finished'] = True
+        if process is not None and process.is_alive():
+            process.join(timeout=2)
+        dialog.destroy()
+
+    def _on_cancel():
+        cancel_event.set()
+        if process is not None and process.is_alive():
+            process.terminate()
+        _finish()
+
+    def _poll():
+        if state['finished']:
+            return
+        try:
+            while True:
+                msg = progress_queue.get_nowait()
+                kind = msg[0]
+                if kind == 'progress':
+                    current, total, text = msg[1], msg[2], msg[3]
+                    fraction = (current / total) if total else 0
+                    dialog.set_progress(fraction, text)
+                elif kind == 'done':
+                    out_path = msg[1]
+                    _finish()
+                    showinfo(
+                        title=_('Done'),
+                        message=_('Invoices Merged'),
+                    )
+                    return
+                elif kind == 'error':
+                    err = msg[1]
+                    _finish()
+                    showerror(title=_('Error'), message=err)
+                    return
+                elif kind == 'cancelled':
+                    _finish()
+                    return
+        except Empty:
+            pass
+
+        if not state['finished']:
+            master.after(100, _poll)
+
+    process = Process(target=worker, args=(params, progress_queue, cancel_event))
+    process.start()
+    master.after(100, _poll)
