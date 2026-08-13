@@ -33,17 +33,17 @@ class ExtractImagesFrame(BaseFeatureFrame):
         ttk.Checkbutton(
             self.options_frame, text=_('Ignore small images'),
             variable=self._ignore_small,
-        ).pack(side='left', padx=(0, 10))
+        ).pack(side='left')
 
-        ttk.Label(self.options_frame, text=_('Min width')).pack(side='left')
+        ttk.Label(self.options_frame, text=_('Min Width')).pack(side='left', padx=(10, 0))
         self._min_w = tk.IntVar(value=50)
-        ttk.Entry(self.options_frame, textvariable=self._min_w, width=6).pack(
+        ttk.Entry(self.options_frame, textvariable=self._min_w, width=6, justify='center').pack(
             side='left', padx=(3, 0)
         )
         ttk.Label(self.options_frame, text='x').pack(side='left', padx=(3, 0))
-        ttk.Label(self.options_frame, text=_('Min height')).pack(side='left')
+        ttk.Label(self.options_frame, text=_('Min Height')).pack(side='left')
         self._min_h = tk.IntVar(value=50)
-        ttk.Entry(self.options_frame, textvariable=self._min_h, width=6).pack(
+        ttk.Entry(self.options_frame, textvariable=self._min_h, width=6, justify='center').pack(
             side='left', padx=(3, 0)
         )
 

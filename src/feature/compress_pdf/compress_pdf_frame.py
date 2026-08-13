@@ -35,14 +35,14 @@ class CompressPdfFrame(BaseFeatureFrame):
             variable=self._compress_var,
         ).pack(side='left', padx=(0, 10))
 
-        ttk.Label(self.options_frame, text=_('Max resolution')).pack(side='left')
+        ttk.Label(self.options_frame, text=_('Max Resolution')).pack(side='left')
         self._max_dpi = tk.IntVar(value=150)
         ttk.Entry(self.options_frame, textvariable=self._max_dpi, width=6).pack(
             side='left', padx=(3, 0)
         )
         ttk.Label(self.options_frame, text='dpi').pack(side='left', padx=(3, 0))
 
-        ttk.Label(self.options_frame, text=_('jpg quality')).pack(side='left', padx=(10, 0))
+        ttk.Label(self.options_frame, text=_('JPG Quality')).pack(side='left', padx=(10, 0))
         self._jpg_quality = tk.IntVar(value=75)
         ttk.Entry(self.options_frame, textvariable=self._jpg_quality, width=6).pack(
             side='left', padx=(3, 0)

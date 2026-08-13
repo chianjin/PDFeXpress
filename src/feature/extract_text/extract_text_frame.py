@@ -29,8 +29,8 @@ class ExtractTextFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
-        # Plain text extraction has no options.
-        pass
+        self.options_frame.pack_forget()
+        self.options_frame.destroy()
 
     def _setup_execute_frame(self):
         ttk.Button(

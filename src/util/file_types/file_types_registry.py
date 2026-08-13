@@ -39,7 +39,7 @@ class RegistryDict(dict):
 # ==========================================
 
 # 1. 加载底层基础类型
-FILE_TYPES = RegistryDict(getattr(data_module, 'BASE_FILE_TYPES', {}))
+FILE_TYPES = RegistryDict(getattr(data_module, 'BASE_FILETYPES', {}))
 
 # 2. 自动装载所有的 _GROUP
 for var_name, var_value in vars(data_module).items():

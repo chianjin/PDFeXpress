@@ -51,7 +51,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         # Treeview: level / page / title (order is immutable).
         self.tree = ttk.Treeview(
             area, columns=('level', 'page', 'title'),
-            show='headings', selectmode='extended', height=14,
+            show='headings', selectmode='browse', height=14,
         )
         self.tree.heading('level', text=_('Level'), anchor='w')
         self.tree.heading('page', text=_('Page'), anchor='w')
@@ -73,8 +73,8 @@ class EditBookmarksFrame(BaseFeatureFrame):
             (_('Reload'), self._reload),
             (_('Import'), self._import_csv),
             (_('Export'), self._export_csv),
-            (_('Move Up'), lambda: self._shift_level(-1)),
-            (_('Move Down'), lambda: self._shift_level(1)),
+            (_('Move Up'), lambda: self._move(-1)),
+            (_('Move Down'), lambda: self._move(1)),
             (_('Delete'), self._delete_selected),
             (_('Delete All'), self._delete_all),
         ):
@@ -186,20 +186,15 @@ class EditBookmarksFrame(BaseFeatureFrame):
         level, page, title = form
         self.tree.item(sel[0], values=(level, page, title))
 
-    def _shift_level(self, delta: int):
+    def _move(self, delta: int):
+        """Move selected bookmark up (-1) / down (+1); single-select only."""
         sel = self.tree.selection()
         if not sel:
-            showerror(title=_('Error'), message=_('Select a bookmark first.'))
             return
-        for item in sel:
-            vals = self.tree.item(item, 'values')
-            try:
-                level = int(vals[0]) + delta
-            except (ValueError, IndexError):
-                continue
-            if level < 1:
-                level = 1
-            self.tree.item(item, values=(level, vals[1], vals[2]))
+        idx = self.tree.index(sel[0])
+        if (delta < 0 and idx == 0) or (delta > 0 and idx == self.tree.count() - 1):
+            return
+        self.tree.move(sel[0], '', idx + delta)
 
     def _delete_selected(self):
         for item in self.tree.selection()[::-1]:
@@ -269,26 +264,39 @@ class EditBookmarksFrame(BaseFeatureFrame):
     def get_options(self) -> dict:
         return {}
 
-    def _execute_handler(self):
+    def _validate_input_files(self) -> bool:
+        """Validate the input PDF and the bookmark table before writing the TOC.
+
+        Returns True when everything is usable; otherwise shows an error
+        dialog and returns False. Runs synchronously (single-shot operation,
+        no multiprocessing).
+        """
         src = self._input_path.get().strip()
         if not src:
             showerror(title=_('Error'), message=_('Input PDF must be set.'))
-            return
+            return False
         if not Path(src).is_file():
             showerror(title=_('Error'), message=_('Input PDF does not exist.'))
-            return
-        out = self.output_path.get().strip()
-        if not out:
-            showerror(title=_('Error'), message=_('Output PDF must be set.'))
-            return
+            return False
 
         import pymupdf
-        doc = pymupdf.open(str(src))
-        page_count = doc.page_count
-        doc.close()
 
-        toc = []
-        for item in self.tree.get_children():
+        try:
+            doc = pymupdf.open(str(src))
+        except Exception as exc:
+            showerror(title=_('Error'), message=_('Cannot open input PDF: %s') % exc)
+            return False
+        try:
+            page_count = doc.page_count
+        finally:
+            doc.close()
+
+        items = self.tree.get_children()
+        if not items:
+            showerror(title=_('Error'), message=_('No bookmarks to write.'))
+            return False
+
+        for item in items:
             vals = self.tree.item(item, 'values')
             try:
                 level = int(vals[0])
@@ -298,23 +306,37 @@ class EditBookmarksFrame(BaseFeatureFrame):
                     title=_('Error'),
                     message=_('Level and Page must be integers.'),
                 )
-                return
-            title = vals[2] if len(vals) > 2 else ''
+                return False
             if level < 1:
                 showerror(title=_('Error'), message=_('Level must be >= 1.'))
-                return
+                return False
             if page < 1 or page > page_count:
                 showerror(
                     title=_('Error'),
                     message=_('Page %d out of range (1-%d).') % (page, page_count),
                 )
-                return
+                return False
+            title = vals[2] if len(vals) > 2 else ''
             if not title.strip():
                 showerror(
                     title=_('Error'), message=_('Bookmark title must not be empty.')
                 )
-                return
-            toc.append([level, title, page])
+                return False
+        return True
+
+    def _execute_handler(self):
+        if not self._validate_input_files():
+            return
+        src = self._input_path.get().strip()
+        out = self.output_path.get().strip()
+        if not out:
+            showerror(title=_('Error'), message=_('Output PDF must be set.'))
+            return
+
+        toc = []
+        for item in self.tree.get_children():
+            vals = self.tree.item(item, 'values')
+            toc.append([int(vals[0]), vals[2], int(vals[1])])
 
         from feature.edit_bookmarks.edit_bookmarks_worker import apply_bookmarks
         try:

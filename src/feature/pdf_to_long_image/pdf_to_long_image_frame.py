@@ -51,7 +51,7 @@ class PdfToLongImageFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
-        ttk.Label(self.options_frame, text=_('Page range')).pack(
+        ttk.Label(self.options_frame, text=_('Page Range')).pack(
             side='left', padx=(0, 5)
         )
         self._range = tk.StringVar()
@@ -60,7 +60,7 @@ class PdfToLongImageFrame(BaseFeatureFrame):
         ).pack(side='left', fill='x', expand=True, padx=(0, 5))
         ttk.Label(
             self.options_frame,
-            text=_('1-based, n page / n-m range / empty = all'),
+            text=_('1-Based, n Page / n-m Range / Empty = All'),
         ).pack(side='left', padx=(5, 0))
 
     def _setup_execute_frame(self):

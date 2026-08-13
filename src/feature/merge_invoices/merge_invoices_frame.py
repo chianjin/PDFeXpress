@@ -19,7 +19,7 @@ class MergeInvoicesFrame(BaseFeatureFrame):
 
     def _setup_input_frame(self):
         self.input_frame.configure(text=_('PDF List'))
-        self.file_list_view = FileListView(self.input_frame)
+        self.file_list_view = FileListView(self.input_frame, sortable=False)
         self.file_list_view.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
     def _setup_output_frame(self):
@@ -29,10 +29,8 @@ class MergeInvoicesFrame(BaseFeatureFrame):
         ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_path).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
-        ttk.Label(
-            self.options_frame,
-            text='自动分类：单页且高度≤15cm → 两张上下合并到A4；其余（多页或更高）→ 独立A4页',
-        ).pack(side='left', padx=5)
+        self.options_frame.pack_forget()
+        self.options_frame.destroy()
 
     def _setup_execute_frame(self):
         ttk.Button(

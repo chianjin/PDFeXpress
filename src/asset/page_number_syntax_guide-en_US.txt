@@ -1,0 +1,46 @@
+      Page Number Format Syntax Guide
+
+1. Core Structure
+   - Syntax unit: "[physical page range]:[display format]"
+   - Separator: use a comma (",") to separate multiple distinct section configurations.
+   - Processing logic: the parser reads from left to right; if physical ranges overlap, a later-defined rule overrides an earlier one.
+
+2. Physical Page Range (before the colon)
+   Used to determine the PDF page interval a rule applies to, using 1-based indexing:
+   - Single page: "5" (page 5 only)
+   - Closed interval: "5-10" (pages 5 through 10)
+   - Start omitted: "-10" (page 1 through page 10)
+   - End omitted: "5-" (page 5 through the last page)
+   - Apply to all: ":" (empty before the colon, meaning all pages)
+   Key rule: physical gaps
+   - Any physical page number that is not defined will not display a page number. For example, with the configuration "1-5:n1,10-15:n1", pages 6 through 9 will have blank page numbers.
+
+3. Display Format (after the colon)
+   The format definition consists of a type identifier and a starting value: "[type][start value]".
+   - Type identifier (case-sensitive)
+     - n: Arabic numerals (1, 2, 3...), the default type, may be omitted
+     - r: lowercase Roman numerals (i, ii, iii...)
+     - R: uppercase Roman numerals (I, II, III...)
+     - a: lowercase letters (a, b, c...)
+     - A: uppercase letters (A, B, C...)
+   - Starting value and continuation logic
+     - Explicit: e.g. ":n10" means this section starts from the number 10.
+     - Implicit continuation: if a type is given but the value is omitted (e.g. ":R"), then this section's starting value = the previous section's last displayed value + 1. If it is the first section, the default is 1.
+     - Format reset: if what follows the colon is completely empty (e.g. "6-10:"), it resets to Arabic numeral type with a starting value of 1.
+
+4. Typical Examples
+   - Example A (format reset and gaps)
+     - Input: "1-5:R,10-15:"
+       Pages 1-5 display: I, II, III, IV, V
+       Pages 6-9: no page number
+       Pages 10-15 display: 1, 2, 3, 4, 5, 6 (because what follows the colon is empty, it resets to n starting from 1)
+
+   - Example B (type continuation)
+     - Input: "1-5:R,6-10:r"
+       Pages 1-5 display: I, II, III, IV, V
+       Pages 6-10 display: vi, vii, viii, ix, x (inherits the previous section's value 5 but switches the type)
+
+   - Example C (override logic)
+     - Input: ":n1,1-3:"
+       Pages 1-3 display: 1, 2, 3 (affected by the later section's reset)
+       Pages 4-end display: 4, 5, 6... (affected by the earlier section's global definition)

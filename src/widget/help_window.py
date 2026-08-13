@@ -13,7 +13,6 @@ class HelpWindow(tk.Toplevel):
         height: int = 550,
     ):
         super().__init__(master)
-        self.master = master
         self.title(title)
         self.geometry(f'{width}x{height}')
         self.minsize(400, 300)

@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, askdirectory
@@ -7,6 +8,8 @@ from pathlib import Path
 from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
+from config import EXECUTIVE_PATH
+from widget import HelpWindow
 
 
 class DeletePagesFrame(BaseFeatureFrame):
@@ -19,7 +22,6 @@ class DeletePagesFrame(BaseFeatureFrame):
 
         row = ttk.Frame(self.input_frame)
         row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Label(row, text=_('PDF')).pack(side='left', padx=(0, 5))
         ttk.Entry(row, textvariable=self.input_path).pack(side='left', expand=True, fill='x')
         ttk.Button(row, text=_('Browser'), command=self._browse_input).pack(side='left', padx=(5, 0))
 
@@ -39,12 +41,23 @@ class DeletePagesFrame(BaseFeatureFrame):
 
     def _setup_options_frame(self):
         ttk.Label(self.options_frame, text=_('Pages to delete')).pack(
-            side=tk.TOP, anchor='w', pady=(2, 4)
+            side='left'
         )
         self.range_expr = tk.StringVar()
         ttk.Entry(self.options_frame, textvariable=self.range_expr, width=40).pack(
-            side=tk.TOP, fill='x', pady=(0, 4)
+            side='left', fill='x', padx=(5,0)
         )
+        self.help_icon = tk.PhotoImage(file=EXECUTIVE_PATH / 'asset/icon/help.png')
+        ttk.Button(
+            self.options_frame,
+            text=_('Help'),
+            image=self.help_icon,
+            style='Toolbutton',
+            command=self._open_help,
+        ).pack(side='left', padx=(5, 0))
+        ttk.Label(
+            self.options_frame, text=_('Example: "3,7-9,12;:2". Click Help for for details.')
+        ).pack(side='left', padx=(5, 0))
 
     def _setup_execute_frame(self):
         ttk.Button(
@@ -57,6 +70,18 @@ class DeletePagesFrame(BaseFeatureFrame):
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
             self.input_path.set(str(Path(path)))
+
+    def _open_help(self):
+        posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
+        language = posix_lang.split('.')[0]
+        guide_path = EXECUTIVE_PATH / f'asset/page_range_syntax_guide-{language}.txt'
+        if not guide_path.exists():
+            guide_path = EXECUTIVE_PATH / f'asset/page_range_syntax_guide-en_US.txt'
+        with open(guide_path, 'r', encoding='UTF-8') as f:
+            help_content = f.readlines()
+        title = help_content[0].strip()
+        content = ''.join(help_content[1:])
+        HelpWindow(self, title=title, content=content).focus()
 
     @staticmethod
     def _initial_dir(current: str) -> str:

@@ -7,6 +7,7 @@ from pathlib import Path
 from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
+from config import EXECUTIVE_PATH
 
 
 class SplitPdfFrame(BaseFeatureFrame):
@@ -19,7 +20,6 @@ class SplitPdfFrame(BaseFeatureFrame):
 
         row = ttk.Frame(self.input_frame)
         row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Label(row, text=_('PDF')).pack(side='left', padx=(0, 5))
         ttk.Entry(row, textvariable=self.input_path).pack(side='left', expand=True, fill='x')
         ttk.Button(row, text=_('Browser'), command=self._browse_input).pack(side='left', padx=(5, 0))
 
@@ -38,45 +38,51 @@ class SplitPdfFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
-        self._mode = tk.StringVar(value='single')
+        radio_frame = ttk.Frame(self.options_frame)
 
+        self._mode = tk.StringVar(value='single')
         ttk.Radiobutton(
-            self.options_frame, text=_('Single Page'), variable=self._mode,
+            radio_frame, text=_('Single Page'), variable=self._mode,
             value='single', command=self._on_mode_change,
-        ).pack(side='left', padx=(5, 10))
+        ).pack(side='left')
         ttk.Radiobutton(
-            self.options_frame, text=_('By Page Count'), variable=self._mode,
+            radio_frame, text=_('By Page Count'), variable=self._mode,
             value='by_pages', command=self._on_mode_change,
-        ).pack(side='left', padx=(5, 10))
+        ).pack(side='left', padx=(5, 0))
         ttk.Radiobutton(
-            self.options_frame, text=_('By Parts'), variable=self._mode,
+            radio_frame, text=_('By Parts'), variable=self._mode,
             value='by_parts', command=self._on_mode_change,
-        ).pack(side='left', padx=(5, 10))
+        ).pack(side='left', padx=(5, 0))
         ttk.Radiobutton(
-            self.options_frame, text=_('Custom Range'), variable=self._mode,
+            radio_frame, text=_('Custom Range'), variable=self._mode,
             value='custom', command=self._on_mode_change,
-        ).pack(side='left', padx=(5, 10))
+        ).pack(side='left', padx=(5, 5))
+        self._param_label = ttk.Label(radio_frame, text=_('Pages per chunk'))
+        self._param_label.pack(side='left', padx=(5, 0))
+        self._help_icon = tk.PhotoImage(file=EXECUTIVE_PATH / 'asset/icon/help.png')
+        ttk.Button(radio_frame, image=self._help_icon, style='Toolbutton').pack(side='left')
+        self._param_entry = tk.StringVar()
+        self._param_entry_widget = ttk.Entry(
+            radio_frame, textvariable=self._param_entry, width=30
+        )
+        self._param_entry_widget.pack(side='left', padx=(0, 5))
+        radio_frame.pack(fill='x')
 
         # Single parameter Entry whose meaning depends on the selected mode:
         #   by_pages -> pages per chunk (integer)
         #   by_parts -> number of parts (integer)
         #   custom   -> range expression (string)
         #   single   -> unused, disabled
-        self._param_frame = ttk.Frame(self.options_frame)
-        self._param_label = ttk.Label(self._param_frame, text=_('Pages per chunk'))
-        self._param_label.pack(side='left', padx=(0, 5))
-        self._param_entry = tk.StringVar()
-        self._param_entry_widget = ttk.Entry(
-            self._param_frame, textvariable=self._param_entry, width=30
+        help_text = _(
+            'By Page Count/By Parts: Int, for example: 5. Custom Range: "1-5;7-:2". Click Help for detail.'
         )
-        self._param_entry_widget.pack(side='left', padx=(0, 5))
-
+        ttk.Label(self.options_frame, text=help_text).pack(side='left')
         self._on_mode_change()
 
     def _on_mode_change(self):
         mode = self._mode.get()
         if mode == 'single':
-            self._param_label.configure(text=_('No extra parameter'))
+            self._param_label.configure(text=_('No parameter'))
             self._param_entry.set('')
             self._param_entry_widget.configure(state='disabled')
         else:
@@ -87,7 +93,7 @@ class SplitPdfFrame(BaseFeatureFrame):
                 self._param_label.configure(text=_('Number of parts'))
             elif mode == 'custom':
                 self._param_label.configure(text=_('Range expression'))
-        self._param_frame.pack(side='top', fill='x', pady=(4, 0))
+
 
     def _setup_execute_frame(self):
         ttk.Button(

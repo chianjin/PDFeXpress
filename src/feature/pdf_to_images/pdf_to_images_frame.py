@@ -40,37 +40,47 @@ class PdfToImagesFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
-        ttk.Label(self.options_frame, text=_('DPI')).pack(side='left', padx=(0, 3))
+        ttk.Label(self.options_frame, text=_('Resolution')).pack(side='left')
         self._dpi = tk.IntVar(value=200)
-        ttk.Entry(self.options_frame, textvariable=self._dpi, width=6).pack(
-            side='left', padx=(0, 10)
+        ttk.Entry(self.options_frame, textvariable=self._dpi, width=5, justify='center').pack(
+            side='left', padx=(5, 0)
         )
+        ttk.Label(self.options_frame, text=_('DPI')).pack(side='left')
 
+        ttk.Label(self.options_frame, text=_('Format')).pack(side='left', padx=(10, 0))
         self._fmt = tk.StringVar(value='png')
         ttk.Radiobutton(
             self.options_frame, text='PNG', variable=self._fmt, value='png'
-        ).pack(side='left', padx=(0, 5))
+        ).pack(side='left', padx=(5, 0))
+        self._transparent = tk.BooleanVar(value=True)
+        self._transparent_cb = ttk.Checkbutton(
+            self.options_frame, text=_('Transparent Background'),
+            variable=self._transparent,
+        )
+        self._transparent_cb.pack(side='left', padx=(5, 0))
         ttk.Radiobutton(
             self.options_frame, text='JPG', variable=self._fmt, value='jpg'
-        ).pack(side='left', padx=(0, 10))
-
-        self._transparent = tk.BooleanVar(value=True)
-        ttk.Checkbutton(
-            self.options_frame, text=_('Transparent background'),
-            variable=self._transparent,
-        ).pack(side='left', padx=(0, 10))
-
+        ).pack(side='left', padx=(10, 0))
         ttk.Label(self.options_frame, text=_('Quality')).pack(side='left', padx=(0, 3))
         self._quality = tk.IntVar(value=85)
-        ttk.Entry(self.options_frame, textvariable=self._quality, width=6).pack(
-            side='left', padx=(0, 5)
+        self._quality_entry = ttk.Entry(
+            self.options_frame, textvariable=self._quality, width=6
         )
+        self._quality_entry.pack(side='left', padx=(5, 0))
+
+        self._fmt.trace_add('write', self._on_fmt_change)
+        self._on_fmt_change()
 
     def _setup_execute_frame(self):
         ttk.Button(
             self.execute_frame, text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
+
+    def _on_fmt_change(self, *args):
+        png = self._fmt.get() == 'png'
+        self._transparent_cb.configure(state='normal' if png else 'disabled')
+        self._quality_entry.configure(state='disabled' if png else 'normal')
 
     def _set_output_folder(self):
         init_dir = self._get_initial_dir()

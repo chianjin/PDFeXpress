@@ -32,14 +32,16 @@ class AddWatermarkFrame(BaseFeatureFrame):
     def _setup_options_frame(self):
         self._mode = tk.StringVar(value='text')
 
+        radio_frame = ttk.Frame(self.options_frame)
         ttk.Radiobutton(
-            self.options_frame, text=_('Text Watermark'),
+            radio_frame, text=_('Text Watermark'),
             variable=self._mode, value='text', command=self._on_mode_change,
-        ).pack(side='top', anchor='w')
+        ).pack(side='left')
         ttk.Radiobutton(
-            self.options_frame, text=_('Image Watermark'),
+            radio_frame, text=_('Image Watermark'),
             variable=self._mode, value='image', command=self._on_mode_change,
-        ).pack(side='top', anchor='w')
+        ).pack(side='left', padx=(10, 0))
+        radio_frame.pack(fill='x', expand=True)
 
         # Text sub-controls (shown when "text" is selected).
         self._text_frame = ttk.Frame(self.options_frame)
@@ -69,10 +71,10 @@ class AddWatermarkFrame(BaseFeatureFrame):
     def _on_mode_change(self):
         if self._mode.get() == 'text':
             self._image_frame.pack_forget()
-            self._text_frame.pack(side='top', fill='x', pady=(4, 0))
+            self._text_frame.pack(side='top', fill='x', pady=(5, 0))
         else:
             self._text_frame.pack_forget()
-            self._image_frame.pack(side='top', fill='x', pady=(4, 0))
+            self._image_frame.pack(side='top', fill='x', pady=(5, 0))
 
     def _setup_execute_frame(self):
         ttk.Button(

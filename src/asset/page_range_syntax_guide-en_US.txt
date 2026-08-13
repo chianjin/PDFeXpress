@@ -1,0 +1,42 @@
+        Page Range Syntax Guide
+
+1. Atoms
+   - An atom is the smallest unit for selecting pages; each atom produces a set of page numbers.
+   - Single page number: "2" -> {2}
+   - Continuous range: "3-10" -> {3, 4, 5, 6, 7, 8, 9, 10}; the start and end may be omitted
+     - End omitted: "10-" -> {10, 11, ..., last page}
+     - Start omitted: "-20" -> {1, 2, ..., 20}
+     - Both omitted: "-" == all pages
+   - Range with step (A-B:S):
+     - Pages from A to B taken at step S: "3-10:3" -> {3, 6, 9}; the start and end may be omitted
+     - Whole-document step (-:S/:S): within the entire document, take one page every S pages, ":3" -> {1, 4, 7, 10, ...}
+
+2. Compositions
+   - Join multiple atoms with a comma ",", merging their page numbers into a single sequence.
+   - Example: "5,1-10:3"
+     - Atom "5" -> {5}
+     - Atom "1-10:3" -> {1, 4, 7, 10}
+     - After merging -> {5, 1, 4, 7, 10}
+     - In default mode, this result is deduplicated and sorted in ascending order; see section 4.
+
+3. Groups
+   - Use a semicolon ";" to separate different compositions; each composition produces a separate PDF file.
+   - Example: "5,1-10:3;20-30;1-5"
+     - File 1: result of composition "5,1-10:3"
+     - File 2: result of atom "20-30"
+     - File 3: result of atom "1-5"
+
+4. Default Mode
+   - The default behavior when no special prefix is used.
+   - Deduplication: duplicate page numbers are removed automatically.
+   - Sorting: all page numbers are forced into ascending order; the input order is not preserved.
+   - Restriction: reverse ranges (e.g. "9-5") are forbidden and will raise an error.
+
+5. Plus Mode
+   - Activation: the expression starts with a plus "+", allowed only at the very beginning of the string, otherwise an error is raised.
+   - Duplicates allowed: page numbers may appear multiple times, with no deduplication.
+   - Input order preserved: page numbers are output strictly in the order written in the expression, with no forced ascending sort.
+   - Reverse ranges allowed: descending ranges are supported, e.g. "+9-5".
+   - Examples:
+     - "+4-8,6,9" -> {4, 5, 6, 7, 8, 6, 9}
+     - "+9-5" -> {9, 8, 7, 6, 5}

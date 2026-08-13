@@ -10,6 +10,8 @@ from tkinterdnd2 import TkinterDnD
 from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
+from widget.help_window import HelpWindow
+from config import EXECUTIVE_PATH
 
 
 FONT_FAMILIES = ['Courier', 'Times', 'Helvetica']
@@ -58,38 +60,39 @@ class AddPageNumbersFrame(BaseFeatureFrame):
     def _setup_options_frame(self):
         # Page number rule + help button.
         rule_row = ttk.Frame(self.options_frame)
-        ttk.Label(rule_row, text=_('Page Number Rule')).pack(side='left', padx=(0, 5))
+        ttk.Label(rule_row, text=_('Page Number Rule')).pack(side='left')
         self._rule = tk.StringVar(value='1-')
         ttk.Entry(rule_row, textvariable=self._rule, width=30).pack(
-            side='left', fill='x', expand=True, padx=(0, 5)
+            side='left', padx=(5, 0)
         )
-        ttk.Button(rule_row, text=_('Help'), command=self._open_help).pack(side='left')
-        rule_row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
+        self.help_icon = tk.PhotoImage(file=EXECUTIVE_PATH / 'asset/icon/help.png')
+        ttk.Button(rule_row, image=self.help_icon, style='Toolbutton' ,command=self._open_help).pack(side='left')
         ttk.Label(
-            self.options_frame,
+            rule_row,
             text=_('Default: continuous numbering from 1. Click Help for details.'),
-        ).pack(side=tk.TOP, fill=tk.X, padx=(0, 2), pady=(0, 4))
+        ).pack(side='left', padx=(5,0))
+        rule_row.pack(side=tk.TOP, fill='x')
 
         # Font family / style / size.
         font_row = ttk.Frame(self.options_frame)
-        ttk.Label(font_row, text=_('Font')).pack(side='left', padx=(0, 5))
+        ttk.Label(font_row, text=_('Font')).pack(side='left')
         self._font_family = tk.StringVar(value='Times')
         ttk.Combobox(
             font_row, textvariable=self._font_family, values=FONT_FAMILIES,
             state='readonly', width=10,
-        ).pack(side='left', padx=(0, 10))
-        ttk.Label(font_row, text=_('Style')).pack(side='left', padx=(0, 5))
+        ).pack(side='left', padx=(5, 0))
+        ttk.Label(font_row, text=_('Style')).pack(side='left', padx=(10, 0))
         self._font_style = tk.StringVar(value='Regular')
         ttk.Combobox(
             font_row, textvariable=self._font_style, values=FONT_STYLES,
             state='readonly', width=12,
-        ).pack(side='left', padx=(0, 10))
-        ttk.Label(font_row, text=_('Size')).pack(side='left', padx=(0, 5))
-        self._font_size = tk.StringVar(value='10')
+        ).pack(side='left', padx=(5, 0))
+        ttk.Label(font_row, text=_('Size')).pack(side='left', padx=(10, 0))
+        self._font_size = tk.StringVar(value='11')
         ttk.Spinbox(
-            font_row, textvariable=self._font_size, from_=1, to=200, width=6
-        ).pack(side='left')
-        font_row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
+            font_row, textvariable=self._font_size, from_=1, to=200, width=6, justify='center'
+        ).pack(side='left', padx=(5, 0))
+        font_row.pack(side=tk.TOP, fill=tk.X, pady=(5,0))
 
         # Position: vertical (header/footer) | horizontal (left/center/right) |
         # mirror (outside/inside).
@@ -127,7 +130,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             pos_row, text=_('Inside'), variable=self._horizontal, value='inside',
             command=self._refresh_margins,
         ).pack(side='left', padx=(5, 0))
-        pos_row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
+        pos_row.pack(side=tk.TOP, fill=tk.X, pady=(5,0))
 
         # Dynamic margins (rebuilt whenever the position selection changes).
         self._top_margin = tk.StringVar(value='1.0')
@@ -136,7 +139,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         self._right_margin = tk.StringVar(value='1.0')
         self._mirror_margin = tk.StringVar(value='1.0')
         self._margin_frame = ttk.Frame(self.options_frame)
-        self._margin_frame.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
+        self._margin_frame.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
         self._refresh_margins()
 
     def _refresh_margins(self):
@@ -172,14 +175,16 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         ).pack(side='right', padx=(5, 0))
 
     def _open_help(self):
-        guide = (
-            Path(__file__).resolve().parents[2]
-            / 'asset' / 'page_number_syntax_guide-zh_CN.txt'
-        )
-        try:
-            os.startfile(str(guide))
-        except Exception as exc:  # pragma: no cover - OS dependent
-            showerror(title=_('Error'), message=str(exc))
+        posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
+        language = posix_lang.split('.')[0]
+        guide_path = EXECUTIVE_PATH / f'asset/page_number_syntax_guide-{language}.txt'
+        if not guide_path.exists():
+            guide_path = EXECUTIVE_PATH / f'asset/page_number_syntax_guide-en_US.txt'
+        with open(guide_path, 'r', encoding='UTF-8') as f:
+            help_content = f.readlines()
+        title = help_content[0].strip()
+        content = ''.join(help_content[1:])
+        HelpWindow(self, title=title, content=content).focus()
 
     def _browse(self):
         init = self._initial_dir(self.input_path.get())
