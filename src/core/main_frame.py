@@ -44,7 +44,7 @@ class MainFrame(ttk.Frame):
         self.treeview_menu.selection_set(self._current_feature)
 
         # About Button
-        ttk.Button(left_frame, text='关于', command=self._on_about).pack(fill='x', padx=10, pady=(0,10))
+        ttk.Button(left_frame, text=_('About PDF eXpress'), command=self._on_about).pack(fill='x', padx=10, pady=(0,10))
 
         # Set Default Feature Frame
         self._load_feature_frame(self._current_feature)

@@ -55,11 +55,24 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
             src_path = Path(in_path)
             progress_queue.put(
                 ('progress', index, total,
-                 f'{_("Merging")} ({index}/{total}): {src_path.name}')
+                 f'{_("Merging……")} {index}/{total}')
             )
 
             src = pymupdf.open(str(src_path))
             try:
+                # Deluxe (double-sided) print: every source PDF's first
+                # page must land on an ODD page (1-based) so each original
+                # PDF stays independently bound after printing. The next
+                # inserted page will be at 0-based position out.page_count;
+                # its 1-based number is out.page_count + 1. To make that odd
+                # we need out.page_count even, so pad a blank page when odd.
+                if support_delux_print and out.page_count % 2 == 1:
+                    if src.page_count:
+                        rect = src[0].rect
+                        out.new_page(width=rect.width, height=rect.height)
+                    else:
+                        out.new_page()
+
                 start_page = out.page_count  # 0-based
                 out.insert_pdf(src)
                 if generate_bookmarks:
@@ -74,18 +87,6 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
 
         if generate_bookmarks and toc:
             out.set_toc(toc)
-
-        if support_delux_print:
-            # Best-effort: configure viewer print preferences. Failure here
-            # must not break the merge, so it is swallowed.
-            try:
-                catalog = out.pdf_catalog()
-                out.xref_set_key(
-                    catalog, '/ViewerPreferences',
-                    '<< /PrintScaling /None /PickTrayByPDFSize true >>'
-                )
-            except Exception:
-                pass
 
         progress_queue.put(('progress', total, total, _('Saving...')))
         out.save(str(output_path))
@@ -112,7 +113,7 @@ def run_merge_with_progress(master, params: Dict[str, Any]) -> None:
 
     dialog = ProgressDialog(
         master,
-        title=_('Merging PDFs'),
+        title=_('Merge PDF'),
         label_text=_('Preparing...'),
         cancel_command=lambda: _on_cancel(),
         mode='determinate',
@@ -148,7 +149,7 @@ def run_merge_with_progress(master, params: Dict[str, Any]) -> None:
                     _finish()
                     showinfo(
                         title=_('Done'),
-                        message=_('Merged PDF saved to:\n%s') % out_path,
+                        message=_('PDF Merged'),
                     )
                     return
                 elif kind == 'error':

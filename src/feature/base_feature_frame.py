@@ -75,7 +75,7 @@ class BaseFeatureFrame(ttk.Frame, ABC):
     def get_options(self) -> dict:
         return {}
 
-    @final
+    @abstractmethod
     def _execute_handler(self):
         """执行处理器，返回 feature_id 和 params"""
         params = {

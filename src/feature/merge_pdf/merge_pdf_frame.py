@@ -38,11 +38,9 @@ class MergePdfFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 20))
 
     def _setup_execute_frame(self):
-        self._execute_message = tk.StringVar(value=_('Ready.'))
-        ttk.Label(self.execute_frame, textvariable=self._execute_message).pack(side='left', expand=True, fill='x')
         ttk.Button(
             self.execute_frame, text=_(self._executive_text), command=self._execute_handler
-        ).pack(side='left', padx=(5, 0))
+        ).pack(side='right', padx=(5, 0))
 
     def _set_output_path(self):
         init_folder = ''

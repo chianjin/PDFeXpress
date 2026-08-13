@@ -7,9 +7,8 @@ from util.i18n import gettext_text as _
 class ProgressDialog(tk.Toplevel):
     """Modal progress bar dialog.
 
-    mode='indeterminate' (default) keeps the original busy-bar behaviour.
-    mode='determinate' shows a real percentage that is updated via
-    set_progress().
+    mode='indeterminate' keeps the original busy-bar behaviour.
+    mode='determinate' shows a real percentage updated via set_progress().
     """
 
     def __init__(self, master, title, label_text, cancel_command, mode='indeterminate'):
