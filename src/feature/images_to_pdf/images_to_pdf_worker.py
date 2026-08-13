@@ -1,0 +1,150 @@
+"""Images to PDF worker.
+
+Multi-image -> single PDF. Each image is opened, converted to a one-page PDF
+with ``convert_to_pdf()`` and inserted into the output document in the exact
+order received from the UI (no sorting). Runs in a subprocess with the shared
+Queue/Event/ProgressDialog scaffolding.
+"""
+
+import pymupdf
+from multiprocessing import Process, Queue, Event
+from pathlib import Path
+from queue import Empty
+from tkinter.messagebox import showerror, showinfo
+from typing import Any, Dict
+
+from util.i18n import gettext_text as _
+
+
+# ---------------------------------------------------------------------------
+# Subprocess: pure logic, no tkinter dependency.
+# ---------------------------------------------------------------------------
+def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+    """Convert images to a single PDF.
+
+    Messages put on ``progress_queue`` are tuples:
+        ('progress', current, total, message)
+        ('done', summary)
+        ('error', message)
+        ('cancelled', None)
+    """
+    inputs = params.get('inputs', [])
+    output = params.get('output')
+
+    try:
+        total = len(inputs)
+        if total == 0:
+            progress_queue.put(('error', _('No input files.')))
+            return
+
+        output_path = Path(output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        out = pymupdf.open()
+        for index, in_path in enumerate(inputs, start=1):
+            if cancel_event.is_set():
+                out.close()
+                progress_queue.put(('cancelled', None))
+                return
+
+            src = Path(in_path)
+            progress_queue.put(
+                ('progress', index, total,
+                 f'{_("Adding...")} {index}/{total}')
+            )
+
+            try:
+                img_doc = pymupdf.open(str(src))
+            except Exception as exc:
+                out.close()
+                progress_queue.put(
+                    ('error', f'{src.name}: {type(exc).__name__}: {exc}')
+                )
+                return
+
+            try:
+                pdf_bytes = img_doc.convert_to_pdf()
+                pdf_doc = pymupdf.open(stream=pdf_bytes, filetype='pdf')
+                try:
+                    out.insert_pdf(pdf_doc)
+                finally:
+                    pdf_doc.close()
+            finally:
+                img_doc.close()
+
+        progress_queue.put(('progress', total, total, _('Saving...')))
+        out.save(str(output_path))
+        out.close()
+
+        summary = _('Converted %d image(s) to PDF: %s') % (total, output_path.name)
+        progress_queue.put(('done', summary))
+
+    except Exception as exc:  # surface any unexpected failure
+        progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))
+
+
+# ---------------------------------------------------------------------------
+# Main-thread controller: wires the dialog, the process and the queue.
+# ---------------------------------------------------------------------------
+def run_images_to_pdf_with_progress(master, params: Dict[str, Any]) -> None:
+    """Run the conversion in a subprocess and show progress via ProgressDialog."""
+    from core.progress_dialog import ProgressDialog
+
+    progress_queue: Queue = Queue()
+    cancel_event: Event = Event()
+    process = None
+    state = {'finished': False}
+
+    dialog = ProgressDialog(
+        master,
+        title=_('Images to PDF'),
+        label_text=_('Preparing...'),
+        cancel_command=lambda: _on_cancel(),
+        mode='determinate',
+    )
+
+    def _finish():
+        if state['finished']:
+            return
+        state['finished'] = True
+        if process is not None and process.is_alive():
+            process.join(timeout=2)
+        dialog.destroy()
+
+    def _on_cancel():
+        cancel_event.set()
+        if process is not None and process.is_alive():
+            process.terminate()
+        _finish()
+
+    def _poll():
+        if state['finished']:
+            return
+        try:
+            while True:
+                msg = progress_queue.get_nowait()
+                kind = msg[0]
+                if kind == 'progress':
+                    current, total, text = msg[1], msg[2], msg[3]
+                    fraction = (current / total) if total else 0
+                    dialog.set_progress(fraction, text)
+                elif kind == 'done':
+                    _finish()
+                    showinfo(title=_('Done'), message=msg[1])
+                    return
+                elif kind == 'error':
+                    _finish()
+                    showerror(title=_('Error'), message=msg[1])
+                    return
+                elif kind == 'cancelled':
+                    _finish()
+                    return
+        except Empty:
+            pass
+
+        if not state['finished']:
+            master.after(100, _poll)
+
+    process = Process(target=worker, args=(params, progress_queue, cancel_event))
+    process.start()
+    master.after(100, _poll)
