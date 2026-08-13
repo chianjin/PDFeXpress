@@ -4,7 +4,7 @@ from pathlib import Path
 from tkinter import ttk
 from typing import Literal, final
 
-from widget import HeaderFrame, PathPicker
+from widget import HeaderFrame
 from util.file_types import FILE_TYPES
 from util.i18n import gettext_text as _
 from util.helpers import get_feature_info

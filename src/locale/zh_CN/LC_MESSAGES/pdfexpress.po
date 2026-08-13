@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PDF eXpress 1.0.0\n"
-"POT-Creation-Date: 2026-08-12 15:58+0800\n"
+"POT-Creation-Date: 2026-08-13 09:23+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: chian.jin@gmail.com\n"
@@ -29,43 +29,39 @@ msgstr ""
 msgid "Feature List"
 msgstr "功能列表"
 
+#: core/main_frame.py:47
+msgid "About PDF eXpress"
+msgstr "关于 PDF eXpress"
+
 #: core/not_implemented_frame.py:12 core/not_implemented_frame.py:14
 msgid "Not implemented"
 msgstr "尚未实现"
 
-#: feature/base_feature_frame.py:42
+#: core/progress_dialog.py:36
+msgid "Cancel"
+msgstr "取消"
+
+#: feature/base_feature_frame.py:29
 msgid "Input PDF"
 msgstr "输入 PDF"
 
-#: feature/base_feature_frame.py:45
+#: feature/base_feature_frame.py:32 feature/merge_pdf/merge_pdf_frame.py:25
 msgid "Output PDF"
 msgstr "输出 PDF"
 
-#: feature/base_feature_frame.py:48
+#: feature/base_feature_frame.py:35
 msgid "Options"
 msgstr "选项"
 
-#: feature/base_feature_frame.py:51 feature/base_feature_frame.py:88
+#: feature/base_feature_frame.py:38
 msgid "Execute"
 msgstr "执行"
-
-#: feature/base_feature_frame.py:63
-msgid "Output File"
-msgstr "输出文件"
-
-#: feature/base_feature_frame.py:65
-msgid "Output Folder"
-msgstr "输出文件夹"
-
-#: feature/base_feature_frame.py:82
-msgid "Ready"
-msgstr "就绪"
 
 #: feature/feature_list.py:8
 msgid "Document Assembly"
 msgstr "文档整理"
 
-#: feature/feature_list.py:10
+#: feature/feature_list.py:10 feature/merge_pdf/merge_pdf_worker.py:116
 msgid "Merge PDF"
 msgstr "合并 PDF"
 
@@ -203,66 +199,166 @@ msgstr "发票处理"
 msgid "Merge Invoices"
 msgstr "合并发票"
 
-#: widget/file_list_view.py:49
+#: feature/merge_pdf/merge_pdf_frame.py:20
+msgid "PDF List"
+msgstr "PDF 列表"
+
+#: feature/merge_pdf/merge_pdf_frame.py:28
+msgid "Broswer"
+msgstr "浏览"
+
+#: feature/merge_pdf/merge_pdf_frame.py:33
+msgid "Generate Bookmarks"
+msgstr "生成书签"
+
+#: feature/merge_pdf/merge_pdf_frame.py:37
+msgid "Support Delux Printting"
+msgstr "支持双面打印"
+
+#: feature/merge_pdf/merge_pdf_frame.py:51
+msgid "Merged"
+msgstr "合并完成"
+
+#: feature/merge_pdf/merge_pdf_frame.py:99
+#: feature/merge_pdf/merge_pdf_frame.py:105
+#: feature/merge_pdf/merge_pdf_worker.py:158
+msgid "Error"
+msgstr "错误"
+
+#: feature/merge_pdf/merge_pdf_frame.py:100
+#, fuzzy
+#| msgid "Please add at least two PDF files."
+msgid "Input must have at least 2 PDF files."
+msgstr "请至少添加两个 PDF 文件。"
+
+#: feature/merge_pdf/merge_pdf_frame.py:106
+msgid "Output path must be set."
+msgstr "必须设置输出路径。"
+
+#: feature/merge_pdf/merge_pdf_worker.py:40
+msgid "No input files."
+msgstr "无输入文件。"
+
+#: feature/merge_pdf/merge_pdf_worker.py:58
+msgid "Merging……"
+msgstr "正在合并……"
+
+#: feature/merge_pdf/merge_pdf_worker.py:91
+msgid "Saving..."
+msgstr "正在保存……."
+
+#: feature/merge_pdf/merge_pdf_worker.py:117
+msgid "Preparing..."
+msgstr "正在准备……"
+
+#: feature/merge_pdf/merge_pdf_worker.py:151
+msgid "Done"
+msgstr ""
+
+#: feature/merge_pdf/merge_pdf_worker.py:152
+#, fuzzy
+#| msgid "Merge"
+msgid "PDF Merged"
+msgstr "合并"
+
+#: widget/file_list_view.py:50
 msgid "File Name"
 msgstr "文件名"
 
-#: widget/file_list_view.py:49
+#: widget/file_list_view.py:50
 msgid "File Name ❓"
 msgstr "文件名 ❓"
 
-#: widget/file_list_view.py:71
+#: widget/file_list_view.py:72
 msgid "Add Files"
 msgstr "添加文件"
 
-#: widget/file_list_view.py:72
+#: widget/file_list_view.py:73
 msgid "Add Folder"
 msgstr "添加文件夹"
 
-#: widget/file_list_view.py:73
+#: widget/file_list_view.py:74
 msgid "Remove Selected"
 msgstr "移除选定"
 
-#: widget/file_list_view.py:74
+#: widget/file_list_view.py:75
 msgid "Remove All"
 msgstr "全部移除"
 
-#: widget/file_list_view.py:81
+#: widget/file_list_view.py:82
 msgid "Move to Top"
 msgstr "移至顶部"
 
-#: widget/file_list_view.py:82
+#: widget/file_list_view.py:83
 msgid "Move Up"
 msgstr "上移"
 
-#: widget/file_list_view.py:83
+#: widget/file_list_view.py:84
 msgid "Move Down"
 msgstr "下移"
 
-#: widget/file_list_view.py:84
+#: widget/file_list_view.py:85
 msgid "Move to Last"
 msgstr "移至底部"
 
-#: widget/file_list_view.py:105
+#: widget/file_list_view.py:106
 msgid "Select All"
 msgstr "选择全部"
 
-#: widget/file_list_view.py:107
+#: widget/file_list_view.py:108
 msgid "Invert Selection"
 msgstr "反转选择"
 
-#: widget/file_list_view.py:110
+#: widget/file_list_view.py:111
 msgid "Clear Selection"
 msgstr "清除选择"
 
-#: widget/file_list_view.py:153
+#: widget/file_list_view.py:154
 #, python-brace-format
 msgid "File Name {icon}"
 msgstr "文件名 {icon}"
 
-#: widget/path_picker.py:41
+#: widget/path_picker.py:43
 msgid "Browser"
 msgstr "浏览"
+
+#: feature/rotate_pdf/rotate_pdf_frame.py:24
+msgid "Output Folder"
+msgstr "输出文件夹"
+
+#: feature/rotate_pdf/rotate_pdf_frame.py:34
+msgid "Clockwise 90°"
+msgstr "顺时针 90°"
+
+#: feature/rotate_pdf/rotate_pdf_frame.py:39
+msgid "Counterclockwise 90°"
+msgstr "逆时针 90°"
+
+#: feature/rotate_pdf/rotate_pdf_frame.py:44
+msgid "180°"
+msgstr "180°"
+
+#: feature/rotate_pdf/rotate_pdf_frame.py:96
+msgid "Input must have at least 1 PDF file."
+msgstr "请至少添加一个 PDF 文件。"
+
+#: feature/rotate_pdf/rotate_pdf_frame.py:103
+msgid "Output folder must be set."
+msgstr "必须设置输出文件夹。"
+
+#: feature/rotate_pdf/rotate_pdf_worker.py:58
+msgid "Rotating……"
+msgstr "正在旋转……"
+
+#: feature/rotate_pdf/rotate_pdf_worker.py:94
+msgid "PDF Rotated"
+msgstr "已旋转"
+
+#~ msgid "Output File"
+#~ msgstr "输出文件"
+
+#~ msgid "Ready"
+#~ msgstr "就绪"
 
 #~ msgid "All Files"
 #~ msgstr "所有文件"
@@ -342,9 +438,6 @@ msgstr "浏览"
 
 #~ msgid "No image converted to PDF."
 #~ msgstr "没有图像转换为 PDF。"
-
-#~ msgid "Saving PDF..."
-#~ msgstr "正在保存 PDF..."
 
 #, python-brace-format
 #~ msgid "Converted {} image into PDF."
@@ -514,9 +607,6 @@ msgstr "浏览"
 #~ msgid "Edge Margin (cm):"
 #~ msgstr "边距（厘米）："
 
-#~ msgid "Error"
-#~ msgstr "错误"
-
 #~ msgid "Please select an input PDF file."
 #~ msgstr "请选择一个输入的 PDF 文件。"
 
@@ -637,9 +727,6 @@ msgstr "浏览"
 #~ msgid "Save failed: {}"
 #~ msgstr "保存失败：{}"
 
-#~ msgid "PDF List"
-#~ msgstr "PDF 列表"
-
 #~ msgid "Save in the same folder"
 #~ msgstr "保存在相同文件夹"
 
@@ -703,14 +790,8 @@ msgstr "浏览"
 #~ msgid "Merging invoices..."
 #~ msgstr "正在合并票据..."
 
-#~ msgid "Generate Bookmark"
-#~ msgstr "生成书签"
-
 #~ msgid "Support Duplex Printing (Ensure even number of pages)"
 #~ msgstr "支持双面打印（偶数页数）"
-
-#~ msgid "Please add at least two PDF files."
-#~ msgstr "请至少添加两个 PDF 文件。"
 
 #~ msgid "Merging PDF..."
 #~ msgstr "正在合并 PDF..."
@@ -801,14 +882,8 @@ msgstr "浏览"
 #~ msgid "Error: "
 #~ msgstr "错误："
 
-#~ msgid "Cancel"
-#~ msgstr "取消"
-
 #~ msgid "Move to First"
 #~ msgstr "移至顶部"
-
-#~ msgid "Select input files."
-#~ msgstr "选择输入文件。"
 
 #~ msgid "Select input folder."
 #~ msgstr "选择输入文件夹。"
