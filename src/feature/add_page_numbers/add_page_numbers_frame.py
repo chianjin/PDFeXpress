@@ -80,14 +80,10 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             font_row, textvariable=self._font_family, values=FONT_FAMILIES,
             state='readonly', width=10,
         ).pack(side='left', padx=(5, 0))
-        ttk.Label(font_row, text=_('Style')).pack(side='left', padx=(10, 0))
-        self._font_style = tk.StringVar(value='Regular')
-        ttk.Combobox(
-            font_row, textvariable=self._font_style, values=FONT_STYLES,
-            state='readonly', width=12,
-        ).pack(side='left', padx=(5, 0))
+        self._font_bold = tk.BooleanVar(value=False)
+        ttk.Checkbutton(font_row, text=_('Bold'), variable=self._font_bold).pack(side='left', padx=(5, 0))
         ttk.Label(font_row, text=_('Size')).pack(side='left', padx=(10, 0))
-        self._font_size = tk.StringVar(value='11')
+        self._font_size = tk.IntVar(value=11)
         ttk.Spinbox(
             font_row, textvariable=self._font_size, from_=1, to=200, width=6, justify='center'
         ).pack(side='left', padx=(5, 0))
@@ -132,11 +128,11 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         pos_row.pack(side=tk.TOP, fill=tk.X, pady=(5,0))
 
         # Dynamic margins (rebuilt whenever the position selection changes).
-        self._top_margin = tk.StringVar(value='1.0')
-        self._bottom_margin = tk.StringVar(value='1.0')
-        self._left_margin = tk.StringVar(value='1.0')
-        self._right_margin = tk.StringVar(value='1.0')
-        self._mirror_margin = tk.StringVar(value='1.0')
+        self._top_margin = tk.DoubleVar(value=1.5)
+        self._bottom_margin = tk.DoubleVar(value=1.5)
+        self._left_margin = tk.DoubleVar(value=2.0)
+        self._right_margin = tk.DoubleVar(value=2.0)
+        self._mirror_margin = tk.DoubleVar(value=2.0)
         self._margin_frame = ttk.Frame(self.options_frame)
         self._margin_frame.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
         self._refresh_margins()
@@ -162,7 +158,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         field = ttk.Frame(self._margin_frame)
         ttk.Label(field, text=label).pack(side='left', padx=(0, 5))
         ttk.Spinbox(
-            field, textvariable=var, from_=0, to=20, increment=0.1, width=8
+            field, textvariable=var, from_=0, to=20, increment=0.1, width=8, justify='center',
         ).pack(side='left')
         ttk.Label(field, text='cm').pack(side='left', padx=(2, 0))
         field.pack(side='left', padx=(0, 10))
@@ -228,10 +224,13 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         return Path(self.output_path.get())
 
     def get_options(self) -> dict:
+        # Variables are typed (IntVar/DoubleVar/BooleanVar/StringVar), so
+        # .get() already returns the correct type. The worker trusts this
+        # dict as-is; validation happened in _validate_input_files().
         return {
             'rule': self._rule.get(),
             'font_family': self._font_family.get(),
-            'font_style': self._font_style.get(),
+            'font_bold': self._font_bold.get(),
             'font_size': self._font_size.get(),
             'vertical': self._vertical.get(),
             'horizontal': self._horizontal.get(),
@@ -256,30 +255,24 @@ class AddPageNumbersFrame(BaseFeatureFrame):
 
     def _validate_input_files(self):
         if not self.input_path.get():
-            showerror(title=_('Error'), message=_('Input PDF must be set.'))
+            showerror(title=_('Error'), message=_('Input PDF cannot be empty.'))
             return False
         if not self.output_path.get():
-            showerror(title=_('Error'), message=_('Output path must be set.'))
+            showerror(title=_('Error'), message=_('Output PDF cannot be empty.'))
             return False
         if not self._rule.get().strip():
             showerror(title=_('Error'), message=_('Page number rule must be set.'))
             return False
-        try:
-            int(self._font_size.get())
-        except ValueError:
-            showerror(title=_('Error'), message=_('Font size must be an integer.'))
+        if self._font_size.get() < 1:
+            showerror(title=_('Error'), message=_('Font size must be at least 1.'))
             return False
-        for name, var in (
-            ('Top Margin', self._top_margin),
-            ('Bottom Margin', self._bottom_margin),
-            ('Left Margin', self._left_margin),
-            ('Right Margin', self._right_margin),
-            ('Margin', self._mirror_margin),
+        for var in (
+            self._top_margin, self._bottom_margin,
+            self._left_margin, self._right_margin,
+            self._mirror_margin,
         ):
-            try:
-                float(var.get())
-            except ValueError:
-                showerror(title=_('Error'), message=_('%s must be a number.') % name)
+            if var.get() < 0:
+                showerror(title=_('Error'), message=_('Margin must be greater than 0.'))
                 return False
         return True
 
