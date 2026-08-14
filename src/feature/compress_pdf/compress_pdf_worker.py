@@ -131,12 +131,12 @@ def worker(
         ('error', message)
         ('cancelled', None)
     """
-    inputs = params.get('inputs', [])
-    output = params.get('output')
-    options = params.get('options', {})
-    compress_images = bool(options.get('compress_images', False))
-    max_dpi = int(options.get('max_dpi', 150))
-    jpg_quality = int(options.get('jpg_quality', 75))
+    inputs = params['inputs']
+    output = params['output']
+    options = params['options']
+    compress_images = options['compress_images']
+    max_dpi = options['max_dpi']
+    jpg_quality = options['jpg_quality']
 
     try:
         total = len(inputs)
@@ -264,32 +264,27 @@ def run_compress_pdf_with_progress(master, params: Dict[str, Any]) -> None:
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()
     process = None
-    state = {'finished': False}
-
-    dialog = ProgressDialog(
-        master,
-        title=_('Compress PDF'),
-        label_text=_('Preparing...'),
-        cancel_command=lambda: _on_cancel(),
-        mode='determinate',
-    )
-
-    def _finish():
-        if state['finished']:
-            return
-        state['finished'] = True
-        if process is not None and process.is_alive():
-            process.join(timeout=2)
-        dialog.destroy()
+    finished = False
 
     def _on_cancel():
+        nonlocal finished
         cancel_event.set()
         if process is not None and process.is_alive():
             process.terminate()
         _finish()
 
+    def _finish():
+        nonlocal finished
+        if finished:
+            return
+        finished = True
+        if process is not None and process.is_alive():
+            process.join(timeout=2)
+        dialog.destroy()
+
     def _poll():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
         try:
             while True:
@@ -313,8 +308,16 @@ def run_compress_pdf_with_progress(master, params: Dict[str, Any]) -> None:
         except Empty:
             pass
 
-        if not state['finished']:
+        if not finished:
             master.after(100, _poll)
+
+    dialog = ProgressDialog(
+        master,
+        title=_('Compress PDF'),
+        label_text=_('Preparing...'),
+        cancel_command=_on_cancel,
+        mode='determinate',
+    )
 
     process = Process(target=worker, args=(params, progress_queue, cancel_event))
     process.start()

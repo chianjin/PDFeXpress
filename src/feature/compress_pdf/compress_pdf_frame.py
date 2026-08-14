@@ -63,8 +63,8 @@ class CompressPdfFrame(BaseFeatureFrame):
     def get_options(self) -> dict:
         return {
             'compress_images': self._compress_var.get(),
-            'max_dpi': int(self._max_dpi.get()),
-            'jpg_quality': int(self._jpg_quality.get()),
+            'max_dpi': self._max_dpi.get(),
+            'jpg_quality': self._jpg_quality.get(),
         }
 
     def _set_output_folder(self):
@@ -114,22 +114,13 @@ class CompressPdfFrame(BaseFeatureFrame):
                 message=_('Output folder must be set.'),
             )
             return False
-        try:
-            max_dpi = int(self._max_dpi.get())
-            jpg_quality = int(self._jpg_quality.get())
-        except (ValueError, tk.TclError):
-            showerror(
-                title=_('Error'),
-                message=_('Max resolution / jpg quality must be integers.'),
-            )
-            return False
-        if max_dpi <= 0:
+        if self._max_dpi.get() <= 0:
             showerror(
                 title=_('Error'),
                 message=_('Max resolution must be greater than 0.'),
             )
             return False
-        if jpg_quality <= 0 or jpg_quality > 100:
+        if self._jpg_quality.get() <= 0 or self._jpg_quality.get() > 100:
             showerror(
                 title=_('Error'),
                 message=_('jpg quality must be between 1 and 100.'),
