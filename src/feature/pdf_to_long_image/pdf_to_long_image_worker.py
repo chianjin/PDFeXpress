@@ -12,7 +12,7 @@ from multiprocessing import Process, Queue, Event
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
-from typing import Any, Dict, List
+from typing import List
 
 from util.i18n import gettext_text as _
 
@@ -51,7 +51,7 @@ def _parse_range(rng: str, total: int) -> List[int]:
 # ---------------------------------------------------------------------------
 # Subprocess: pure logic, no tkinter dependency.
 # ---------------------------------------------------------------------------
-def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
     """Render selected pages of a PDF into one long JPEG.
 
     Messages put on ``progress_queue`` are tuples:
@@ -60,10 +60,10 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         ('error', message)
         ('cancelled', None)
     """
-    inputs = params.get('inputs', [])
-    output = params.get('output')
-    options = params.get('options', {})
-    rng = options.get('range', '')
+    inputs = params['inputs']
+    output = params['output']
+    options = params['options']
+    rng = options['range']
 
     try:
         if len(inputs) != 1:
@@ -141,27 +141,20 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
 # ---------------------------------------------------------------------------
 # Main-thread controller: wires the dialog, the process and the queue.
 # ---------------------------------------------------------------------------
-def run_pdf_to_long_image_with_progress(master, params: Dict[str, Any]) -> None:
+def run_pdf_to_long_image_with_progress(master, params: dict) -> None:
     """Run the render in a subprocess and show progress via ProgressDialog."""
     from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()
     process = None
-    state = {'finished': False}
-
-    dialog = ProgressDialog(
-        master,
-        title=_('PDF to Long Image'),
-        label_text=_('Preparing...'),
-        cancel_command=lambda: _on_cancel(),
-        mode='determinate',
-    )
+    finished = False
 
     def _finish():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
-        state['finished'] = True
+        finished = True
         if process is not None and process.is_alive():
             process.join(timeout=2)
         dialog.destroy()
@@ -173,7 +166,8 @@ def run_pdf_to_long_image_with_progress(master, params: Dict[str, Any]) -> None:
         _finish()
 
     def _poll():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
         try:
             while True:
@@ -197,8 +191,16 @@ def run_pdf_to_long_image_with_progress(master, params: Dict[str, Any]) -> None:
         except Empty:
             pass
 
-        if not state['finished']:
+        if not finished:
             master.after(100, _poll)
+
+    dialog = ProgressDialog(
+        master,
+        title=_('PDF to Long Image'),
+        label_text=_('Preparing...'),
+        cancel_command=_on_cancel,
+        mode='determinate',
+    )
 
     process = Process(target=worker, args=(params, progress_queue, cancel_event))
     process.start()
