@@ -13,7 +13,6 @@ from multiprocessing import Process, Queue, Event
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
-from typing import Any, Dict
 
 from util.i18n import gettext_text as _
 
@@ -21,7 +20,7 @@ from util.i18n import gettext_text as _
 # ---------------------------------------------------------------------------
 # Subprocess: pure logic, no tkinter dependency.
 # ---------------------------------------------------------------------------
-def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
     """Interleave-merge inputs[0]=A and inputs[1]=B and report progress.
 
     Messages put on ``progress_queue`` are tuples:
@@ -30,10 +29,10 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         ('error', message)
         ('cancelled', None)
     """
-    inputs = params.get('inputs', [])
-    output = params.get('output')
-    options = params.get('options', {})
-    reverse_b = bool(options.get('reverse_b', False))
+    inputs = params['inputs']
+    output = params['output']
+    options = params['options']
+    reverse_b = options['reverse_b']
 
     try:
         output_path = Path(output)
@@ -81,7 +80,7 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
 # ---------------------------------------------------------------------------
 # Main-thread controller: wires the dialog, the process and the queue.
 # ---------------------------------------------------------------------------
-def run_interleave_with_progress(master, params: Dict[str, Any]) -> None:
+def run_interleave_with_progress(master, params: dict) -> None:
     """Run the interleave merge in a subprocess and show progress via ProgressDialog."""
     # Lazy import so the subprocess (which re-imports this module under
     # spawn) does not pay the cost of importing tkinter.
@@ -90,20 +89,13 @@ def run_interleave_with_progress(master, params: Dict[str, Any]) -> None:
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()
     process = None
-    state = {'finished': False}
-
-    dialog = ProgressDialog(
-        master,
-        title=_('Interleave Merge'),
-        label_text=_('Preparing...'),
-        cancel_command=lambda: _on_cancel(),
-        mode='determinate',
-    )
+    finished = False
 
     def _finish():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
-        state['finished'] = True
+        finished = True
         if process is not None and process.is_alive():
             process.join(timeout=2)
         dialog.destroy()
@@ -114,8 +106,17 @@ def run_interleave_with_progress(master, params: Dict[str, Any]) -> None:
             process.terminate()
         _finish()
 
+    dialog = ProgressDialog(
+        master,
+        title=_('Interleave Merge'),
+        label_text=_('Preparing...'),
+        cancel_command=_on_cancel,
+        mode='determinate',
+    )
+
     def _poll():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
         try:
             while True:
@@ -143,7 +144,7 @@ def run_interleave_with_progress(master, params: Dict[str, Any]) -> None:
         except Empty:
             pass
 
-        if not state['finished']:
+        if not finished:
             master.after(100, _poll)
 
     process = Process(target=worker, args=(params, progress_queue, cancel_event))
