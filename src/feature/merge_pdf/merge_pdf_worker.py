@@ -35,11 +35,6 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
     support_delux_print = bool(options.get('support_delux_print', False))
 
     try:
-        total = len(inputs)
-        if total == 0:
-            progress_queue.put(('error', _('No input files.')))
-            return
-
         output_path = Path(output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 

@@ -36,10 +36,6 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
     reverse_b = bool(options.get('reverse_b', False))
 
     try:
-        if len(inputs) != 2:
-            progress_queue.put(('error', _('Input must have exactly 2 PDF files.')))
-            return
-
         output_path = Path(output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 

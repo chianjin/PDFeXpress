@@ -35,7 +35,6 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         self.input_path = tk.StringVar()
         row = ttk.Frame(self.input_frame)
         row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Label(row, text=_('PDF')).pack(side='left', padx=(0, 5))
         ttk.Entry(row, textvariable=self.input_path).pack(
             side='left', expand=True, fill='x'
         )

@@ -97,13 +97,13 @@ class MergePdfFrame(BaseFeatureFrame):
         if len(current_input_pathes) < 2:
             showerror(
                 title=_('Error'),
-                message=_('Input must have at least 2 PDF files.')
+                message=_('Input PDF must have 2 files at least.')
             )
             return False
         if not self.output_path.get():
             showerror(
                 title=_('Error'),
-                message=_('Output path must be set.')
+                message=_('Output PDF must be specified.')
             )
             return False
         return True
