@@ -17,19 +17,20 @@ A single failed file is skipped and counted into the summary.
 """
 
 import io
-
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
-from typing import Any, Dict
+from typing import Any
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 
 
 def _downscale_page_images(
-    doc, page, max_dpi: int, jpg_quality: int, ctr: Dict[str, int]
+    doc, page, max_dpi: int, jpg_quality: int, ctr: dict[str, int]
 ) -> None:
     """Downsample every over-resolution embedded image on ``page`` in place.
 
@@ -120,9 +121,7 @@ def _downscale_page_images(
             ctr['skipped_format'] += 1
 
 
-def worker(
-    params: Dict[str, Any], progress_queue: Queue, cancel_event: Event
-) -> None:
+def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
     """Compress every input PDF into the output folder.
 
     Messages put on ``progress_queue`` are tuples:
@@ -179,17 +178,23 @@ def worker(
                             page = doc[p_idx]
                             page_index += 1
                             progress_queue.put(
-                                ('progress', page_index, total_pages,
-                                 _('Compressing images…… %s (%d/%d)')
-                                 % (src.name, page_index, total_pages))
+                                (
+                                    'progress',
+                                    page_index,
+                                    total_pages,
+                                    _('Compressing images…… %s (%d/%d)')
+                                    % (src.name, page_index, total_pages),
+                                )
                             )
-                            _downscale_page_images(
-                                doc, page, max_dpi, jpg_quality, ctr
-                            )
+                            _downscale_page_images(doc, page, max_dpi, jpg_quality, ctr)
                         out_file = out_dir / f'{src.stem}.{_("Compress")}.pdf'
                         doc.save(
-                            str(out_file), garbage=4, clean=True,
-                            deflate=True, deflate_images=True, deflate_fonts=True,
+                            str(out_file),
+                            garbage=4,
+                            clean=True,
+                            deflate=True,
+                            deflate_images=True,
+                            deflate_fonts=True,
                         )
                         files_done += 1
                     finally:
@@ -197,9 +202,13 @@ def worker(
                 except Exception as exc:
                     files_failed += 1
                     progress_queue.put(
-                        ('progress', page_index, total_pages,
-                         _('Failed: %s (%s: %s)')
-                         % (src.name, type(exc).__name__, exc))
+                        (
+                            'progress',
+                            page_index,
+                            total_pages,
+                            _('Failed: %s (%s: %s)')
+                            % (src.name, type(exc).__name__, exc),
+                        )
                     )
         else:
             for index, in_path in enumerate(inputs, start=1):
@@ -208,16 +217,24 @@ def worker(
                     return
                 src = Path(in_path)
                 progress_queue.put(
-                    ('progress', index, total,
-                     _('Compressing…… %d/%d') % (index, total))
+                    (
+                        'progress',
+                        index,
+                        total,
+                        _('Compressing…… %d/%d') % (index, total),
+                    )
                 )
                 try:
                     doc = pymupdf.open(str(src))
                     try:
                         out_file = out_dir / f'{src.stem}.{_("Compress")}.pdf'
                         doc.save(
-                            str(out_file), garbage=4, clean=True,
-                            deflate=True, deflate_images=True, deflate_fonts=True,
+                            str(out_file),
+                            garbage=4,
+                            clean=True,
+                            deflate=True,
+                            deflate_images=True,
+                            deflate_fonts=True,
                         )
                         files_done += 1
                     finally:
@@ -225,9 +242,13 @@ def worker(
                 except Exception as exc:
                     files_failed += 1
                     progress_queue.put(
-                        ('progress', index, total,
-                         _('Failed: %s (%s: %s)')
-                         % (src.name, type(exc).__name__, exc))
+                        (
+                            'progress',
+                            index,
+                            total,
+                            _('Failed: %s (%s: %s)')
+                            % (src.name, type(exc).__name__, exc),
+                        )
                     )
 
         summary = _('Compressed %d file(s).') % files_done
@@ -257,9 +278,8 @@ def worker(
         progress_queue.put(('error', '%s: %s' % (type(exc).__name__, exc)))
 
 
-def run_compress_pdf_with_progress(master, params: Dict[str, Any]) -> None:
+def run_compress_pdf_with_progress(master, params: dict[str, Any]) -> None:
     """Run PDF compression in a subprocess and show progress via ProgressDialog."""
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

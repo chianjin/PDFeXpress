@@ -8,12 +8,14 @@ progress is reported back through a multiprocessing.Queue and shown via
 ``core.progress_dialog.ProgressDialog`` (see ``run_interleave_with_progress``).
 """
 
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 
 
@@ -44,7 +46,9 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             len_a = a.page_count
             len_b = b.page_count
             # B page order: reversed when requested, else forward.
-            b_order = list(range(len_b - 1, -1, -1)) if reverse_b else list(range(len_b))
+            b_order = (
+                list(range(len_b - 1, -1, -1)) if reverse_b else list(range(len_b))
+            )
             total = len_a + len_b
 
             out = pymupdf.open()
@@ -61,8 +65,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                     out.insert_pdf(b, from_page=b_order[i], to_page=b_order[i])
                 done += (1 if i < len_a else 0) + (1 if i < len_b else 0)
                 progress_queue.put(
-                    ('progress', done, total,
-                     f'{_("Interleaving...")} {done}/{total}')
+                    ('progress', done, total, f'{_("Interleaving...")} {done}/{total}')
                 )
 
             progress_queue.put(('progress', total, total, _('Saving...')))
@@ -82,9 +85,6 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 # ---------------------------------------------------------------------------
 def run_interleave_with_progress(master, params: dict) -> None:
     """Run the interleave merge in a subprocess and show progress via ProgressDialog."""
-    # Lazy import so the subprocess (which re-imports this module under
-    # spawn) does not pay the cost of importing tkinter.
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

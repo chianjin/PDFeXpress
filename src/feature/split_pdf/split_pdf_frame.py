@@ -1,13 +1,13 @@
 import tkinter as tk
-from tkinter import ttk
-from tkinter.filedialog import askopenfilename, askdirectory
-from tkinter.messagebox import showerror
 from pathlib import Path
+from tkinter import ttk
+from tkinter.filedialog import askdirectory, askopenfilename
+from tkinter.messagebox import showerror
 
-from feature.base_feature_frame import BaseFeatureFrame
-from util.i18n import gettext_text as _
-from util.file_types import FILE_TYPES
 from config import EXECUTIVE_PATH
+from feature.base_feature_frame import BaseFeatureFrame
+from util.file_types import FILE_TYPES
+from util.i18n import gettext_text as _
 
 
 class SplitPdfFrame(BaseFeatureFrame):
@@ -20,8 +20,12 @@ class SplitPdfFrame(BaseFeatureFrame):
 
         row = ttk.Frame(self.input_frame)
         row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Entry(row, textvariable=self.input_path).pack(side='left', expand=True, fill='x')
-        ttk.Button(row, text=_('Browser'), command=self._browse_input).pack(side='left', padx=(5, 0))
+        ttk.Entry(row, textvariable=self.input_path).pack(
+            side='left', expand=True, fill='x'
+        )
+        ttk.Button(row, text=_('Browser'), command=self._browse_input).pack(
+            side='left', padx=(5, 0)
+        )
 
         # Fixed single-input: collapse to natural height (same reasoning as
         # interleave_merge - no list to stretch, avoid a large void).
@@ -42,25 +46,39 @@ class SplitPdfFrame(BaseFeatureFrame):
 
         self._mode = tk.StringVar(value='single')
         ttk.Radiobutton(
-            radio_frame, text=_('Single Page'), variable=self._mode,
-            value='single', command=self._on_mode_change,
+            radio_frame,
+            text=_('Single Page'),
+            variable=self._mode,
+            value='single',
+            command=self._on_mode_change,
         ).pack(side='left')
         ttk.Radiobutton(
-            radio_frame, text=_('By Page Count'), variable=self._mode,
-            value='by_pages', command=self._on_mode_change,
+            radio_frame,
+            text=_('By Page Count'),
+            variable=self._mode,
+            value='by_pages',
+            command=self._on_mode_change,
         ).pack(side='left', padx=(5, 0))
         ttk.Radiobutton(
-            radio_frame, text=_('By Parts'), variable=self._mode,
-            value='by_parts', command=self._on_mode_change,
+            radio_frame,
+            text=_('By Parts'),
+            variable=self._mode,
+            value='by_parts',
+            command=self._on_mode_change,
         ).pack(side='left', padx=(5, 0))
         ttk.Radiobutton(
-            radio_frame, text=_('Custom Range'), variable=self._mode,
-            value='custom', command=self._on_mode_change,
+            radio_frame,
+            text=_('Custom Range'),
+            variable=self._mode,
+            value='custom',
+            command=self._on_mode_change,
         ).pack(side='left', padx=(5, 5))
         self._param_label = ttk.Label(radio_frame, text=_('Pages per chunk'))
         self._param_label.pack(side='left', padx=(5, 0))
         self._help_icon = tk.PhotoImage(file=EXECUTIVE_PATH / 'asset/icon/help.png')
-        ttk.Button(radio_frame, image=self._help_icon, style='Toolbutton').pack(side='left')
+        ttk.Button(radio_frame, image=self._help_icon, style='Toolbutton').pack(
+            side='left'
+        )
         self._param_entry = tk.StringVar()
         self._param_entry_widget = ttk.Entry(
             radio_frame, textvariable=self._param_entry, width=30
@@ -94,10 +112,10 @@ class SplitPdfFrame(BaseFeatureFrame):
             elif mode == 'custom':
                 self._param_label.configure(text=_('Range expression'))
 
-
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -150,6 +168,7 @@ class SplitPdfFrame(BaseFeatureFrame):
         }
         if self._validate_input_files():
             from feature.split_pdf.split_pdf_worker import run_split_with_progress
+
             run_split_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):
@@ -172,10 +191,14 @@ class SplitPdfFrame(BaseFeatureFrame):
             try:
                 n = int(entry)
             except ValueError:
-                showerror(title=_('Error'), message=_('Pages per chunk must be an integer.'))
+                showerror(
+                    title=_('Error'), message=_('Pages per chunk must be an integer.')
+                )
                 return False
             if n < 1:
-                showerror(title=_('Error'), message=_('Pages per chunk must be at least 1.'))
+                showerror(
+                    title=_('Error'), message=_('Pages per chunk must be at least 1.')
+                )
                 return False
         elif mode == 'by_parts':
             if not entry:
@@ -184,10 +207,14 @@ class SplitPdfFrame(BaseFeatureFrame):
             try:
                 n = int(entry)
             except ValueError:
-                showerror(title=_('Error'), message=_('Number of parts must be an integer.'))
+                showerror(
+                    title=_('Error'), message=_('Number of parts must be an integer.')
+                )
                 return False
             if n < 1:
-                showerror(title=_('Error'), message=_('Number of parts must be at least 1.'))
+                showerror(
+                    title=_('Error'), message=_('Number of parts must be at least 1.')
+                )
                 return False
         elif mode == 'custom':
             if not entry:

@@ -1,15 +1,15 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
-from pathlib import Path
 
 from tkinterdnd2 import TkinterDnD
 
-from widget import FileListView
 from feature.base_feature_frame import BaseFeatureFrame
-from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
+from util.i18n import gettext_text as _
+from widget import FileListView
 
 
 class PdfToImagesFrame(BaseFeatureFrame):
@@ -42,9 +42,9 @@ class PdfToImagesFrame(BaseFeatureFrame):
     def _setup_options_frame(self):
         ttk.Label(self.options_frame, text=_('Resolution')).pack(side='left')
         self._dpi = tk.IntVar(value=200)
-        ttk.Entry(self.options_frame, textvariable=self._dpi, width=5, justify='center').pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Entry(
+            self.options_frame, textvariable=self._dpi, width=5, justify='center'
+        ).pack(side='left', padx=(5, 0))
         ttk.Label(self.options_frame, text=_('DPI')).pack(side='left')
 
         ttk.Label(self.options_frame, text=_('Format')).pack(side='left', padx=(10, 0))
@@ -54,7 +54,8 @@ class PdfToImagesFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
         self._transparent = tk.BooleanVar(value=True)
         self._transparent_cb = ttk.Checkbutton(
-            self.options_frame, text=_('Transparent Background'),
+            self.options_frame,
+            text=_('Transparent Background'),
             variable=self._transparent,
         )
         self._transparent_cb.pack(side='left', padx=(5, 0))
@@ -73,7 +74,8 @@ class PdfToImagesFrame(BaseFeatureFrame):
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -121,6 +123,7 @@ class PdfToImagesFrame(BaseFeatureFrame):
             from feature.pdf_to_images.pdf_to_images_worker import (
                 run_pdf_to_images_with_progress,
             )
+
             run_pdf_to_images_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):

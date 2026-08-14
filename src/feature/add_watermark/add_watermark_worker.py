@@ -15,16 +15,16 @@ A single failed file is skipped and listed in the final summary.
 """
 
 import math
-
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo, showwarning
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
-
 
 DEFAULT_FONT_SIZE = 36
 GRAY_5PERCENT = (0.95, 0.95, 0.95)
@@ -55,8 +55,10 @@ def _draw_text_watermark(page, text: str, font_size: int) -> None:
     rot = pymupdf.Matrix(cos_r, -sin_r, sin_r, cos_r, 0.0, 0.0)
 
     area = pymupdf.Rect(
-        MARGIN_PT, MARGIN_PT,
-        page.rect.width - MARGIN_PT, page.rect.height - MARGIN_PT,
+        MARGIN_PT,
+        MARGIN_PT,
+        page.rect.width - MARGIN_PT,
+        page.rect.height - MARGIN_PT,
     )
 
     cell_w = text_w + font_size * 2.0
@@ -74,9 +76,12 @@ def _draw_text_watermark(page, text: str, font_size: int) -> None:
             cx = x + cell_w / 2.0
             cy = y + cell_h / 2.0
             page.insert_text(
-                (cx - text_w / 2.0, cy), text,
-                fontname=fontname, fontsize=font_size,
-                color=GRAY_5PERCENT, overlay=False,
+                (cx - text_w / 2.0, cy),
+                text,
+                fontname=fontname,
+                fontsize=font_size,
+                color=GRAY_5PERCENT,
+                overlay=False,
                 morph=(pymupdf.Point(cx, cy), rot),
             )
             x += cell_w
@@ -86,8 +91,10 @@ def _draw_text_watermark(page, text: str, font_size: int) -> None:
 def _draw_image_watermark(page, image_path: str, img_size) -> None:
     """Center ``image_path`` with contain fit on the bottom layer (no re-encode)."""
     area = pymupdf.Rect(
-        MARGIN_PT, MARGIN_PT,
-        page.rect.width - MARGIN_PT, page.rect.height - MARGIN_PT,
+        MARGIN_PT,
+        MARGIN_PT,
+        page.rect.width - MARGIN_PT,
+        page.rect.height - MARGIN_PT,
     )
     iw, ih = img_size
     if iw <= 0 or ih <= 0:
@@ -101,9 +108,7 @@ def _draw_image_watermark(page, image_path: str, img_size) -> None:
     page.insert_image(img_rect, filename=str(image_path), overlay=False)
 
 
-def worker(
-    params: Dict[str, Any], progress_queue: Queue, cancel_event: Event
-) -> None:
+def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
     """Add a watermark to every input PDF and write results into the folder.
 
     Messages put on ``progress_queue`` are tuples:
@@ -137,6 +142,7 @@ def worker(
         img_size = None
         if mode == 'image':
             from PIL import Image
+
             try:
                 with Image.open(image_path) as im:
                     img_size = im.size
@@ -147,7 +153,7 @@ def worker(
                 return
 
         page_index = 0
-        failed: List[Tuple[str, str]] = []
+        failed: list[tuple[str, str]] = []
         success_count = 0
 
         for in_path in inputs:
@@ -166,9 +172,13 @@ def worker(
                     page = doc[p_idx]
                     page_index += 1
                     progress_queue.put(
-                        ('progress', page_index, total_pages,
-                         _('Adding watermark…… %s (%d/%d)')
-                         % (src.name, page_index, total_pages))
+                        (
+                            'progress',
+                            page_index,
+                            total_pages,
+                            _('Adding watermark…… %s (%d/%d)')
+                            % (src.name, page_index, total_pages),
+                        )
                     )
                     if mode == 'text':
                         _draw_text_watermark(page, text, DEFAULT_FONT_SIZE)
@@ -197,9 +207,8 @@ def worker(
         progress_queue.put(('error', '%s: %s' % (type(exc).__name__, exc)))
 
 
-def run_add_watermark_with_progress(master, params: Dict[str, Any]) -> None:
+def run_add_watermark_with_progress(master, params: dict[str, Any]) -> None:
     """Run watermarking in a subprocess and show progress via ProgressDialog."""
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

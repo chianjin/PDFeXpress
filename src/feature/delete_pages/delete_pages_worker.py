@@ -16,8 +16,9 @@ Single-file, in-memory operation -- no subprocess or progress dialog. The
 frame calls ``delete_pages`` synchronously and handles UI feedback.
 """
 
-import pymupdf
 from pathlib import Path
+
+import pymupdf
 
 from util.i18n import gettext_text as _
 from util.page_range_parser import parse_page_ranges
@@ -54,7 +55,7 @@ def delete_pages(params: dict) -> str:
             raise ValueError(_('Range expression produced no pages.'))
         if len(groups) != len(raw_groups):
             # Defensive only: keep naming aligned with produced groups.
-            raw_groups = raw_groups[:len(groups)]
+            raw_groups = raw_groups[: len(groups)]
 
         out_dir = Path(output)
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -65,7 +66,7 @@ def delete_pages(params: dict) -> str:
 
         for idx, del_pages in enumerate(groups, start=1):
             gexpr = raw_groups[idx - 1] if raw_groups else ''
-            name = f"{src.stem}.D{gexpr.replace(':', 'S')}.pdf"
+            name = f'{src.stem}.D{gexpr.replace(":", "S")}.pdf'
             try:
                 del_set = set(del_pages)
                 out_doc = pymupdf.open()
@@ -85,8 +86,9 @@ def delete_pages(params: dict) -> str:
 
         summary = _('Delete Pages') + f' ({produced}/{total_outputs})'
         if failures:
-            summary += '\n' + _('Failed:') + ' ' + \
-                '; '.join(f'{n}: {e}' for n, e in failures)
+            summary += (
+                '\n' + _('Failed:') + ' ' + '; '.join(f'{n}: {e}' for n, e in failures)
+            )
         return summary
     finally:
         doc.close()

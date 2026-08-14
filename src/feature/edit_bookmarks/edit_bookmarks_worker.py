@@ -32,7 +32,7 @@ def read_csv_bookmarks(path):
     ``[level, page, title]`` (ints / str, page 1-based).
     """
     rows = []
-    with open(path, 'r', encoding='utf-8-sig', newline='') as f:
+    with open(path, encoding='utf-8-sig', newline='') as f:
         reader = csv.reader(f)
         first = True
         for rec in reader:

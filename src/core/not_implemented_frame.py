@@ -9,7 +9,7 @@ class NotImplementedFrame(ttk.Frame):
         super().__init__(master, **kwargs)
 
         if text:
-            text = f'{text} {_('Not implemented')}'
+            text = f'{text} {_("Not implemented")}'
         else:
             text = _('Not implemented')
 

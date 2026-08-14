@@ -1,13 +1,13 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory, askopenfilename
 from tkinter.messagebox import showerror
-from pathlib import Path
 
-from widget import FileListView
 from feature.base_feature_frame import BaseFeatureFrame
-from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
+from util.i18n import gettext_text as _
+from widget import FileListView
 
 
 class AddWatermarkFrame(BaseFeatureFrame):
@@ -34,12 +34,18 @@ class AddWatermarkFrame(BaseFeatureFrame):
 
         radio_frame = ttk.Frame(self.options_frame)
         ttk.Radiobutton(
-            radio_frame, text=_('Text Watermark'),
-            variable=self._mode, value='text', command=self._on_mode_change,
+            radio_frame,
+            text=_('Text Watermark'),
+            variable=self._mode,
+            value='text',
+            command=self._on_mode_change,
         ).pack(side='left')
         ttk.Radiobutton(
-            radio_frame, text=_('Image Watermark'),
-            variable=self._mode, value='image', command=self._on_mode_change,
+            radio_frame,
+            text=_('Image Watermark'),
+            variable=self._mode,
+            value='image',
+            command=self._on_mode_change,
         ).pack(side='left', padx=(10, 0))
         radio_frame.pack(fill='x', expand=True)
 
@@ -78,7 +84,8 @@ class AddWatermarkFrame(BaseFeatureFrame):
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -127,6 +134,7 @@ class AddWatermarkFrame(BaseFeatureFrame):
             from feature.add_watermark.add_watermark_worker import (
                 run_add_watermark_with_progress,
             )
+
             run_add_watermark_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):

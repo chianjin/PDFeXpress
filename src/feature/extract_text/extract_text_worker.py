@@ -7,12 +7,14 @@ progress is reported through a ``multiprocessing.Queue`` and shown via
 counted into the summary (B-type "skip + summarize" convention).
 """
 
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 
 
@@ -46,14 +48,13 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total,
-                 f'{_("Extracting text……")} {index}/{total}')
+                ('progress', index, total, f'{_("Extracting text……")} {index}/{total}')
             )
 
             try:
                 doc = pymupdf.open(str(src))
                 try:
-                    text = "".join(page.get_text() for page in doc)
+                    text = ''.join(page.get_text() for page in doc)
                 finally:
                     doc.close()
 
@@ -64,8 +65,12 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             except Exception as exc:
                 failed += 1
                 progress_queue.put(
-                    ('progress', index, total,
-                     f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})')
+                    (
+                        'progress',
+                        index,
+                        total,
+                        f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})',
+                    )
                 )
 
         summary = _('Text extracted from %d of %d file(s).') % (processed, total)
@@ -87,7 +92,6 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 # ---------------------------------------------------------------------------
 def run_extract_text_with_progress(master, params: dict) -> None:
     """Run text extraction in a subprocess and show progress via ProgressDialog."""
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

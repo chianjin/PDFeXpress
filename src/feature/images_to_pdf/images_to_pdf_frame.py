@@ -1,15 +1,15 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename
 from tkinter.messagebox import showerror
-from pathlib import Path
 
 from tkinterdnd2 import TkinterDnD
 
-from widget import FileListView
 from feature.base_feature_frame import BaseFeatureFrame
-from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
+from util.i18n import gettext_text as _
+from widget import FileListView
 
 
 class ImagesToPdfFrame(BaseFeatureFrame):
@@ -45,7 +45,8 @@ class ImagesToPdfFrame(BaseFeatureFrame):
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -94,6 +95,7 @@ class ImagesToPdfFrame(BaseFeatureFrame):
             from feature.images_to_pdf.images_to_pdf_worker import (
                 run_images_to_pdf_with_progress,
             )
+
             run_images_to_pdf_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):

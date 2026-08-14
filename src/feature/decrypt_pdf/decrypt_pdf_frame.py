@@ -1,12 +1,12 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import showerror, showinfo
-from pathlib import Path
 
 from feature.base_feature_frame import BaseFeatureFrame
-from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
+from util.i18n import gettext_text as _
 
 
 class DecryptPdfFrame(BaseFeatureFrame):
@@ -47,9 +47,7 @@ class DecryptPdfFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
-        ttk.Label(self.options_frame, text=_('Password')).pack(
-            side='left', padx=(0, 5)
-        )
+        ttk.Label(self.options_frame, text=_('Password')).pack(side='left', padx=(0, 5))
         self._password = tk.StringVar()
         # Local tool: no mask on the password field.
         ttk.Entry(self.options_frame, textvariable=self._password).pack(
@@ -58,7 +56,8 @@ class DecryptPdfFrame(BaseFeatureFrame):
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -109,15 +108,14 @@ class DecryptPdfFrame(BaseFeatureFrame):
         if not self._validate_input_files():
             return
         from feature.decrypt_pdf.decrypt_pdf_worker import decrypt
+
         try:
             decrypt(params)
         except ValueError as exc:
             showerror(title=_('Error'), message=str(exc))
             return
         except Exception as exc:
-            showerror(
-                title=_('Error'), message=f'{type(exc).__name__}: {exc}'
-            )
+            showerror(title=_('Error'), message=f'{type(exc).__name__}: {exc}')
             return
         showinfo(title=_('Done'), message=_('PDF Decrypted'))
 

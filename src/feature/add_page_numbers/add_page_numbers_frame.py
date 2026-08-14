@@ -1,18 +1,17 @@
 import os
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import showerror
-from pathlib import Path
 
 from tkinterdnd2 import TkinterDnD
 
-from feature.base_feature_frame import BaseFeatureFrame
-from util.i18n import gettext_text as _
-from util.file_types import FILE_TYPES
-from widget.help_window import HelpWindow
 from config import EXECUTIVE_PATH
-
+from feature.base_feature_frame import BaseFeatureFrame
+from util.file_types import FILE_TYPES
+from util.i18n import gettext_text as _
+from widget.help_window import HelpWindow
 
 FONT_FAMILIES = ['Courier', 'Times', 'Helvetica']
 FONT_STYLES = ['Regular', 'Bold', 'Italic', 'Bold Italic']
@@ -65,11 +64,13 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             side='left', padx=(5, 0)
         )
         self.help_icon = tk.PhotoImage(file=EXECUTIVE_PATH / 'asset/icon/help.png')
-        ttk.Button(rule_row, image=self.help_icon, style='Toolbutton' ,command=self._open_help).pack(side='left')
+        ttk.Button(
+            rule_row, image=self.help_icon, style='Toolbutton', command=self._open_help
+        ).pack(side='left')
         ttk.Label(
             rule_row,
             text=_('Default: continuous numbering from 1. Click Help for details.'),
-        ).pack(side='left', padx=(5,0))
+        ).pack(side='left', padx=(5, 0))
         rule_row.pack(side=tk.TOP, fill='x')
 
         # Font family / style / size.
@@ -77,17 +78,27 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         ttk.Label(font_row, text=_('Font')).pack(side='left')
         self._font_family = tk.StringVar(value='Times')
         ttk.Combobox(
-            font_row, textvariable=self._font_family, values=FONT_FAMILIES,
-            state='readonly', width=10,
+            font_row,
+            textvariable=self._font_family,
+            values=FONT_FAMILIES,
+            state='readonly',
+            width=10,
         ).pack(side='left', padx=(5, 0))
         self._font_bold = tk.BooleanVar(value=False)
-        ttk.Checkbutton(font_row, text=_('Bold'), variable=self._font_bold).pack(side='left', padx=(5, 0))
+        ttk.Checkbutton(font_row, text=_('Bold'), variable=self._font_bold).pack(
+            side='left', padx=(5, 0)
+        )
         ttk.Label(font_row, text=_('Size')).pack(side='left', padx=(10, 0))
         self._font_size = tk.IntVar(value=11)
         ttk.Spinbox(
-            font_row, textvariable=self._font_size, from_=1, to=200, width=6, justify='center'
+            font_row,
+            textvariable=self._font_size,
+            from_=1,
+            to=200,
+            width=6,
+            justify='center',
         ).pack(side='left', padx=(5, 0))
-        font_row.pack(side=tk.TOP, fill=tk.X, pady=(5,0))
+        font_row.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
 
         # Position: vertical (header/footer) | horizontal (left/center/right) |
         # mirror (outside/inside).
@@ -96,36 +107,57 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         pos_row = ttk.Frame(self.options_frame)
         ttk.Label(pos_row, text=_('Position')).pack(side='left', padx=(0, 5))
         ttk.Radiobutton(
-            pos_row, text=_('Header'), variable=self._vertical, value='header',
+            pos_row,
+            text=_('Header'),
+            variable=self._vertical,
+            value='header',
             command=self._refresh_margins,
         ).pack(side='left')
         ttk.Radiobutton(
-            pos_row, text=_('Footer'), variable=self._vertical, value='footer',
+            pos_row,
+            text=_('Footer'),
+            variable=self._vertical,
+            value='footer',
             command=self._refresh_margins,
         ).pack(side='left', padx=(5, 0))
         ttk.Label(pos_row, text='|').pack(side='left', padx=(8, 8))
         ttk.Radiobutton(
-            pos_row, text=_('Left'), variable=self._horizontal, value='left',
+            pos_row,
+            text=_('Left'),
+            variable=self._horizontal,
+            value='left',
             command=self._refresh_margins,
         ).pack(side='left')
         ttk.Radiobutton(
-            pos_row, text=_('Center'), variable=self._horizontal, value='center',
+            pos_row,
+            text=_('Center'),
+            variable=self._horizontal,
+            value='center',
             command=self._refresh_margins,
         ).pack(side='left', padx=(5, 0))
         ttk.Radiobutton(
-            pos_row, text=_('Right'), variable=self._horizontal, value='right',
+            pos_row,
+            text=_('Right'),
+            variable=self._horizontal,
+            value='right',
             command=self._refresh_margins,
         ).pack(side='left', padx=(5, 0))
         ttk.Label(pos_row, text='|').pack(side='left', padx=(8, 8))
         ttk.Radiobutton(
-            pos_row, text=_('Outside'), variable=self._horizontal, value='outside',
+            pos_row,
+            text=_('Outside'),
+            variable=self._horizontal,
+            value='outside',
             command=self._refresh_margins,
         ).pack(side='left')
         ttk.Radiobutton(
-            pos_row, text=_('Inside'), variable=self._horizontal, value='inside',
+            pos_row,
+            text=_('Inside'),
+            variable=self._horizontal,
+            value='inside',
             command=self._refresh_margins,
         ).pack(side='left', padx=(5, 0))
-        pos_row.pack(side=tk.TOP, fill=tk.X, pady=(5,0))
+        pos_row.pack(side=tk.TOP, fill=tk.X, pady=(5, 0))
 
         # Dynamic margins (rebuilt whenever the position selection changes).
         self._top_margin = tk.DoubleVar(value=1.5)
@@ -158,14 +190,21 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         field = ttk.Frame(self._margin_frame)
         ttk.Label(field, text=label).pack(side='left', padx=(0, 5))
         ttk.Spinbox(
-            field, textvariable=var, from_=0, to=20, increment=0.1, width=8, justify='center',
+            field,
+            textvariable=var,
+            from_=0,
+            to=20,
+            increment=0.1,
+            width=8,
+            justify='center',
         ).pack(side='left')
         ttk.Label(field, text='cm').pack(side='left', padx=(2, 0))
         field.pack(side='left', padx=(0, 10))
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -174,8 +213,8 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         language = posix_lang.split('.')[0]
         guide_path = EXECUTIVE_PATH / f'asset/page_number_syntax_guide-{language}.txt'
         if not guide_path.exists():
-            guide_path = EXECUTIVE_PATH / f'asset/page_number_syntax_guide-en_US.txt'
-        with open(guide_path, 'r', encoding='UTF-8') as f:
+            guide_path = EXECUTIVE_PATH / 'asset/page_number_syntax_guide-en_US.txt'
+        with open(guide_path, encoding='UTF-8') as f:
             help_content = f.readlines()
         title = help_content[0].strip()
         content = ''.join(help_content[1:])
@@ -251,6 +290,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             from feature.add_page_numbers.add_page_numbers_worker import (
                 run_add_page_numbers_with_progress,
             )
+
             run_add_page_numbers_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):
@@ -267,8 +307,10 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             showerror(title=_('Error'), message=_('Font size must be at least 1.'))
             return False
         for var in (
-            self._top_margin, self._bottom_margin,
-            self._left_margin, self._right_margin,
+            self._top_margin,
+            self._bottom_margin,
+            self._left_margin,
+            self._right_margin,
             self._mirror_margin,
         ):
             if var.get() < 0:

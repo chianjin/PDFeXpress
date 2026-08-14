@@ -9,12 +9,14 @@ are skipped. Mirrors ``rotate_pdf_worker`` for the process/queue/dialog
 scaffolding; a single failed file is skipped and counted into the summary.
 """
 
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 
 
@@ -54,8 +56,12 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total,
-                 f'{_("Extracting images……")} {index}/{total}')
+                (
+                    'progress',
+                    index,
+                    total,
+                    f'{_("Extracting images……")} {index}/{total}',
+                )
             )
 
             try:
@@ -94,12 +100,18 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             except Exception as exc:
                 files_failed += 1
                 progress_queue.put(
-                    ('progress', index, total,
-                     f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})')
+                    (
+                        'progress',
+                        index,
+                        total,
+                        f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})',
+                    )
                 )
 
         summary = _('Extracted %d image(s) from %d file(s).') % (
-            images_extracted, files_done)
+            images_extracted,
+            files_done,
+        )
         if images_skipped:
             summary += ' ' + (_('%d small image(s) skipped.') % images_skipped)
         if files_failed:
@@ -120,7 +132,6 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 # ---------------------------------------------------------------------------
 def run_extract_images_with_progress(master, params: dict) -> None:
     """Run image extraction in a subprocess and show progress via ProgressDialog."""
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

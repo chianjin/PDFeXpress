@@ -19,6 +19,7 @@ comma-separated list of segments ``PHYS_RANGE:DISPLAY_FORMAT``:
 numbers to their display strings; a page absent from the dict is not numbered.
 """
 
+
 def _parse_phys_range(expr: str, total: int) -> list[int]:
     """Return a sorted list of 1-based page numbers for one physical range."""
     expr = expr.strip()
@@ -41,9 +42,19 @@ def _to_roman(value: int) -> str:
     if value <= 0:
         raise ValueError('Roman numerals require a positive number')
     table = (
-        (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'), (100, 'C'),
-        (90, 'XC'), (50, 'L'), (40, 'XL'), (10, 'X'), (9, 'IX'),
-        (5, 'V'), (4, 'IV'), (1, 'I'),
+        (1000, 'M'),
+        (900, 'CM'),
+        (500, 'D'),
+        (400, 'CD'),
+        (100, 'C'),
+        (90, 'XC'),
+        (50, 'L'),
+        (40, 'XL'),
+        (10, 'X'),
+        (9, 'IX'),
+        (5, 'V'),
+        (4, 'IV'),
+        (1, 'I'),
     )
     out: list[str] = []
     for amount, symbol in table:
@@ -94,7 +105,7 @@ def _parse_display_format(fmt: str):
     try:
         return (type_char, int(num_part))
     except ValueError:
-        raise ValueError('Invalid start value in format: %r' % fmt)
+        raise ValueError('Invalid start value in format: %r' % fmt) from None
 
 
 def build_page_number_map(rule: str, total: int) -> dict[int, str]:

@@ -8,8 +8,9 @@ Single-file, instantaneous operation -- no subprocess or progress dialog.
 The frame calls ``decrypt`` synchronously and handles UI feedback.
 """
 
-import pymupdf
 from pathlib import Path
+
+import pymupdf
 
 from util.i18n import gettext_text as _
 

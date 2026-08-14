@@ -16,6 +16,7 @@ def main():
     # High DPI (HiDPI) scaling issues On Windows
     if system == 'Windows':
         import ctypes
+
         try:
             ctypes.windll.shcore.SetProcessDpiAwareness(1)  # 1 = System Aware
         except AttributeError:

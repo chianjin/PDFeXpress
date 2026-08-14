@@ -1,12 +1,12 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
-from pathlib import Path
 
-from widget import FileListView
 from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
+from widget import FileListView
 
 
 class EncryptPdfFrame(BaseFeatureFrame):
@@ -36,9 +36,7 @@ class EncryptPdfFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
-        ttk.Label(self.options_frame, text=_('Password')).pack(
-            side='left', padx=(0, 5)
-        )
+        ttk.Label(self.options_frame, text=_('Password')).pack(side='left', padx=(0, 5))
         self._password = tk.StringVar()
         # Local tool: no mask on the password field.
         ttk.Entry(self.options_frame, textvariable=self._password).pack(
@@ -47,7 +45,8 @@ class EncryptPdfFrame(BaseFeatureFrame):
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -91,6 +90,7 @@ class EncryptPdfFrame(BaseFeatureFrame):
             from feature.encrypt_pdf.encrypt_pdf_worker import (
                 run_encrypt_with_progress,
             )
+
             run_encrypt_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):

@@ -18,7 +18,7 @@ class FileListView(tk.Frame):
         file_types=FILE_TYPES['PDF'],
         sortable: bool = True,
         allow_duplicates: bool = True,
-        **kw
+        **kw,
     ):
         super().__init__(master)
 
@@ -177,7 +177,7 @@ class FileListView(tk.Frame):
 
         items.sort(key=lambda x: x[1].lower(), reverse=reverse)
 
-        for item_id, _ in items:
+        for item_id, _name in items:
             self.filelist_treeview.move(item_id, '', tk.END)
 
         self._sort_state = new_state

@@ -8,12 +8,14 @@ Queue/Event/ProgressDialog scaffolding; a single failed file is skipped and
 counted into the summary.
 """
 
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 
 
@@ -45,7 +47,6 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
         files_done = 0
         files_failed = 0
         pages_done = 0
-        ext = 'png' if fmt == 'png' else 'jpg'
         # JPEG cannot carry an alpha channel; transparency only applies to PNG.
         alpha = (fmt == 'png') and transparent
 
@@ -56,8 +57,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total,
-                 f'{_("Converting...")} {index}/{total}')
+                ('progress', index, total, f'{_("Converting...")} {index}/{total}')
             )
 
             try:
@@ -83,12 +83,18 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             except Exception as exc:
                 files_failed += 1
                 progress_queue.put(
-                    ('progress', index, total,
-                     f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})')
+                    (
+                        'progress',
+                        index,
+                        total,
+                        f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})',
+                    )
                 )
 
         summary = _('Converted %d page(s) from %d file(s) to images.') % (
-            pages_done, files_done)
+            pages_done,
+            files_done,
+        )
         if files_failed:
             summary += ' ' + (_('%d file(s) failed.') % files_failed)
         if files_done == 0 and total > 0:
@@ -107,7 +113,6 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 # ---------------------------------------------------------------------------
 def run_pdf_to_images_with_progress(master, params: dict) -> None:
     """Run the rendering in a subprocess and show progress via ProgressDialog."""
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

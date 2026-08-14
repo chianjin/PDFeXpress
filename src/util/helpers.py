@@ -1,6 +1,6 @@
 import time
-from pathlib import Path
 import tkinter as tk
+from pathlib import Path
 
 from config import HEADER_FONT_SIZE
 from feature.feature_list import FEATURE_LIST
@@ -95,4 +95,7 @@ def get_file_properties(file_path: Path) -> dict:
 
 
 def get_multiple_files_properties(file_paths: list[Path]) -> dict:
-    return {'文件数': len(file_paths), '总大小': sum(file.stat().st_size for file in file_paths)}
+    return {
+        '文件数': len(file_paths),
+        '总大小': sum(file.stat().st_size for file in file_paths),
+    }

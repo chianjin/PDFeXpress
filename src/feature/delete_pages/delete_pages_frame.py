@@ -1,14 +1,14 @@
 import os
 import tkinter as tk
-from tkinter import ttk
-from tkinter.filedialog import askopenfilename, askdirectory
-from tkinter.messagebox import showerror, showinfo
 from pathlib import Path
+from tkinter import ttk
+from tkinter.filedialog import askdirectory, askopenfilename
+from tkinter.messagebox import showerror, showinfo
 
-from feature.base_feature_frame import BaseFeatureFrame
-from util.i18n import gettext_text as _
-from util.file_types import FILE_TYPES
 from config import EXECUTIVE_PATH
+from feature.base_feature_frame import BaseFeatureFrame
+from util.file_types import FILE_TYPES
+from util.i18n import gettext_text as _
 from widget import HelpWindow
 
 
@@ -22,8 +22,12 @@ class DeletePagesFrame(BaseFeatureFrame):
 
         row = ttk.Frame(self.input_frame)
         row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Entry(row, textvariable=self.input_path).pack(side='left', expand=True, fill='x')
-        ttk.Button(row, text=_('Browser'), command=self._browse_input).pack(side='left', padx=(5, 0))
+        ttk.Entry(row, textvariable=self.input_path).pack(
+            side='left', expand=True, fill='x'
+        )
+        ttk.Button(row, text=_('Browser'), command=self._browse_input).pack(
+            side='left', padx=(5, 0)
+        )
 
         # Fixed single-input: collapse to natural height (same reasoning as
         # interleave_merge / split_pdf - no list to stretch, avoid a large void).
@@ -40,12 +44,10 @@ class DeletePagesFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
-        ttk.Label(self.options_frame, text=_('Pages to delete')).pack(
-            side='left'
-        )
+        ttk.Label(self.options_frame, text=_('Pages to delete')).pack(side='left')
         self.range_expr = tk.StringVar()
         ttk.Entry(self.options_frame, textvariable=self.range_expr, width=40).pack(
-            side='left', fill='x', padx=(5,0)
+            side='left', fill='x', padx=(5, 0)
         )
         self.help_icon = tk.PhotoImage(file=EXECUTIVE_PATH / 'asset/icon/help.png')
         ttk.Button(
@@ -56,12 +58,14 @@ class DeletePagesFrame(BaseFeatureFrame):
             command=self._open_help,
         ).pack(side='left', padx=(5, 0))
         ttk.Label(
-            self.options_frame, text=_('Example: "3,7-9,12;:2". Click Help for for details.')
+            self.options_frame,
+            text=_('Example: "3,7-9,12;:2". Click Help for for details.'),
         ).pack(side='left', padx=(5, 0))
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -76,8 +80,8 @@ class DeletePagesFrame(BaseFeatureFrame):
         language = posix_lang.split('.')[0]
         guide_path = EXECUTIVE_PATH / f'asset/page_range_syntax_guide-{language}.txt'
         if not guide_path.exists():
-            guide_path = EXECUTIVE_PATH / f'asset/page_range_syntax_guide-en_US.txt'
-        with open(guide_path, 'r', encoding='UTF-8') as f:
+            guide_path = EXECUTIVE_PATH / 'asset/page_range_syntax_guide-en_US.txt'
+        with open(guide_path, encoding='UTF-8') as f:
             help_content = f.readlines()
         title = help_content[0].strip()
         content = ''.join(help_content[1:])
@@ -120,15 +124,14 @@ class DeletePagesFrame(BaseFeatureFrame):
         if not self._validate_input_files():
             return
         from feature.delete_pages.delete_pages_worker import delete_pages
+
         try:
             summary = delete_pages(params)
         except ValueError as exc:
             showerror(title=_('Error'), message=str(exc))
             return
         except Exception as exc:
-            showerror(
-                title=_('Error'), message=f'{type(exc).__name__}: {exc}'
-            )
+            showerror(title=_('Error'), message=f'{type(exc).__name__}: {exc}')
             return
         showinfo(title=_('Done'), message=summary)
 
@@ -148,7 +151,9 @@ class DeletePagesFrame(BaseFeatureFrame):
             showerror(title=_('Error'), message=_('Pages to delete must be set.'))
             return False
         if expr.startswith('+'):
-            showerror(title=_('Error'), message=_('Enhanced mode (+) is not supported.'))
+            showerror(
+                title=_('Error'), message=_('Enhanced mode (+) is not supported.')
+            )
             return False
         return True
 

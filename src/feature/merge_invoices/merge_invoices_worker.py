@@ -18,23 +18,23 @@ is reported through a ``multiprocessing.Queue`` and shown via
 ``core.progress_dialog.ProgressDialog`` (see ``run_merge_invoices_with_progress``).
 """
 
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
-from typing import List, Tuple
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
-
 
 # ---------------------------------------------------------------------------
 # Geometry constants (PyMuPDF works in points: 1 cm = 28.3464567 pt).
 # ---------------------------------------------------------------------------
 CM = 28.3464567
-A4_W, A4_H = pymupdf.paper_size('a4')          # (595, 842)
-REGULAR_SLOT_H = 14 * CM                        # 14 cm slot for the 2-up layout
-REGULAR_MAX_H = 15 * CM                         # classification threshold (relaxed)
+A4_W, A4_H = pymupdf.paper_size('a4')  # (595, 842)
+REGULAR_SLOT_H = 14 * CM  # 14 cm slot for the 2-up layout
+REGULAR_MAX_H = 15 * CM  # classification threshold (relaxed)
 
 
 def classify(doc: 'pymupdf.Document') -> str:
@@ -44,26 +44,32 @@ def classify(doc: 'pymupdf.Document') -> str:
     return 'regular' if doc[0].rect.height <= REGULAR_MAX_H else 'other'
 
 
-def _place_regular(out: 'pymupdf.Document', docs: List['pymupdf.Document'],
-                   refs: List[Tuple[int, int]]) -> None:
+def _place_regular(
+    out: 'pymupdf.Document', docs: list['pymupdf.Document'], refs: list[tuple[int, int]]
+) -> None:
     """Place regular invoice pages two-up (top/bottom) onto A4 pages."""
     for i in range(0, len(refs), 2):
         page = out.new_page(width=A4_W, height=A4_H)
         d0, p0 = refs[i]
         page.show_pdf_page(
-            pymupdf.Rect(0, 0, A4_W, REGULAR_SLOT_H), docs[d0], p0,
+            pymupdf.Rect(0, 0, A4_W, REGULAR_SLOT_H),
+            docs[d0],
+            p0,
             keep_proportion=True,
         )
         if i + 1 < len(refs):
             d1, p1 = refs[i + 1]
             page.show_pdf_page(
                 pymupdf.Rect(0, REGULAR_SLOT_H, A4_W, 2 * REGULAR_SLOT_H),
-                docs[d1], p1, keep_proportion=True,
+                docs[d1],
+                p1,
+                keep_proportion=True,
             )
 
 
-def _place_other(out: 'pymupdf.Document', docs: List['pymupdf.Document'],
-                 refs: List[Tuple[int, int]]) -> None:
+def _place_other(
+    out: 'pymupdf.Document', docs: list['pymupdf.Document'], refs: list[tuple[int, int]]
+) -> None:
     """Place other invoice pages one-per-A4, top-left aligned, fit-to-A4."""
     for d_idx, pno in refs:
         src = docs[d_idx]
@@ -95,9 +101,9 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
         output_path = Path(output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        opened: List[pymupdf.Document] = []   # baked source docs, kept open
-        regular: List[Tuple[int, int]] = []    # (doc_index, page_index)
-        other: List[Tuple[int, int]] = []
+        opened: list[pymupdf.Document] = []  # baked source docs, kept open
+        regular: list[tuple[int, int]] = []  # (doc_index, page_index)
+        other: list[tuple[int, int]] = []
 
         for index, in_path in enumerate(inputs, start=1):
             if cancel_event.is_set():
@@ -106,8 +112,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
             src_path = Path(in_path)
             progress_queue.put(
-                ('progress', index, total,
-                 f'{_("Merging...")} {index}/{total}')
+                ('progress', index, total, f'{_("Merging...")} {index}/{total}')
             )
 
             src = pymupdf.open(str(src_path))
@@ -140,9 +145,6 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 # ---------------------------------------------------------------------------
 def run_merge_invoices_with_progress(master, params: dict) -> None:
     """Run the invoice merge in a subprocess and show progress."""
-    # Lazy import so the subprocess (which re-imports this module under
-    # spawn) does not pay the cost of importing tkinter.
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()
@@ -185,7 +187,6 @@ def run_merge_invoices_with_progress(master, params: dict) -> None:
                     fraction = (current / total) if total else 0
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
-                    out_path = msg[1]
                     _finish()
                     showinfo(
                         title=_('Done'),

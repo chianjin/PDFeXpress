@@ -6,12 +6,14 @@ responsive. Progress is reported back to the main thread through a
 ``core.progress_dialog.ProgressDialog`` (see ``run_merge_with_progress``).
 """
 
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 
 
@@ -49,8 +51,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
             src_path = Path(in_path)
             progress_queue.put(
-                ('progress', index, total,
-                 f'{_("Merging...")} {index}/{total}')
+                ('progress', index, total, f'{_("Merging...")} {index}/{total}')
             )
 
             src = pymupdf.open(str(src_path))
@@ -97,9 +98,6 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 # ---------------------------------------------------------------------------
 def run_merge_with_progress(master, params: dict) -> None:
     """Run the merge in a subprocess and show progress via ProgressDialog."""
-    # Lazy import so the subprocess (which re-imports this module under
-    # spawn) does not pay the cost of importing tkinter.
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

@@ -1,12 +1,12 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
-from pathlib import Path
 
-from widget import FileListView
 from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
+from widget import FileListView
 
 
 class ExtractTextFrame(BaseFeatureFrame):
@@ -34,7 +34,8 @@ class ExtractTextFrame(BaseFeatureFrame):
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -69,7 +70,10 @@ class ExtractTextFrame(BaseFeatureFrame):
             'options': self.get_options(),
         }
         if self._validate_input_files():
-            from feature.extract_text.extract_text_worker import run_extract_text_with_progress
+            from feature.extract_text.extract_text_worker import (
+                run_extract_text_with_progress,
+            )
+
             run_extract_text_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):

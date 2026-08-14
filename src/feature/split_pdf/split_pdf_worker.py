@@ -13,12 +13,14 @@ which implements the page-range syntax guide (atoms, compositions, groups,
 default/plus modes) and returns ``list[list[int]]`` of 0-based page indices.
 """
 
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 from util.page_range_parser import parse_page_ranges
 
@@ -77,14 +79,14 @@ def _chunk_name(mode, stem, chunk, width, group_expr=None):
     """
     if mode == 'single':
         page_no = chunk[0] + 1
-        return f"{stem}.P{page_no:0{width}d}.pdf"
+        return f'{stem}.P{page_no:0{width}d}.pdf'
     if mode in ('by_pages', 'by_parts'):
         start = chunk[0] + 1
         end = chunk[-1] + 1
-        return f"{stem}.P{start:0{width}d}-{end:0{width}d}.pdf"
+        return f'{stem}.P{start:0{width}d}-{end:0{width}d}.pdf'
     if mode == 'custom':
         safe = (group_expr or '').replace(':', 'S')
-        return f"{stem}.R{safe}.pdf"
+        return f'{stem}.R{safe}.pdf'
     raise ValueError(_('Unknown split mode.'))
 
 
@@ -146,8 +148,12 @@ def worker(params, progress_queue, cancel_event):
                     name = _chunk_name(mode, src.stem, chunk, width)
 
                 progress_queue.put(
-                    ('progress', idx, total_outputs,
-                     f'{_("Splitting……")} {idx}/{total_outputs}')
+                    (
+                        'progress',
+                        idx,
+                        total_outputs,
+                        f'{_("Splitting……")} {idx}/{total_outputs}',
+                    )
                 )
 
                 try:
@@ -168,8 +174,12 @@ def worker(params, progress_queue, cancel_event):
 
             summary = _('PDF Split') + f' ({produced}/{total_outputs})'
             if failures:
-                summary += '\n' + _('Failed:') + ' ' + \
-                    '; '.join(f'{n}: {e}' for n, e in failures)
+                summary += (
+                    '\n'
+                    + _('Failed:')
+                    + ' '
+                    + '; '.join(f'{n}: {e}' for n, e in failures)
+                )
             progress_queue.put(('progress', total_outputs, total_outputs, _('Done')))
             progress_queue.put(('done', summary))
 
@@ -185,7 +195,6 @@ def worker(params, progress_queue, cancel_event):
 # ---------------------------------------------------------------------------
 def run_split_with_progress(master, params):
     """Run the split in a subprocess and show progress via ProgressDialog."""
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

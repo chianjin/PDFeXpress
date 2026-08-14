@@ -7,13 +7,14 @@ dependencies (pure PyMuPDF byte assembly). If the resulting height exceeds the
 JPEG limit (65500 px) the job stops with an error instead of scaling down.
 """
 
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
-from typing import List
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 
 # Fixed internal rendering settings (UI-immutable).
@@ -23,7 +24,7 @@ QUALITY = 80
 MAX_PIXEL = 65500
 
 
-def _parse_range(rng: str, total: int) -> List[int]:
+def _parse_range(rng: str, total: int) -> list[int]:
     """Return 0-based page indices for a 1-based range expression.
 
     ``''`` -> all pages; ``'n'`` -> single page; ``'n-m'`` -> inclusive range.
@@ -95,15 +96,19 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             max_rect_w = max(doc[p].rect.width for p in pages)
             target_width = round(max_rect_w * DPI / 72.0)
 
-            samples: List[bytes] = []
+            samples: list[bytes] = []
             total_height = 0
             for i, p in enumerate(pages, start=1):
                 if cancel_event.is_set():
                     progress_queue.put(('cancelled', None))
                     return
                 progress_queue.put(
-                    ('progress', 1 + i, 1 + len(pages),
-                     f'{_("Rendering...")} {i}/{len(pages)}')
+                    (
+                        'progress',
+                        1 + i,
+                        1 + len(pages),
+                        f'{_("Rendering...")} {i}/{len(pages)}',
+                    )
                 )
                 page = doc[p]
                 scale = target_width / page.rect.width
@@ -114,9 +119,13 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
             if total_height > MAX_PIXEL:
                 progress_queue.put(
-                    ('error',
-                     _('Resulting image height %d px exceeds the JPEG limit of %d px.')
-                     % (total_height, MAX_PIXEL))
+                    (
+                        'error',
+                        _(
+                            'Resulting image height %d px exceeds the JPEG limit of %d px.'
+                        )
+                        % (total_height, MAX_PIXEL),
+                    )
                 )
                 return
 
@@ -129,7 +138,9 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             out_pix.save(str(output_path), jpg_quality=QUALITY)
 
             summary = _('Created long image from %d page(s): %s') % (
-                len(pages), output_path.name)
+                len(pages),
+                output_path.name,
+            )
             progress_queue.put(('done', summary))
         finally:
             doc.close()
@@ -143,7 +154,6 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 # ---------------------------------------------------------------------------
 def run_pdf_to_long_image_with_progress(master, params: dict) -> None:
     """Run the render in a subprocess and show progress via ProgressDialog."""
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

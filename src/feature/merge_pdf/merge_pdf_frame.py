@@ -1,15 +1,15 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename
 from tkinter.messagebox import showerror
-from pathlib import Path
 
 from tkinterdnd2 import TkinterDnD
 
-from widget import FileListView
 from feature.base_feature_frame import BaseFeatureFrame
-from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
+from util.i18n import gettext_text as _
+from widget import FileListView
 
 
 class MergePdfFrame(BaseFeatureFrame):
@@ -24,22 +24,32 @@ class MergePdfFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
-        ttk.Entry(self.output_frame, textvariable=self.output_path).pack(side='left', expand=True, fill='x')
-        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_path).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path).pack(
+            side='left', expand=True, fill='x'
+        )
+        ttk.Button(
+            self.output_frame, text=_('Browser'), command=self._set_output_path
+        ).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
         self._generate_bookmarks = tk.BooleanVar(value=True)
         ttk.Checkbutton(
-            self.options_frame, text=_('Generate Bookmarks'), variable=self._generate_bookmarks
+            self.options_frame,
+            text=_('Generate Bookmarks'),
+            variable=self._generate_bookmarks,
         ).pack(side='left', padx=(5, 20))
         self._support_delux_print = tk.BooleanVar(value=False)
         ttk.Checkbutton(
-            self.options_frame, text=_('Support Delux Printting'), variable=self._support_delux_print
+            self.options_frame,
+            text=_('Support Delux Printting'),
+            variable=self._support_delux_print,
         ).pack(side='left', padx=(5, 20))
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text), command=self._execute_handler
+            self.execute_frame,
+            text=_(self._executive_text),
+            command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
     def _set_output_path(self):
@@ -48,7 +58,7 @@ class MergePdfFrame(BaseFeatureFrame):
         current_input_path = self._get_current_input_path()
         if current_input_path:
             init_folder = current_input_path.parent
-            init_file = current_input_path.with_suffix(f'.{_('Merge')}.pdf').name
+            init_file = current_input_path.with_suffix(f'.{_("Merge")}.pdf').name
         output_path = asksaveasfilename(
             filetypes=FILE_TYPES['PDF'],
             defaultextension='pdf',
@@ -90,23 +100,21 @@ class MergePdfFrame(BaseFeatureFrame):
         }
         if self._validate_input_files():
             from feature.merge_pdf.merge_pdf_worker import run_merge_with_progress
+
             run_merge_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):
         current_input_paths = self.get_input_paths()
         if len(current_input_paths) < 2:
             showerror(
-                title=_('Error'),
-                message=_('Input PDF must have 2 files at least.')
+                title=_('Error'), message=_('Input PDF must have 2 files at least.')
             )
             return False
         if not self.output_path.get():
-            showerror(
-                title=_('Error'),
-                message=_('Output PDF must be specified.')
-            )
+            showerror(title=_('Error'), message=_('Output PDF must be specified.'))
             return False
         return True
+
 
 if __name__ == '__main__':
     root = TkinterDnD.Tk()

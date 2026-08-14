@@ -1,12 +1,12 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import askyesno, showerror
-from pathlib import Path
 
-from widget import FileListView
 from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
+from widget import FileListView
 
 
 class CompressPdfFrame(BaseFeatureFrame):
@@ -31,7 +31,8 @@ class CompressPdfFrame(BaseFeatureFrame):
     def _setup_options_frame(self):
         self._compress_var = tk.BooleanVar(value=False)
         ttk.Checkbutton(
-            self.options_frame, text=_('Compress embedded images'),
+            self.options_frame,
+            text=_('Compress embedded images'),
             variable=self._compress_var,
         ).pack(side='left', padx=(0, 10))
 
@@ -42,7 +43,9 @@ class CompressPdfFrame(BaseFeatureFrame):
         )
         ttk.Label(self.options_frame, text='dpi').pack(side='left', padx=(3, 0))
 
-        ttk.Label(self.options_frame, text=_('JPG Quality')).pack(side='left', padx=(10, 0))
+        ttk.Label(self.options_frame, text=_('JPG Quality')).pack(
+            side='left', padx=(10, 0)
+        )
         self._jpg_quality = tk.IntVar(value=75)
         ttk.Entry(self.options_frame, textvariable=self._jpg_quality, width=6).pack(
             side='left', padx=(3, 0)
@@ -50,7 +53,8 @@ class CompressPdfFrame(BaseFeatureFrame):
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -98,7 +102,10 @@ class CompressPdfFrame(BaseFeatureFrame):
             )
             if not ans:
                 return
-        from feature.compress_pdf.compress_pdf_worker import run_compress_pdf_with_progress
+        from feature.compress_pdf.compress_pdf_worker import (
+            run_compress_pdf_with_progress,
+        )
+
         run_compress_pdf_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):

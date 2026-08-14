@@ -10,12 +10,14 @@ Rotation is *relative*: every page keeps its existing ``/Rotate`` value and
 the user-chosen delta is added, normalized to 0..359.
 """
 
-import pymupdf
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 
 
@@ -48,8 +50,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total,
-                 f'{_("Rotating……")} {index}/{total}')
+                ('progress', index, total, f'{_("Rotating……")} {index}/{total}')
             )
 
             doc = pymupdf.open(str(src))
@@ -79,7 +80,6 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 # ---------------------------------------------------------------------------
 def run_rotate_with_progress(master, params: dict) -> None:
     """Run the rotation in a subprocess and show progress via ProgressDialog."""
-    from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

@@ -57,18 +57,17 @@ def _parse_atom(atom_str, total_pages, plus_mode):
                 raise ValueError(f'步长必须为正整数: {step}') from None
             start, end = _parse_range(range_part.strip(), total_pages, plus_mode)
             return _generate_range(start, end, step, plus_mode)
+        elif '-' in atom_str:
+            start, end = _parse_range(atom_str.strip(), total_pages, plus_mode)
+            return _generate_range(start, end, 1, plus_mode)
         else:
-            if '-' in atom_str:
-                start, end = _parse_range(atom_str.strip(), total_pages, plus_mode)
-                return _generate_range(start, end, 1, plus_mode)
-            else:
-                try:
-                    page = int(atom_str)
-                except ValueError:
-                    raise ValueError(f"无效页码: '{atom_str}'") from None
-                if page < 1 or page > total_pages:
-                    raise ValueError(f'页码超出范围: {page}') from None
-                return [page]
+            try:
+                page = int(atom_str)
+            except ValueError:
+                raise ValueError(f"无效页码: '{atom_str}'") from None
+            if page < 1 or page > total_pages:
+                raise ValueError(f'页码超出范围: {page}') from None
+            return [page]
     except ValueError as e:
         raise ValueError(f"原子 '{atom_str}' 解析错误: {e}") from e
 

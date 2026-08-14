@@ -30,7 +30,6 @@ exclude = [
     "__pycache__",
     "src/data",
     "src/locale",
-    "src/toolkit/util/help_contents.py"
 ]
 
 

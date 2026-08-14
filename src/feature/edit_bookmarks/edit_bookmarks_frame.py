@@ -1,14 +1,14 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import showerror, showinfo
-from pathlib import Path
 
 import pymupdf
 
 from feature.base_feature_frame import BaseFeatureFrame
-from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
+from util.i18n import gettext_text as _
 
 
 class EditBookmarksFrame(BaseFeatureFrame):
@@ -52,8 +52,11 @@ class EditBookmarksFrame(BaseFeatureFrame):
 
         # Treeview: level / page / title (order is immutable).
         self.tree = ttk.Treeview(
-            area, columns=('level', 'page', 'title'),
-            show='headings', selectmode='browse', height=14,
+            area,
+            columns=('level', 'page', 'title'),
+            show='headings',
+            selectmode='browse',
+            height=14,
         )
         self.tree.heading('level', text=_('Level'), anchor='w')
         self.tree.heading('page', text=_('Page'), anchor='w')
@@ -109,7 +112,9 @@ class EditBookmarksFrame(BaseFeatureFrame):
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_('Save'), command=self._execute_handler,
+            self.execute_frame,
+            text=_('Save'),
+            command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
     # ---- file browsing ----
@@ -128,7 +133,9 @@ class EditBookmarksFrame(BaseFeatureFrame):
         if self._input_path.get():
             default = Path(self._input_path.get()).with_suffix(f'.{_("TOC")}.pdf').name
         path = asksaveasfilename(
-            filetypes=FILE_TYPES['PDF'], initialdir=init, initialfile=default,
+            filetypes=FILE_TYPES['PDF'],
+            initialdir=init,
+            initialfile=default,
         )
         if path:
             self.output_path.set(str(Path(path)))
@@ -227,6 +234,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         if not path:
             return
         from feature.edit_bookmarks.edit_bookmarks_worker import read_csv_bookmarks
+
         try:
             rows = read_csv_bookmarks(str(Path(path)))
         except Exception as exc:
@@ -243,11 +251,9 @@ class EditBookmarksFrame(BaseFeatureFrame):
         )
         if not path:
             return
-        rows = [
-            list(self.tree.item(it, 'values'))
-            for it in self.tree.get_children()
-        ]
+        rows = [list(self.tree.item(it, 'values')) for it in self.tree.get_children()]
         from feature.edit_bookmarks.edit_bookmarks_worker import write_csv_bookmarks
+
         try:
             write_csv_bookmarks(str(Path(path)), rows)
         except Exception as exc:
@@ -338,6 +344,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
             toc.append([int(vals[0]), vals[2], int(vals[1])])
 
         from feature.edit_bookmarks.edit_bookmarks_worker import apply_bookmarks
+
         try:
             apply_bookmarks(src, out, toc)
         except Exception as exc:

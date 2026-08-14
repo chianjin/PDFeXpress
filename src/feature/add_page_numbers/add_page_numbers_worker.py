@@ -1,11 +1,14 @@
 """Add page numbers to a single PDF (runs in a subprocess so the UI stays responsive)."""
-import pymupdf
-from multiprocessing import Process, Queue, Event
+
+from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
-from typing import Any, Dict
+from typing import Any
 
+import pymupdf
+
+from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 from util.page_number_rule import build_page_number_map
 
@@ -13,8 +16,8 @@ CM_TO_PT = 72.0 / 2.54
 
 # Built-in base-14 fonts that PyMuPDF renders without external files.
 FONT_BASE = {
-    'Courier':   {'regular': 'cour', 'bold': 'cobo'},
-    'Times':     {'regular': 'tiro', 'bold': 'tibo'},
+    'Courier': {'regular': 'cour', 'bold': 'cobo'},
+    'Times': {'regular': 'tiro', 'bold': 'tibo'},
     'Helvetica': {'regular': 'helv', 'bold': 'hebo'},
 }
 
@@ -22,8 +25,18 @@ FONT_BASE = {
 LEFT, CENTER, RIGHT = 0, 1, 2
 
 
-def _geometry(page, vertical, horizontal, page_index,
-              top_cm, bottom_cm, left_cm, right_cm, mirror_cm, font_size):
+def _geometry(
+    page,
+    vertical,
+    horizontal,
+    page_index,
+    top_cm,
+    bottom_cm,
+    left_cm,
+    right_cm,
+    mirror_cm,
+    font_size,
+):
     """Return (Rect, align) for the page-number box.
 
     PyMuPDF Page coords: top-left origin, y grows downward, so the header sits
@@ -54,14 +67,15 @@ def _geometry(page, vertical, horizontal, page_index,
     return pymupdf.Rect(x0, y0, x1, y1), align
 
 
-def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
     options = params['options']
     try:
         doc = pymupdf.open(str(Path(params['inputs'][0])))
         total = doc.page_count
         page_map = build_page_number_map(options['rule'], total)
         base_font = FONT_BASE[options['font_family']][
-            'bold' if options['font_bold'] else 'regular']
+            'bold' if options['font_bold'] else 'regular'
+        ]
         fs = options['font_size']
 
         cancelled = False
@@ -69,19 +83,32 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
             if cancel_event.is_set():
                 cancelled = True
                 break
-            progress_queue.put(('progress', index, total,
-                                f'{_("Adding page numbers...")} {index}/{total}'))
+            progress_queue.put(
+                (
+                    'progress',
+                    index,
+                    total,
+                    f'{_("Adding page numbers...")} {index}/{total}',
+                )
+            )
             if index not in page_map:
                 continue
             page = doc[index - 1]
             rect, align = _geometry(
-                page, options['vertical'], options['horizontal'], index,
-                options['top_margin_cm'], options['bottom_margin_cm'],
-                options['left_margin_cm'], options['right_margin_cm'],
-                options['mirror_margin_cm'], fs,
+                page,
+                options['vertical'],
+                options['horizontal'],
+                index,
+                options['top_margin_cm'],
+                options['bottom_margin_cm'],
+                options['left_margin_cm'],
+                options['right_margin_cm'],
+                options['mirror_margin_cm'],
+                fs,
             )
-            page.insert_textbox(rect, page_map[index],
-                                fontname=base_font, fontsize=fs, align=align)
+            page.insert_textbox(
+                rect, page_map[index], fontname=base_font, fontsize=fs, align=align
+            )
 
         if cancelled:
             doc.close()
@@ -96,8 +123,7 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))
 
 
-def run_add_page_numbers_with_progress(master, params: Dict[str, Any]) -> None:
-    from core.progress_dialog import ProgressDialog
+def run_add_page_numbers_with_progress(master, params: dict[str, Any]) -> None:
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()

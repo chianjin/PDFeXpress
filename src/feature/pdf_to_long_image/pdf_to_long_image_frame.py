@@ -1,14 +1,14 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import showerror
-from pathlib import Path
 
 from tkinterdnd2 import TkinterDnD
 
 from feature.base_feature_frame import BaseFeatureFrame
-from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
+from util.i18n import gettext_text as _
 
 
 class PdfToLongImageFrame(BaseFeatureFrame):
@@ -54,9 +54,9 @@ class PdfToLongImageFrame(BaseFeatureFrame):
             side='left', padx=(0, 5)
         )
         self._range = tk.StringVar()
-        ttk.Entry(
-            self.options_frame, textvariable=self._range, width=18
-        ).pack(side='left', fill='x', expand=True, padx=(0, 5))
+        ttk.Entry(self.options_frame, textvariable=self._range, width=18).pack(
+            side='left', fill='x', expand=True, padx=(0, 5)
+        )
         ttk.Label(
             self.options_frame,
             text=_('1-Based, n Page / n-m Range / Empty = All'),
@@ -64,7 +64,8 @@ class PdfToLongImageFrame(BaseFeatureFrame):
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -123,6 +124,7 @@ class PdfToLongImageFrame(BaseFeatureFrame):
             from feature.pdf_to_long_image.pdf_to_long_image_worker import (
                 run_pdf_to_long_image_with_progress,
             )
+
             run_pdf_to_long_image_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):

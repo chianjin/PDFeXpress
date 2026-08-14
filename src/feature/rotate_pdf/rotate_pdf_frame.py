@@ -1,18 +1,18 @@
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
-from pathlib import Path
 
-from widget import FileListView
 from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
-
+from widget import FileListView
 
 # Radiobutton value = normalized rotation angle, clockwise positive
 # (90 = clockwise 90, 270 = counter-clockwise 90, 180 = 180). This matches
 # the PDF /Rotate convention, so the value is used directly as both the
 # delta applied to page.rotation and the output filename suffix.
+
 
 class RotatePdfFrame(BaseFeatureFrame):
     def __init__(self, master, **kw):
@@ -36,21 +36,28 @@ class RotatePdfFrame(BaseFeatureFrame):
     def _setup_options_frame(self):
         self._rotation = tk.IntVar(value=90)
         ttk.Radiobutton(
-            self.options_frame, text='↻ 90°',
-            variable=self._rotation, value=90,
+            self.options_frame,
+            text='↻ 90°',
+            variable=self._rotation,
+            value=90,
         ).pack(side='left', padx=(5, 20))
         ttk.Radiobutton(
-            self.options_frame, text='↺ 90°',
-            variable=self._rotation, value=270,
+            self.options_frame,
+            text='↺ 90°',
+            variable=self._rotation,
+            value=270,
         ).pack(side='left', padx=(5, 20))
         ttk.Radiobutton(
-            self.options_frame, text=_('180°'),
-            variable=self._rotation, value=180,
+            self.options_frame,
+            text=_('180°'),
+            variable=self._rotation,
+            value=180,
         ).pack(side='left', padx=(5, 20))
 
     def _setup_execute_frame(self):
         ttk.Button(
-            self.execute_frame, text=_(self._executive_text),
+            self.execute_frame,
+            text=_(self._executive_text),
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
@@ -88,6 +95,7 @@ class RotatePdfFrame(BaseFeatureFrame):
         }
         if self._validate_input_files():
             from feature.rotate_pdf.rotate_pdf_worker import run_rotate_with_progress
+
             run_rotate_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):

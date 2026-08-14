@@ -1,9 +1,8 @@
-import tkinter as tk
-from tkinter import ttk
 import importlib
+from tkinter import ttk
 
-from feature.feature_list import FEATURE_LIST
 from core.not_implemented_frame import NotImplementedFrame
+from feature.feature_list import FEATURE_LIST
 from util.i18n import gettext_text as _
 
 
@@ -26,21 +25,36 @@ class MainFrame(ttk.Frame):
         style = ttk.Style()
         style.configure('FeatureList.Treeview', rowheight=30)
 
-        self.treeview_menu = ttk.Treeview(feature_list_frame, show='tree', selectmode='browse', style='FeatureList.Treeview')
+        self.treeview_menu = ttk.Treeview(
+            feature_list_frame,
+            show='tree',
+            selectmode='browse',
+            style='FeatureList.Treeview',
+        )
         self.treeview_menu.column('#0', width=150)
         self.treeview_menu.pack(side='left', fill='both', expand=1, padx=5, pady=5)
 
         self.treeview_menu.bind('<<TreeviewSelect>>', self._on_select)
 
         for (category_id, category_text), features in FEATURE_LIST:
-            self.treeview_menu.insert('', 'end', category_id, text=category_text, open=False)
+            self.treeview_menu.insert(
+                '', 'end', category_id, text=category_text, open=False
+            )
             for feature in features:
-                self.treeview_menu.insert(category_id, 'end', feature.feature_id, text=feature.display_name, values=feature)
+                self.treeview_menu.insert(
+                    category_id,
+                    'end',
+                    feature.feature_id,
+                    text=feature.display_name,
+                    values=feature,
+                )
         self.treeview_menu.item(FEATURE_LIST[0][0][0], open=True)
         self.treeview_menu.selection_set(self._current_feature)
 
         # About Button
-        ttk.Button(left_frame, text=_('About PDF eXpress'), command=self._on_about).pack(fill='x', padx=10, pady=(0,10))
+        ttk.Button(
+            left_frame, text=_('About PDF eXpress'), command=self._on_about
+        ).pack(fill='x', padx=10, pady=(0, 10))
 
         # Set Default Feature Frame
         self._load_feature_frame(self._current_feature)
@@ -66,9 +80,11 @@ class MainFrame(ttk.Frame):
         self.treeview_menu.selection_toggle(category_id)
 
     def _load_feature_frame(self, feature_id):
-        _id, display_name, executive_text = self.treeview_menu.item(feature_id, 'values')
+        _id, display_name, executive_text = self.treeview_menu.item(
+            feature_id, 'values'
+        )
         module_name = f'feature.{feature_id}.{feature_id}_frame'
-        class_name = f'{feature_id.title().replace('_', '')}Frame'
+        class_name = f'{feature_id.title().replace("_", "")}Frame'
         try:
             feature_module = importlib.import_module(module_name)
             feature_class = getattr(feature_module, class_name)
