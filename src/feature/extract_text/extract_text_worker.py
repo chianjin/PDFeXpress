@@ -3,9 +3,8 @@
 Multi-input -> output folder, one ``.txt`` per PDF (plain UTF-8, no BOM).
 The heavy extraction runs in a subprocess so the UI stays responsive;
 progress is reported through a ``multiprocessing.Queue`` and shown via
-``core.progress_dialog.ProgressDialog``. Layout mirrors ``rotate_pdf_worker``.
-A single failed file is skipped and counted into the summary (B-type
-"skip + summarize" convention).
+``core.progress_dialog.ProgressDialog``. A single failed file is skipped and
+counted into the summary (B-type "skip + summarize" convention).
 """
 
 import pymupdf
@@ -13,7 +12,6 @@ from multiprocessing import Process, Queue, Event
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
-from typing import Any, Dict
 
 from util.i18n import gettext_text as _
 
@@ -21,7 +19,7 @@ from util.i18n import gettext_text as _
 # ---------------------------------------------------------------------------
 # Subprocess: pure logic, no tkinter dependency.
 # ---------------------------------------------------------------------------
-def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
     """Extract text from every input PDF into the output folder.
 
     Messages put on ``progress_queue`` are tuples:
@@ -30,16 +28,11 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         ('error', message)
         ('cancelled', None)
     """
-    inputs = params.get('inputs', [])
-    output = params.get('output')
-    options = params.get('options', {})
+    inputs = params['inputs']
+    output = params['output']
 
     try:
         total = len(inputs)
-        if total == 0:
-            progress_queue.put(('error', _('No input files.')))
-            return
-
         out_dir = Path(output)
         out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -60,7 +53,6 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
             try:
                 doc = pymupdf.open(str(src))
                 try:
-                    # PyMuPDF extracts text per page; concatenate all pages.
                     text = "".join(page.get_text() for page in doc)
                 finally:
                     doc.close()
@@ -93,27 +85,20 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
 # ---------------------------------------------------------------------------
 # Main-thread controller: wires the dialog, the process and the queue.
 # ---------------------------------------------------------------------------
-def run_extract_text_with_progress(master, params: Dict[str, Any]) -> None:
+def run_extract_text_with_progress(master, params: dict) -> None:
     """Run text extraction in a subprocess and show progress via ProgressDialog."""
     from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()
     process = None
-    state = {'finished': False}
-
-    dialog = ProgressDialog(
-        master,
-        title=_('Extract Text'),
-        label_text=_('Preparing...'),
-        cancel_command=lambda: _on_cancel(),
-        mode='determinate',
-    )
+    finished = False
 
     def _finish():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
-        state['finished'] = True
+        finished = True
         if process is not None and process.is_alive():
             process.join(timeout=2)
         dialog.destroy()
@@ -124,8 +109,17 @@ def run_extract_text_with_progress(master, params: Dict[str, Any]) -> None:
             process.terminate()
         _finish()
 
+    dialog = ProgressDialog(
+        master,
+        title=_('Extract Text'),
+        label_text=_('Preparing...'),
+        cancel_command=_on_cancel,
+        mode='determinate',
+    )
+
     def _poll():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
         try:
             while True:
@@ -149,7 +143,7 @@ def run_extract_text_with_progress(master, params: Dict[str, Any]) -> None:
         except Empty:
             pass
 
-        if not state['finished']:
+        if not finished:
             master.after(100, _poll)
 
     process = Process(target=worker, args=(params, progress_queue, cancel_event))
