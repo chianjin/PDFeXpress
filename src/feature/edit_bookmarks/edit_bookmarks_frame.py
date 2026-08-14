@@ -4,6 +4,8 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import showerror, showinfo
 from pathlib import Path
 
+import pymupdf
+
 from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
 from util.file_types import FILE_TYPES
@@ -209,7 +211,6 @@ class EditBookmarksFrame(BaseFeatureFrame):
         if not src or not Path(src).is_file():
             showerror(title=_('Error'), message=_('Input PDF must be set.'))
             return
-        import pymupdf
         doc = pymupdf.open(str(src))
         try:
             toc = doc.get_toc()  # [[level, title, page], ...], page 1-based
@@ -278,8 +279,9 @@ class EditBookmarksFrame(BaseFeatureFrame):
         if not Path(src).is_file():
             showerror(title=_('Error'), message=_('Input PDF does not exist.'))
             return False
-
-        import pymupdf
+        if not self.output_path.get().strip():
+            showerror(title=_('Error'), message=_('Output PDF must be set.'))
+            return False
 
         try:
             doc = pymupdf.open(str(src))
@@ -329,9 +331,6 @@ class EditBookmarksFrame(BaseFeatureFrame):
             return
         src = self._input_path.get().strip()
         out = self.output_path.get().strip()
-        if not out:
-            showerror(title=_('Error'), message=_('Output PDF must be set.'))
-            return
 
         toc = []
         for item in self.tree.get_children():
