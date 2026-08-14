@@ -11,7 +11,6 @@ from multiprocessing import Process, Queue, Event
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
-from typing import Any, Dict
 
 from util.i18n import gettext_text as _
 
@@ -19,7 +18,7 @@ from util.i18n import gettext_text as _
 # ---------------------------------------------------------------------------
 # Subprocess: pure logic, no tkinter dependency.
 # ---------------------------------------------------------------------------
-def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
     """Merge input PDFs into one output PDF and report progress.
 
     Messages put on ``progress_queue`` are tuples:
@@ -28,11 +27,12 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         ('error', message)
         ('cancelled', None)
     """
-    inputs = params.get('inputs', [])
-    output = params.get('output')
-    options = params.get('options', {})
-    generate_bookmarks = bool(options.get('generate_bookmarks', False))
-    support_delux_print = bool(options.get('support_delux_print', False))
+    inputs = params['inputs']
+    output = params['output']
+    options = params['options']
+    generate_bookmarks = options['generate_bookmarks']
+    support_delux_print = options['support_delux_print']
+    total = len(inputs)
 
     try:
         output_path = Path(output)
@@ -95,7 +95,7 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
 # ---------------------------------------------------------------------------
 # Main-thread controller: wires the dialog, the process and the queue.
 # ---------------------------------------------------------------------------
-def run_merge_with_progress(master, params: Dict[str, Any]) -> None:
+def run_merge_with_progress(master, params: dict) -> None:
     """Run the merge in a subprocess and show progress via ProgressDialog."""
     # Lazy import so the subprocess (which re-imports this module under
     # spawn) does not pay the cost of importing tkinter.
@@ -104,20 +104,13 @@ def run_merge_with_progress(master, params: Dict[str, Any]) -> None:
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()
     process = None
-    state = {'finished': False}
-
-    dialog = ProgressDialog(
-        master,
-        title=_('Merge PDF'),
-        label_text=_('Preparing...'),
-        cancel_command=lambda: _on_cancel(),
-        mode='determinate',
-    )
+    finished = False
 
     def _finish():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
-        state['finished'] = True
+        finished = True
         if process is not None and process.is_alive():
             process.join(timeout=2)
         dialog.destroy()
@@ -128,8 +121,17 @@ def run_merge_with_progress(master, params: Dict[str, Any]) -> None:
             process.terminate()
         _finish()
 
+    dialog = ProgressDialog(
+        master,
+        title=_('Merge PDF'),
+        label_text=_('Preparing...'),
+        cancel_command=_on_cancel,
+        mode='determinate',
+    )
+
     def _poll():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
         try:
             while True:
@@ -140,7 +142,6 @@ def run_merge_with_progress(master, params: Dict[str, Any]) -> None:
                     fraction = (current / total) if total else 0
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
-                    out_path = msg[1]
                     _finish()
                     showinfo(
                         title=_('Done'),
@@ -158,7 +159,7 @@ def run_merge_with_progress(master, params: Dict[str, Any]) -> None:
         except Empty:
             pass
 
-        if not state['finished']:
+        if not finished:
             master.after(100, _poll)
 
     process = Process(target=worker, args=(params, progress_queue, cancel_event))
