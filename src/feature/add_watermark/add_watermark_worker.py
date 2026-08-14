@@ -5,15 +5,13 @@ Two mutually exclusive watermark kinds (chosen in the frame):
 
   * text  : a tiled, 36-degree skewed, light-gray (5%) diagonal pattern drawn
             on the bottom layer (overlay=False). CJK text uses the built-in
-            ``china-s`` font; western text uses base-14 ``Times-Roman``. Both
-            are built-in, so no font file is embedded.
+            ``china-s`` font; western text uses base-14 ``Times-Roman``.
   * image : a single centered image scaled with "contain" fit (no cropping),
             embedded without re-encoding (insert_image(filename=...)), also on
             the bottom layer.
 
 Progress is counted per page (denominator = total pages across all inputs).
-A single failed file is skipped and listed in the final summary (B-type
-"skip + summarize" convention).
+A single failed file is skipped and listed in the final summary.
 """
 
 import math
@@ -42,16 +40,16 @@ def _choose_font(text: str) -> str:
     return 'Times-Roman'
 
 
-def _estimate_text_width(text: str, font_size: float) -> float:
-    width = 0.0
-    for ch in text:
-        width += font_size * 1.0 if '\u4e00' <= ch <= '\u9fff' else font_size * 0.55
-    return width
-
-
 def _draw_text_watermark(page, text: str, font_size: int) -> None:
-    """Tile ``text`` across the page as a 36-degree skewed light-gray pattern."""
+    """Tile ``text`` across the page as a 36-degree skewed light-gray pattern.
+
+    Uses ``insert_text`` (not ``insert_textbox``) so the text is always drawn
+    even when the measured width is large (e.g. mixed CJK+Latin under the
+    ``china-s`` font, which renders Latin full-width) — ``insert_textbox`` would
+    silently refuse on overflow.
+    """
     fontname = _choose_font(text)
+    text_w = pymupdf.get_text_length(text, fontname=fontname, fontsize=font_size)
     rad = math.radians(TILT_DEGREES)
     cos_r, sin_r = math.cos(rad), math.sin(rad)
     rot = pymupdf.Matrix(cos_r, -sin_r, sin_r, cos_r, 0.0, 0.0)
@@ -61,10 +59,7 @@ def _draw_text_watermark(page, text: str, font_size: int) -> None:
         page.rect.width - MARGIN_PT, page.rect.height - MARGIN_PT,
     )
 
-    text_w = _estimate_text_width(text, font_size)
-    box_w = text_w + font_size
-    box_h = font_size * 2.0
-    cell_w = max(font_size * 4.0, box_w + font_size * 2.0)
+    cell_w = text_w + font_size * 2.0
     cell_h = font_size * 3.0
 
     x_start = area.x0 - cell_w
@@ -78,19 +73,12 @@ def _draw_text_watermark(page, text: str, font_size: int) -> None:
         while x < x_end:
             cx = x + cell_w / 2.0
             cy = y + cell_h / 2.0
-            tb = pymupdf.Rect(
-                cx - box_w / 2.0, cy - box_h / 2.0,
-                cx + box_w / 2.0, cy + box_h / 2.0,
+            page.insert_text(
+                (cx - text_w / 2.0, cy), text,
+                fontname=fontname, fontsize=font_size,
+                color=GRAY_5PERCENT, overlay=False,
+                morph=(pymupdf.Point(cx, cy), rot),
             )
-            try:
-                page.insert_textbox(
-                    tb, text,
-                    fontname=fontname, fontsize=font_size,
-                    color=GRAY_5PERCENT, overlay=False,
-                    morph=(pymupdf.Point(cx, cy), rot),
-                )
-            except Exception:
-                pass
             x += cell_w
         y += cell_h
 
@@ -110,8 +98,6 @@ def _draw_image_watermark(page, image_path: str, img_size) -> None:
     dx = area.x0 + (area.width - dw) / 2.0
     dy = area.y0 + (area.height - dh) / 2.0
     img_rect = pymupdf.Rect(dx, dy, dx + dw, dy + dh)
-    # filename= embeds the original image; the PDF viewer scales it. No
-    # re-encoding happens (never pass stream=PIL bytes here).
     page.insert_image(img_rect, filename=str(image_path), overlay=False)
 
 
@@ -127,21 +113,14 @@ def worker(
         ('error', message)
         ('cancelled', None)
     """
-    inputs = params.get('inputs', [])
-    output = params.get('output')
-    options = params.get('options', {})
-    mode = options.get('mode', 'text')
-    text = options.get('text', '') or ''
-    image_path = options.get('image_path', '') or ''
+    inputs = params['inputs']
+    output = params['output']
+    options = params['options']
+    mode = options['mode']
+    text = options['text']
+    image_path = options['image_path']
 
     try:
-        if not inputs:
-            progress_queue.put(('error', _('No input files.')))
-            return
-        if mode == 'image' and not image_path:
-            progress_queue.put(('error', _('Watermark image must be set.')))
-            return
-
         out_dir = Path(output)
         out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -157,8 +136,8 @@ def worker(
 
         img_size = None
         if mode == 'image':
+            from PIL import Image
             try:
-                from PIL import Image
                 with Image.open(image_path) as im:
                     img_size = im.size
             except Exception as exc:
@@ -225,12 +204,13 @@ def run_add_watermark_with_progress(master, params: Dict[str, Any]) -> None:
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()
     process = None
-    state = {'finished': False}
+    finished = False
 
     def _finish():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
-        state['finished'] = True
+        finished = True
         if process is not None and process.is_alive():
             process.join(timeout=2)
         dialog.destroy()
@@ -250,7 +230,7 @@ def run_add_watermark_with_progress(master, params: Dict[str, Any]) -> None:
     )
 
     def _poll():
-        if state['finished']:
+        if finished:
             return
         try:
             while True:
@@ -280,7 +260,7 @@ def run_add_watermark_with_progress(master, params: Dict[str, Any]) -> None:
         except Empty:
             pass
 
-        if not state['finished']:
+        if not finished:
             master.after(100, _poll)
 
     process = Process(target=worker, args=(params, progress_queue, cancel_event))
