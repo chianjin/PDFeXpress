@@ -15,7 +15,6 @@ from multiprocessing import Process, Queue, Event
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
-from typing import Any, Dict
 
 from util.i18n import gettext_text as _
 
@@ -23,7 +22,7 @@ from util.i18n import gettext_text as _
 # ---------------------------------------------------------------------------
 # Subprocess: pure logic, no tkinter dependency.
 # ---------------------------------------------------------------------------
-def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
     """Rotate every input PDF and write results into the output folder.
 
     Messages put on ``progress_queue`` are tuples:
@@ -32,17 +31,13 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         ('error', message)
         ('cancelled', None)
     """
-    inputs = params.get('inputs', [])
-    output = params.get('output')
-    options = params.get('options', {})
-    delta = int(options.get('delta', 0))
+    inputs = params['inputs']
+    output = params['output']
+    options = params['options']
+    delta = options['delta']
 
     try:
         total = len(inputs)
-        if total == 0:
-            progress_queue.put(('error', _('No input files.')))
-            return
-
         out_dir = Path(output)
         out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -82,30 +77,14 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
 # ---------------------------------------------------------------------------
 # Main-thread controller: wires the dialog, the process and the queue.
 # ---------------------------------------------------------------------------
-def run_rotate_with_progress(master, params: Dict[str, Any]) -> None:
+def run_rotate_with_progress(master, params: dict) -> None:
     """Run the rotation in a subprocess and show progress via ProgressDialog."""
     from core.progress_dialog import ProgressDialog
 
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()
     process = None
-    state = {'finished': False}
-
-    dialog = ProgressDialog(
-        master,
-        title=_('Rotate PDF'),
-        label_text=_('Preparing...'),
-        cancel_command=lambda: _on_cancel(),
-        mode='determinate',
-    )
-
-    def _finish():
-        if state['finished']:
-            return
-        state['finished'] = True
-        if process is not None and process.is_alive():
-            process.join(timeout=2)
-        dialog.destroy()
+    finished = False
 
     def _on_cancel():
         cancel_event.set()
@@ -113,8 +92,18 @@ def run_rotate_with_progress(master, params: Dict[str, Any]) -> None:
             process.terminate()
         _finish()
 
+    def _finish():
+        nonlocal finished
+        if finished:
+            return
+        finished = True
+        if process is not None and process.is_alive():
+            process.join(timeout=2)
+        dialog.destroy()
+
     def _poll():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
         try:
             while True:
@@ -139,8 +128,16 @@ def run_rotate_with_progress(master, params: Dict[str, Any]) -> None:
         except Empty:
             pass
 
-        if not state['finished']:
+        if not finished:
             master.after(100, _poll)
+
+    dialog = ProgressDialog(
+        master,
+        title=_('Rotate PDF'),
+        label_text=_('Preparing...'),
+        cancel_command=_on_cancel,
+        mode='determinate',
+    )
 
     process = Process(target=worker, args=(params, progress_queue, cancel_event))
     process.start()

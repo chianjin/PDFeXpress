@@ -32,7 +32,7 @@ def _build_chunks(mode, options, total):
         return [[i] for i in range(total)]
 
     if mode == 'by_pages':
-        n = int(options.get('pages_per_chunk', 1))
+        n = options['pages_per_chunk']
         if n < 1:
             raise ValueError(_('Pages per chunk must be at least 1.'))
         chunks = []
@@ -41,7 +41,7 @@ def _build_chunks(mode, options, total):
         return chunks
 
     if mode == 'by_parts':
-        k = int(options.get('parts', 1))
+        k = options['parts']
         if k < 1:
             raise ValueError(_('Number of parts must be at least 1.'))
         if k > total:
@@ -57,10 +57,9 @@ def _build_chunks(mode, options, total):
         return chunks
 
     if mode == 'custom':
-        expr = options.get('range_expr', '').strip()
+        expr = options['range_expr'].strip()
         if not expr:
             raise ValueError(_('Range expression must be set.'))
-        # Returns list[list[int]] of 0-based pages, one list per ';' group.
         groups = parse_page_ranges(expr, total)
         if not groups:
             raise ValueError(_('Range expression produced no pages.'))
@@ -101,20 +100,13 @@ def worker(params, progress_queue, cancel_event):
         ('error', message)
         ('cancelled', None)
     """
-    inputs = params.get('inputs', [])
-    output = params.get('output')
-    options = params.get('options', {})
+    inputs = params['inputs']
+    output = params['output']
+    options = params['options']
 
     try:
-        if not inputs:
-            progress_queue.put(('error', _('No input files.')))
-            return
         src = Path(inputs[0])
-        if not src.is_file():
-            progress_queue.put(('error', _('Input PDF does not exist.')))
-            return
-
-        mode = options.get('mode', 'single')
+        mode = options['mode']
 
         doc = pymupdf.open(str(src))
         try:
@@ -125,7 +117,7 @@ def worker(params, progress_queue, cancel_event):
             # so each output file is named after its own group expression.
             group_exprs = None
             if mode == 'custom':
-                expr = options.get('range_expr', '').strip()
+                expr = options['range_expr'].strip()
                 plus = expr.startswith('+')
                 body = expr[1:].lstrip() if plus else expr
                 group_exprs = [g.strip() for g in body.split(';') if g.strip()]
@@ -198,20 +190,13 @@ def run_split_with_progress(master, params):
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()
     process = None
-    state = {'finished': False}
-
-    dialog = ProgressDialog(
-        master,
-        title=_('Split PDF'),
-        label_text=_('Preparing...'),
-        cancel_command=lambda: _on_cancel(),
-        mode='determinate',
-    )
+    finished = False
 
     def _finish():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
-        state['finished'] = True
+        finished = True
         if process is not None and process.is_alive():
             process.join(timeout=2)
         dialog.destroy()
@@ -222,8 +207,17 @@ def run_split_with_progress(master, params):
             process.terminate()
         _finish()
 
+    dialog = ProgressDialog(
+        master,
+        title=_('Split PDF'),
+        label_text=_('Preparing...'),
+        cancel_command=_on_cancel,
+        mode='determinate',
+    )
+
     def _poll():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
         try:
             while True:
@@ -247,7 +241,7 @@ def run_split_with_progress(master, params):
         except Empty:
             pass
 
-        if not state['finished']:
+        if not finished:
             master.after(100, _poll)
 
     process = Process(target=worker, args=(params, progress_queue, cancel_event))
