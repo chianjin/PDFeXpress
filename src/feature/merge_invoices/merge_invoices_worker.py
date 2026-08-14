@@ -23,7 +23,7 @@ from multiprocessing import Process, Queue, Event
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror, showinfo
-from typing import Any, Dict, List, Tuple
+from typing import List, Tuple
 
 from util.i18n import gettext_text as _
 
@@ -78,7 +78,7 @@ def _place_other(out: 'pymupdf.Document', docs: List['pymupdf.Document'],
 # ---------------------------------------------------------------------------
 # Subprocess: pure logic, no tkinter dependency.
 # ---------------------------------------------------------------------------
-def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
     """Classify and merge invoice PDFs into one output PDF, report progress.
 
     Messages put on ``progress_queue`` are tuples:
@@ -87,15 +87,11 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         ('error', message)
         ('cancelled', None)
     """
-    inputs = params.get('inputs', [])
-    output = params.get('output')
+    inputs = params['inputs']
+    output = params['output']
 
     try:
         total = len(inputs)
-        if total == 0:
-            progress_queue.put(('error', _('No input files.')))
-            return
-
         output_path = Path(output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -142,7 +138,7 @@ def worker(params: Dict[str, Any], progress_queue: Queue, cancel_event: Event) -
 # ---------------------------------------------------------------------------
 # Main-thread controller: wires the dialog, the process and the queue.
 # ---------------------------------------------------------------------------
-def run_merge_invoices_with_progress(master, params: Dict[str, Any]) -> None:
+def run_merge_invoices_with_progress(master, params: dict) -> None:
     """Run the invoice merge in a subprocess and show progress."""
     # Lazy import so the subprocess (which re-imports this module under
     # spawn) does not pay the cost of importing tkinter.
@@ -151,20 +147,13 @@ def run_merge_invoices_with_progress(master, params: Dict[str, Any]) -> None:
     progress_queue: Queue = Queue()
     cancel_event: Event = Event()
     process = None
-    state = {'finished': False}
-
-    dialog = ProgressDialog(
-        master,
-        title=_('Merge Invoices'),
-        label_text=_('Preparing...'),
-        cancel_command=lambda: _on_cancel(),
-        mode='determinate',
-    )
+    finished = False
 
     def _finish():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
-        state['finished'] = True
+        finished = True
         if process is not None and process.is_alive():
             process.join(timeout=2)
         dialog.destroy()
@@ -175,8 +164,17 @@ def run_merge_invoices_with_progress(master, params: Dict[str, Any]) -> None:
             process.terminate()
         _finish()
 
+    dialog = ProgressDialog(
+        master,
+        title=_('Merge Invoices'),
+        label_text=_('Preparing...'),
+        cancel_command=_on_cancel,
+        mode='determinate',
+    )
+
     def _poll():
-        if state['finished']:
+        nonlocal finished
+        if finished:
             return
         try:
             while True:
@@ -205,7 +203,7 @@ def run_merge_invoices_with_progress(master, params: Dict[str, Any]) -> None:
         except Empty:
             pass
 
-        if not state['finished']:
+        if not finished:
             master.after(100, _poll)
 
     process = Process(target=worker, args=(params, progress_queue, cancel_event))
