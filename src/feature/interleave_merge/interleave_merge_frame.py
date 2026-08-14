@@ -99,7 +99,7 @@ class InterleaveMergeFrame(BaseFeatureFrame):
                 return Path(value)
         return None
 
-    def get_input_pathes(self):
+    def get_input_paths(self):
         return [Path(self.pdf_a.get()), Path(self.pdf_b.get())]
 
     def get_output_path(self):
@@ -113,7 +113,7 @@ class InterleaveMergeFrame(BaseFeatureFrame):
     def _execute_handler(self):
         # Build params and run the interleave merge with a progress dialog.
         params = {
-            'inputs': self.get_input_pathes(),
+            'inputs': self.get_input_paths(),
             'output': self.get_output_path(),
             'options': self.get_options(),
         }

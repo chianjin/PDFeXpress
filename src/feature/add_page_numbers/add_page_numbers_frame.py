@@ -217,7 +217,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             return Path(self.input_path.get())
         return None
 
-    def get_input_pathes(self):
+    def get_input_paths(self):
         return [Path(self.input_path.get())] if self.input_path.get() else []
 
     def get_output_path(self):
@@ -243,7 +243,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
 
     def _execute_handler(self):
         params = {
-            'inputs': self.get_input_pathes(),
+            'inputs': self.get_input_paths(),
             'output': self.get_output_path(),
             'options': self.get_options(),
         }

@@ -59,7 +59,7 @@ class BaseFeatureFrame(ttk.Frame, ABC):
         ...
 
     @abstractmethod
-    def get_input_pathes(self) -> list[Path]:
+    def get_input_paths(self) -> list[Path]:
         ...
 
     @abstractmethod

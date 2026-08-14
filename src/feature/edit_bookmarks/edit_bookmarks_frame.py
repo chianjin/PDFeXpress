@@ -256,7 +256,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         showinfo(title=_('Done'), message=_('Bookmarks exported'))
 
     # ---- abstract overrides ----
-    def get_input_pathes(self):
+    def get_input_paths(self):
         return [Path(self._input_path.get())]
 
     def get_output_path(self):

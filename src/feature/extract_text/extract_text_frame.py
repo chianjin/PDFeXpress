@@ -38,7 +38,7 @@ class ExtractTextFrame(BaseFeatureFrame):
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
-    def get_input_pathes(self):
+    def get_input_paths(self):
         return self.file_list_view.get_file_paths()
 
     def get_output_path(self):
@@ -57,14 +57,14 @@ class ExtractTextFrame(BaseFeatureFrame):
         current = self.output_path.get()
         if current:
             return Path(current)
-        inputs = self.get_input_pathes()
+        inputs = self.get_input_paths()
         if inputs:
             return inputs[0].parent
         return None
 
     def _execute_handler(self):
         params = {
-            'inputs': self.get_input_pathes(),
+            'inputs': self.get_input_paths(),
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
@@ -73,7 +73,7 @@ class ExtractTextFrame(BaseFeatureFrame):
             run_extract_text_with_progress(self.winfo_toplevel(), params)
 
     def _validate_input_files(self):
-        if len(self.get_input_pathes()) < 1:
+        if len(self.get_input_paths()) < 1:
             showerror(
                 title=_('Error'),
                 message=_('Input must have at least 1 PDF file.'),
