@@ -2,7 +2,7 @@ import os
 import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, askdirectory
-from tkinter.messagebox import showerror
+from tkinter.messagebox import showerror, showinfo
 from pathlib import Path
 
 from feature.base_feature_frame import BaseFeatureFrame
@@ -117,9 +117,20 @@ class DeletePagesFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if self._validate_input_files():
-            from feature.delete_pages.delete_pages_worker import run_delete_with_progress
-            run_delete_with_progress(self.winfo_toplevel(), params)
+        if not self._validate_input_files():
+            return
+        from feature.delete_pages.delete_pages_worker import delete_pages
+        try:
+            summary = delete_pages(params)
+        except ValueError as exc:
+            showerror(title=_('Error'), message=str(exc))
+            return
+        except Exception as exc:
+            showerror(
+                title=_('Error'), message=f'{type(exc).__name__}: {exc}'
+            )
+            return
+        showinfo(title=_('Done'), message=summary)
 
     def _validate_input_files(self):
         src = self.input_path.get()
