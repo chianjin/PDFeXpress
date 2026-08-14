@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 import tkinter as tk
 
@@ -39,13 +40,12 @@ def filter_dropped_files(event: tk.Event, file_types, include_folders: bool = Fa
         return []
 
     root = event.widget.winfo_toplevel()
-    dropped_paths = root.tk.splitlist(event.data)
+    dropped_paths = [Path(path) for path in root.tk.splitlist(event.data)]
 
-    file_paths = [Path(path) for path in dropped_paths if Path(path).is_file()]
+    file_paths = [path for path in dropped_paths if path.is_file()]
 
     if include_folders:
-        folder_paths = [Path(path) for path in dropped_paths if Path(path).is_dir()]
-        for folder in folder_paths:
+        for folder in (path for path in dropped_paths if path.is_dir()):
             file_paths.extend(folder.glob('*.*'))
 
     return filter_files(file_paths, file_types)
@@ -78,8 +78,6 @@ def format_size(size: int, decimal_places: int = 1) -> str:
 
 
 def get_file_properties(file_path: Path) -> dict:
-    import time
-
     stat = file_path.stat()
 
     size_str = format_size(stat.st_size)
@@ -97,4 +95,4 @@ def get_file_properties(file_path: Path) -> dict:
 
 
 def get_multiple_files_properties(file_paths: list[Path]) -> dict:
-    return {'文件数': len(file_paths), '总小大': sum(file.stat().st_size for file in file_paths)}
+    return {'文件数': len(file_paths), '总大小': sum(file.stat().st_size for file in file_paths)}

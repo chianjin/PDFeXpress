@@ -15,11 +15,3 @@ class NotImplementedFrame(ttk.Frame):
 
         font = get_title_font()
         ttk.Label(self, text=text, font=font).pack(padx=20, pady=50)
-
-
-if __name__ == '__main__':
-    from tkinter import Tk
-
-    root = Tk()
-    NotImplementedFrame(root).pack(fill='both', expand=True)
-    root.mainloop()

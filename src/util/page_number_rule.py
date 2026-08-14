@@ -19,10 +19,7 @@ comma-separated list of segments ``PHYS_RANGE:DISPLAY_FORMAT``:
 numbers to their display strings; a page absent from the dict is not numbered.
 """
 
-from typing import Dict, List
-
-
-def _parse_phys_range(expr: str, total: int) -> List[int]:
+def _parse_phys_range(expr: str, total: int) -> list[int]:
     """Return a sorted list of 1-based page numbers for one physical range."""
     expr = expr.strip()
     if expr == '':
@@ -48,7 +45,7 @@ def _to_roman(value: int) -> str:
         (90, 'XC'), (50, 'L'), (40, 'XL'), (10, 'X'), (9, 'IX'),
         (5, 'V'), (4, 'IV'), (1, 'I'),
     )
-    out: List[str] = []
+    out: list[str] = []
     for amount, symbol in table:
         while value >= amount:
             out.append(symbol)
@@ -100,7 +97,7 @@ def _parse_display_format(fmt: str):
         raise ValueError('Invalid start value in format: %r' % fmt)
 
 
-def build_page_number_map(rule: str, total: int) -> Dict[int, str]:
+def build_page_number_map(rule: str, total: int) -> dict[int, str]:
     """Build the 1-based page -> display-string map for ``rule``.
 
     Raises ``ValueError`` on any malformed segment or out-of-range page.
@@ -111,7 +108,7 @@ def build_page_number_map(rule: str, total: int) -> Dict[int, str]:
     if rule == '':
         return {}
 
-    effective: Dict[int, str] = {}
+    effective: dict[int, str] = {}
     last_value = 0  # running numeric counter for implicit continuation
     for seg in rule.split(','):
         seg = seg.strip()

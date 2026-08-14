@@ -1,4 +1,4 @@
-# utils/file_registry.py
+# util/file_types/file_types_registry.py
 
 # 使用相对导入，使得 utils 包内部解耦，完全独立
 from util.file_types import file_types_data as data_module
@@ -39,7 +39,7 @@ class RegistryDict(dict):
 # ==========================================
 
 # 1. 加载底层基础类型
-FILE_TYPES = RegistryDict(getattr(data_module, 'BASE_FILETYPES', {}))
+FILE_TYPES = RegistryDict(data_module.BASE_FILETYPES)
 
 # 2. 自动装载所有的 _GROUP
 for var_name, var_value in vars(data_module).items():

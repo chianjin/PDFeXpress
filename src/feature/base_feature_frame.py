@@ -89,10 +89,3 @@ class BaseFeatureFrame(ttk.Frame, ABC):
     @abstractmethod
     def _validate_input_files(self):
         return True
-
-
-if __name__ == '__main__':
-    root = tk.Tk()
-    frame = BaseFeatureFrame(root, feature_id='merge_pdf')
-    frame.pack(expand=True, fill=tk.BOTH)
-    root.mainloop()

@@ -137,20 +137,3 @@ def _generate_range(start, end, step, plus_mode):
             pages.append(cur)
             cur -= step
         return pages
-
-
-if __name__ == '__main__':
-    total = 10
-
-    print(parse_page_ranges('1,3,5', total))
-    try:
-        parse_page_ranges('-', total)
-    except ValueError as e:
-        print(e)
-
-    try:
-        parse_page_ranges('+1-10', total)
-    except ValueError as e:
-        print(e)
-
-    print(parse_page_ranges('+1-10,5', total))

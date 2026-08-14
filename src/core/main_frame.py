@@ -2,14 +2,10 @@ import tkinter as tk
 from tkinter import ttk
 import importlib
 
-from tkinterdnd2 import TkinterDnD
-
-from config import EXECUTABLE_NAME, EXECUTIVE_PATH
 from feature.feature_list import FEATURE_LIST
 from core.not_implemented_frame import NotImplementedFrame
 from util.i18n import gettext_text as _
 
-FEATURE_PATH = EXECUTIVE_PATH / 'feature'
 
 class MainFrame(ttk.Frame):
     def __init__(self, master, **kwargs):
@@ -89,11 +85,3 @@ class MainFrame(ttk.Frame):
 
     def _on_about(self):
         pass
-
-if __name__ == '__main__':
-    root = TkinterDnD.Tk()
-    MainFrame(root).pack(fill='both', expand=True)
-    root.mainloop()
-
-
-

@@ -3,7 +3,7 @@ from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory, askopenfilenames
 
-from tkinterdnd2 import DND_FILES, Tk
+from tkinterdnd2 import DND_FILES
 
 from util.file_types import FILE_TYPES
 from util.helpers import filter_dropped_files, filter_files
@@ -86,17 +86,17 @@ class FileListView(tk.Frame):
                 ]
             )
 
-        botton_frame = tk.Frame(self)
+        button_frame = tk.Frame(self)
         for text, command in buttons:
             if text == 'separator':
-                ttk.Separator(botton_frame, orient=tk.HORIZONTAL).pack(
+                ttk.Separator(button_frame, orient=tk.HORIZONTAL).pack(
                     fill=tk.X, pady=(2, 7)
                 )
             else:
-                ttk.Button(botton_frame, text=text, command=command).pack(
+                ttk.Button(button_frame, text=text, command=command).pack(
                     fill=tk.X, pady=(0, 5)
                 )
-        botton_frame.grid(row=0, column=2, sticky='nsew', padx=(5, 0))
+        button_frame.grid(row=0, column=2, sticky='nsew', padx=(5, 0))
 
     def _show_context_menu(self, event) -> None:
         self._context_menu.post(event.x_root, event.y_root)
@@ -294,12 +294,3 @@ class FileListView(tk.Frame):
             fullpath, _ = self.filelist_treeview.item(item_id, 'values')
             file_paths.append(Path(fullpath))
         return file_paths
-
-
-if __name__ == '__main__':
-    root = Tk()
-    FileListView(root).pack(fill='both', expand=True, padx=10, pady=10)
-    FileListView(root, allow_duplicates=False).pack(
-        fill='both', expand=True, padx=10, pady=10
-    )
-    root.mainloop()

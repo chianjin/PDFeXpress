@@ -27,8 +27,3 @@ class HeaderFrame(ttk.Frame):
             return tk.PhotoImage(file=icon_path)
         except Exception:
             return None
-
-if __name__ == '__main__':
-    root = tk.Tk()
-    HeaderFrame(root, 'merge_pdf', '合并PDF').pack(fill='x', padx=5, pady=5)
-    root.mainloop()

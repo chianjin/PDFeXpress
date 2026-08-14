@@ -33,4 +33,3 @@ gettext.textdomain(EXECUTABLE_NAME)
 translation = gettext.translation(EXECUTABLE_NAME, LOCALE_DIR, fallback=True)
 
 gettext_text = translation.gettext
-ngettext = translation.ngettext
