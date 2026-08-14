@@ -2,7 +2,6 @@ import tkinter as tk
 from abc import ABC, abstractmethod
 from pathlib import Path
 from tkinter import ttk
-from typing import Literal, final
 
 from widget import HeaderFrame
 from util.file_types import FILE_TYPES
@@ -45,47 +44,37 @@ class BaseFeatureFrame(ttk.Frame, ABC):
 
     @abstractmethod
     def _setup_input_frame(self):
-        ttk.Label(self.input_frame, text='Input File Frame').pack()
-        pass
+        ...
 
     @abstractmethod
     def _setup_output_frame(self):
-        ttk.Label(self.output_frame, text='Output Frame').pack()
-        pass
+        ...
 
     @abstractmethod
     def _setup_options_frame(self):
-        ttk.Label(self.options_frame, text='Options Frame').pack()
-        pass
+        ...
 
     @abstractmethod
     def _setup_execute_frame(self):
-        ttk.Label(self.execute_frame, text='Execute Frame').pack()
-        pass
+        ...
 
     @abstractmethod
     def get_input_pathes(self) -> list[Path]:
-        return [Path('')]
+        ...
 
     @abstractmethod
     def get_output_path(self) -> Path:
-        return Path('')
+        ...
 
     @abstractmethod
     def get_options(self) -> dict:
-        return {}
+        ...
 
     @abstractmethod
     def _execute_handler(self):
         """执行处理器，返回 feature_id 和 params"""
-        params = {
-            'inputs': self.get_input_pathes(),
-            'output': self.get_output_path(),
-            'options': self.get_options(),
-        }
-        if self._validate_input_files():
-            print(params)
+        ...
 
     @abstractmethod
     def _validate_input_files(self):
-        return True
+        ...
