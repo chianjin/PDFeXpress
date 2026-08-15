@@ -54,8 +54,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             )
 
             try:
-                doc = pymupdf.open(str(src))
-                try:
+                with pymupdf.open(src) as doc:
                     # An already-encrypted source needs its existing password
                     # before it can be re-saved; we only have the *new* password
                     # field, so re-encrypting is out of scope — fail clearly.
@@ -64,13 +63,11 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                     out_name = src.with_suffix(f'.{_("Encrypt")}.pdf').name
                     out_path = out_dir / out_name
                     doc.save(
-                        str(out_path),
+                        out_path,
                         encryption=pymupdf.PDF_ENCRYPT_AES_256,
                         user_pw=password,
                         owner_pw=password,
                     )
-                finally:
-                    doc.close()
                 success_count += 1
             except Exception as exc:  # keep going, report at the end
                 failed.append((src.name, f'{type(exc).__name__}: {exc}'))

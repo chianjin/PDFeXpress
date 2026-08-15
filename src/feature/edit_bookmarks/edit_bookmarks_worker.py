@@ -16,12 +16,9 @@ def apply_bookmarks(input_path, output_path, toc):
     ``toc`` is a list of ``[level, title, page]`` with **1-based** page
     numbers (matching ``Document.get_toc()`` / ``Document.set_toc()``).
     """
-    doc = pymupdf.open(str(input_path))
-    try:
+    with pymupdf.open(input_path) as doc:
         doc.set_toc(toc)
-        doc.save(str(output_path))
-    finally:
-        doc.close()
+        doc.save(output_path)
 
 
 def read_csv_bookmarks(path):

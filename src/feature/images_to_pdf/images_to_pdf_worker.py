@@ -37,40 +37,30 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
         output_path = Path(output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        out = pymupdf.open()
-        for index, in_path in enumerate(inputs, start=1):
-            if cancel_event.is_set():
-                out.close()
-                progress_queue.put(('cancelled', None))
-                return
+        with pymupdf.open() as out:
+            for index, in_path in enumerate(inputs, start=1):
+                if cancel_event.is_set():
+                    progress_queue.put(('cancelled', None))
+                    return
 
-            src = Path(in_path)
-            progress_queue.put(
-                ('progress', index, total, f'{_("Adding...")} {index}/{total}')
-            )
-
-            try:
-                img_doc = pymupdf.open(str(src))
-            except Exception as exc:
-                out.close()
+                src = Path(in_path)
                 progress_queue.put(
-                    ('error', f'{src.name}: {type(exc).__name__}: {exc}')
+                    ('progress', index, total, f'{_("Adding...")} {index}/{total}')
                 )
-                return
 
-            try:
-                pdf_bytes = img_doc.convert_to_pdf()
-                pdf_doc = pymupdf.open(stream=pdf_bytes, filetype='pdf')
                 try:
-                    out.insert_pdf(pdf_doc)
-                finally:
-                    pdf_doc.close()
-            finally:
-                img_doc.close()
+                    with pymupdf.open(src) as img_doc:
+                        pdf_bytes = img_doc.convert_to_pdf()
+                        with pymupdf.open(stream=pdf_bytes, filetype='pdf') as pdf_doc:
+                            out.insert_pdf(pdf_doc)
+                except Exception as exc:
+                    progress_queue.put(
+                        ('error', f'{src.name}: {type(exc).__name__}: {exc}')
+                    )
+                    return
 
-        progress_queue.put(('progress', total, total, _('Saving...')))
-        out.save(str(output_path))
-        out.close()
+            progress_queue.put(('progress', total, total, _('Saving...')))
+            out.save(output_path)
 
         summary = _('Converted %d image(s) to PDF: %s') % (total, output_path.name)
         progress_queue.put(('done', summary))

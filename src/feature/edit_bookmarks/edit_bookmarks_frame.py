@@ -218,11 +218,8 @@ class EditBookmarksFrame(BaseFeatureFrame):
         if not src or not Path(src).is_file():
             showerror(title=_('Error'), message=_('Input PDF must be set.'))
             return
-        doc = pymupdf.open(str(src))
-        try:
+        with pymupdf.open(src) as doc:
             toc = doc.get_toc()  # [[level, title, page], ...], page 1-based
-        finally:
-            doc.close()
         self._delete_all()
         for level, title, page in toc:
             self.tree.insert('', tk.END, values=(level, page, title))
@@ -290,14 +287,11 @@ class EditBookmarksFrame(BaseFeatureFrame):
             return False
 
         try:
-            doc = pymupdf.open(str(src))
+            with pymupdf.open(src) as doc:
+                page_count = doc.page_count
         except Exception as exc:
             showerror(title=_('Error'), message=_('Cannot open input PDF: %s') % exc)
             return False
-        try:
-            page_count = doc.page_count
-        finally:
-            doc.close()
 
         items = self.tree.get_children()
         if not items:

@@ -42,8 +42,7 @@ def delete_pages(params: dict) -> str:
     groups = options['groups']
     raw_groups = options['raw_groups']
 
-    doc = pymupdf.open(str(src))
-    try:
+    with pymupdf.open(src) as doc:
         total = options['total_pages']
 
         out_dir = Path(output)
@@ -58,14 +57,11 @@ def delete_pages(params: dict) -> str:
             name = f'{src.stem}.D{gexpr.replace(":", "S")}.pdf'
             try:
                 del_set = set(del_pages)
-                out_doc = pymupdf.open()
-                try:
+                with pymupdf.open() as out_doc:
                     for p in range(total):
                         if p not in del_set:
                             out_doc.insert_pdf(doc, from_page=p, to_page=p)
-                    out_doc.save(str(out_dir / name))
-                finally:
-                    out_doc.close()
+                    out_doc.save(out_dir / name)
                 produced += 1
             except Exception as exc:
                 failures.append((name, f'{type(exc).__name__}: {exc}'))
@@ -79,5 +75,3 @@ def delete_pages(params: dict) -> str:
                 '\n' + _('Failed:') + ' ' + '; '.join(f'{n}: {e}' for n, e in failures)
             )
         return summary
-    finally:
-        doc.close()

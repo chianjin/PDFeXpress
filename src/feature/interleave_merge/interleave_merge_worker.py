@@ -40,9 +40,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
         output_path = Path(output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        a = pymupdf.open(str(inputs[0]))
-        b = pymupdf.open(str(inputs[1]))
-        try:
+        with pymupdf.open(inputs[0]) as a, pymupdf.open(inputs[1]) as b:
             len_a = a.page_count
             len_b = b.page_count
             # B page order: reversed when requested, else forward.
@@ -51,30 +49,25 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             )
             total = len_a + len_b
 
-            out = pymupdf.open()
-            done = 0
-            for i in range(max(len_a, len_b)):
-                if cancel_event.is_set():
-                    out.close()
-                    progress_queue.put(('cancelled', None))
-                    return
+            with pymupdf.open() as out:
+                done = 0
+                for i in range(max(len_a, len_b)):
+                    if cancel_event.is_set():
+                        progress_queue.put(('cancelled', None))
+                        return
 
-                if i < len_a:
-                    out.insert_pdf(a, from_page=i, to_page=i)
-                if i < len_b:
-                    out.insert_pdf(b, from_page=b_order[i], to_page=b_order[i])
-                done += (1 if i < len_a else 0) + (1 if i < len_b else 0)
-                progress_queue.put(
-                    ('progress', done, total, f'{_("Interleaving...")} {done}/{total}')
-                )
+                    if i < len_a:
+                        out.insert_pdf(a, from_page=i, to_page=i)
+                    if i < len_b:
+                        out.insert_pdf(b, from_page=b_order[i], to_page=b_order[i])
+                    done += (1 if i < len_a else 0) + (1 if i < len_b else 0)
+                    progress_queue.put(
+                        ('progress', done, total, f'{_("Interleaving...")} {done}/{total}')
+                    )
 
-            progress_queue.put(('progress', total, total, _('Saving...')))
-            out.save(str(output_path))
-            out.close()
-            progress_queue.put(('done', str(output_path)))
-        finally:
-            a.close()
-            b.close()
+                progress_queue.put(('progress', total, total, _('Saving...')))
+                out.save(output_path)
+                progress_queue.put(('done', str(output_path)))
 
     except Exception as exc:  # surface any failure to the UI
         progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))

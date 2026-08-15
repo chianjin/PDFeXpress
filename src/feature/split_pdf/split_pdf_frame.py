@@ -227,11 +227,8 @@ class SplitPdfFrame(BaseFeatureFrame):
                 showerror(title=_('Error'), message=_('Range expression must be set.'))
                 return False
         try:
-            doc = pymupdf.open(Path(self.input_path.get()))
-            try:
+            with pymupdf.open(Path(self.input_path.get())) as doc:
                 total = doc.page_count
-            finally:
-                doc.close()
             self._total_pages = total
             if mode == 'custom':
                 groups = parse_page_ranges(entry, total)

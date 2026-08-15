@@ -133,9 +133,8 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         total_pages = 0
         for in_path in inputs:
             try:
-                doc = pymupdf.open(str(in_path))
-                total_pages += doc.page_count
-                doc.close()
+                with pymupdf.open(in_path) as doc:
+                    total_pages += doc.page_count
             except Exception:
                 pass
 
@@ -159,38 +158,31 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         for in_path in inputs:
             src = Path(in_path)
             try:
-                doc = pymupdf.open(str(src))
-            except Exception as exc:
-                failed.append((src.name, '%s: %s' % (type(exc).__name__, exc)))
-                continue
-            try:
-                for p_idx in range(doc.page_count):
-                    if cancel_event.is_set():
-                        doc.close()
-                        progress_queue.put(('cancelled', None))
-                        return
-                    page = doc[p_idx]
-                    page_index += 1
-                    progress_queue.put(
-                        (
-                            'progress',
-                            page_index,
-                            total_pages,
-                            _('Adding watermark…… %s (%d/%d)')
-                            % (src.name, page_index, total_pages),
+                with pymupdf.open(src) as doc:
+                    for p_idx in range(doc.page_count):
+                        if cancel_event.is_set():
+                            progress_queue.put(('cancelled', None))
+                            return
+                        page = doc[p_idx]
+                        page_index += 1
+                        progress_queue.put(
+                            (
+                                'progress',
+                                page_index,
+                                total_pages,
+                                _('Adding watermark…… %s (%d/%d)')
+                                % (src.name, page_index, total_pages),
+                            )
                         )
-                    )
-                    if mode == 'text':
-                        _draw_text_watermark(page, text, DEFAULT_FONT_SIZE)
-                    else:
-                        _draw_image_watermark(page, image_path, img_size)
-                out_file = out_dir / f'{src.stem}.{_("Watermark")}.pdf'
-                doc.save(str(out_file))
-                success_count += 1
+                        if mode == 'text':
+                            _draw_text_watermark(page, text, DEFAULT_FONT_SIZE)
+                        else:
+                            _draw_image_watermark(page, image_path, img_size)
+                    out_file = out_dir / f'{src.stem}.{_("Watermark")}.pdf'
+                    doc.save(out_file)
+                    success_count += 1
             except Exception as exc:
                 failed.append((src.name, '%s: %s' % (type(exc).__name__, exc)))
-            finally:
-                doc.close()
 
         progress_queue.put(('progress', total_pages, total_pages, _('Done')))
         if failed:

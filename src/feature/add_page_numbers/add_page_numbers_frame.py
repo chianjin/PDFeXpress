@@ -322,11 +322,8 @@ class AddPageNumbersFrame(BaseFeatureFrame):
                 showerror(title=_('Error'), message=_('Margin must be greater than 0.'))
                 return False
         try:
-            doc = pymupdf.open(Path(self.input_path.get()))
-            try:
+            with pymupdf.open(Path(self.input_path.get())) as doc:
                 total = doc.page_count
-            finally:
-                doc.close()
             self._page_map = build_page_number_map(self._rule.get(), total)
             self._total_pages = total
         except Exception as exc:

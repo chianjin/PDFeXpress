@@ -115,7 +115,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                 ('progress', index, total, f'{_("Merging...")} {index}/{total}')
             )
 
-            src = pymupdf.open(str(src_path))
+            src = pymupdf.open(src_path)
             src.bake()  # flatten form fields / annotations in place
             di = len(opened)
             opened.append(src)
@@ -124,13 +124,12 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             for pno in range(src.page_count):
                 bucket.append((di, pno))
 
-        out = pymupdf.open()
-        _place_regular(out, opened, regular)
-        _place_other(out, opened, other)
+        with pymupdf.open() as out:
+            _place_regular(out, opened, regular)
+            _place_other(out, opened, other)
 
-        progress_queue.put(('progress', total, total, _('Saving...')))
-        out.save(str(output_path))
-        out.close()
+            progress_queue.put(('progress', total, total, _('Saving...')))
+            out.save(output_path)
         for d in opened:
             d.close()
 

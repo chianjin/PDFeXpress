@@ -29,10 +29,7 @@ def decrypt(params: dict) -> None:
     out_path = Path(output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    doc = pymupdf.open(str(src))
-    try:
+    with pymupdf.open(src) as doc:
         if doc.is_encrypted and doc.authenticate(password) == 0:
             raise ValueError(_('Wrong password or password required.'))
-        doc.save(str(out_path))
-    finally:
-        doc.close()
+        doc.save(out_path)

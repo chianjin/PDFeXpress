@@ -40,54 +40,48 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
         output_path = Path(output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        out = pymupdf.open()
-        toc = []  # bookmark entries: [level, title, page(1-based)]
+        with pymupdf.open() as out:
+            toc = []  # bookmark entries: [level, title, page(1-based)]
 
-        for index, in_path in enumerate(inputs, start=1):
-            if cancel_event.is_set():
-                out.close()
-                progress_queue.put(('cancelled', None))
-                return
+            for index, in_path in enumerate(inputs, start=1):
+                if cancel_event.is_set():
+                    progress_queue.put(('cancelled', None))
+                    return
 
-            src_path = Path(in_path)
-            progress_queue.put(
-                ('progress', index, total, f'{_("Merging...")} {index}/{total}')
-            )
+                src_path = Path(in_path)
+                progress_queue.put(
+                    ('progress', index, total, f'{_("Merging...")} {index}/{total}')
+                )
 
-            src = pymupdf.open(str(src_path))
-            try:
-                # Deluxe (double-sided) print: every source PDF's first
-                # page must land on an ODD page (1-based) so each original
-                # PDF stays independently bound after printing. The next
-                # inserted page will be at 0-based position out.page_count;
-                # its 1-based number is out.page_count + 1. To make that odd
-                # we need out.page_count even, so pad a blank page when odd.
-                if support_delux_print and out.page_count % 2 == 1:
-                    if src.page_count:
-                        rect = src[0].rect
-                        out.new_page(width=rect.width, height=rect.height)
-                    else:
-                        out.new_page()
+                with pymupdf.open(src_path) as src:
+                    # Deluxe (double-sided) print: every source PDF's first
+                    # page must land on an ODD page (1-based) so each original
+                    # PDF stays independently bound after printing. The next
+                    # inserted page will be at 0-based position out.page_count;
+                    # its 1-based number is out.page_count + 1. To make that odd
+                    # we need out.page_count even, so pad a blank page when odd.
+                    if support_delux_print and out.page_count % 2 == 1:
+                        if src.page_count:
+                            rect = src[0].rect
+                            out.new_page(width=rect.width, height=rect.height)
+                        else:
+                            out.new_page()
 
-                start_page = out.page_count  # 0-based
-                out.insert_pdf(src)
-                if generate_bookmarks:
-                    toc.append([1, src_path.stem, start_page + 1])  # 1-based
-            finally:
-                src.close()
+                    start_page = out.page_count  # 0-based
+                    out.insert_pdf(src)
+                    if generate_bookmarks:
+                        toc.append([1, src_path.stem, start_page + 1])  # 1-based
 
-            if cancel_event.is_set():
-                out.close()
-                progress_queue.put(('cancelled', None))
-                return
+                if cancel_event.is_set():
+                    progress_queue.put(('cancelled', None))
+                    return
 
-        if generate_bookmarks and toc:
-            out.set_toc(toc)
+            if generate_bookmarks and toc:
+                out.set_toc(toc)
 
-        progress_queue.put(('progress', total, total, _('Saving...')))
-        out.save(str(output_path))
-        out.close()
-        progress_queue.put(('done', str(output_path)))
+            progress_queue.put(('progress', total, total, _('Saving...')))
+            out.save(output_path)
+            progress_queue.put(('done', str(output_path)))
 
     except Exception as exc:  # surface any failure to the UI
         progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))

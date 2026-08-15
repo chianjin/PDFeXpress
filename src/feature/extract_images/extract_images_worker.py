@@ -65,8 +65,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             )
 
             try:
-                doc = pymupdf.open(str(src))
-                try:
+                with pymupdf.open(src) as doc:
                     stem = src.stem
                     sub = out_dir / stem
                     sub.mkdir(parents=True, exist_ok=True)
@@ -94,8 +93,6 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                             fname = f'{stem}.P{p_idx}-{xref}.{ext}'
                             (sub / fname).write_bytes(data)
                             images_extracted += 1
-                finally:
-                    doc.close()
                 files_done += 1
             except Exception as exc:
                 files_failed += 1

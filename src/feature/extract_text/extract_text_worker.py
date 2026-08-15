@@ -52,11 +52,8 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             )
 
             try:
-                doc = pymupdf.open(str(src))
-                try:
+                with pymupdf.open(src) as doc:
                     text = ''.join(page.get_text() for page in doc)
-                finally:
-                    doc.close()
 
                 out_name = src.with_suffix('.txt').name
                 out_path = out_dir / out_name

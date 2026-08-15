@@ -69,55 +69,53 @@ def _geometry(
 def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
     options = params['options']
     try:
-        doc = pymupdf.open(Path(params['inputs'][0]))
-        total = options['total_pages']
-        page_map = options['page_map']
-        base_font = FONT_BASE[options['font_family']][
-            'bold' if options['font_bold'] else 'regular'
-        ]
-        fs = options['font_size']
+        with pymupdf.open(Path(params['inputs'][0])) as doc:
+            total = options['total_pages']
+            page_map = options['page_map']
+            base_font = FONT_BASE[options['font_family']][
+                'bold' if options['font_bold'] else 'regular'
+            ]
+            fs = options['font_size']
 
-        cancelled = False
-        for index in range(1, total + 1):
-            if cancel_event.is_set():
-                cancelled = True
-                break
-            progress_queue.put(
-                (
-                    'progress',
-                    index,
-                    total,
-                    f'{_("Adding page numbers...")} {index}/{total}',
+            cancelled = False
+            for index in range(1, total + 1):
+                if cancel_event.is_set():
+                    cancelled = True
+                    break
+                progress_queue.put(
+                    (
+                        'progress',
+                        index,
+                        total,
+                        f'{_("Adding page numbers...")} {index}/{total}',
+                    )
                 )
-            )
-            if index not in page_map:
-                continue
-            page = doc[index - 1]
-            rect, align = _geometry(
-                page,
-                options['vertical'],
-                options['horizontal'],
-                index,
-                options['top_margin_cm'],
-                options['bottom_margin_cm'],
-                options['left_margin_cm'],
-                options['right_margin_cm'],
-                options['mirror_margin_cm'],
-                fs,
-            )
-            page.insert_textbox(
-                rect, page_map[index], fontname=base_font, fontsize=fs, align=align
-            )
+                if index not in page_map:
+                    continue
+                page = doc[index - 1]
+                rect, align = _geometry(
+                    page,
+                    options['vertical'],
+                    options['horizontal'],
+                    index,
+                    options['top_margin_cm'],
+                    options['bottom_margin_cm'],
+                    options['left_margin_cm'],
+                    options['right_margin_cm'],
+                    options['mirror_margin_cm'],
+                    fs,
+                )
+                page.insert_textbox(
+                    rect, page_map[index], fontname=base_font, fontsize=fs, align=align
+                )
 
-        if cancelled:
-            doc.close()
-            progress_queue.put(('cancelled', None))
-            return
+            if cancelled:
+                progress_queue.put(('cancelled', None))
+                return
 
-        Path(params['output']).parent.mkdir(parents=True, exist_ok=True)
-        doc.save(str(params['output']))
-        doc.close()
-        progress_queue.put(('done', str(params['output'])))
+            Path(params['output']).parent.mkdir(parents=True, exist_ok=True)
+            doc.save(Path(params['output']))
+            progress_queue.put(('done', str(params['output'])))
     except Exception as exc:
         progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))
 

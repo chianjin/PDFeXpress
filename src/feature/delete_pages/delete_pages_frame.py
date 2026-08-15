@@ -163,11 +163,8 @@ class DeletePagesFrame(BaseFeatureFrame):
             )
             return False
         try:
-            doc = pymupdf.open(Path(self.input_path.get()))
-            try:
+            with pymupdf.open(Path(self.input_path.get())) as doc:
                 total = doc.page_count
-            finally:
-                doc.close()
             groups = parse_page_ranges(expr, total)
             if not groups:
                 raise ValueError(_('Range expression produced no pages.'))

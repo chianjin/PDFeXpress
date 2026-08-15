@@ -106,8 +106,7 @@ def worker(params, progress_queue, cancel_event):
         src = Path(inputs[0])
         mode = options['mode']
 
-        doc = pymupdf.open(str(src))
-        try:
+        with pymupdf.open(src) as doc:
             total = options['total_pages']
             width = len(str(total))  # zero-padding width = digits of total
 
@@ -145,13 +144,10 @@ def worker(params, progress_queue, cancel_event):
                 )
 
                 try:
-                    out_doc = pymupdf.open()
-                    try:
+                    with pymupdf.open() as out_doc:
                         for p in chunk:
                             out_doc.insert_pdf(doc, from_page=p, to_page=p)
-                        out_doc.save(str(out_dir / name))
-                    finally:
-                        out_doc.close()
+                        out_doc.save(out_dir / name)
                     produced += 1
                 except Exception as exc:  # skip this file, summarize later
                     failures.append((name, f'{type(exc).__name__}: {exc}'))
@@ -170,9 +166,6 @@ def worker(params, progress_queue, cancel_event):
                 )
             progress_queue.put(('progress', total_outputs, total_outputs, _('Done')))
             progress_queue.put(('done', summary))
-
-        finally:
-            doc.close()
 
     except Exception as exc:  # surface any failure (bad range, etc.) to the UI
         progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))

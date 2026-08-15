@@ -75,8 +75,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
         output_path = Path(output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        doc = pymupdf.open(str(src))
-        try:
+        with pymupdf.open(src) as doc:
             total = doc.page_count
             if total == 0:
                 progress_queue.put(('error', _('The PDF has no pages.')))
@@ -135,15 +134,13 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             )
 
             progress_queue.put(('progress', 3, 3, _('Saving...')))
-            out_pix.save(str(output_path), jpg_quality=QUALITY)
+            out_pix.save(output_path, jpg_quality=QUALITY)
 
             summary = _('Created long image from %d page(s): %s') % (
                 len(pages),
                 output_path.name,
             )
             progress_queue.put(('done', summary))
-        finally:
-            doc.close()
 
     except Exception as exc:  # surface any unexpected failure
         progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))

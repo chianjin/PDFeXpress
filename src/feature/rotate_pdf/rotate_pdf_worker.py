@@ -53,8 +53,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                 ('progress', index, total, f'{_("Rotating……")} {index}/{total}')
             )
 
-            doc = pymupdf.open(str(src))
-            try:
+            with pymupdf.open(src) as doc:
                 # Relative, per-page rotation. PDF /Rotate (and page.rotation)
                 # is clockwise-positive, matching the option value, so we add
                 # the value as-is.
@@ -64,9 +63,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
                 out_name = src.with_suffix(f'.{_("Rotate")}{delta}.pdf').name
                 out_path = out_dir / out_name
-                doc.save(str(out_path))
-            finally:
-                doc.close()
+                doc.save(out_path)
 
         progress_queue.put(('progress', total, total, _('Done')))
         progress_queue.put(('done', str(out_dir)))

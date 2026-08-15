@@ -61,8 +61,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             )
 
             try:
-                doc = pymupdf.open(str(src))
-                try:
+                with pymupdf.open(src) as doc:
                     stem = src.stem
                     sub = out_dir / stem
                     sub.mkdir(parents=True, exist_ok=True)
@@ -71,14 +70,12 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                         pix = page.get_pixmap(dpi=dpi, alpha=alpha)
                         if fmt == 'jpg':
                             pix.save(
-                                str(sub / f'{stem}.P{p_idx}.jpg'),
+                                sub / f'{stem}.P{p_idx}.jpg',
                                 jpg_quality=quality,
                             )
                         else:
-                            pix.save(str(sub / f'{stem}.P{p_idx}.png'))
+                            pix.save(sub / f'{stem}.P{p_idx}.png')
                         pages_done += 1
-                finally:
-                    doc.close()
                 files_done += 1
             except Exception as exc:
                 files_failed += 1

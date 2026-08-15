@@ -155,9 +155,8 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
             total_pages = 0
             for in_path in inputs:
                 try:
-                    d = pymupdf.open(str(in_path))
-                    total_pages += d.page_count
-                    d.close()
+                    with pymupdf.open(in_path) as d:
+                        total_pages += d.page_count
                 except Exception:
                     pass
 
@@ -168,12 +167,10 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                     return
                 src = Path(in_path)
                 try:
-                    doc = pymupdf.open(str(src))
-                    try:
+                    with pymupdf.open(src) as doc:
                         for p_idx in range(doc.page_count):
                             if cancel_event.is_set():
                                 progress_queue.put(('cancelled', None))
-                                doc.close()
                                 return
                             page = doc[p_idx]
                             page_index += 1
@@ -189,7 +186,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                             _downscale_page_images(doc, page, max_dpi, jpg_quality, ctr)
                         out_file = out_dir / f'{src.stem}.{_("Compress")}.pdf'
                         doc.save(
-                            str(out_file),
+                            out_file,
                             garbage=4,
                             clean=True,
                             deflate=True,
@@ -197,8 +194,6 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                             deflate_fonts=True,
                         )
                         files_done += 1
-                    finally:
-                        doc.close()
                 except Exception as exc:
                     files_failed += 1
                     progress_queue.put(
@@ -225,11 +220,10 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                     )
                 )
                 try:
-                    doc = pymupdf.open(str(src))
-                    try:
+                    with pymupdf.open(src) as doc:
                         out_file = out_dir / f'{src.stem}.{_("Compress")}.pdf'
                         doc.save(
-                            str(out_file),
+                            out_file,
                             garbage=4,
                             clean=True,
                             deflate=True,
@@ -237,8 +231,6 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                             deflate_fonts=True,
                         )
                         files_done += 1
-                    finally:
-                        doc.close()
                 except Exception as exc:
                     files_failed += 1
                     progress_queue.put(
