@@ -1,5 +1,6 @@
 import tkinter as tk
 from pathlib import Path
+import pymupdf
 from tkinter import ttk
 from tkinter.filedialog import askdirectory, askopenfilename
 from tkinter.messagebox import showerror
@@ -7,12 +8,16 @@ from tkinter.messagebox import showerror
 from config import EXECUTIVE_PATH
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
+from util.page_range_parser import parse_page_ranges
 from util.i18n import gettext_text as _
 
 
 class SplitPdfFrame(BaseFeatureFrame):
     def __init__(self, master, **kw):
         super().__init__(master, feature_id='split_pdf', **kw)
+        self._total_pages = 0
+        self._split_groups: list[list[int]] = []
+        self._split_group_exprs: list[str] = []
 
     def _setup_input_frame(self):
         self.input_frame.configure(text=_('Input PDF'))
@@ -151,13 +156,14 @@ class SplitPdfFrame(BaseFeatureFrame):
     def get_options(self) -> dict:
         entry = self._param_entry.get().strip()
         mode = self._mode.get()
-        opts = {'mode': mode}
+        opts = {'mode': mode, 'total_pages': self._total_pages}
         if mode == 'by_pages':
             opts['pages_per_chunk'] = int(entry) if entry else 1
         elif mode == 'by_parts':
             opts['parts'] = int(entry) if entry else 2
         elif mode == 'custom':
-            opts['range_expr'] = entry
+            opts['groups'] = self._split_groups
+            opts['group_exprs'] = self._split_group_exprs
         return opts
 
     def _execute_handler(self):
@@ -220,6 +226,25 @@ class SplitPdfFrame(BaseFeatureFrame):
             if not entry:
                 showerror(title=_('Error'), message=_('Range expression must be set.'))
                 return False
+        try:
+            doc = pymupdf.open(Path(self.input_path.get()))
+            try:
+                total = doc.page_count
+            finally:
+                doc.close()
+            self._total_pages = total
+            if mode == 'custom':
+                groups = parse_page_ranges(entry, total)
+                if not groups:
+                    raise ValueError(_('Range expression produced no pages.'))
+                group_exprs = [g.strip() for g in entry.split(';') if g.strip()]
+                if len(groups) != len(group_exprs):
+                    group_exprs = group_exprs[: len(groups)]
+                self._split_groups = groups
+                self._split_group_exprs = group_exprs
+        except Exception as exc:
+            showerror(title=_('Error'), message=f'{type(exc).__name__}: {exc}')
+            return False
         return True
 
 

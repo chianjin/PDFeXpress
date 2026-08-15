@@ -10,7 +10,6 @@ import pymupdf
 
 from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
-from util.page_number_rule import build_page_number_map
 
 CM_TO_PT = 72.0 / 2.54
 
@@ -71,8 +70,8 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
     options = params['options']
     try:
         doc = pymupdf.open(Path(params['inputs'][0]))
-        total = doc.page_count
-        page_map = build_page_number_map(options['rule'], total)
+        total = options['total_pages']
+        page_map = options['page_map']
         base_font = FONT_BASE[options['font_family']][
             'bold' if options['font_bold'] else 'regular'
         ]

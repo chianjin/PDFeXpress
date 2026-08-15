@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 from pathlib import Path
+import pymupdf
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import showerror
@@ -10,6 +11,7 @@ from tkinterdnd2 import TkinterDnD
 from config import EXECUTIVE_PATH
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
+from util.page_number_rule import build_page_number_map
 from util.i18n import gettext_text as _
 from widget.help_window import HelpWindow
 
@@ -27,6 +29,8 @@ class AddPageNumbersFrame(BaseFeatureFrame):
 
     def __init__(self, master, **kw):
         super().__init__(master, feature_id='add_page_numbers', **kw)
+        self._page_map: dict[int, str] = {}
+        self._total_pages = 0
 
     def _setup_input_frame(self):
         self.input_frame.configure(text=_('Input PDF'))
@@ -267,7 +271,8 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         # .get() already returns the correct type. The worker trusts this
         # dict as-is; validation happened in _validate_input_files().
         return {
-            'rule': self._rule.get(),
+            'page_map': self._page_map,
+            'total_pages': self._total_pages,
             'font_family': self._font_family.get(),
             'font_bold': self._font_bold.get(),
             'font_size': self._font_size.get(),
@@ -316,6 +321,17 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             if var.get() < 0:
                 showerror(title=_('Error'), message=_('Margin must be greater than 0.'))
                 return False
+        try:
+            doc = pymupdf.open(Path(self.input_path.get()))
+            try:
+                total = doc.page_count
+            finally:
+                doc.close()
+            self._page_map = build_page_number_map(self._rule.get(), total)
+            self._total_pages = total
+        except Exception as exc:
+            showerror(title=_('Error'), message=f'{type(exc).__name__}: {exc}')
+            return False
         return True
 
 

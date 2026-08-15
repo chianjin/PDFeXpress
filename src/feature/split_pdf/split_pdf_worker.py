@@ -8,9 +8,9 @@ responsive. Progress is reported back to the main thread through a
 ``multiprocessing.Queue``, and the main thread shows it via
 ``core.progress_dialog.ProgressDialog`` (see ``run_split_with_progress``).
 
-Custom-range parsing reuses ``util.page_range_parser.parse_page_ranges``,
-which implements the page-range syntax guide (atoms, compositions, groups,
-default/plus modes) and returns ``list[list[int]]`` of 0-based page indices.
+Custom-range parsing (``util.page_range_parser.parse_page_ranges``) is done
+in the frame, so the worker receives already-resolved ``list[list[int]]`` of
+0-based page indices; see ``split_pdf_frame``.
 """
 
 from multiprocessing import Event, Process, Queue
@@ -22,7 +22,6 @@ import pymupdf
 
 from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
-from util.page_range_parser import parse_page_ranges
 
 
 # ---------------------------------------------------------------------------
@@ -59,10 +58,7 @@ def _build_chunks(mode, options, total):
         return chunks
 
     if mode == 'custom':
-        expr = options['range_expr'].strip()
-        if not expr:
-            raise ValueError(_('Range expression must be set.'))
-        groups = parse_page_ranges(expr, total)
+        groups = options['groups']
         if not groups:
             raise ValueError(_('Range expression produced no pages.'))
         return groups
@@ -112,19 +108,11 @@ def worker(params, progress_queue, cancel_event):
 
         doc = pymupdf.open(str(src))
         try:
-            total = doc.page_count
+            total = options['total_pages']
             width = len(str(total))  # zero-padding width = digits of total
 
-            # For custom mode, keep the raw group substrings (in parser order)
-            # so each output file is named after its own group expression.
-            group_exprs = None
-            if mode == 'custom':
-                expr = options['range_expr'].strip()
-                plus = expr.startswith('+')
-                body = expr[1:].lstrip() if plus else expr
-                group_exprs = [g.strip() for g in body.split(';') if g.strip()]
-
             chunks = _build_chunks(mode, options, total)
+            group_exprs = options.get('group_exprs') or []
 
             out_dir = Path(output)
             out_dir.mkdir(parents=True, exist_ok=True)

@@ -21,7 +21,6 @@ from pathlib import Path
 import pymupdf
 
 from util.i18n import gettext_text as _
-from util.page_range_parser import parse_page_ranges
 
 
 def delete_pages(params: dict) -> str:
@@ -40,22 +39,12 @@ def delete_pages(params: dict) -> str:
     options = params['options']
 
     src = Path(inputs[0])
-    expr = options['range_expr'].strip()
+    groups = options['groups']
+    raw_groups = options['raw_groups']
 
     doc = pymupdf.open(str(src))
     try:
-        total = doc.page_count
-
-        # Raw group substrings (for naming), in parser order; each group is
-        # a set of pages to DELETE. parse_page_ranges returns
-        # list[list[int]] of 0-based pages per ';' group.
-        raw_groups = [g.strip() for g in expr.split(';') if g.strip()]
-        groups = parse_page_ranges(expr, total)
-        if not groups:
-            raise ValueError(_('Range expression produced no pages.'))
-        if len(groups) != len(raw_groups):
-            # Defensive only: keep naming aligned with produced groups.
-            raw_groups = raw_groups[: len(groups)]
+        total = options['total_pages']
 
         out_dir = Path(output)
         out_dir.mkdir(parents=True, exist_ok=True)
