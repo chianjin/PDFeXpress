@@ -73,7 +73,7 @@ class DeletePagesFrame(BaseFeatureFrame):
         init = self._initial_dir(self.input_path.get())
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
-            self.input_path.set(str(Path(path)))
+            self.input_path.set(Path(path))
 
     def _open_help(self):
         posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
@@ -88,21 +88,21 @@ class DeletePagesFrame(BaseFeatureFrame):
         HelpWindow(self, title=title, content=content).focus()
 
     @staticmethod
-    def _initial_dir(current: str) -> str:
+    def _initial_dir(current: str) -> Path | str:
         if current:
-            return str(Path(current).parent)
+            return Path(current).parent
         return ''
 
     def _set_output_folder(self):
         init_dir = ''
         current = self.output_path.get()
         if current:
-            init_dir = str(Path(current))
+            init_dir = Path(current)
         elif self.input_path.get():
-            init_dir = str(Path(self.input_path.get()).parent)
+            init_dir = Path(self.input_path.get()).parent
         folder = askdirectory(initialdir=init_dir)
         if folder:
-            self.output_path.set(str(Path(folder)))
+            self.output_path.set(Path(folder))
 
     def get_input_paths(self):
         return [Path(self.input_path.get())]

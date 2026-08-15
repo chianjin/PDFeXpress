@@ -73,18 +73,18 @@ class InterleaveMergeFrame(BaseFeatureFrame):
         init = self._initial_dir(self.pdf_b.get() or self.pdf_a.get())
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
-            self.pdf_a.set(str(Path(path)))
+            self.pdf_a.set(Path(path))
 
     def _browse_b(self):
         init = self._initial_dir(self.pdf_a.get() or self.pdf_b.get())
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
-            self.pdf_b.set(str(Path(path)))
+            self.pdf_b.set(Path(path))
 
     @staticmethod
-    def _initial_dir(current: str) -> str:
+    def _initial_dir(current: str) -> Path | str:
         if current:
-            return str(Path(current).parent)
+            return Path(current).parent
         return ''
 
     def _set_output_path(self):
@@ -102,7 +102,7 @@ class InterleaveMergeFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(str(Path(output_path)))
+            self.output_path.set(Path(output_path))
 
     def _get_current_input_path(self):
         current = self.output_path.get()

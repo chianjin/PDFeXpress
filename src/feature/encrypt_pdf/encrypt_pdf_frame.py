@@ -60,7 +60,7 @@ class EncryptPdfFrame(BaseFeatureFrame):
         init_dir = self._get_initial_dir()
         folder = askdirectory(initialdir=init_dir)
         if folder:
-            self.output_path.set(str(Path(folder)))
+            self.output_path.set(Path(folder))
 
     def _get_initial_dir(self):
         # Anchor to the already-set output, else the first input's directory.
@@ -80,7 +80,7 @@ class EncryptPdfFrame(BaseFeatureFrame):
         if not self.output_path.get():
             inputs = self.get_input_paths()
             if inputs:
-                self.output_path.set(str(inputs[0].parent))
+                self.output_path.set(inputs[0].parent)
         params = {
             'inputs': self.get_input_paths(),
             'output': self.get_output_path(),

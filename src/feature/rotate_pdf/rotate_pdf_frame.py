@@ -71,7 +71,7 @@ class RotatePdfFrame(BaseFeatureFrame):
         init_dir = self._get_initial_dir()
         folder = askdirectory(initialdir=init_dir)
         if folder:
-            self.output_path.set(str(Path(folder)))
+            self.output_path.set(Path(folder))
 
     def _get_initial_dir(self):
         # Mirror merge_pdf: anchor the dialog to the already-set output,

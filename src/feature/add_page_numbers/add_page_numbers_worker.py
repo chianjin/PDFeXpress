@@ -70,7 +70,7 @@ def _geometry(
 def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
     options = params['options']
     try:
-        doc = pymupdf.open(str(Path(params['inputs'][0])))
+        doc = pymupdf.open(Path(params['inputs'][0]))
         total = doc.page_count
         page_map = build_page_number_map(options['rule'], total)
         base_font = FONT_BASE[options['font_family']][

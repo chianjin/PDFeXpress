@@ -78,7 +78,7 @@ class ExtractImagesFrame(BaseFeatureFrame):
         init_dir = self._get_initial_dir()
         folder = askdirectory(initialdir=init_dir)
         if folder:
-            self.output_path.set(str(Path(folder)))
+            self.output_path.set(Path(folder))
 
     def _get_initial_dir(self):
         current = self.output_path.get()

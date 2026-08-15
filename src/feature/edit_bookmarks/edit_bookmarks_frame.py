@@ -123,9 +123,9 @@ class EditBookmarksFrame(BaseFeatureFrame):
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
             src = Path(path)
-            self._input_path.set(str(src))
+            self._input_path.set(src)
             if not self.output_path.get():
-                self.output_path.set(str(src.with_suffix(f'.{_("TOC")}.pdf')))
+                self.output_path.set(src.with_suffix(f'.{_("TOC")}.pdf'))
 
     def _set_output(self):
         init = self._initial_dir(self.output_path.get())
@@ -138,12 +138,12 @@ class EditBookmarksFrame(BaseFeatureFrame):
             initialfile=default,
         )
         if path:
-            self.output_path.set(str(Path(path)))
+            self.output_path.set(Path(path))
 
     @staticmethod
-    def _initial_dir(current: str) -> str:
+    def _initial_dir(current: str) -> Path | str:
         if current:
-            return str(Path(current).parent)
+            return Path(current).parent
         return ''
 
     # ---- tree <-> form ----
@@ -236,7 +236,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         from feature.edit_bookmarks.edit_bookmarks_worker import read_csv_bookmarks
 
         try:
-            rows = read_csv_bookmarks(str(Path(path)))
+            rows = read_csv_bookmarks(Path(path))
         except Exception as exc:
             showerror(title=_('Error'), message=_('Failed to import: %s') % exc)
             return
@@ -255,7 +255,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         from feature.edit_bookmarks.edit_bookmarks_worker import write_csv_bookmarks
 
         try:
-            write_csv_bookmarks(str(Path(path)), rows)
+            write_csv_bookmarks(Path(path), rows)
         except Exception as exc:
             showerror(title=_('Error'), message=_('Failed to export: %s') % exc)
             return

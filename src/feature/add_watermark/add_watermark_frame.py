@@ -91,10 +91,10 @@ class AddWatermarkFrame(BaseFeatureFrame):
 
     def _browse_image(self):
         current = self._image_path.get()
-        init = str(Path(current).parent) if current else (self._get_initial_dir() or '')
+        init = Path(current).parent if current else (self._get_initial_dir() or '')
         path = askopenfilename(filetypes=FILE_TYPES['IMAGES'], initialdir=init)
         if path:
-            self._image_path.set(str(Path(path)))
+            self._image_path.set(Path(path))
 
     def get_input_paths(self):
         return self.file_list_view.get_file_paths()
@@ -113,7 +113,7 @@ class AddWatermarkFrame(BaseFeatureFrame):
         init_dir = self._get_initial_dir()
         folder = askdirectory(initialdir=init_dir)
         if folder:
-            self.output_path.set(str(Path(folder)))
+            self.output_path.set(Path(folder))
 
     def _get_initial_dir(self):
         current = self.output_path.get()

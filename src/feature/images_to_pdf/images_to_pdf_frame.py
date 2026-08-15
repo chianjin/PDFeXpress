@@ -65,7 +65,7 @@ class ImagesToPdfFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(str(Path(output_path)))
+            self.output_path.set(Path(output_path))
 
     def _get_current_input_path(self):
         current = self.output_path.get()

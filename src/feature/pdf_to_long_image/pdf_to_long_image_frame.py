@@ -73,11 +73,11 @@ class PdfToLongImageFrame(BaseFeatureFrame):
         init = self._initial_dir(self.input_path.get())
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
-            self.input_path.set(str(Path(path)))
+            self.input_path.set(Path(path))
 
-    def _initial_dir(self, current: str) -> str:
+    def _initial_dir(self, current: str) -> Path | str:
         if current:
-            return str(Path(current).parent)
+            return Path(current).parent
         return ''
 
     def _set_output_path(self):
@@ -95,7 +95,7 @@ class PdfToLongImageFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(str(Path(output_path)))
+            self.output_path.set(Path(output_path))
 
     def _get_current_input_path(self):
         current = self.output_path.get()
