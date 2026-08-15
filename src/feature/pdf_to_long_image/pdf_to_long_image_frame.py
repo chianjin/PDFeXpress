@@ -120,14 +120,14 @@ class PdfToLongImageFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if self._validate_input_files():
+        if self._validate_execute_params():
             from feature.pdf_to_long_image.pdf_to_long_image_worker import (
                 run_pdf_to_long_image_with_progress,
             )
 
             run_pdf_to_long_image_with_progress(self.winfo_toplevel(), params)
 
-    def _validate_input_files(self):
+    def _validate_execute_params(self):
         if not self.input_path.get():
             showerror(
                 title=_('Error'),

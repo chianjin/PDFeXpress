@@ -128,7 +128,7 @@ class DeletePagesFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if not self._validate_input_files():
+        if not self._validate_execute_params():
             return
         from feature.delete_pages.delete_pages_worker import delete_pages
 
@@ -142,7 +142,7 @@ class DeletePagesFrame(BaseFeatureFrame):
             return
         showinfo(title=_('Done'), message=summary)
 
-    def _validate_input_files(self):
+    def _validate_execute_params(self):
         src = self.input_path.get()
         if not src:
             showerror(title=_('Error'), message=_('Input PDF must be set.'))

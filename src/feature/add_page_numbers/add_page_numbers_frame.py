@@ -269,7 +269,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
     def get_options(self) -> dict:
         # Variables are typed (IntVar/DoubleVar/BooleanVar/StringVar), so
         # .get() already returns the correct type. The worker trusts this
-        # dict as-is; validation happened in _validate_input_files().
+        # dict as-is; validation happened in _validate_execute_params().
         return {
             'page_map': self._page_map,
             'total_pages': self._total_pages,
@@ -291,14 +291,14 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if self._validate_input_files():
+        if self._validate_execute_params():
             from feature.add_page_numbers.add_page_numbers_worker import (
                 run_add_page_numbers_with_progress,
             )
 
             run_add_page_numbers_with_progress(self.winfo_toplevel(), params)
 
-    def _validate_input_files(self):
+    def _validate_execute_params(self):
         if not self.input_path.get():
             showerror(title=_('Error'), message=_('Input PDF cannot be empty.'))
             return False
@@ -322,7 +322,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
                 showerror(title=_('Error'), message=_('Margin must be greater than 0.'))
                 return False
         try:
-            with pymupdf.open(Path(self.input_path.get())) as doc:
+            with pymupdf.open(self.input_path.get()) as doc:
                 total = doc.page_count
             self._page_map = build_page_number_map(self._rule.get(), total)
             self._total_pages = total

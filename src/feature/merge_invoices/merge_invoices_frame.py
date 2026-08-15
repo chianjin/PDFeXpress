@@ -85,14 +85,14 @@ class MergeInvoicesFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if self._validate_input_files():
+        if self._validate_execute_params():
             from feature.merge_invoices.merge_invoices_worker import (
                 run_merge_invoices_with_progress,
             )
 
             run_merge_invoices_with_progress(self.winfo_toplevel(), params)
 
-    def _validate_input_files(self):
+    def _validate_execute_params(self):
         current_input_paths = self.get_input_paths()
         if len(current_input_paths) < 2:
             showerror(

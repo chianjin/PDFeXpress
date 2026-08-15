@@ -119,14 +119,14 @@ class PdfToImagesFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if self._validate_input_files():
+        if self._validate_execute_params():
             from feature.pdf_to_images.pdf_to_images_worker import (
                 run_pdf_to_images_with_progress,
             )
 
             run_pdf_to_images_with_progress(self.winfo_toplevel(), params)
 
-    def _validate_input_files(self):
+    def _validate_execute_params(self):
         if len(self.get_input_paths()) < 1:
             showerror(
                 title=_('Error'),

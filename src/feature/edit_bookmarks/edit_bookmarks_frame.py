@@ -268,7 +268,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
     def get_options(self) -> dict:
         return {}
 
-    def _validate_input_files(self) -> bool:
+    def _validate_execute_params(self) -> bool:
         """Validate the input PDF and the bookmark table before writing the TOC.
 
         Returns True when everything is usable; otherwise shows an error
@@ -327,7 +327,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         return True
 
     def _execute_handler(self):
-        if not self._validate_input_files():
+        if not self._validate_execute_params():
             return
         src = self._input_path.get().strip()
         out = self.output_path.get().strip()

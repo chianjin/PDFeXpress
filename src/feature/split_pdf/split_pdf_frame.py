@@ -172,12 +172,12 @@ class SplitPdfFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if self._validate_input_files():
+        if self._validate_execute_params():
             from feature.split_pdf.split_pdf_worker import run_split_with_progress
 
             run_split_with_progress(self.winfo_toplevel(), params)
 
-    def _validate_input_files(self):
+    def _validate_execute_params(self):
         src = self.input_path.get()
         if not src:
             showerror(title=_('Error'), message=_('Input PDF must be set.'))

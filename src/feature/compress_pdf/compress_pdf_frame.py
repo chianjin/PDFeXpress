@@ -92,7 +92,7 @@ class CompressPdfFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if not self._validate_input_files():
+        if not self._validate_execute_params():
             return
         # Time-consuming operation: warn before running.
         if params['options']['compress_images']:
@@ -108,7 +108,7 @@ class CompressPdfFrame(BaseFeatureFrame):
 
         run_compress_pdf_with_progress(self.winfo_toplevel(), params)
 
-    def _validate_input_files(self):
+    def _validate_execute_params(self):
         if len(self.get_input_paths()) < 1:
             showerror(
                 title=_('Error'),

@@ -105,7 +105,7 @@ class DecryptPdfFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if not self._validate_input_files():
+        if not self._validate_execute_params():
             return
         from feature.decrypt_pdf.decrypt_pdf_worker import decrypt
 
@@ -119,7 +119,7 @@ class DecryptPdfFrame(BaseFeatureFrame):
             return
         showinfo(title=_('Done'), message=_('PDF Decrypted'))
 
-    def _validate_input_files(self):
+    def _validate_execute_params(self):
         if not self.input_path.get():
             showerror(
                 title=_('Error'),
