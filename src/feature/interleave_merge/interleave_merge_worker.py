@@ -62,10 +62,11 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                         out.insert_pdf(b, from_page=b_order[i], to_page=b_order[i])
                     done += (1 if i < len_a else 0) + (1 if i < len_b else 0)
                     progress_queue.put(
-                        ('progress', done, total, f'{_("Interleaving...")} {done}/{total}')
+                        ('progress', done, total, f'{_("Merging...")} {done}/{total}')
                     )
 
                 progress_queue.put(('progress', total, total, _('Saving...')))
+                progress_queue.put(('progress', total, total, _('Done')))
                 out.save(output_path)
                 progress_queue.put(('done', str(output_path)))
 
@@ -123,7 +124,7 @@ def run_interleave_with_progress(master, params: dict) -> None:
                     _finish()
                     showinfo(
                         title=_('Done'),
-                        message=_('PDF Interleaved'),
+                        message=msg[1],
                     )
                     return
                 elif kind == 'error':

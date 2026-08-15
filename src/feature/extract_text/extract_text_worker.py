@@ -48,7 +48,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total, f'{_("Extracting text……")} {index}/{total}')
+                ('progress', index, total, f'{_("Extracting...")} {index}/{total}')
             )
 
             try:

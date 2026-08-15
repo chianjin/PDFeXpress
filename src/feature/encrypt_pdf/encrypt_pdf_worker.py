@@ -50,7 +50,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total, f'{_("Encrypting……")} {index}/{total}')
+                ('progress', index, total, f'{_("Encrypting...")} {index}/{total}')
             )
 
             try:
@@ -136,7 +136,7 @@ def run_encrypt_with_progress(master, params: dict) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=_('PDF Encrypted'))
+                    showinfo(title=_('Done'), message=msg[1])
                     return
                 elif kind == 'partial':
                     _out_dir, _ok, _fail, summary = msg[1], msg[2], msg[3], msg[4]

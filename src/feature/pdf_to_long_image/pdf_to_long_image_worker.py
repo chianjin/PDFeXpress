@@ -91,7 +91,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                 return
 
             # Common target width = widest page rendered at the fixed DPI.
-            progress_queue.put(('progress', 1, 3, _('Rendering pages...')))
+            progress_queue.put(('progress', 1, 3, f'{_("Converting...")}'))
             max_rect_w = max(doc[p].rect.width for p in pages)
             target_width = round(max_rect_w * DPI / 72.0)
 
@@ -106,7 +106,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                         'progress',
                         1 + i,
                         1 + len(pages),
-                        f'{_("Rendering...")} {i}/{len(pages)}',
+                        f'{_("Converting...")} {i}/{len(pages)}',
                     )
                 )
                 page = doc[p]
@@ -134,6 +134,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             )
 
             progress_queue.put(('progress', 3, 3, _('Saving...')))
+            progress_queue.put(('progress', 3, 3, _('Done')))
             out_pix.save(output_path, jpg_quality=QUALITY)
 
             summary = _('Created long image from %d page(s): %s') % (

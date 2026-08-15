@@ -60,7 +60,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                     'progress',
                     index,
                     total,
-                    f'{_("Extracting images……")} {index}/{total}',
+                    f'{_("Extracting...")} {index}/{total}',
                 )
             )
 

@@ -139,7 +139,7 @@ def worker(params, progress_queue, cancel_event):
                         'progress',
                         idx,
                         total_outputs,
-                        f'{_("Splitting……")} {idx}/{total_outputs}',
+                        f'{_("Splitting...")} {idx}/{total_outputs}',
                     )
                 )
 

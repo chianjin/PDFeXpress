@@ -80,6 +80,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                 out.set_toc(toc)
 
             progress_queue.put(('progress', total, total, _('Saving...')))
+            progress_queue.put(('progress', total, total, _('Done')))
             out.save(output_path)
             progress_queue.put(('done', str(output_path)))
 

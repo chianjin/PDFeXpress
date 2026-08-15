@@ -87,7 +87,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                         'progress',
                         index,
                         total,
-                        f'{_("Adding page numbers...")} {index}/{total}',
+                        f'{_("Adding...")} {index}/{total}',
                     )
                 )
                 if index not in page_map:
@@ -115,6 +115,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
 
             Path(params['output']).parent.mkdir(parents=True, exist_ok=True)
             doc.save(Path(params['output']))
+            progress_queue.put(('progress', total, total, _('Done')))
             progress_queue.put(('done', str(params['output'])))
     except Exception as exc:
         progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))
@@ -162,7 +163,7 @@ def run_add_page_numbers_with_progress(master, params: dict[str, Any]) -> None:
                     dialog.set_progress((cur / tot) if tot else 0, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=_('Page Numbers Added'))
+                    showinfo(title=_('Done'), message=msg[1])
                     return
                 elif kind == 'error':
                     _finish()

@@ -45,7 +45,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
                 src = Path(in_path)
                 progress_queue.put(
-                    ('progress', index, total, f'{_("Adding...")} {index}/{total}')
+                    ('progress', index, total, f'{_("Converting...")} {index}/{total}')
                 )
 
                 try:
@@ -60,6 +60,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                     return
 
             progress_queue.put(('progress', total, total, _('Saving...')))
+            progress_queue.put(('progress', total, total, _('Done')))
             out.save(output_path)
 
         summary = _('Converted %d image(s) to PDF: %s') % (total, output_path.name)

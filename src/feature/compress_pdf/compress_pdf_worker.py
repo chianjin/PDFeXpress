@@ -179,8 +179,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                                     'progress',
                                     page_index,
                                     total_pages,
-                                    _('Compressing images…… %s (%d/%d)')
-                                    % (src.name, page_index, total_pages),
+                                    f'{_("Compressing...")} {page_index}/{total_pages}',
                                 )
                             )
                             _downscale_page_images(doc, page, max_dpi, jpg_quality, ctr)
@@ -216,7 +215,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                         'progress',
                         index,
                         total,
-                        _('Compressing…… %d/%d') % (index, total),
+                        f'{_("Compressing...")} {index}/{total}',
                     )
                 )
                 try:

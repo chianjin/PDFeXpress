@@ -50,7 +50,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total, f'{_("Rotating……")} {index}/{total}')
+                ('progress', index, total, f'{_("Rotating...")} {index}/{total}')
             )
 
             with pymupdf.open(src) as doc:
@@ -112,7 +112,7 @@ def run_rotate_with_progress(master, params: dict) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=_('PDF Rotated'))
+                    showinfo(title=_('Done'), message=msg[1])
                     return
                 elif kind == 'error':
                     err = msg[1]

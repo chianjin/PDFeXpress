@@ -129,6 +129,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             _place_other(out, opened, other)
 
             progress_queue.put(('progress', total, total, _('Saving...')))
+            progress_queue.put(('progress', total, total, _('Done')))
             out.save(output_path)
         for d in opened:
             d.close()
@@ -189,7 +190,7 @@ def run_merge_invoices_with_progress(master, params: dict) -> None:
                     _finish()
                     showinfo(
                         title=_('Done'),
-                        message=_('Invoices Merged'),
+                        message=msg[1],
                     )
                     return
                 elif kind == 'error':

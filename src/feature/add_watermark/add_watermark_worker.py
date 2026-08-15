@@ -170,8 +170,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                                 'progress',
                                 page_index,
                                 total_pages,
-                                _('Adding watermark…… %s (%d/%d)')
-                                % (src.name, page_index, total_pages),
+                                f'{_("Watermarking...")} {page_index}/{total_pages}',
                             )
                         )
                         if mode == 'text':
@@ -243,7 +242,7 @@ def run_add_watermark_with_progress(master, params: dict[str, Any]) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=_('Watermark added'))
+                    showinfo(title=_('Done'), message=msg[1])
                     return
                 elif kind == 'partial':
                     _out_dir, _ok, _fail, summary = msg[1], msg[2], msg[3], msg[4]
