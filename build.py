@@ -6,7 +6,7 @@ import subprocess
 from pathlib import Path
 
 from src.config import (
-    EXECUTIVE_NAME,
+    EXECUTABLE_NAME,
     PROJECT_AUTHOR,
     PROJECT_NAME,
     PROJECT_URL,
@@ -29,10 +29,12 @@ if PLATFORM == 'Darwin':
     PLATFORM = 'macOS'
 MACHINE = platform.machine()
 
-DATA_FOLDERS = (
-    (f'{SOURCE_DIR_NAME}/locale', f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}/locale'),
-    (f'{SOURCE_DIR_NAME}/data', f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}/data'),
-)
+# Runtime resources (asset/locale) and feature modules are bundled into the
+# PyInstaller build via --add-data / --collect-submodules below; they land in
+# the frozen `_internal` directory that config.EXECUTIVE_PATH (sys._MEIPASS)
+# resolves at runtime. No post-build copy of `data` is needed (src/data was
+# removed).
+
 
 DATA_FILES = (
     'LICENSE',
@@ -51,7 +53,7 @@ INSTALLER_BASENAME = (
     f'{PROJECT_NAME.replace(" ", "")}-Setup-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}'
 )
 
-ISS_TEMPLATE = f'{ASSETS_DIR_NAME}/{EXECUTIVE_NAME}.iss'
+ISS_TEMPLATE = f'{ASSETS_DIR_NAME}/{EXECUTABLE_NAME}.iss'
 sep = ';' if PLATFORM == 'Windows' else ':'
 
 
@@ -61,20 +63,24 @@ def build_executable():
     print('Building executable with PyInstaller...')
 
     # Path to the main script
-    main_script = f'{SOURCE_DIR_NAME}/{EXECUTIVE_NAME}.py'
-    spec_file = f'{EXECUTIVE_NAME}.spec'
+    main_script = f'{SOURCE_DIR_NAME}/{EXECUTABLE_NAME}.py'
+    spec_file = f'{EXECUTABLE_NAME}.spec'
 
     command = ['pyinstaller', '--noconfirm', '--clean']
-    if Path(spec_file).exists():
+    if False: # Path(spec_file).exists():
         command.append(spec_file)
     else:
         command.extend(
             [
                 '--windowed',
-                f'--name={EXECUTIVE_NAME}',
+                f'--name={EXECUTABLE_NAME}',
                 f'--distpath={DIST_DIR_NAME}',
                 f'--workpath={BUILD_DIR_NAME}',
-                f'--icon=src/data/{EXECUTIVE_NAME}.ico',
+                f'--icon={SOURCE_DIR_NAME}/asset/icon/{EXECUTABLE_NAME}.ico',
+                f'--add-data={SOURCE_DIR_NAME}/asset{sep}asset',
+                f'--add-data={SOURCE_DIR_NAME}/locale{sep}locale',
+                '--collect-submodules',
+                'feature',
                 main_script,
             ]
         )
@@ -85,15 +91,13 @@ def build_executable():
         subprocess.run(
             command, check=True, capture_output=True, text=True, encoding='utf-8'
         )
-        print('Coping locale and data files...')
+        print('Copying distribution files...')
         print(
-            f'PyInstaller build successful: {PROJECT_DIR / DIST_DIR_NAME / EXECUTIVE_NAME}'
+            f'PyInstaller build successful: {PROJECT_DIR / DIST_DIR_NAME / EXECUTABLE_NAME}'
         )
 
         for data_file in DATA_FILES:
-            shutil.copy(data_file, f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}')
-        for src_dir, dst_dir in DATA_FOLDERS:
-            shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
+             shutil.copy(data_file, f'{DIST_DIR_NAME}/{EXECUTABLE_NAME}')
         print('Executable build process completed.')
     except subprocess.CalledProcessError as e:
         print('PyInstaller build failed.')
@@ -118,7 +122,7 @@ def create_portable():
     archive_basename = RELEASE_DIR / ARCHIVE_BASENAME
 
     # The directory to be zipped is inside DIST_DIR, named after the executive
-    dist_dir = Path(f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}')
+    dist_dir = Path(f'{DIST_DIR_NAME}/{EXECUTABLE_NAME}')
 
     if not dist_dir.is_dir():
         print(f'Error: Source directory for archive not found: {dist_dir}')
@@ -152,11 +156,11 @@ def generate_iss():
     iss = iss.replace('%%PROJECT_AUTHOR%%', PROJECT_AUTHOR)
     iss = iss.replace('%%PROJECT_URL%%', PROJECT_URL)
     iss = iss.replace('%%PROJECT_DIR%%', str(PROJECT_DIR))
-    iss = iss.replace('%%EXECUTIVE_NAME%%', EXECUTIVE_NAME)
+    iss = iss.replace('%%EXECUTABLE_NAME%%', EXECUTABLE_NAME)
     iss = iss.replace('%%SETUP_BASENAME%%', str(INSTALLER_BASENAME))
     iss = iss.replace('%%PROJECT_UUID%%', PROJECT_UUID)
 
-    setup_iss_file = f'{DIST_DIR_NAME}/{EXECUTIVE_NAME}.iss'
+    setup_iss_file = f'{DIST_DIR_NAME}/{EXECUTABLE_NAME}.iss'
     with open(setup_iss_file, 'w', encoding='utf-8') as iss_file:
         iss_file.write(iss)
 
@@ -169,15 +173,18 @@ def chack_iscc():
         print('Warning: Inno Setup not supported on this platform.')
         return None
 
-    iscc_command = Path(os.environ['ProgramFiles(x86)']) / 'Inno Setup 6/ISCC.exe'
-    if iscc_command.exists():
-        return iscc_command
+    # Detect both Inno Setup 6 and 7; the newer 7 is preferred when present
+    program_dirs = [
+        os.environ['ProgramFiles'],
+        os.environ['ProgramFiles(x86)'],
+    ]
+    for version in ('6', '7'):
+        for base in program_dirs:
+            iscc_command = Path(base) / f'Inno Setup {version}/ISCC.exe'
+            if iscc_command.exists():
+                return iscc_command
 
-    iscc_command = Path(os.environ['ProgramFiles']) / 'Inno Setup 6/ISCC.exe'
-    if iscc_command.exists():
-        return iscc_command
-
-    print('Warning: Inno Setup not found. Install Inno Setup 6 to create installer.')
+    print('Warning: Inno Setup not found. Install Inno Setup 6 or 7 to create installer.')
     return None
 
 

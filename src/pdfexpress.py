@@ -36,7 +36,10 @@ def main():
 
     # Set window's icon
     if system == 'Windows':
-        root.iconbitmap(EXECUTIVE_PATH / f'asset/icon/{EXECUTABLE_NAME}.ico')
+        try:
+            root.iconbitmap(EXECUTIVE_PATH / f'asset/icon/{EXECUTABLE_NAME}.ico')
+        except Exception:
+            pass  # a missing icon must not prevent the app from starting
 
     # Create MainFrame
     app = MainFrame(root)

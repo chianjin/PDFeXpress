@@ -6,8 +6,8 @@
 #define MyAppVersion "%%PROJECT_VERSION%%"
 #define MyAppPublisher "%%PROJECT_AUTHOR%%"
 #define MyAppURL "%%PROJECT_URL%%"
-#define MyAppExeName "%%EXECUTIVE_NAME%%"
-#define MyAppExeFile "%%EXECUTIVE_NAME%%.exe"
+#define MyAppExeName "%%EXECUTABLE_NAME%%"
+#define MyAppExeFile "%%EXECUTABLE_NAME%%.exe"
 #define MyOutputFileBaseName "%%SETUP_BASENAME%%"
 
 [Setup]
@@ -38,7 +38,7 @@ LicenseFile={#MyProjectDir}\dist\{#MyAppExeName}\LICENSE
 ;PrivilegesRequired=lowest
 OutputDir={#MyProjectDir}\release\{#MyAppVersion}
 OutputBaseFilename={#MyOutputFileBaseName}
-SetupIconFile={#MyProjectDir}\dist\{#MyAppExeName}\data\{#MyAppExeName}.ico
+SetupIconFile={#MyProjectDir}\dist\{#MyAppExeName}\_internal\asset\icon\{#MyAppExeName}.ico
 SolidCompression=yes
 WizardStyle=modern
 

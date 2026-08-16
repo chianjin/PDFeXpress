@@ -85,7 +85,7 @@ class AboutDialog(tk.Toplevel):
             ("Pillow", "MIT-CMU",
              "https://python-pillow.org/"),
             ("tkinterdnd2", "MIT License",
-             "https://github.com/neoacevedo/tkinterdnd2"),
+             "https://github.com/Eliav2/tkinterdnd2"),
         ]
 
         for row, (name, license_text, url) in enumerate(libraries):
