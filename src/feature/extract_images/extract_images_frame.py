@@ -32,7 +32,7 @@ class ExtractImagesFrame(BaseFeatureFrame):
         self._ignore_small = tk.BooleanVar(value=False)
         ttk.Checkbutton(
             self.options_frame,
-            text=_('Ignore small images'),
+            text=_('Ignore Small Images'),
             variable=self._ignore_small,
         ).pack(side='left')
 

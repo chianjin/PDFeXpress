@@ -1,35 +1,59 @@
-# PDF Express
+# PDF eXpress
 
 [[English]](https://github.com/chianjin/PDFeXpress/blob/main/README.md)  [[简体中文]](https://github.com/chianjin/PDFeXpress/blob/main/README.zh_CN.md)
 
-**PDF Express** is a Python-based application for PDF file operations.
+**PDF eXpress** is a Python-based application for PDF file operations.
 
 ## Development Environment
 
-- Python 3.13
-- PyMuPDF==1.26.5
-- pillow==12.0.0
-- tkinterdnd2==0.4.3
-- pyinstaller==6.16.0
+- Python 3.14
+- pymupdf==1.28.2
+- pillow==12.3.0
+- tkinterdnd2==0.6.2
+- pyinstaller==6.22.1
 
 ## Current Version
 
-The current version is 1.1.0, which has been tested on Windows 11 AMD64 and Ubuntu 25.10 x86_64.
+The current version is 2.0, which has been tested on Windows 11 AMD64 and Ubuntu 25.10 x86_64.
 
 ## Main Functions
+
+**Document Assembly**
 
 * **Merge PDF**: Merge multiple PDF files into one
 * **Interleave PDF**: Interleave pages from two PDF files
 * **Split PDF**: Split one PDF to several, supporting single-page splitting, by page count, by copy count, and by range
 * **Rotate PDF**: Rotate each page by 90°, 180°, and 270° clockwise
+* **Delete Pages**: Delete specified pages from a PDF file
+
+**Content Extraction**
+
 * **Extract Text**: Extract plain text from PDF files without formatting
 * **Extract Images**: Extract images from PDF files and save them in original format
+
+**Format Conversion**
+
 * **Images to PDF**: Convert images to one PDF
 * **PDF to Images**: Convert each page to image
 * **PDF to Long Image**: Convert each page to image and merge into a long image
-* **Delete Pages**: Delete specified pages from a PDF file
+
+**Document Compression**
+
+* **Compress PDF**: Compress a PDF by re-encoding embedded images
+
+**Page Annotation**
+
 * **Add Page Numbers**: Add page numbers to a PDF file with various formatting options
+* **Add Watermark**: Add a watermark to PDF pages
 * **Edit Bookmark**: Edit the bookmark of PDF
+
+**Document Security**
+
+* **Encrypt PDF**: Encrypt a PDF with a user/owner password
+* **Decrypt PDF**: Remove password protection from a PDF
+
+**Invoice Processing**
+
 * **Merge Invoices**: Merge multiple Chinese invoice PDFs into one for easy printing
 
 ## Running Method
@@ -66,7 +90,7 @@ Precompiled package and installer are saved in the `release` directory.
 
 ## License
 
-Copyright (c) 2025 chian.jin@gmail.com.
+Copyright (c) 2026 chian.jin@gmail.com.
 
 This project is licensed under the GNU Affero General Public License Version 3.
 See the [LICENSE](LICENSE) file for full details.
@@ -80,7 +104,7 @@ This project utilizes several third-party libraries. The following is a list of 
 | Python      | [Python Software Foundation License](https://docs.python.org/3/license.html)                          | [python.org](https://www.python.org/)                                 |
 | PyMuPDF     | [GNU AGPLv3](https://www.gnu.org/licenses/agpl-3.0.en.html)                                           | [PyMuPdf - GitHub](https://github.com/pymupdf/PyMuPDF)                |
 | Pillow      | [Pillow License (MIT-CMU)](https://github.com/python-pillow/Pillow/blob/main/LICENSE)                 | [python-pillow.org](https://python-pillow.org/)                       |
-| tkinterdnd2 | [MIT License](https://github.com/Eliav2/tkinterdnd2/blob/master/LICENSE)                             | [pypi.org/project/tkinterdnd2](https://pypi.org/project/tkinterdnd2/) |
+| tkinterdnd2 | [MIT License](https://github.com/pmgagne/tkinterdnd2/blob/master/LICENSE)                             | [pypi.org/project/tkinterdnd2](https://pypi.org/project/tkinterdnd2/) |
 | PyInstaller | [GPL 2.0 with linking exception](https://github.com/pyinstaller/pyinstaller/blob/develop/LICENSE.txt) | [pyinstaller.org](https://pyinstaller.org/)                           |
 
 The application is built using PyInstaller, which has a special license that allows for the distribution of bundled applications (including commercial ones) without being subject to the GPL.

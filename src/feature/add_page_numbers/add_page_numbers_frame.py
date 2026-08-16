@@ -8,7 +8,7 @@ from tkinter.messagebox import showerror
 
 from tkinterdnd2 import TkinterDnD
 
-from config import EXECUTIVE_PATH
+from config import EXECUTABLE_PATH
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
 from util.page_number_rule import build_page_number_map
@@ -69,7 +69,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         ttk.Entry(rule_row, textvariable=self._rule, width=30).pack(
             side='left', padx=(5, 0)
         )
-        self.help_icon = tk.PhotoImage(file=EXECUTIVE_PATH / 'asset/icon/help.png')
+        self.help_icon = tk.PhotoImage(file=EXECUTABLE_PATH / 'asset/icon/help.png')
         ttk.Button(
             rule_row, image=self.help_icon, style='Toolbutton', command=self._open_help
         ).pack(side='left')
@@ -217,13 +217,13 @@ class AddPageNumbersFrame(BaseFeatureFrame):
     def _open_help(self):
         posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
         language = posix_lang.split('.')[0]
-        guide_path = EXECUTIVE_PATH / f'asset/page_number_syntax_guide-{language}.txt'
+        guide_path = EXECUTABLE_PATH / f'asset/guide/page_number_syntax_guide-{language}.txt'
         if not guide_path.exists():
-            guide_path = EXECUTIVE_PATH / 'asset/page_number_syntax_guide-en_US.txt'
+            guide_path = EXECUTABLE_PATH / 'asset/guide/page_number_syntax_guide-en_US.txt'
         with open(guide_path, encoding='UTF-8') as f:
             help_content = f.readlines()
         title = help_content[0].strip()
-        content = ''.join(help_content[1:])
+        content = ''.join(help_content)
         HelpWindow(self, title=title, content=content).focus()
 
     def _browse(self):

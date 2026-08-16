@@ -32,7 +32,7 @@ class CompressPdfFrame(BaseFeatureFrame):
         self._compress_var = tk.BooleanVar(value=False)
         ttk.Checkbutton(
             self.options_frame,
-            text=_('Compress embedded images'),
+            text=_('Compress Embedded Images'),
             variable=self._compress_var,
         ).pack(side='left', padx=(0, 10))
 
@@ -130,7 +130,7 @@ class CompressPdfFrame(BaseFeatureFrame):
         if self._jpg_quality.get() <= 0 or self._jpg_quality.get() > 100:
             showerror(
                 title=_('Error'),
-                message=_('jpg quality must be between 1 and 100.'),
+                message=_('JPG quality must be between 1 and 100.'),
             )
             return False
         return True

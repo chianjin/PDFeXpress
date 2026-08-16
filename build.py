@@ -67,7 +67,7 @@ def build_executable():
     spec_file = f'{EXECUTABLE_NAME}.spec'
 
     command = ['pyinstaller', '--noconfirm', '--clean']
-    if False: # Path(spec_file).exists():
+    if Path(spec_file).exists():
         command.append(spec_file)
     else:
         command.extend(
@@ -156,6 +156,7 @@ def generate_iss():
     iss = iss.replace('%%PROJECT_AUTHOR%%', PROJECT_AUTHOR)
     iss = iss.replace('%%PROJECT_URL%%', PROJECT_URL)
     iss = iss.replace('%%PROJECT_DIR%%', str(PROJECT_DIR))
+    iss = iss.replace('%%INSTALL_DIR%%', PROJECT_NAME.replace(' ', ''))
     iss = iss.replace('%%EXECUTABLE_NAME%%', EXECUTABLE_NAME)
     iss = iss.replace('%%SETUP_BASENAME%%', str(INSTALLER_BASENAME))
     iss = iss.replace('%%PROJECT_UUID%%', PROJECT_UUID)

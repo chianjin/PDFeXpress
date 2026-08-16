@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-from config import EXECUTIVE_PATH
+from config import EXECUTABLE_PATH
 from util.helpers import get_title_font
 
 
@@ -19,9 +19,9 @@ class HeaderFrame(ttk.Frame):
         if not feature_id:
             return None
 
-        icon_path = EXECUTIVE_PATH / f'asset/icon/feature/{feature_id}.png'
+        icon_path = EXECUTABLE_PATH / f'asset/icon/feature/{feature_id}.png'
         if not icon_path.exists():
-            icon_path = EXECUTIVE_PATH / 'asset/icon/feature/holder.png'
+            icon_path = EXECUTABLE_PATH / 'asset/icon/feature/holder.png'
 
         try:
             return tk.PhotoImage(file=icon_path)

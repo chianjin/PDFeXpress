@@ -1,5 +1,44 @@
 # ChangeLog
 
+## 2.0
+
+2026-08-16
+
+### Feature Groups
+
+Four new features added (Encrypt, Decrypt, Compress, Add Watermark), bringing the total to 17 features across 7 groups.
+
+- **Document Assembly**
+    - **Merge PDF**: No change.
+    - **Interleave PDF**: No change.
+    - **Split PDF**: No change.
+    - **Rotate PDF**: No change.
+    - **Delete Pages**: No change.
+
+- **Content Extraction**
+    - **Extract Text**: No change.
+    - **Extract Images**: No change.
+
+- **Format Conversion**
+    - **Images to PDF**: No change.
+    - **PDF to Images**: No change.
+    - **PDF to Long Image**: No change.
+
+- **Document Compression**
+    - **Compress PDF** (new): Compress a PDF by enabling the built-in compression option, with further compression via re-encoding embedded images.
+
+- **Page Annotation**
+    - **Add Page Numbers**: No change.
+    - **Add Watermark** (new): Overlay text or image watermarks on PDF pages.
+    - **Edit Bookmark**: No change.
+
+- **Document Security**
+    - **Encrypt PDF** (new): Encrypt a PDF with a password.
+    - **Decrypt PDF** (new): Remove password protection from a PDF.
+
+- **Invoice Processing**
+    - **Merge Invoices**: No change.
+
 ## 1.1.0
 
 2025-11-15

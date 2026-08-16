@@ -6,30 +6,55 @@
 
 ## 开发环境
 
-- Python 3.13
-- PyMuPDF==1.26.5
-- pillow==12.0.0
-- tkinterdnd2==0.4.3
-- pyinstaller==6.16.0
+- Python 3.14
+- pymupdf==1.28.2
+- pillow==12.3.0
+- tkinterdnd2==0.6.2
+- pyinstaller==6.22.1
+
 
 ## 当前版本
 
-当前版本为 1.1.0，已经在 Windows 11 AMD64 和 Ubuntu 25.10 x86_64 系统上测试通过。
+当前版本为 2.0，已经在 Windows 11 AMD64 和 Ubuntu 25.10 x86_64 系统上测试通过。
 
 ## 主要功能
 
+**文档组装**
+
 * **合并 PDF**：将多个 PDF 文件合并为一个 PDF
 * **交叉合并**：将两个 PDF 文件交叉合并
-* **拆分 PDF**：将 PDF 拆分为多个PDF，支持单页分割、按页数分割、按份数分割以及按范围分割
+* **拆分 PDF**：将 PDF 拆分为多个PDF，支持单页分割、按页数分割、按份数分割以及按自定义范围分割
 * **旋转 PDF**：将 PDF 页面顺时针旋转90°、180°和270°
+* **删除页面**：从 PDF 文件中删除指定页面
+
+**内容提取**
+
 * **提取文本**：提取 PDF 文件所包含的纯文本，不包含格式
 * **提取图像**：提取 PDF 文件所包含的图像，按照原始数据格式保存
+
+**格式转换**
+
 * **图像转PDF**：将多个图像文件转换为 PDF
 * **PDF转图像**：将 PDF 文件的每页转换为图像
 * **PDF转长图**：将 PDF 转换成图像并拼合成长图
-* **删除页面**：从 PDF 文件中删除指定页面
+
+**文档压缩**
+
+* **压缩 PDF**：通过重新编码内嵌图像来压缩 PDF
+
+**页面标注**
+
 * **添加页码**：为 PDF 文件添加页码，支持多种格式
+* **添加水印**：为 PDF 页面添加水印
 * **编辑书签**：编辑 PDF 的书签
+
+**文档安全**
+
+* **加密 PDF**：使用用户/所有者密码加密 PDF
+* **解密 PDF**：移除 PDF 的密码保护
+
+**发票处理**
+
 * **合并发票**：合并多个 PDF 格式的中国发票方便打印
 
 ## 运行方式
@@ -67,7 +92,7 @@ Windows平台上需要下载 [GUN gettext](https://mlocati.github.io/articles/ge
 
 ## 版权和许可协议
 
-Copyright (c) 2025 chian.jin@gmail.com.
+Copyright (c) 2026 chian.jin@gmail.com.
 
 本项目采用 GNU Affero General Public License Version 3 许可协议。
 详情请参阅 [LICENSE](LICENSE) 文件。

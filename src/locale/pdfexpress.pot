@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PDF eXpress 1.0.0\n"
+"Project-Id-Version: PDF eXpress 1.9.2-alpha\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 11:00+0800\n"
+"POT-Creation-Date: 2026-08-16 17:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,1116 +17,1176 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: core/main_frame.py:22
+#: src/core/main_frame.py:24
 msgid "Feature List"
 msgstr ""
 
-#: core/main_frame.py:56
+#: src/core/main_frame.py:58
 msgid "About PDF eXpress"
 msgstr ""
 
-#: core/not_implemented_frame.py:14
+#: src/core/main_frame.py:63
+msgid "Support Me"
+msgstr ""
+
+#: src/core/not_implemented_frame.py:14
 msgid "Not implemented"
 msgstr ""
 
-#: core/progress_dialog.py:36
+#: src/core/progress_dialog.py:36
 msgid "Cancel"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:36
-#: feature/base_feature_frame.py:22 feature/decrypt_pdf/decrypt_pdf_frame.py:23
-#: feature/delete_pages/delete_pages_frame.py:25
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:19
-#: feature/interleave_merge/interleave_merge_frame.py:19
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:26
-#: feature/split_pdf/split_pdf_frame.py:23
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:37
+#: src/feature/base_feature_frame.py:22
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:24
+#: src/feature/delete_pages/delete_pages_frame.py:26
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:20
+#: src/feature/interleave_merge/interleave_merge_frame.py:20
+#: src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:27
+#: src/feature/split_pdf/split_pdf_frame.py:26
 msgid "Input PDF"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:44
-#: feature/add_page_numbers/add_page_numbers_frame.py:59
-#: feature/add_watermark/add_watermark_frame.py:29
-#: feature/add_watermark/add_watermark_frame.py:72
-#: feature/compress_pdf/compress_pdf_frame.py:28
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:31
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:46
-#: feature/delete_pages/delete_pages_frame.py:33
-#: feature/delete_pages/delete_pages_frame.py:48
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:26
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:40
-#: feature/encrypt_pdf/encrypt_pdf_frame.py:35
-#: feature/extract_images/extract_images_frame.py:28
-#: feature/extract_text/extract_text_frame.py:28
-#: feature/images_to_pdf/images_to_pdf_frame.py:39
-#: feature/interleave_merge/interleave_merge_frame.py:30
-#: feature/interleave_merge/interleave_merge_frame.py:40
-#: feature/interleave_merge/interleave_merge_frame.py:56
-#: feature/merge_invoices/merge_invoices_frame.py:32
-#: feature/merge_pdf/merge_pdf_frame.py:31
-#: feature/pdf_to_images/pdf_to_images_frame.py:39
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:34
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:49
-#: feature/rotate_pdf/rotate_pdf_frame.py:33
-#: feature/split_pdf/split_pdf_frame.py:31
-#: feature/split_pdf/split_pdf_frame.py:46
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:45
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:61
+#: src/feature/add_watermark/add_watermark_frame.py:29
+#: src/feature/add_watermark/add_watermark_frame.py:72
+#: src/feature/compress_pdf/compress_pdf_frame.py:28
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:32
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:48
+#: src/feature/delete_pages/delete_pages_frame.py:34
+#: src/feature/delete_pages/delete_pages_frame.py:50
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:27
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:42
+#: src/feature/encrypt_pdf/encrypt_pdf_frame.py:35
+#: src/feature/extract_images/extract_images_frame.py:28
+#: src/feature/extract_text/extract_text_frame.py:28
+#: src/feature/images_to_pdf/images_to_pdf_frame.py:39
+#: src/feature/interleave_merge/interleave_merge_frame.py:31
+#: src/feature/interleave_merge/interleave_merge_frame.py:41
+#: src/feature/interleave_merge/interleave_merge_frame.py:59
+#: src/feature/merge_invoices/merge_invoices_frame.py:32
+#: src/feature/merge_pdf/merge_pdf_frame.py:31
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:39
+#: src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:35
+#: src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:51
+#: src/feature/rotate_pdf/rotate_pdf_frame.py:33
+#: src/feature/split_pdf/split_pdf_frame.py:34
+#: src/feature/split_pdf/split_pdf_frame.py:50
 msgid "Browser"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:53
-#: feature/base_feature_frame.py:25 feature/decrypt_pdf/decrypt_pdf_frame.py:40
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:33
-#: feature/images_to_pdf/images_to_pdf_frame.py:33
-#: feature/interleave_merge/interleave_merge_frame.py:50
-#: feature/merge_invoices/merge_invoices_frame.py:26
-#: feature/merge_pdf/merge_pdf_frame.py:25
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:55
+#: src/feature/base_feature_frame.py:25
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:42
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:35
+#: src/feature/images_to_pdf/images_to_pdf_frame.py:33
+#: src/feature/interleave_merge/interleave_merge_frame.py:53
+#: src/feature/merge_invoices/merge_invoices_frame.py:26
+#: src/feature/merge_pdf/merge_pdf_frame.py:25
 msgid "Output PDF"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:65
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:67
 msgid "Page Number Rule"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:76
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:78
 msgid "Default: continuous numbering from 1. Click Help for details."
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:82
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:84
 msgid "Font"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:92
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:94
 msgid "Bold"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:95
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:97
 msgid "Size"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:112
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:114
 msgid "Position"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:115
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:117
 msgid "Header"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:122
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:124
 msgid "Footer"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:130
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:132
 msgid "Left"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:137
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:139
 msgid "Center"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:144
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:146
 msgid "Right"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:152
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:154
 msgid "Outside"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:159
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:161
 msgid "Inside"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:182
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:184
 msgid "Top Margin"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:184
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:186
 msgid "Bottom Margin"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:186
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:188
 msgid "Left Margin"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:188
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:190
 msgid "Right Margin"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:190
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:192
 msgid "Margin"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:303
-#: feature/add_page_numbers/add_page_numbers_frame.py:306
-#: feature/add_page_numbers/add_page_numbers_frame.py:309
-#: feature/add_page_numbers/add_page_numbers_frame.py:312
-#: feature/add_page_numbers/add_page_numbers_frame.py:322
-#: feature/add_page_numbers/add_page_numbers_frame.py:330
-#: feature/add_page_numbers/add_page_numbers_worker.py:170
-#: feature/add_watermark/add_watermark_frame.py:143
-#: feature/add_watermark/add_watermark_frame.py:149
-#: feature/add_watermark/add_watermark_frame.py:156
-#: feature/add_watermark/add_watermark_frame.py:164
-#: feature/add_watermark/add_watermark_frame.py:170
-#: feature/add_watermark/add_watermark_worker.py:255
-#: feature/compress_pdf/compress_pdf_frame.py:114
-#: feature/compress_pdf/compress_pdf_frame.py:120
-#: feature/compress_pdf/compress_pdf_frame.py:126
-#: feature/compress_pdf/compress_pdf_frame.py:132
-#: feature/compress_pdf/compress_pdf_worker.py:314
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:115
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:118
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:125
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:131
-#: feature/delete_pages/delete_pages_frame.py:138
-#: feature/delete_pages/delete_pages_frame.py:141
-#: feature/delete_pages/delete_pages_frame.py:148
-#: feature/delete_pages/delete_pages_frame.py:151
-#: feature/delete_pages/delete_pages_frame.py:154
-#: feature/delete_pages/delete_pages_frame.py:158
-#: feature/delete_pages/delete_pages_frame.py:162
-#: feature/delete_pages/delete_pages_frame.py:178
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:166
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:172
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:175
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:190
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:219
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:238
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:257
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:280
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:283
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:286
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:293
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:298
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:308
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:313
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:317
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:324
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:345
-#: feature/encrypt_pdf/encrypt_pdf_frame.py:99
-#: feature/encrypt_pdf/encrypt_pdf_frame.py:105
-#: feature/encrypt_pdf/encrypt_pdf_frame.py:111
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:149
-#: feature/extract_images/extract_images_frame.py:108
-#: feature/extract_images/extract_images_frame.py:114
-#: feature/extract_images/extract_images_frame.py:122
-#: feature/extract_images/extract_images_frame.py:128
-#: feature/extract_images/extract_images_worker.py:179
-#: feature/extract_text/extract_text_frame.py:82
-#: feature/extract_text/extract_text_frame.py:88
-#: feature/extract_text/extract_text_worker.py:139
-#: feature/images_to_pdf/images_to_pdf_frame.py:104
-#: feature/images_to_pdf/images_to_pdf_frame.py:110
-#: feature/images_to_pdf/images_to_pdf_worker.py:125
-#: feature/interleave_merge/interleave_merge_frame.py:143
-#: feature/interleave_merge/interleave_merge_frame.py:146
-#: feature/interleave_merge/interleave_merge_worker.py:133
-#: feature/merge_invoices/merge_invoices_frame.py:99
-#: feature/merge_invoices/merge_invoices_frame.py:103
-#: feature/merge_invoices/merge_invoices_worker.py:199
-#: feature/merge_pdf/merge_pdf_frame.py:110
-#: feature/merge_pdf/merge_pdf_frame.py:114
-#: feature/merge_pdf/merge_pdf_worker.py:147
-#: feature/pdf_to_images/pdf_to_images_frame.py:132
-#: feature/pdf_to_images/pdf_to_images_frame.py:138
-#: feature/pdf_to_images/pdf_to_images_frame.py:145
-#: feature/pdf_to_images/pdf_to_images_frame.py:148
-#: feature/pdf_to_images/pdf_to_images_frame.py:153
-#: feature/pdf_to_images/pdf_to_images_frame.py:156
-#: feature/pdf_to_images/pdf_to_images_worker.py:160
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:133
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:139
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:194
-#: feature/rotate_pdf/rotate_pdf_frame.py:104
-#: feature/rotate_pdf/rotate_pdf_frame.py:110
-#: feature/rotate_pdf/rotate_pdf_worker.py:120
-#: feature/split_pdf/split_pdf_frame.py:183
-#: feature/split_pdf/split_pdf_frame.py:186
-#: feature/split_pdf/split_pdf_frame.py:189
-#: feature/split_pdf/split_pdf_frame.py:195
-#: feature/split_pdf/split_pdf_frame.py:201
-#: feature/split_pdf/split_pdf_frame.py:206
-#: feature/split_pdf/split_pdf_frame.py:211
-#: feature/split_pdf/split_pdf_frame.py:217
-#: feature/split_pdf/split_pdf_frame.py:222
-#: feature/split_pdf/split_pdf_frame.py:227
-#: feature/split_pdf/split_pdf_frame.py:243
-#: feature/split_pdf/split_pdf_worker.py:226
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:305
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:308
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:311
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:314
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:324
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:332
+#: src/feature/add_page_numbers/add_page_numbers_worker.py:170
+#: src/feature/add_watermark/add_watermark_frame.py:143
+#: src/feature/add_watermark/add_watermark_frame.py:149
+#: src/feature/add_watermark/add_watermark_frame.py:156
+#: src/feature/add_watermark/add_watermark_frame.py:164
+#: src/feature/add_watermark/add_watermark_frame.py:170
+#: src/feature/add_watermark/add_watermark_worker.py:255
+#: src/feature/compress_pdf/compress_pdf_frame.py:114
+#: src/feature/compress_pdf/compress_pdf_frame.py:120
+#: src/feature/compress_pdf/compress_pdf_frame.py:126
+#: src/feature/compress_pdf/compress_pdf_frame.py:132
+#: src/feature/compress_pdf/compress_pdf_worker.py:314
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:117
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:120
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:127
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:133
+#: src/feature/delete_pages/delete_pages_frame.py:140
+#: src/feature/delete_pages/delete_pages_frame.py:143
+#: src/feature/delete_pages/delete_pages_frame.py:150
+#: src/feature/delete_pages/delete_pages_frame.py:153
+#: src/feature/delete_pages/delete_pages_frame.py:156
+#: src/feature/delete_pages/delete_pages_frame.py:160
+#: src/feature/delete_pages/delete_pages_frame.py:164
+#: src/feature/delete_pages/delete_pages_frame.py:180
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:168
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:174
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:177
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:192
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:221
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:240
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:259
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:282
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:285
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:288
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:295
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:300
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:310
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:315
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:319
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:326
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:347
+#: src/feature/encrypt_pdf/encrypt_pdf_frame.py:99
+#: src/feature/encrypt_pdf/encrypt_pdf_frame.py:105
+#: src/feature/encrypt_pdf/encrypt_pdf_frame.py:111
+#: src/feature/encrypt_pdf/encrypt_pdf_worker.py:149
+#: src/feature/extract_images/extract_images_frame.py:108
+#: src/feature/extract_images/extract_images_frame.py:114
+#: src/feature/extract_images/extract_images_frame.py:122
+#: src/feature/extract_images/extract_images_frame.py:128
+#: src/feature/extract_images/extract_images_worker.py:179
+#: src/feature/extract_text/extract_text_frame.py:82
+#: src/feature/extract_text/extract_text_frame.py:88
+#: src/feature/extract_text/extract_text_worker.py:139
+#: src/feature/images_to_pdf/images_to_pdf_frame.py:104
+#: src/feature/images_to_pdf/images_to_pdf_frame.py:110
+#: src/feature/images_to_pdf/images_to_pdf_worker.py:125
+#: src/feature/interleave_merge/interleave_merge_frame.py:146
+#: src/feature/interleave_merge/interleave_merge_frame.py:149
+#: src/feature/interleave_merge/interleave_merge_worker.py:133
+#: src/feature/merge_invoices/merge_invoices_frame.py:99
+#: src/feature/merge_invoices/merge_invoices_frame.py:103
+#: src/feature/merge_invoices/merge_invoices_worker.py:199
+#: src/feature/merge_pdf/merge_pdf_frame.py:110
+#: src/feature/merge_pdf/merge_pdf_frame.py:114
+#: src/feature/merge_pdf/merge_pdf_worker.py:147
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:132
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:138
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:145
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:148
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:153
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:156
+#: src/feature/pdf_to_images/pdf_to_images_worker.py:160
+#: src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:135
+#: src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:141
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:194
+#: src/feature/rotate_pdf/rotate_pdf_frame.py:104
+#: src/feature/rotate_pdf/rotate_pdf_frame.py:110
+#: src/feature/rotate_pdf/rotate_pdf_worker.py:120
+#: src/feature/split_pdf/split_pdf_frame.py:199
+#: src/feature/split_pdf/split_pdf_frame.py:202
+#: src/feature/split_pdf/split_pdf_frame.py:205
+#: src/feature/split_pdf/split_pdf_frame.py:211
+#: src/feature/split_pdf/split_pdf_frame.py:217
+#: src/feature/split_pdf/split_pdf_frame.py:222
+#: src/feature/split_pdf/split_pdf_frame.py:227
+#: src/feature/split_pdf/split_pdf_frame.py:233
+#: src/feature/split_pdf/split_pdf_frame.py:238
+#: src/feature/split_pdf/split_pdf_frame.py:243
+#: src/feature/split_pdf/split_pdf_frame.py:259
+#: src/feature/split_pdf/split_pdf_worker.py:226
 msgid "Error"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:303
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:305
 msgid "Input PDF cannot be empty."
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:306
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:308
 msgid "Output PDF cannot be empty."
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:309
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:311
 msgid "Page number rule must be set."
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:312
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:314
 msgid "Font size must be at least 1."
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:322
+#: src/feature/add_page_numbers/add_page_numbers_frame.py:324
 msgid "Margin must be greater than 0."
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_worker.py:118
-#: feature/add_page_numbers/add_page_numbers_worker.py:166
-#: feature/add_watermark/add_watermark_worker.py:186
-#: feature/add_watermark/add_watermark_worker.py:245
-#: feature/compress_pdf/compress_pdf_worker.py:265
-#: feature/compress_pdf/compress_pdf_worker.py:310
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:120
-#: feature/delete_pages/delete_pages_frame.py:143
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:259
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:347
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:75
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:139
-#: feature/extract_images/extract_images_worker.py:120
-#: feature/extract_images/extract_images_worker.py:175
-#: feature/extract_text/extract_text_worker.py:80
-#: feature/extract_text/extract_text_worker.py:135
-#: feature/images_to_pdf/images_to_pdf_worker.py:63
-#: feature/images_to_pdf/images_to_pdf_worker.py:121
-#: feature/interleave_merge/interleave_merge_worker.py:69
-#: feature/interleave_merge/interleave_merge_worker.py:126
-#: feature/merge_invoices/merge_invoices_worker.py:132
-#: feature/merge_invoices/merge_invoices_worker.py:192
-#: feature/merge_pdf/merge_pdf_worker.py:83
-#: feature/merge_pdf/merge_pdf_worker.py:140
-#: feature/pdf_to_images/pdf_to_images_worker.py:101
-#: feature/pdf_to_images/pdf_to_images_worker.py:156
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:137
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:190
-#: feature/rotate_pdf/rotate_pdf_worker.py:68
-#: feature/rotate_pdf/rotate_pdf_worker.py:115
-#: feature/split_pdf/split_pdf_worker.py:167
-#: feature/split_pdf/split_pdf_worker.py:222
+#: src/feature/add_page_numbers/add_page_numbers_worker.py:118
+#: src/feature/add_page_numbers/add_page_numbers_worker.py:166
+#: src/feature/add_watermark/add_watermark_worker.py:186
+#: src/feature/add_watermark/add_watermark_worker.py:245
+#: src/feature/compress_pdf/compress_pdf_worker.py:265
+#: src/feature/compress_pdf/compress_pdf_worker.py:310
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:122
+#: src/feature/delete_pages/delete_pages_frame.py:145
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:261
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:349
+#: src/feature/encrypt_pdf/encrypt_pdf_worker.py:75
+#: src/feature/encrypt_pdf/encrypt_pdf_worker.py:139
+#: src/feature/extract_images/extract_images_worker.py:120
+#: src/feature/extract_images/extract_images_worker.py:175
+#: src/feature/extract_text/extract_text_worker.py:80
+#: src/feature/extract_text/extract_text_worker.py:135
+#: src/feature/images_to_pdf/images_to_pdf_worker.py:63
+#: src/feature/images_to_pdf/images_to_pdf_worker.py:121
+#: src/feature/interleave_merge/interleave_merge_worker.py:69
+#: src/feature/interleave_merge/interleave_merge_worker.py:126
+#: src/feature/merge_invoices/merge_invoices_worker.py:132
+#: src/feature/merge_invoices/merge_invoices_worker.py:192
+#: src/feature/merge_pdf/merge_pdf_worker.py:83
+#: src/feature/merge_pdf/merge_pdf_worker.py:140
+#: src/feature/pdf_to_images/pdf_to_images_worker.py:101
+#: src/feature/pdf_to_images/pdf_to_images_worker.py:156
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:137
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:190
+#: src/feature/rotate_pdf/rotate_pdf_worker.py:68
+#: src/feature/rotate_pdf/rotate_pdf_worker.py:115
+#: src/feature/split_pdf/split_pdf_worker.py:167
+#: src/feature/split_pdf/split_pdf_worker.py:222
 msgid "Done"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_worker.py:148
-#: feature/feature_list.py:40
+#: src/feature/add_page_numbers/add_page_numbers_worker.py:148
+#: src/feature/feature_list.py:40
 msgid "Add Page Numbers"
 msgstr ""
 
-#: feature/add_page_numbers/add_page_numbers_worker.py:149
-#: feature/add_watermark/add_watermark_worker.py:227
-#: feature/compress_pdf/compress_pdf_worker.py:328
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:120
-#: feature/extract_images/extract_images_worker.py:156
-#: feature/extract_text/extract_text_worker.py:116
-#: feature/images_to_pdf/images_to_pdf_worker.py:102
-#: feature/interleave_merge/interleave_merge_worker.py:106
-#: feature/merge_invoices/merge_invoices_worker.py:172
-#: feature/merge_pdf/merge_pdf_worker.py:120
-#: feature/pdf_to_images/pdf_to_images_worker.py:137
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:208
-#: feature/rotate_pdf/rotate_pdf_worker.py:134
-#: feature/split_pdf/split_pdf_worker.py:203
+#: src/feature/add_page_numbers/add_page_numbers_worker.py:149
+#: src/feature/add_watermark/add_watermark_worker.py:227
+#: src/feature/compress_pdf/compress_pdf_worker.py:328
+#: src/feature/encrypt_pdf/encrypt_pdf_worker.py:120
+#: src/feature/extract_images/extract_images_worker.py:156
+#: src/feature/extract_text/extract_text_worker.py:116
+#: src/feature/images_to_pdf/images_to_pdf_worker.py:102
+#: src/feature/interleave_merge/interleave_merge_worker.py:106
+#: src/feature/merge_invoices/merge_invoices_worker.py:172
+#: src/feature/merge_pdf/merge_pdf_worker.py:120
+#: src/feature/pdf_to_images/pdf_to_images_worker.py:137
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:208
+#: src/feature/rotate_pdf/rotate_pdf_worker.py:134
+#: src/feature/split_pdf/split_pdf_worker.py:203
 msgid "Preparing..."
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:18
-#: feature/compress_pdf/compress_pdf_frame.py:17
-#: feature/encrypt_pdf/encrypt_pdf_frame.py:24
-#: feature/extract_images/extract_images_frame.py:17
-#: feature/extract_text/extract_text_frame.py:17
-#: feature/merge_invoices/merge_invoices_frame.py:21
-#: feature/merge_pdf/merge_pdf_frame.py:20
-#: feature/pdf_to_images/pdf_to_images_frame.py:26
-#: feature/rotate_pdf/rotate_pdf_frame.py:22
+#: src/feature/add_watermark/add_watermark_frame.py:18
+#: src/feature/compress_pdf/compress_pdf_frame.py:17
+#: src/feature/encrypt_pdf/encrypt_pdf_frame.py:24
+#: src/feature/extract_images/extract_images_frame.py:17
+#: src/feature/extract_text/extract_text_frame.py:17
+#: src/feature/merge_invoices/merge_invoices_frame.py:21
+#: src/feature/merge_pdf/merge_pdf_frame.py:20
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:26
+#: src/feature/rotate_pdf/rotate_pdf_frame.py:22
 msgid "PDF List"
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:23
-#: feature/compress_pdf/compress_pdf_frame.py:22
-#: feature/delete_pages/delete_pages_frame.py:42
-#: feature/encrypt_pdf/encrypt_pdf_frame.py:29
-#: feature/extract_images/extract_images_frame.py:22
-#: feature/extract_text/extract_text_frame.py:22
-#: feature/pdf_to_images/pdf_to_images_frame.py:33
-#: feature/rotate_pdf/rotate_pdf_frame.py:27
-#: feature/split_pdf/split_pdf_frame.py:40
+#: src/feature/add_watermark/add_watermark_frame.py:23
+#: src/feature/compress_pdf/compress_pdf_frame.py:22
+#: src/feature/delete_pages/delete_pages_frame.py:44
+#: src/feature/encrypt_pdf/encrypt_pdf_frame.py:29
+#: src/feature/extract_images/extract_images_frame.py:22
+#: src/feature/extract_text/extract_text_frame.py:22
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:33
+#: src/feature/rotate_pdf/rotate_pdf_frame.py:27
+#: src/feature/split_pdf/split_pdf_frame.py:44
 msgid "Output Folder"
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:38
+#: src/feature/add_watermark/add_watermark_frame.py:38
 msgid "Text Watermark"
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:45
+#: src/feature/add_watermark/add_watermark_frame.py:45
 msgid "Image Watermark"
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:54
+#: src/feature/add_watermark/add_watermark_frame.py:54
 msgid "Watermark Text"
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:64
+#: src/feature/add_watermark/add_watermark_frame.py:64
 msgid "Watermark Image"
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:144
-#: feature/compress_pdf/compress_pdf_frame.py:115
-#: feature/encrypt_pdf/encrypt_pdf_frame.py:100
-#: feature/extract_images/extract_images_frame.py:109
-#: feature/extract_text/extract_text_frame.py:83
-#: feature/pdf_to_images/pdf_to_images_frame.py:133
-#: feature/rotate_pdf/rotate_pdf_frame.py:105
+#: src/feature/add_watermark/add_watermark_frame.py:144
+#: src/feature/compress_pdf/compress_pdf_frame.py:115
+#: src/feature/encrypt_pdf/encrypt_pdf_frame.py:100
+#: src/feature/extract_images/extract_images_frame.py:109
+#: src/feature/extract_text/extract_text_frame.py:83
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:133
+#: src/feature/rotate_pdf/rotate_pdf_frame.py:105
 msgid "Input must have at least 1 PDF file."
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:150
-#: feature/compress_pdf/compress_pdf_frame.py:121
-#: feature/delete_pages/delete_pages_frame.py:154
-#: feature/encrypt_pdf/encrypt_pdf_frame.py:106
-#: feature/extract_images/extract_images_frame.py:115
-#: feature/extract_text/extract_text_frame.py:89
-#: feature/pdf_to_images/pdf_to_images_frame.py:139
-#: feature/rotate_pdf/rotate_pdf_frame.py:111
-#: feature/split_pdf/split_pdf_frame.py:189
+#: src/feature/add_watermark/add_watermark_frame.py:150
+#: src/feature/compress_pdf/compress_pdf_frame.py:121
+#: src/feature/delete_pages/delete_pages_frame.py:156
+#: src/feature/encrypt_pdf/encrypt_pdf_frame.py:106
+#: src/feature/extract_images/extract_images_frame.py:115
+#: src/feature/extract_text/extract_text_frame.py:89
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:139
+#: src/feature/rotate_pdf/rotate_pdf_frame.py:111
+#: src/feature/split_pdf/split_pdf_frame.py:205
 msgid "Output folder must be set."
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:157
+#: src/feature/add_watermark/add_watermark_frame.py:157
 msgid "Watermark text must be set."
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:165
+#: src/feature/add_watermark/add_watermark_frame.py:165
 msgid "Watermark image must be set."
 msgstr ""
 
-#: feature/add_watermark/add_watermark_frame.py:171
+#: src/feature/add_watermark/add_watermark_frame.py:171
 msgid "Watermark image does not exist."
 msgstr ""
 
-#: feature/add_watermark/add_watermark_worker.py:150
+#: src/feature/add_watermark/add_watermark_worker.py:150
 msgid "Cannot read watermark image: {}"
 msgstr ""
 
-#: feature/add_watermark/add_watermark_worker.py:188
+#: src/feature/add_watermark/add_watermark_worker.py:188
 msgid "{} file(s) failed:"
 msgstr ""
 
-#: feature/add_watermark/add_watermark_worker.py:226 feature/feature_list.py:41
+#: src/feature/add_watermark/add_watermark_worker.py:226
+#: src/feature/feature_list.py:41
 msgid "Add Watermark"
 msgstr ""
 
-#: feature/add_watermark/add_watermark_worker.py:250
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:144
+#: src/feature/add_watermark/add_watermark_worker.py:250
+#: src/feature/encrypt_pdf/encrypt_pdf_worker.py:144
 msgid "Done with errors"
 msgstr ""
 
-#: feature/base_feature_frame.py:28
+#: src/feature/base_feature_frame.py:28
 msgid "Options"
 msgstr ""
 
-#: feature/base_feature_frame.py:31
+#: src/feature/base_feature_frame.py:31
 msgid "Execute"
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_frame.py:35
-msgid "Compress embedded images"
+#: src/feature/compress_pdf/compress_pdf_frame.py:35
+msgid "Compress Embedded Images"
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_frame.py:39
+#: src/feature/compress_pdf/compress_pdf_frame.py:39
 msgid "Max Resolution"
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_frame.py:46
+#: src/feature/compress_pdf/compress_pdf_frame.py:46
 msgid "JPG Quality"
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_frame.py:100
+#: src/feature/compress_pdf/compress_pdf_frame.py:100
 msgid "Confirm"
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_frame.py:101
+#: src/feature/compress_pdf/compress_pdf_frame.py:101
 msgid "Compressing embedded images is time-consuming. Continue?"
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_frame.py:127
+#: src/feature/compress_pdf/compress_pdf_frame.py:127
 msgid "Max resolution must be greater than 0."
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_frame.py:133
-msgid "jpg quality must be between 1 and 100."
+#: src/feature/compress_pdf/compress_pdf_frame.py:133
+msgid "JPG quality must be between 1 and 100."
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_worker.py:143
+#: src/feature/compress_pdf/compress_pdf_worker.py:143
 msgid "No input files."
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_worker.py:203
-#: feature/compress_pdf/compress_pdf_worker.py:241
+#: src/feature/compress_pdf/compress_pdf_worker.py:203
+#: src/feature/compress_pdf/compress_pdf_worker.py:241
 msgid "Failed: {} ({}: {})"
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_worker.py:247
+#: src/feature/compress_pdf/compress_pdf_worker.py:247
 msgid "Compressed {} file(s)."
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_worker.py:249
+#: src/feature/compress_pdf/compress_pdf_worker.py:249
 msgid "Downscaled {} image(s)."
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_worker.py:251
-#, python-format
-msgid "%d image(s) kept (new size not smaller)."
+#: src/feature/compress_pdf/compress_pdf_worker.py:251
+msgid "{} image(s) kept (new size not smaller)."
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_worker.py:255
-#, python-format
-msgid "%d image(s) skipped (unsupported format)."
+#: src/feature/compress_pdf/compress_pdf_worker.py:255
+msgid "{} image(s) skipped (unsupported format)."
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_worker.py:259
-#: feature/extract_images/extract_images_worker.py:115
-#: feature/extract_text/extract_text_worker.py:75
-#: feature/pdf_to_images/pdf_to_images_worker.py:96
-#, python-format
-msgid "%d file(s) failed."
+#: src/feature/compress_pdf/compress_pdf_worker.py:259
+#: src/feature/extract_images/extract_images_worker.py:115
+#: src/feature/extract_text/extract_text_worker.py:75
+#: src/feature/pdf_to_images/pdf_to_images_worker.py:96
+msgid "{} file(s) failed."
 msgstr ""
 
-#: feature/compress_pdf/compress_pdf_worker.py:327 feature/feature_list.py:35
+#: src/feature/compress_pdf/compress_pdf_worker.py:327
+#: src/feature/feature_list.py:35
 msgid "Compress PDF"
 msgstr ""
 
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:50
-#: feature/encrypt_pdf/encrypt_pdf_frame.py:39
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:52
+#: src/feature/encrypt_pdf/encrypt_pdf_frame.py:39
 msgid "Password"
 msgstr ""
 
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:120
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:122
 msgid "PDF Decrypted"
 msgstr ""
 
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:126
-#: feature/delete_pages/delete_pages_frame.py:148
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:219
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:280
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:134
-#: feature/split_pdf/split_pdf_frame.py:183
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:128
+#: src/feature/delete_pages/delete_pages_frame.py:150
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:221
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:282
+#: src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:136
+#: src/feature/split_pdf/split_pdf_frame.py:199
 msgid "Input PDF must be set."
 msgstr ""
 
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:132
-#: feature/images_to_pdf/images_to_pdf_frame.py:111
-#: feature/merge_invoices/merge_invoices_frame.py:103
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:140
+#: src/feature/decrypt_pdf/decrypt_pdf_frame.py:134
+#: src/feature/images_to_pdf/images_to_pdf_frame.py:111
+#: src/feature/merge_invoices/merge_invoices_frame.py:103
+#: src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:142
 msgid "Output path must be set."
 msgstr ""
 
-#: feature/decrypt_pdf/decrypt_pdf_worker.py:34
+#: src/feature/decrypt_pdf/decrypt_pdf_worker.py:34
 msgid "Wrong password or password required."
 msgstr ""
 
-#: feature/delete_pages/delete_pages_frame.py:52
+#: src/feature/delete_pages/delete_pages_frame.py:54
 msgid "Pages to delete"
 msgstr ""
 
-#: feature/delete_pages/delete_pages_frame.py:60
+#: src/feature/delete_pages/delete_pages_frame.py:62
 msgid "Help"
 msgstr ""
 
-#: feature/delete_pages/delete_pages_frame.py:67
-msgid "Example: \"3,7-9,12;:2\". Click Help for for details."
+#: src/feature/delete_pages/delete_pages_frame.py:69
+msgid "Example: \"3,7-9,12;:2\". Click Help for details."
 msgstr ""
 
-#: feature/delete_pages/delete_pages_frame.py:151
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:283
-#: feature/split_pdf/split_pdf_frame.py:186
+#: src/feature/delete_pages/delete_pages_frame.py:153
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:285
+#: src/feature/split_pdf/split_pdf_frame.py:202
 msgid "Input PDF does not exist."
 msgstr ""
 
-#: feature/delete_pages/delete_pages_frame.py:158
+#: src/feature/delete_pages/delete_pages_frame.py:160
 msgid "Pages to delete must be set."
 msgstr ""
 
-#: feature/delete_pages/delete_pages_frame.py:162
+#: src/feature/delete_pages/delete_pages_frame.py:164
 msgid "Enhanced mode (+) is not supported."
 msgstr ""
 
-#: feature/delete_pages/delete_pages_frame.py:170
-#: feature/split_pdf/split_pdf_frame.py:236
-#: feature/split_pdf/split_pdf_worker.py:63
+#: src/feature/delete_pages/delete_pages_frame.py:172
+#: src/feature/split_pdf/split_pdf_frame.py:252
+#: src/feature/split_pdf/split_pdf_worker.py:63
 msgid "Range expression produced no pages."
 msgstr ""
 
-#: feature/delete_pages/delete_pages_worker.py:70
-#: feature/split_pdf/split_pdf_worker.py:156
+#: src/feature/delete_pages/delete_pages_worker.py:70
+#: src/feature/split_pdf/split_pdf_worker.py:156
 msgid "No output files were written."
 msgstr ""
 
-#: feature/delete_pages/delete_pages_worker.py:72 feature/feature_list.py:15
+#: src/feature/delete_pages/delete_pages_worker.py:72
+#: src/feature/feature_list.py:15
 msgid "Delete Pages"
 msgstr ""
 
-#: feature/delete_pages/delete_pages_worker.py:75
-#: feature/split_pdf/split_pdf_worker.py:163
+#: src/feature/delete_pages/delete_pages_worker.py:75
+#: src/feature/split_pdf/split_pdf_worker.py:163
 msgid "Failed:"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:46
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:48
 msgid "Bookmarks"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:61
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:96
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:63
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:98
 msgid "Level"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:62
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:100
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:64
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:102
 msgid "Page"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:63
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:104
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:65
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:106
 msgid "Title"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:78
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:80
 msgid "Reload"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:79
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:81
 msgid "Import"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:80
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:82
 msgid "Export"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:81
-#: widget/file_list_view.py:83
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:83
+#: src/widget/file_list_view.py:83
 msgid "Move Up"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:82
-#: widget/file_list_view.py:84
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:84
+#: src/widget/file_list_view.py:84
 msgid "Move Down"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:83 feature/feature_list.py:15
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:85
+#: src/feature/feature_list.py:15
 msgid "Delete"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:84
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:86
 msgid "Delete All"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:108
-#: feature/feature_list.py:42
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:110
+#: src/feature/feature_list.py:42
 msgid "Edit"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:111
-#: feature/feature_list.py:40 feature/feature_list.py:41
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:113
+#: src/feature/feature_list.py:40 src/feature/feature_list.py:41
 msgid "Add"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:116
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:118
 msgid "Save"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:166
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:324
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:168
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:326
 msgid "Bookmark title must not be empty."
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:172
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:309
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:174
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:311
 msgid "Level and Page must be integers."
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:175
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:313
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:177
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:315
 msgid "Level must be >= 1."
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:190
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:192
 msgid "Select a bookmark to edit."
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:229
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:247
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:231
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:249
 msgid "CSV files"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:229
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:247
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:231
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:249
 msgid "All files"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:238
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:240
 msgid "Failed to import: {}"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:257
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:259
 msgid "Failed to export: {}"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:259
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:261
 msgid "Bookmarks exported"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:286
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:288
 msgid "Output PDF must be set."
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:293
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:295
 msgid "Cannot open input PDF: {}"
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:298
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:300
 msgid "No bookmarks to write."
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:318
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:320
 msgid "Page {} out of range (1-{})."
 msgstr ""
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:347
+#: src/feature/edit_bookmarks/edit_bookmarks_frame.py:349
 msgid "Bookmarks updated"
 msgstr ""
 
-#: feature/encrypt_pdf/encrypt_pdf_frame.py:112
+#: src/feature/encrypt_pdf/encrypt_pdf_frame.py:112
 msgid "Password must not be empty."
 msgstr ""
 
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:62
+#: src/feature/encrypt_pdf/encrypt_pdf_worker.py:62
 msgid "Source PDF is already encrypted."
 msgstr ""
 
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:77
+#: src/feature/encrypt_pdf/encrypt_pdf_worker.py:77
 #, python-brace-format
 msgid "{count} file(s) failed:"
 msgstr ""
 
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:119 feature/feature_list.py:48
+#: src/feature/encrypt_pdf/encrypt_pdf_worker.py:119
+#: src/feature/feature_list.py:48
 msgid "Encrypt PDF"
 msgstr ""
 
-#: feature/extract_images/extract_images_frame.py:35
-msgid "Ignore small images"
+#: src/feature/extract_images/extract_images_frame.py:35
+msgid "Ignore Small Images"
 msgstr ""
 
-#: feature/extract_images/extract_images_frame.py:39
+#: src/feature/extract_images/extract_images_frame.py:39
 msgid "Min Width"
 msgstr ""
 
-#: feature/extract_images/extract_images_frame.py:47
+#: src/feature/extract_images/extract_images_frame.py:47
 msgid "Min Height"
 msgstr ""
 
-#: feature/extract_images/extract_images_frame.py:123
+#: src/feature/extract_images/extract_images_frame.py:123
 msgid "Min width / min height must be integers."
 msgstr ""
 
-#: feature/extract_images/extract_images_frame.py:129
+#: src/feature/extract_images/extract_images_frame.py:129
 msgid "Min width / min height must be non-negative."
 msgstr ""
 
-#: feature/extract_images/extract_images_worker.py:108
+#: src/feature/extract_images/extract_images_worker.py:108
 msgid "Extracted {} image(s) from {} file(s)."
 msgstr ""
 
-#: feature/extract_images/extract_images_worker.py:113
-#, python-format
-msgid "%d small image(s) skipped."
+#: src/feature/extract_images/extract_images_worker.py:113
+msgid "{} small image(s) skipped."
 msgstr ""
 
-#: feature/extract_images/extract_images_worker.py:155
-#: feature/feature_list.py:22
+#: src/feature/extract_images/extract_images_worker.py:155
+#: src/feature/feature_list.py:22
 msgid "Extract Images"
 msgstr ""
 
-#: feature/extract_text/extract_text_worker.py:73
+#: src/feature/extract_text/extract_text_worker.py:73
 msgid "Text extracted from {} of {} file(s)."
 msgstr ""
 
-#: feature/extract_text/extract_text_worker.py:115 feature/feature_list.py:21
+#: src/feature/extract_text/extract_text_worker.py:115
+#: src/feature/feature_list.py:21
 msgid "Extract Text"
 msgstr ""
 
-#: feature/feature_list.py:9
+#: src/feature/feature_list.py:9
 msgid "Document Assembly"
 msgstr ""
 
-#: feature/feature_list.py:11 feature/merge_pdf/merge_pdf_worker.py:119
+#: src/feature/feature_list.py:11 src/feature/merge_pdf/merge_pdf_worker.py:119
 msgid "Merge PDF"
 msgstr ""
 
-#: feature/feature_list.py:11 feature/feature_list.py:12
-#: feature/feature_list.py:54
+#: src/feature/feature_list.py:11 src/feature/feature_list.py:12
+#: src/feature/feature_list.py:54
 msgid "Merge"
 msgstr ""
 
-#: feature/feature_list.py:12
-#: feature/interleave_merge/interleave_merge_worker.py:105
+#: src/feature/feature_list.py:12
+#: src/feature/interleave_merge/interleave_merge_worker.py:105
 msgid "Interleave Merge"
 msgstr ""
 
-#: feature/feature_list.py:13 feature/split_pdf/split_pdf_worker.py:202
+#: src/feature/feature_list.py:13 src/feature/split_pdf/split_pdf_worker.py:202
 msgid "Split PDF"
 msgstr ""
 
-#: feature/feature_list.py:13
+#: src/feature/feature_list.py:13
 msgid "Split"
 msgstr ""
 
-#: feature/feature_list.py:14 feature/rotate_pdf/rotate_pdf_worker.py:133
+#: src/feature/feature_list.py:14
+#: src/feature/rotate_pdf/rotate_pdf_worker.py:133
 msgid "Rotate PDF"
 msgstr ""
 
-#: feature/feature_list.py:14
+#: src/feature/feature_list.py:14
 msgid "Rotate"
 msgstr ""
 
-#: feature/feature_list.py:19
+#: src/feature/feature_list.py:19
 msgid "Content Extraction"
 msgstr ""
 
-#: feature/feature_list.py:21 feature/feature_list.py:22
+#: src/feature/feature_list.py:21 src/feature/feature_list.py:22
 msgid "Extract"
 msgstr ""
 
-#: feature/feature_list.py:26
+#: src/feature/feature_list.py:26
 msgid "Format Conversion"
 msgstr ""
 
-#: feature/feature_list.py:28 feature/images_to_pdf/images_to_pdf_worker.py:101
+#: src/feature/feature_list.py:28
+#: src/feature/images_to_pdf/images_to_pdf_worker.py:101
 msgid "Images to PDF"
 msgstr ""
 
-#: feature/feature_list.py:28 feature/feature_list.py:29
-#: feature/feature_list.py:30
+#: src/feature/feature_list.py:28 src/feature/feature_list.py:29
+#: src/feature/feature_list.py:30
 msgid "Convert"
 msgstr ""
 
-#: feature/feature_list.py:29 feature/pdf_to_images/pdf_to_images_worker.py:136
+#: src/feature/feature_list.py:29
+#: src/feature/pdf_to_images/pdf_to_images_worker.py:136
 msgid "PDF to Images"
 msgstr ""
 
-#: feature/feature_list.py:30
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:207
+#: src/feature/feature_list.py:30
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:207
 msgid "PDF to Long Image"
 msgstr ""
 
-#: feature/feature_list.py:34
+#: src/feature/feature_list.py:34
 msgid "Document Compression"
 msgstr ""
 
-#: feature/feature_list.py:35
+#: src/feature/feature_list.py:35
 msgid "Compress"
 msgstr ""
 
-#: feature/feature_list.py:38
+#: src/feature/feature_list.py:38
 msgid "Page Annotation"
 msgstr ""
 
-#: feature/feature_list.py:42
+#: src/feature/feature_list.py:42
 msgid "Edit Bookmarks"
 msgstr ""
 
-#: feature/feature_list.py:46
+#: src/feature/feature_list.py:46
 msgid "Document Security"
 msgstr ""
 
-#: feature/feature_list.py:48
+#: src/feature/feature_list.py:48
 msgid "Encrypt"
 msgstr ""
 
-#: feature/feature_list.py:49
+#: src/feature/feature_list.py:49
 msgid "Decrypt PDF"
 msgstr ""
 
-#: feature/feature_list.py:49
+#: src/feature/feature_list.py:49
 msgid "Decrypt"
 msgstr ""
 
-#: feature/feature_list.py:53
+#: src/feature/feature_list.py:53
 msgid "Invoice Processing"
 msgstr ""
 
-#: feature/feature_list.py:54
-#: feature/merge_invoices/merge_invoices_worker.py:171
+#: src/feature/feature_list.py:54
+#: src/feature/merge_invoices/merge_invoices_worker.py:171
 msgid "Merge Invoices"
 msgstr ""
 
-#: feature/images_to_pdf/images_to_pdf_frame.py:26
+#: src/feature/images_to_pdf/images_to_pdf_frame.py:26
 msgid "Image List"
 msgstr ""
 
-#: feature/images_to_pdf/images_to_pdf_frame.py:105
+#: src/feature/images_to_pdf/images_to_pdf_frame.py:105
 msgid "Input must have at least 1 image file."
 msgstr ""
 
-#: feature/images_to_pdf/images_to_pdf_worker.py:62
-#: feature/interleave_merge/interleave_merge_worker.py:68
-#: feature/merge_invoices/merge_invoices_worker.py:131
-#: feature/merge_pdf/merge_pdf_worker.py:82
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:136
+#: src/feature/images_to_pdf/images_to_pdf_worker.py:62
+#: src/feature/interleave_merge/interleave_merge_worker.py:68
+#: src/feature/merge_invoices/merge_invoices_worker.py:131
+#: src/feature/merge_pdf/merge_pdf_worker.py:82
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:136
 msgid "Saving..."
 msgstr ""
 
-#: feature/images_to_pdf/images_to_pdf_worker.py:66
+#: src/feature/images_to_pdf/images_to_pdf_worker.py:66
 msgid "Converted {} image(s) to PDF: {}"
 msgstr ""
 
-#: feature/interleave_merge/interleave_merge_frame.py:62
+#: src/feature/interleave_merge/interleave_merge_frame.py:65
 msgid "Reverse PDF B"
 msgstr ""
 
-#: feature/interleave_merge/interleave_merge_frame.py:143
-msgid "Both input PDF must be specified."
+#: src/feature/interleave_merge/interleave_merge_frame.py:146
+msgid "Both input PDF files must be specified."
 msgstr ""
 
-#: feature/interleave_merge/interleave_merge_frame.py:146
-#: feature/merge_pdf/merge_pdf_frame.py:114
+#: src/feature/interleave_merge/interleave_merge_frame.py:149
+#: src/feature/merge_pdf/merge_pdf_frame.py:114
 msgid "Output PDF must be specified."
 msgstr ""
 
-#: feature/merge_invoices/merge_invoices_frame.py:99
+#: src/feature/merge_invoices/merge_invoices_frame.py:99
 msgid "Input must have at least 2 PDF files."
 msgstr ""
 
-#: feature/merge_pdf/merge_pdf_frame.py:38
+#: src/feature/merge_pdf/merge_pdf_frame.py:38
 msgid "Generate Bookmarks"
 msgstr ""
 
-#: feature/merge_pdf/merge_pdf_frame.py:44
-msgid "Support Delux Printting"
+#: src/feature/merge_pdf/merge_pdf_frame.py:44
+msgid "Support Delux Printing"
 msgstr ""
 
-#: feature/merge_pdf/merge_pdf_frame.py:110
+#: src/feature/merge_pdf/merge_pdf_frame.py:110
 msgid "Input PDF must have 2 files at least."
 msgstr ""
 
-#: feature/merge_pdf/merge_pdf_worker.py:141
+#: src/feature/merge_pdf/merge_pdf_worker.py:141
 msgid "PDF Merged"
 msgstr ""
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:43
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:43
 msgid "Resolution"
 msgstr ""
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:48
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:48
 msgid "DPI"
 msgstr ""
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:50
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:50
 msgid "Format"
 msgstr ""
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:58
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:58
 msgid "Transparent Background"
 msgstr ""
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:65
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:65
 msgid "Quality"
 msgstr ""
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:145
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:145
 msgid "DPI must be an integer."
 msgstr ""
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:148
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:148
 msgid "DPI must be >= 1."
 msgstr ""
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:153
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:153
 msgid "Quality must be an integer."
 msgstr ""
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:156
+#: src/feature/pdf_to_images/pdf_to_images_frame.py:156
 msgid "Quality must be between 1 and 100."
 msgstr ""
 
-#: feature/pdf_to_images/pdf_to_images_worker.py:91
+#: src/feature/pdf_to_images/pdf_to_images_worker.py:91
 msgid "Converted {} page(s) from {} file(s) to images."
 msgstr ""
 
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:43
+#: src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:45
 msgid "Output Image"
 msgstr ""
 
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:53
+#: src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:55
 msgid "Page Range"
 msgstr ""
 
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:62
+#: src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:64
 msgid "1-Based, n Page / n-m Range / Empty = All"
 msgstr ""
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:45
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:45
 msgid "Page number out of range (1-{})."
 msgstr ""
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:47
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:47
 msgid "Start page cannot be greater than end page."
 msgstr ""
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:71
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:71
 msgid "Exactly one input PDF is required."
 msgstr ""
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:81
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:81
 msgid "The PDF has no pages."
 msgstr ""
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:90
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:90
 msgid "No pages selected."
 msgstr ""
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:124
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:124
 msgid "Resulting image height {} px exceeds the JPEG limit of {} px."
 msgstr ""
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:140
+#: src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:140
 msgid "Created long image from {} page(s): {}"
 msgstr ""
 
-#: feature/rotate_pdf/rotate_pdf_frame.py:52
+#: src/feature/rotate_pdf/rotate_pdf_frame.py:52
 msgid "180°"
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:55
+#: src/feature/split_pdf/split_pdf_frame.py:59
 msgid "Single Page"
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:62
+#: src/feature/split_pdf/split_pdf_frame.py:66
 msgid "By Page Count"
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:69
+#: src/feature/split_pdf/split_pdf_frame.py:73
 msgid "By Parts"
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:76
+#: src/feature/split_pdf/split_pdf_frame.py:80
 msgid "Custom Range"
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:81
-#: feature/split_pdf/split_pdf_frame.py:114
+#: src/feature/split_pdf/split_pdf_frame.py:85
+#: src/feature/split_pdf/split_pdf_frame.py:118
 msgid "Pages per chunk"
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:100
+#: src/feature/split_pdf/split_pdf_frame.py:104
 msgid ""
 "By Page Count/By Parts: Int, for example: 5. Custom Range: \"1-5;7-:2\". "
-"Click Help for detail."
+"Click Help for details."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:108
+#: src/feature/split_pdf/split_pdf_frame.py:112
 msgid "No parameter"
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:116
+#: src/feature/split_pdf/split_pdf_frame.py:120
 msgid "Number of parts"
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:118
+#: src/feature/split_pdf/split_pdf_frame.py:122
 msgid "Range expression"
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:195
+#: src/feature/split_pdf/split_pdf_frame.py:211
 msgid "Pages per chunk must be set."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:201
+#: src/feature/split_pdf/split_pdf_frame.py:217
 msgid "Pages per chunk must be an integer."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:206
-#: feature/split_pdf/split_pdf_worker.py:38
+#: src/feature/split_pdf/split_pdf_frame.py:222
+#: src/feature/split_pdf/split_pdf_worker.py:38
 msgid "Pages per chunk must be at least 1."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:211
+#: src/feature/split_pdf/split_pdf_frame.py:227
 msgid "Number of parts must be set."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:217
+#: src/feature/split_pdf/split_pdf_frame.py:233
 msgid "Number of parts must be an integer."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:222
-#: feature/split_pdf/split_pdf_worker.py:47
+#: src/feature/split_pdf/split_pdf_frame.py:238
+#: src/feature/split_pdf/split_pdf_worker.py:47
 msgid "Number of parts must be at least 1."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_frame.py:227
+#: src/feature/split_pdf/split_pdf_frame.py:243
 msgid "Range expression must be set."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_worker.py:49
+#: src/feature/split_pdf/split_pdf_worker.py:49
 msgid "Number of parts cannot exceed total pages."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_worker.py:66
-#: feature/split_pdf/split_pdf_worker.py:86
+#: src/feature/split_pdf/split_pdf_worker.py:66
+#: src/feature/split_pdf/split_pdf_worker.py:86
 msgid "Unknown split mode."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_worker.py:121
+#: src/feature/split_pdf/split_pdf_worker.py:121
 msgid "Nothing to split."
 msgstr ""
 
-#: feature/split_pdf/split_pdf_worker.py:159
+#: src/feature/split_pdf/split_pdf_worker.py:159
 msgid "PDF Split"
 msgstr ""
 
-#: widget/file_list_view.py:50
+#: src/widget/about_dialog.py:46
+msgid "Version {}"
+msgstr ""
+
+#: src/widget/about_dialog.py:63
+msgid "Copyright © {}-{} {}, all rights reserved."
+msgstr ""
+
+#: src/widget/about_dialog.py:71
+msgid "------ Third-party software or packages ------"
+msgstr ""
+
+#: src/widget/about_dialog.py:111
+msgid "OK"
+msgstr ""
+
+#: src/widget/donate_dialog.py:186 src/widget/donate_dialog.py:206
+msgid "Buy me a chicken leg"
+msgstr ""
+
+#: src/widget/donate_dialog.py:214
+msgid ""
+"If this tool has been helpful to you, feel free to buy me a chicken leg."
+msgstr ""
+
+#: src/widget/donate_dialog.py:228
+msgid "Supported"
+msgstr ""
+
+#: src/widget/donate_dialog.py:231
+msgid "Maybe Later"
+msgstr ""
+
+#: src/widget/donate_dialog.py:235
+msgid "Don't Show Again"
+msgstr ""
+
+#: src/widget/donate_dialog.py:246
+msgid "WeChat"
+msgstr ""
+
+#: src/widget/donate_dialog.py:247
+msgid "Alipay"
+msgstr ""
+
+#: src/widget/donate_dialog.py:264 src/widget/donate_dialog.py:273
+msgid "QR code image not found"
+msgstr ""
+
+#: src/widget/file_list_view.py:50
 msgid "File Name"
 msgstr ""
 
-#: widget/file_list_view.py:50
+#: src/widget/file_list_view.py:50
 msgid "File Name ❓"
 msgstr ""
 
-#: widget/file_list_view.py:72
+#: src/widget/file_list_view.py:72
 msgid "Add Files"
 msgstr ""
 
-#: widget/file_list_view.py:73
+#: src/widget/file_list_view.py:73
 msgid "Add Folder"
 msgstr ""
 
-#: widget/file_list_view.py:74
+#: src/widget/file_list_view.py:74
 msgid "Remove Selected"
 msgstr ""
 
-#: widget/file_list_view.py:75
+#: src/widget/file_list_view.py:75
 msgid "Remove All"
 msgstr ""
 
-#: widget/file_list_view.py:82
+#: src/widget/file_list_view.py:82
 msgid "Move to Top"
 msgstr ""
 
-#: widget/file_list_view.py:85
+#: src/widget/file_list_view.py:85
 msgid "Move to Last"
 msgstr ""
 
-#: widget/file_list_view.py:106
+#: src/widget/file_list_view.py:106
 msgid "Select All"
 msgstr ""
 
-#: widget/file_list_view.py:108
+#: src/widget/file_list_view.py:108
 msgid "Invert Selection"
 msgstr ""
 
-#: widget/file_list_view.py:111
+#: src/widget/file_list_view.py:111
 msgid "Clear Selection"
 msgstr ""
 
-#: widget/file_list_view.py:154
+#: src/widget/file_list_view.py:154
 #, python-brace-format
 msgid "File Name {icon}"
 msgstr ""

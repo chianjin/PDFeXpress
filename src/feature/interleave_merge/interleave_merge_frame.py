@@ -143,7 +143,7 @@ class InterleaveMergeFrame(BaseFeatureFrame):
 
     def _validate_execute_params(self):
         if not self.pdf_a.get() or not self.pdf_b.get():
-            showerror(title=_('Error'), message=_('Both input PDF must be specified.'))
+            showerror(title=_('Error'), message=_('Both input PDF files must be specified.'))
             return False
         if not self.output_path.get():
             showerror(title=_('Error'), message=_('Output PDF must be specified.'))

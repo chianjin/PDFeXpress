@@ -6,6 +6,7 @@
 #define MyAppVersion "%%PROJECT_VERSION%%"
 #define MyAppPublisher "%%PROJECT_AUTHOR%%"
 #define MyAppURL "%%PROJECT_URL%%"
+#define MyAppDirName "%%INSTALL_DIR%%"
 #define MyAppExeName "%%EXECUTABLE_NAME%%"
 #define MyAppExeFile "%%EXECUTABLE_NAME%%.exe"
 #define MyOutputFileBaseName "%%SETUP_BASENAME%%"
@@ -22,7 +23,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={autopf}\{#MyAppName}
+DefaultDirName={autopf}\{#MyAppDirName}
 UninstallDisplayIcon={app}\{#MyAppExeFile}
 ; "ArchitecturesAllowed=x64compatible" specifies that Setup cannot run
 ; on anything but x64 and Windows 11 on Arm.

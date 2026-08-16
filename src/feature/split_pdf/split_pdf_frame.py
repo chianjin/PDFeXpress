@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from pathlib import Path
 import pymupdf
@@ -5,12 +6,13 @@ from tkinter import ttk
 from tkinter.filedialog import askdirectory, askopenfilename
 from tkinter.messagebox import showerror
 
-from config import EXECUTIVE_PATH
+from config import EXECUTABLE_PATH
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
 from util.page_range_parser import parse_page_ranges
 from util.i18n import gettext_text as _
 from util.helpers import enable_pdf_drop
+from widget import HelpWindow
 
 
 class SplitPdfFrame(BaseFeatureFrame):
@@ -82,8 +84,8 @@ class SplitPdfFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 5))
         self._param_label = ttk.Label(radio_frame, text=_('Pages per chunk'))
         self._param_label.pack(side='left', padx=(5, 0))
-        self._help_icon = tk.PhotoImage(file=EXECUTIVE_PATH / 'asset/icon/help.png')
-        ttk.Button(radio_frame, image=self._help_icon, style='Toolbutton').pack(
+        self._help_icon = tk.PhotoImage(file=EXECUTABLE_PATH / 'asset/icon/help.png')
+        ttk.Button(radio_frame, image=self._help_icon, style='Toolbutton', command=self._open_help).pack(
             side='left'
         )
         self._param_entry = tk.StringVar()
@@ -99,7 +101,7 @@ class SplitPdfFrame(BaseFeatureFrame):
         #   custom   -> range expression (string)
         #   single   -> unused, disabled
         help_text = _(
-            'By Page Count/By Parts: Int, for example: 5. Custom Range: "1-5;7-:2". Click Help for detail.'
+            'By Page Count/By Parts: Int, for example: 5. Custom Range: "1-5;7-:2". Click Help for details.'
         )
         ttk.Label(self.options_frame, text=help_text).pack(side='left')
         self._on_mode_change()
@@ -118,6 +120,18 @@ class SplitPdfFrame(BaseFeatureFrame):
                 self._param_label.configure(text=_('Number of parts'))
             elif mode == 'custom':
                 self._param_label.configure(text=_('Range expression'))
+
+    def _open_help(self):
+        posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
+        language = posix_lang.split('.')[0]
+        guide_path = EXECUTABLE_PATH / f'asset/guide/page_range_syntax_guide-{language}.txt'
+        if not guide_path.exists():
+            guide_path = EXECUTABLE_PATH / 'asset/guide/page_range_syntax_guide-en_US.txt'
+        with open(guide_path, encoding='UTF-8') as f:
+            help_content = f.readlines()
+        title = help_content[0].strip()
+        content = ''.join(help_content)
+        HelpWindow(self, title=title, content=content).focus()
 
     def _setup_execute_frame(self):
         ttk.Button(

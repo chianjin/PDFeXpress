@@ -6,7 +6,7 @@ from tkinter import ttk
 from tkinter.filedialog import askdirectory, askopenfilename
 from tkinter.messagebox import showerror, showinfo
 
-from config import EXECUTIVE_PATH
+from config import EXECUTABLE_PATH
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
 from util.page_range_parser import parse_page_ranges
@@ -56,7 +56,7 @@ class DeletePagesFrame(BaseFeatureFrame):
         ttk.Entry(self.options_frame, textvariable=self.range_expr, width=40).pack(
             side='left', fill='x', padx=(5, 0)
         )
-        self.help_icon = tk.PhotoImage(file=EXECUTIVE_PATH / 'asset/icon/help.png')
+        self.help_icon = tk.PhotoImage(file=EXECUTABLE_PATH / 'asset/icon/help.png')
         ttk.Button(
             self.options_frame,
             text=_('Help'),
@@ -66,7 +66,7 @@ class DeletePagesFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
         ttk.Label(
             self.options_frame,
-            text=_('Example: "3,7-9,12;:2". Click Help for for details.'),
+            text=_('Example: "3,7-9,12;:2". Click Help for details.'),
         ).pack(side='left', padx=(5, 0))
 
     def _setup_execute_frame(self):
@@ -85,13 +85,13 @@ class DeletePagesFrame(BaseFeatureFrame):
     def _open_help(self):
         posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
         language = posix_lang.split('.')[0]
-        guide_path = EXECUTIVE_PATH / f'asset/page_range_syntax_guide-{language}.txt'
+        guide_path = EXECUTABLE_PATH / f'asset/guide/page_range_syntax_guide-{language}.txt'
         if not guide_path.exists():
-            guide_path = EXECUTIVE_PATH / 'asset/page_range_syntax_guide-en_US.txt'
+            guide_path = EXECUTABLE_PATH / 'asset/guide/page_range_syntax_guide-en_US.txt'
         with open(guide_path, encoding='UTF-8') as f:
             help_content = f.readlines()
         title = help_content[0].strip()
-        content = ''.join(help_content[1:])
+        content = ''.join(help_content)
         HelpWindow(self, title=title, content=content).focus()
 
     @staticmethod

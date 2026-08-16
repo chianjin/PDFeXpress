@@ -41,7 +41,7 @@ class MergePdfFrame(BaseFeatureFrame):
         self._support_delux_print = tk.BooleanVar(value=False)
         ttk.Checkbutton(
             self.options_frame,
-            text=_('Support Delux Printting'),
+            text=_('Support Delux Printing'),
             variable=self._support_delux_print,
         ).pack(side='left', padx=(5, 20))
 

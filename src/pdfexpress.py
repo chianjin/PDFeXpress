@@ -3,8 +3,9 @@ import platform
 
 from tkinterdnd2 import TkinterDnD
 
-from config import EXECUTABLE_NAME, EXECUTIVE_PATH, PROJECT_NAME, PROJECT_VERSION
+from config import EXECUTABLE_NAME, EXECUTABLE_PATH, PROJECT_NAME, PROJECT_VERSION
 from core.main_frame import MainFrame
+from widget.donate_dialog import maybe_show_donate
 
 # Multiprocessing with freeze support
 multiprocessing.freeze_support()
@@ -37,7 +38,7 @@ def main():
     # Set window's icon
     if system == 'Windows':
         try:
-            root.iconbitmap(EXECUTIVE_PATH / f'asset/icon/{EXECUTABLE_NAME}.ico')
+            root.iconbitmap(EXECUTABLE_PATH / f'asset/icon/{EXECUTABLE_NAME}.ico')
         except Exception:
             pass  # a missing icon must not prevent the app from starting
 
@@ -60,6 +61,10 @@ def main():
 
     # Show window
     root.deiconify()
+
+    # Occasionally (≈10%) invite a donation; never blocks startup.
+    root.after(1000, lambda: maybe_show_donate(root))
+
     root.mainloop()
 
 

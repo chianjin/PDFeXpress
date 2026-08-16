@@ -3,10 +3,10 @@ import locale
 import os
 import platform
 
-from config import EXECUTABLE_NAME, EXECUTIVE_PATH
+from config import EXECUTABLE_NAME, EXECUTABLE_PATH
 
 LOCALE_NAME_MAX_LENGTH = 85
-LOCALE_DIR = EXECUTIVE_PATH / 'locale'
+LOCALE_DIR = EXECUTABLE_PATH / 'locale'
 
 
 def _standardize_environment():
