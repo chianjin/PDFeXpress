@@ -88,12 +88,12 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                     )
                 )
 
-        summary = _('Converted %d page(s) from %d file(s) to images.') % (
+        summary = _('Converted {} page(s) from {} file(s) to images.').format(
             pages_done,
             files_done,
         )
         if files_failed:
-            summary += ' ' + (_('%d file(s) failed.') % files_failed)
+            summary += ' ' + (_('{} file(s) failed.').format(files_failed))
         if files_done == 0 and total > 0:
             progress_queue.put(('error', summary))
             return

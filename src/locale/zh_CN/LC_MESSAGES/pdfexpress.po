@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PDF eXpress 1.0.0\n"
-"POT-Creation-Date: 2026-08-13 22:46+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-16 11:00+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: chian.jin@gmail.com\n"
@@ -24,15 +25,15 @@ msgstr ""
 "X-Poedit-SearchPath-3: util\n"
 "X-Poedit-SearchPath-4: widget\n"
 
-#: core/main_frame.py:27
+#: core/main_frame.py:22
 msgid "Feature List"
 msgstr "功能列表"
 
-#: core/main_frame.py:47
+#: core/main_frame.py:56
 msgid "About PDF eXpress"
 msgstr "关于 PDF eXpress"
 
-#: core/not_implemented_frame.py:12 core/not_implemented_frame.py:14
+#: core/not_implemented_frame.py:14
 msgid "Not implemented"
 msgstr "尚未实现"
 
@@ -40,346 +41,302 @@ msgstr "尚未实现"
 msgid "Cancel"
 msgstr "取消"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:33
-#: feature/base_feature_frame.py:29 feature/decrypt_pdf/decrypt_pdf_frame.py:23
-#: feature/delete_pages/delete_pages_frame.py:20
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:17
+#: feature/add_page_numbers/add_page_numbers_frame.py:36
+#: feature/base_feature_frame.py:22 feature/decrypt_pdf/decrypt_pdf_frame.py:23
+#: feature/delete_pages/delete_pages_frame.py:25
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:19
 #: feature/interleave_merge/interleave_merge_frame.py:19
 #: feature/pdf_to_long_image/pdf_to_long_image_frame.py:26
-#: feature/split_pdf/split_pdf_frame.py:18
+#: feature/split_pdf/split_pdf_frame.py:23
 msgid "Input PDF"
 msgstr "输入 PDF"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:41
-#: feature/add_page_numbers/add_page_numbers_frame.py:56
+#: feature/add_page_numbers/add_page_numbers_frame.py:44
+#: feature/add_page_numbers/add_page_numbers_frame.py:59
 #: feature/add_watermark/add_watermark_frame.py:29
-#: feature/add_watermark/add_watermark_frame.py:66
+#: feature/add_watermark/add_watermark_frame.py:72
 #: feature/compress_pdf/compress_pdf_frame.py:28
 #: feature/decrypt_pdf/decrypt_pdf_frame.py:31
 #: feature/decrypt_pdf/decrypt_pdf_frame.py:46
-#: feature/delete_pages/delete_pages_frame.py:26
-#: feature/delete_pages/delete_pages_frame.py:39
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:24
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:38
+#: feature/delete_pages/delete_pages_frame.py:33
+#: feature/delete_pages/delete_pages_frame.py:48
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:26
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:40
 #: feature/encrypt_pdf/encrypt_pdf_frame.py:35
 #: feature/extract_images/extract_images_frame.py:28
 #: feature/extract_text/extract_text_frame.py:28
 #: feature/images_to_pdf/images_to_pdf_frame.py:39
-#: feature/interleave_merge/interleave_merge_frame.py:28
-#: feature/interleave_merge/interleave_merge_frame.py:34
-#: feature/interleave_merge/interleave_merge_frame.py:45
-#: feature/merge_invoices/merge_invoices_frame.py:29
-#: feature/merge_pdf/merge_pdf_frame.py:28
+#: feature/interleave_merge/interleave_merge_frame.py:30
+#: feature/interleave_merge/interleave_merge_frame.py:40
+#: feature/interleave_merge/interleave_merge_frame.py:56
+#: feature/merge_invoices/merge_invoices_frame.py:32
+#: feature/merge_pdf/merge_pdf_frame.py:31
 #: feature/pdf_to_images/pdf_to_images_frame.py:39
 #: feature/pdf_to_long_image/pdf_to_long_image_frame.py:34
 #: feature/pdf_to_long_image/pdf_to_long_image_frame.py:49
 #: feature/rotate_pdf/rotate_pdf_frame.py:33
-#: feature/split_pdf/split_pdf_frame.py:24
-#: feature/split_pdf/split_pdf_frame.py:37
+#: feature/split_pdf/split_pdf_frame.py:31
+#: feature/split_pdf/split_pdf_frame.py:46
 msgid "Browser"
 msgstr "浏览"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:50
-#: feature/base_feature_frame.py:32 feature/decrypt_pdf/decrypt_pdf_frame.py:40
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:31
+#: feature/add_page_numbers/add_page_numbers_frame.py:53
+#: feature/base_feature_frame.py:25 feature/decrypt_pdf/decrypt_pdf_frame.py:40
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:33
 #: feature/images_to_pdf/images_to_pdf_frame.py:33
-#: feature/interleave_merge/interleave_merge_frame.py:42
+#: feature/interleave_merge/interleave_merge_frame.py:50
 #: feature/merge_invoices/merge_invoices_frame.py:26
 #: feature/merge_pdf/merge_pdf_frame.py:25
 msgid "Output PDF"
 msgstr "输出 PDF"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:62
+#: feature/add_page_numbers/add_page_numbers_frame.py:65
 msgid "Page Number Rule"
 msgstr "页码规则"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:71
+#: feature/add_page_numbers/add_page_numbers_frame.py:76
 msgid "Default: continuous numbering from 1. Click Help for details."
 msgstr "默认：从 1 开始连续编号。点击“帮助”查看详细说明。"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:77
+#: feature/add_page_numbers/add_page_numbers_frame.py:82
 msgid "Font"
 msgstr "字体"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:83
-msgid "Style"
-msgstr "字形"
+#: feature/add_page_numbers/add_page_numbers_frame.py:92
+msgid "Bold"
+msgstr "粗体"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:89
+#: feature/add_page_numbers/add_page_numbers_frame.py:95
 msgid "Size"
 msgstr "字号"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:101
+#: feature/add_page_numbers/add_page_numbers_frame.py:112
 msgid "Position"
 msgstr "位置"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:103
+#: feature/add_page_numbers/add_page_numbers_frame.py:115
 msgid "Header"
 msgstr "页眉"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:107
+#: feature/add_page_numbers/add_page_numbers_frame.py:122
 msgid "Footer"
 msgstr "页脚"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:112
+#: feature/add_page_numbers/add_page_numbers_frame.py:130
 msgid "Left"
 msgstr "左侧"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:116
+#: feature/add_page_numbers/add_page_numbers_frame.py:137
 msgid "Center"
 msgstr "居中"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:120
+#: feature/add_page_numbers/add_page_numbers_frame.py:144
 msgid "Right"
 msgstr "右侧"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:125
+#: feature/add_page_numbers/add_page_numbers_frame.py:152
 msgid "Outside"
 msgstr "外侧"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:129
+#: feature/add_page_numbers/add_page_numbers_frame.py:159
 msgid "Inside"
 msgstr "内侧"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:150
+#: feature/add_page_numbers/add_page_numbers_frame.py:182
 msgid "Top Margin"
 msgstr "上边距"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:152
+#: feature/add_page_numbers/add_page_numbers_frame.py:184
 msgid "Bottom Margin"
 msgstr "下边距"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:154
+#: feature/add_page_numbers/add_page_numbers_frame.py:186
 msgid "Left Margin"
 msgstr "左边距"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:156
+#: feature/add_page_numbers/add_page_numbers_frame.py:188
 msgid "Right Margin"
 msgstr "右边距"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:158
+#: feature/add_page_numbers/add_page_numbers_frame.py:190
 msgid "Margin"
 msgstr "边距"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:205
-msgid "PageNum"
-msgstr "页码"
-
-#: feature/add_page_numbers/add_page_numbers_frame.py:259
-#: feature/add_page_numbers/add_page_numbers_frame.py:262
-#: feature/add_page_numbers/add_page_numbers_frame.py:265
-#: feature/add_page_numbers/add_page_numbers_frame.py:270
-#: feature/add_page_numbers/add_page_numbers_frame.py:282
-#: feature/add_page_numbers/add_page_numbers_worker.py:229
-#: feature/add_watermark/add_watermark_frame.py:135
-#: feature/add_watermark/add_watermark_frame.py:141
-#: feature/add_watermark/add_watermark_frame.py:148
+#: feature/add_page_numbers/add_page_numbers_frame.py:303
+#: feature/add_page_numbers/add_page_numbers_frame.py:306
+#: feature/add_page_numbers/add_page_numbers_frame.py:309
+#: feature/add_page_numbers/add_page_numbers_frame.py:312
+#: feature/add_page_numbers/add_page_numbers_frame.py:322
+#: feature/add_page_numbers/add_page_numbers_frame.py:330
+#: feature/add_page_numbers/add_page_numbers_worker.py:170
+#: feature/add_watermark/add_watermark_frame.py:143
+#: feature/add_watermark/add_watermark_frame.py:149
 #: feature/add_watermark/add_watermark_frame.py:156
-#: feature/add_watermark/add_watermark_frame.py:162
-#: feature/add_watermark/add_watermark_worker.py:275
-#: feature/compress_pdf/compress_pdf_frame.py:107
-#: feature/compress_pdf/compress_pdf_frame.py:113
-#: feature/compress_pdf/compress_pdf_frame.py:122
-#: feature/compress_pdf/compress_pdf_frame.py:128
-#: feature/compress_pdf/compress_pdf_frame.py:134
-#: feature/compress_pdf/compress_pdf_worker.py:308
+#: feature/add_watermark/add_watermark_frame.py:164
+#: feature/add_watermark/add_watermark_frame.py:170
+#: feature/add_watermark/add_watermark_worker.py:255
+#: feature/compress_pdf/compress_pdf_frame.py:114
+#: feature/compress_pdf/compress_pdf_frame.py:120
+#: feature/compress_pdf/compress_pdf_frame.py:126
+#: feature/compress_pdf/compress_pdf_frame.py:132
+#: feature/compress_pdf/compress_pdf_worker.py:314
+#: feature/decrypt_pdf/decrypt_pdf_frame.py:115
 #: feature/decrypt_pdf/decrypt_pdf_frame.py:118
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:124
-#: feature/decrypt_pdf/decrypt_pdf_worker.py:115
-#: feature/delete_pages/delete_pages_frame.py:127
-#: feature/delete_pages/delete_pages_frame.py:130
-#: feature/delete_pages/delete_pages_frame.py:133
-#: feature/delete_pages/delete_pages_frame.py:137
-#: feature/delete_pages/delete_pages_frame.py:140
-#: feature/delete_pages/delete_pages_worker.py:183
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:157
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:163
+#: feature/decrypt_pdf/decrypt_pdf_frame.py:125
+#: feature/decrypt_pdf/decrypt_pdf_frame.py:131
+#: feature/delete_pages/delete_pages_frame.py:138
+#: feature/delete_pages/delete_pages_frame.py:141
+#: feature/delete_pages/delete_pages_frame.py:148
+#: feature/delete_pages/delete_pages_frame.py:151
+#: feature/delete_pages/delete_pages_frame.py:154
+#: feature/delete_pages/delete_pages_frame.py:158
+#: feature/delete_pages/delete_pages_frame.py:162
+#: feature/delete_pages/delete_pages_frame.py:178
 #: feature/edit_bookmarks/edit_bookmarks_frame.py:166
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:181
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:210
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:232
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:253
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:276
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:279
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:287
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:296
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:306
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:311
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:315
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:322
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:333
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:172
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:175
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:190
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:219
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:238
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:257
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:280
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:283
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:286
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:293
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:298
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:308
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:313
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:317
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:324
 #: feature/edit_bookmarks/edit_bookmarks_frame.py:345
 #: feature/encrypt_pdf/encrypt_pdf_frame.py:99
 #: feature/encrypt_pdf/encrypt_pdf_frame.py:105
 #: feature/encrypt_pdf/encrypt_pdf_frame.py:111
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:153
-#: feature/extract_images/extract_images_frame.py:101
-#: feature/extract_images/extract_images_frame.py:107
-#: feature/extract_images/extract_images_frame.py:115
-#: feature/extract_images/extract_images_frame.py:121
-#: feature/extract_images/extract_images_worker.py:174
-#: feature/extract_text/extract_text_frame.py:78
-#: feature/extract_text/extract_text_frame.py:84
-#: feature/extract_text/extract_text_worker.py:144
-#: feature/images_to_pdf/images_to_pdf_frame.py:102
-#: feature/images_to_pdf/images_to_pdf_frame.py:108
-#: feature/images_to_pdf/images_to_pdf_worker.py:137
-#: feature/interleave_merge/interleave_merge_frame.py:127
-#: feature/interleave_merge/interleave_merge_frame.py:133
-#: feature/interleave_merge/interleave_merge_worker.py:142
-#: feature/merge_invoices/merge_invoices_frame.py:90
-#: feature/merge_invoices/merge_invoices_frame.py:96
-#: feature/merge_invoices/merge_invoices_worker.py:200
-#: feature/merge_pdf/merge_pdf_frame.py:99
-#: feature/merge_pdf/merge_pdf_frame.py:105
-#: feature/merge_pdf/merge_pdf_worker.py:158
-#: feature/pdf_to_images/pdf_to_images_frame.py:129
-#: feature/pdf_to_images/pdf_to_images_frame.py:135
-#: feature/pdf_to_images/pdf_to_images_frame.py:142
+#: feature/encrypt_pdf/encrypt_pdf_worker.py:149
+#: feature/extract_images/extract_images_frame.py:108
+#: feature/extract_images/extract_images_frame.py:114
+#: feature/extract_images/extract_images_frame.py:122
+#: feature/extract_images/extract_images_frame.py:128
+#: feature/extract_images/extract_images_worker.py:179
+#: feature/extract_text/extract_text_frame.py:82
+#: feature/extract_text/extract_text_frame.py:88
+#: feature/extract_text/extract_text_worker.py:139
+#: feature/images_to_pdf/images_to_pdf_frame.py:104
+#: feature/images_to_pdf/images_to_pdf_frame.py:110
+#: feature/images_to_pdf/images_to_pdf_worker.py:125
+#: feature/interleave_merge/interleave_merge_frame.py:143
+#: feature/interleave_merge/interleave_merge_frame.py:146
+#: feature/interleave_merge/interleave_merge_worker.py:133
+#: feature/merge_invoices/merge_invoices_frame.py:99
+#: feature/merge_invoices/merge_invoices_frame.py:103
+#: feature/merge_invoices/merge_invoices_worker.py:199
+#: feature/merge_pdf/merge_pdf_frame.py:110
+#: feature/merge_pdf/merge_pdf_frame.py:114
+#: feature/merge_pdf/merge_pdf_worker.py:147
+#: feature/pdf_to_images/pdf_to_images_frame.py:132
+#: feature/pdf_to_images/pdf_to_images_frame.py:138
 #: feature/pdf_to_images/pdf_to_images_frame.py:145
-#: feature/pdf_to_images/pdf_to_images_frame.py:150
+#: feature/pdf_to_images/pdf_to_images_frame.py:148
 #: feature/pdf_to_images/pdf_to_images_frame.py:153
-#: feature/pdf_to_images/pdf_to_images_worker.py:161
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:131
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:137
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:192
-#: feature/rotate_pdf/rotate_pdf_frame.py:96
-#: feature/rotate_pdf/rotate_pdf_frame.py:102
-#: feature/rotate_pdf/rotate_pdf_worker.py:134
-#: feature/split_pdf/split_pdf_frame.py:158
-#: feature/split_pdf/split_pdf_frame.py:161
-#: feature/split_pdf/split_pdf_frame.py:164
-#: feature/split_pdf/split_pdf_frame.py:170
-#: feature/split_pdf/split_pdf_frame.py:175
-#: feature/split_pdf/split_pdf_frame.py:178
-#: feature/split_pdf/split_pdf_frame.py:182
-#: feature/split_pdf/split_pdf_frame.py:187
-#: feature/split_pdf/split_pdf_frame.py:190
-#: feature/split_pdf/split_pdf_frame.py:194
-#: feature/split_pdf/split_pdf_worker.py:242
+#: feature/pdf_to_images/pdf_to_images_frame.py:156
+#: feature/pdf_to_images/pdf_to_images_worker.py:160
+#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:133
+#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:139
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:194
+#: feature/rotate_pdf/rotate_pdf_frame.py:104
+#: feature/rotate_pdf/rotate_pdf_frame.py:110
+#: feature/rotate_pdf/rotate_pdf_worker.py:120
+#: feature/split_pdf/split_pdf_frame.py:183
+#: feature/split_pdf/split_pdf_frame.py:186
+#: feature/split_pdf/split_pdf_frame.py:189
+#: feature/split_pdf/split_pdf_frame.py:195
+#: feature/split_pdf/split_pdf_frame.py:201
+#: feature/split_pdf/split_pdf_frame.py:206
+#: feature/split_pdf/split_pdf_frame.py:211
+#: feature/split_pdf/split_pdf_frame.py:217
+#: feature/split_pdf/split_pdf_frame.py:222
+#: feature/split_pdf/split_pdf_frame.py:227
+#: feature/split_pdf/split_pdf_frame.py:243
+#: feature/split_pdf/split_pdf_worker.py:226
 msgid "Error"
 msgstr "错误"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:259
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:119
-#: feature/delete_pages/delete_pages_frame.py:127
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:210
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:276
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:132
-#: feature/split_pdf/split_pdf_frame.py:158
-msgid "Input PDF must be set."
+#: feature/add_page_numbers/add_page_numbers_frame.py:303
+msgid "Input PDF cannot be empty."
 msgstr "必须指定输入 PDF。"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:262
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:125
-#: feature/images_to_pdf/images_to_pdf_frame.py:109
-#: feature/interleave_merge/interleave_merge_frame.py:134
-#: feature/merge_invoices/merge_invoices_frame.py:97
-#: feature/merge_pdf/merge_pdf_frame.py:106
-#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:138
-msgid "Output path must be set."
-msgstr "必须设置输出路径。"
+#: feature/add_page_numbers/add_page_numbers_frame.py:306
+msgid "Output PDF cannot be empty."
+msgstr "必须设置输出 PDF。"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:265
+#: feature/add_page_numbers/add_page_numbers_frame.py:309
 msgid "Page number rule must be set."
 msgstr "必须设置页码格式。"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:270
-msgid "Font size must be an integer."
+#: feature/add_page_numbers/add_page_numbers_frame.py:312
+msgid "Font size must be at least 1."
 msgstr "字号必须是整数。"
 
-#: feature/add_page_numbers/add_page_numbers_frame.py:282
-#, python-format
-msgid "%s must be a number."
-msgstr "%s 必须是数字。"
+#: feature/add_page_numbers/add_page_numbers_frame.py:322
+msgid "Margin must be greater than 0."
+msgstr "边距必须大于 0。"
 
-#: feature/add_page_numbers/add_page_numbers_worker.py:127
-#: feature/add_watermark/add_watermark_worker.py:139
-#: feature/compress_pdf/compress_pdf_worker.py:144
-#: feature/delete_pages/delete_pages_worker.py:48
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:40
-#: feature/extract_images/extract_images_worker.py:44
-#: feature/extract_text/extract_text_worker.py:40
-#: feature/images_to_pdf/images_to_pdf_worker.py:37
-#: feature/merge_invoices/merge_invoices_worker.py:96
-#: feature/merge_pdf/merge_pdf_worker.py:40
-#: feature/pdf_to_images/pdf_to_images_worker.py:44
-#: feature/rotate_pdf/rotate_pdf_worker.py:43
-#: feature/split_pdf/split_pdf_worker.py:110
-msgid "No input files."
-msgstr "无输入文件。"
-
-#: feature/add_page_numbers/add_page_numbers_worker.py:147
-msgid "Adding page numbers..."
-msgstr "正在添加页码……"
-
-#: feature/add_page_numbers/add_page_numbers_worker.py:168
-#: feature/images_to_pdf/images_to_pdf_worker.py:75
-#: feature/interleave_merge/interleave_merge_worker.py:73
-#: feature/merge_invoices/merge_invoices_worker.py:130
-#: feature/merge_pdf/merge_pdf_worker.py:91
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:128
-msgid "Saving..."
-msgstr "正在保存……."
-
-#: feature/add_page_numbers/add_page_numbers_worker.py:188
-#: feature/feature_list.py:41
-msgid "Add Page Numbers"
-msgstr "添加页码"
-
-#: feature/add_page_numbers/add_page_numbers_worker.py:189
-#: feature/add_watermark/add_watermark_worker.py:247
-#: feature/compress_pdf/compress_pdf_worker.py:272
-#: feature/decrypt_pdf/decrypt_pdf_worker.py:92
-#: feature/delete_pages/delete_pages_worker.py:147
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:125
-#: feature/extract_images/extract_images_worker.py:138
-#: feature/extract_text/extract_text_worker.py:108
-#: feature/images_to_pdf/images_to_pdf_worker.py:101
-#: feature/interleave_merge/interleave_merge_worker.py:102
-#: feature/merge_invoices/merge_invoices_worker.py:159
-#: feature/merge_pdf/merge_pdf_worker.py:117
-#: feature/pdf_to_images/pdf_to_images_worker.py:125
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:156
-#: feature/rotate_pdf/rotate_pdf_worker.py:97
-#: feature/split_pdf/split_pdf_worker.py:206
-msgid "Preparing..."
-msgstr "正在准备……"
-
-#: feature/add_page_numbers/add_page_numbers_worker.py:222
-#: feature/add_watermark/add_watermark_worker.py:206
-#: feature/add_watermark/add_watermark_worker.py:265
-#: feature/compress_pdf/compress_pdf_worker.py:253
-#: feature/compress_pdf/compress_pdf_worker.py:304
-#: feature/decrypt_pdf/decrypt_pdf_worker.py:56
-#: feature/decrypt_pdf/decrypt_pdf_worker.py:110
-#: feature/delete_pages/delete_pages_worker.py:122
-#: feature/delete_pages/delete_pages_worker.py:179
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:255
+#: feature/add_page_numbers/add_page_numbers_worker.py:118
+#: feature/add_page_numbers/add_page_numbers_worker.py:166
+#: feature/add_watermark/add_watermark_worker.py:186
+#: feature/add_watermark/add_watermark_worker.py:245
+#: feature/compress_pdf/compress_pdf_worker.py:265
+#: feature/compress_pdf/compress_pdf_worker.py:310
+#: feature/decrypt_pdf/decrypt_pdf_frame.py:120
+#: feature/delete_pages/delete_pages_frame.py:143
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:259
 #: feature/edit_bookmarks/edit_bookmarks_frame.py:347
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:81
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:143
-#: feature/extract_images/extract_images_worker.py:116
-#: feature/extract_images/extract_images_worker.py:170
-#: feature/extract_text/extract_text_worker.py:86
-#: feature/extract_text/extract_text_worker.py:140
-#: feature/images_to_pdf/images_to_pdf_worker.py:133
-#: feature/interleave_merge/interleave_merge_worker.py:135
-#: feature/merge_invoices/merge_invoices_worker.py:193
-#: feature/merge_pdf/merge_pdf_worker.py:151
-#: feature/pdf_to_images/pdf_to_images_worker.py:103
-#: feature/pdf_to_images/pdf_to_images_worker.py:157
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:188
-#: feature/rotate_pdf/rotate_pdf_worker.py:75
-#: feature/rotate_pdf/rotate_pdf_worker.py:129
-#: feature/split_pdf/split_pdf_worker.py:181
-#: feature/split_pdf/split_pdf_worker.py:238
+#: feature/encrypt_pdf/encrypt_pdf_worker.py:75
+#: feature/encrypt_pdf/encrypt_pdf_worker.py:139
+#: feature/extract_images/extract_images_worker.py:120
+#: feature/extract_images/extract_images_worker.py:175
+#: feature/extract_text/extract_text_worker.py:80
+#: feature/extract_text/extract_text_worker.py:135
+#: feature/images_to_pdf/images_to_pdf_worker.py:63
+#: feature/images_to_pdf/images_to_pdf_worker.py:121
+#: feature/interleave_merge/interleave_merge_worker.py:69
+#: feature/interleave_merge/interleave_merge_worker.py:126
+#: feature/merge_invoices/merge_invoices_worker.py:132
+#: feature/merge_invoices/merge_invoices_worker.py:192
+#: feature/merge_pdf/merge_pdf_worker.py:83
+#: feature/merge_pdf/merge_pdf_worker.py:140
+#: feature/pdf_to_images/pdf_to_images_worker.py:101
+#: feature/pdf_to_images/pdf_to_images_worker.py:156
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:137
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:190
+#: feature/rotate_pdf/rotate_pdf_worker.py:68
+#: feature/rotate_pdf/rotate_pdf_worker.py:115
+#: feature/split_pdf/split_pdf_worker.py:167
+#: feature/split_pdf/split_pdf_worker.py:222
 msgid "Done"
 msgstr "完成"
 
-#: feature/add_page_numbers/add_page_numbers_worker.py:223
-msgid "Page Numbers Added"
-msgstr "页码已经添加"
+#: feature/add_page_numbers/add_page_numbers_worker.py:148
+#: feature/feature_list.py:40
+msgid "Add Page Numbers"
+msgstr "添加页码"
+
+#: feature/add_page_numbers/add_page_numbers_worker.py:149
+#: feature/add_watermark/add_watermark_worker.py:227
+#: feature/compress_pdf/compress_pdf_worker.py:328
+#: feature/encrypt_pdf/encrypt_pdf_worker.py:120
+#: feature/extract_images/extract_images_worker.py:156
+#: feature/extract_text/extract_text_worker.py:116
+#: feature/images_to_pdf/images_to_pdf_worker.py:102
+#: feature/interleave_merge/interleave_merge_worker.py:106
+#: feature/merge_invoices/merge_invoices_worker.py:172
+#: feature/merge_pdf/merge_pdf_worker.py:120
+#: feature/pdf_to_images/pdf_to_images_worker.py:137
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:208
+#: feature/rotate_pdf/rotate_pdf_worker.py:134
+#: feature/split_pdf/split_pdf_worker.py:203
+msgid "Preparing..."
+msgstr "正在准备……"
 
 #: feature/add_watermark/add_watermark_frame.py:18
 #: feature/compress_pdf/compress_pdf_frame.py:17
@@ -395,189 +352,155 @@ msgstr "PDF 列表"
 
 #: feature/add_watermark/add_watermark_frame.py:23
 #: feature/compress_pdf/compress_pdf_frame.py:22
-#: feature/delete_pages/delete_pages_frame.py:33
+#: feature/delete_pages/delete_pages_frame.py:42
 #: feature/encrypt_pdf/encrypt_pdf_frame.py:29
 #: feature/extract_images/extract_images_frame.py:22
 #: feature/extract_text/extract_text_frame.py:22
 #: feature/pdf_to_images/pdf_to_images_frame.py:33
 #: feature/rotate_pdf/rotate_pdf_frame.py:27
-#: feature/split_pdf/split_pdf_frame.py:31
+#: feature/split_pdf/split_pdf_frame.py:40
 msgid "Output Folder"
 msgstr "输出文件夹"
 
-#: feature/add_watermark/add_watermark_frame.py:37
+#: feature/add_watermark/add_watermark_frame.py:38
 msgid "Text Watermark"
 msgstr "文字水印"
 
-#: feature/add_watermark/add_watermark_frame.py:41
+#: feature/add_watermark/add_watermark_frame.py:45
 msgid "Image Watermark"
 msgstr "图像水印"
 
-#: feature/add_watermark/add_watermark_frame.py:48
+#: feature/add_watermark/add_watermark_frame.py:54
 msgid "Watermark Text"
 msgstr "水印文字"
 
-#: feature/add_watermark/add_watermark_frame.py:58
+#: feature/add_watermark/add_watermark_frame.py:64
 msgid "Watermark Image"
 msgstr "水印图像"
 
-#: feature/add_watermark/add_watermark_frame.py:136
-#: feature/compress_pdf/compress_pdf_frame.py:108
+#: feature/add_watermark/add_watermark_frame.py:144
+#: feature/compress_pdf/compress_pdf_frame.py:115
 #: feature/encrypt_pdf/encrypt_pdf_frame.py:100
-#: feature/extract_images/extract_images_frame.py:102
-#: feature/extract_text/extract_text_frame.py:79
-#: feature/pdf_to_images/pdf_to_images_frame.py:130
-#: feature/rotate_pdf/rotate_pdf_frame.py:97
+#: feature/extract_images/extract_images_frame.py:109
+#: feature/extract_text/extract_text_frame.py:83
+#: feature/pdf_to_images/pdf_to_images_frame.py:133
+#: feature/rotate_pdf/rotate_pdf_frame.py:105
 msgid "Input must have at least 1 PDF file."
 msgstr "请至少添加一个输入 PDF 文件。"
 
-#: feature/add_watermark/add_watermark_frame.py:142
-#: feature/compress_pdf/compress_pdf_frame.py:114
-#: feature/delete_pages/delete_pages_frame.py:133
+#: feature/add_watermark/add_watermark_frame.py:150
+#: feature/compress_pdf/compress_pdf_frame.py:121
+#: feature/delete_pages/delete_pages_frame.py:154
 #: feature/encrypt_pdf/encrypt_pdf_frame.py:106
-#: feature/extract_images/extract_images_frame.py:108
-#: feature/extract_text/extract_text_frame.py:85
-#: feature/pdf_to_images/pdf_to_images_frame.py:136
-#: feature/rotate_pdf/rotate_pdf_frame.py:103
-#: feature/split_pdf/split_pdf_frame.py:164
+#: feature/extract_images/extract_images_frame.py:115
+#: feature/extract_text/extract_text_frame.py:89
+#: feature/pdf_to_images/pdf_to_images_frame.py:139
+#: feature/rotate_pdf/rotate_pdf_frame.py:111
+#: feature/split_pdf/split_pdf_frame.py:189
 msgid "Output folder must be set."
 msgstr "必须设置输出文件夹。"
 
-#: feature/add_watermark/add_watermark_frame.py:149
+#: feature/add_watermark/add_watermark_frame.py:157
 msgid "Watermark text must be set."
 msgstr "必须设置水印文字。"
 
-#: feature/add_watermark/add_watermark_frame.py:157
-#: feature/add_watermark/add_watermark_worker.py:142
+#: feature/add_watermark/add_watermark_frame.py:165
 msgid "Watermark image must be set."
 msgstr "必须设置水印图像。"
 
-#: feature/add_watermark/add_watermark_frame.py:163
+#: feature/add_watermark/add_watermark_frame.py:171
 msgid "Watermark image does not exist."
 msgstr "水印图像不存在。"
 
-#: feature/add_watermark/add_watermark_worker.py:166
-#, python-format
-msgid "Cannot read watermark image: %s"
-msgstr "无法读取水印图像：%s"
+#: feature/add_watermark/add_watermark_worker.py:150
+msgid "Cannot read watermark image: {}"
+msgstr "无法读取水印图像：{}"
 
-#: feature/add_watermark/add_watermark_worker.py:191
-#, python-format
-msgid "Adding watermark…… %s (%d/%d)"
-msgstr "正在添加图像…… %s (%d/%d)"
+#: feature/add_watermark/add_watermark_worker.py:188
+msgid "{} file(s) failed:"
+msgstr "文件 {} 失败："
 
-#: feature/add_watermark/add_watermark_worker.py:198
-msgid "Watermark"
-msgstr "水印"
-
-#: feature/add_watermark/add_watermark_worker.py:208
-#, python-format
-msgid "%d file(s) failed:"
-msgstr "文件 %d 失败。 "
-
-#: feature/add_watermark/add_watermark_worker.py:246 feature/feature_list.py:42
+#: feature/add_watermark/add_watermark_worker.py:226 feature/feature_list.py:41
 msgid "Add Watermark"
 msgstr "添加水印"
 
-#: feature/add_watermark/add_watermark_worker.py:265
-msgid "Watermark added"
-msgstr "水印已添加"
-
-#: feature/add_watermark/add_watermark_worker.py:270
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:148
+#: feature/add_watermark/add_watermark_worker.py:250
+#: feature/encrypt_pdf/encrypt_pdf_worker.py:144
 msgid "Done with errors"
 msgstr "完成但出错"
 
-#: feature/base_feature_frame.py:35
+#: feature/base_feature_frame.py:28
 msgid "Options"
 msgstr "选项"
 
-#: feature/base_feature_frame.py:38
+#: feature/base_feature_frame.py:31
 msgid "Execute"
 msgstr "执行"
 
-#: feature/compress_pdf/compress_pdf_frame.py:34
+#: feature/compress_pdf/compress_pdf_frame.py:35
 msgid "Compress embedded images"
 msgstr "压缩嵌入图像"
 
-#: feature/compress_pdf/compress_pdf_frame.py:38
+#: feature/compress_pdf/compress_pdf_frame.py:39
 msgid "Max Resolution"
 msgstr "最大分辨率"
 
-#: feature/compress_pdf/compress_pdf_frame.py:45
+#: feature/compress_pdf/compress_pdf_frame.py:46
 msgid "JPG Quality"
 msgstr "JPG 质量"
 
-#: feature/compress_pdf/compress_pdf_frame.py:96
+#: feature/compress_pdf/compress_pdf_frame.py:100
 msgid "Confirm"
 msgstr "确认"
 
-#: feature/compress_pdf/compress_pdf_frame.py:97
+#: feature/compress_pdf/compress_pdf_frame.py:101
 msgid "Compressing embedded images is time-consuming. Continue?"
 msgstr "压缩嵌入图像非常耗时，继续吗？"
 
-#: feature/compress_pdf/compress_pdf_frame.py:123
-msgid "Max resolution / jpg quality must be integers."
-msgstr "最大分辨率 / JPG 质量必须是整数。"
-
-#: feature/compress_pdf/compress_pdf_frame.py:129
+#: feature/compress_pdf/compress_pdf_frame.py:127
 msgid "Max resolution must be greater than 0."
-msgstr "最大分辨率必须大于 0"
+msgstr "最大分辨率必须大于 0。"
 
-#: feature/compress_pdf/compress_pdf_frame.py:135
+#: feature/compress_pdf/compress_pdf_frame.py:133
 msgid "jpg quality must be between 1 and 100."
 msgstr "JPG 质量必须在 1~100 之间。"
 
-#: feature/compress_pdf/compress_pdf_worker.py:183
-#, python-format
-msgid "Compressing images…… %s (%d/%d)"
-msgstr "正在压缩图像…… %s (%d/%d)"
+#: feature/compress_pdf/compress_pdf_worker.py:143
+msgid "No input files."
+msgstr "无输入文件。"
 
-#: feature/compress_pdf/compress_pdf_worker.py:189
-#: feature/compress_pdf/compress_pdf_worker.py:217 feature/feature_list.py:35
-msgid "Compress"
-msgstr "压缩"
-
-#: feature/compress_pdf/compress_pdf_worker.py:201
-#: feature/compress_pdf/compress_pdf_worker.py:229
-#, python-format
-msgid "Failed: %s (%s: %s)"
-msgstr "失败： %s (%s: %s)"
-
-#: feature/compress_pdf/compress_pdf_worker.py:212
-#, python-format
-msgid "Compressing…… %d/%d"
-msgstr "正在压缩图像…… %s (%d/%d)"
-
-#: feature/compress_pdf/compress_pdf_worker.py:233
-#, python-format
-msgid "Compressed %d file(s)."
-msgstr "文件 %d 已压缩。 "
-
-#: feature/compress_pdf/compress_pdf_worker.py:235
-#, python-format
-msgid "Downscaled %d image(s)."
-msgstr "图像 %d 已缩小。"
-
-#: feature/compress_pdf/compress_pdf_worker.py:238
-#, python-format
-msgid "%d image(s) kept (new size not smaller)."
-msgstr "图像 %d 已保留（新图像更大）。"
-
-#: feature/compress_pdf/compress_pdf_worker.py:243
-#, python-format
-msgid "%d image(s) skipped (unsupported format)."
-msgstr "图像 %d 已忽略（不支持的格式）。"
+#: feature/compress_pdf/compress_pdf_worker.py:203
+#: feature/compress_pdf/compress_pdf_worker.py:241
+msgid "Failed: {} ({}: {})"
+msgstr "失败： {} ({}: {})"
 
 #: feature/compress_pdf/compress_pdf_worker.py:247
-#: feature/extract_images/extract_images_worker.py:111
-#: feature/extract_text/extract_text_worker.py:81
-#: feature/pdf_to_images/pdf_to_images_worker.py:98
-#, python-format
-msgid "%d file(s) failed."
-msgstr "文件 %d 失败。"
+msgid "Compressed {} file(s)."
+msgstr "文件 {} 已压缩。"
 
-#: feature/compress_pdf/compress_pdf_worker.py:271 feature/feature_list.py:35
+#: feature/compress_pdf/compress_pdf_worker.py:249
+msgid "Downscaled {} image(s)."
+msgstr "图像 {} 已缩小。"
+
+#: feature/compress_pdf/compress_pdf_worker.py:251
+#, python-brace-format
+msgid "{} image(s) kept (new size not smaller)."
+msgstr "图像 {} 已保留（新图像更大）。"
+
+#: feature/compress_pdf/compress_pdf_worker.py:255
+#, python-brace-format
+msgid "{} image(s) skipped (unsupported format)."
+msgstr "图像 {} 已忽略（不支持的格式）。"
+
+#: feature/compress_pdf/compress_pdf_worker.py:259
+#: feature/extract_images/extract_images_worker.py:115
+#: feature/extract_text/extract_text_worker.py:75
+#: feature/pdf_to_images/pdf_to_images_worker.py:96
+#, python-brace-format
+msgid "{} file(s) failed."
+msgstr "文件 {} 失败。"
+
+#: feature/compress_pdf/compress_pdf_worker.py:327 feature/feature_list.py:35
 msgid "Compress PDF"
 msgstr "压缩 PDF"
 
@@ -586,212 +509,195 @@ msgstr "压缩 PDF"
 msgid "Password"
 msgstr "密码"
 
-#: feature/decrypt_pdf/decrypt_pdf_frame.py:83 feature/feature_list.py:50
-msgid "Decrypt"
-msgstr "解密"
-
-#: feature/decrypt_pdf/decrypt_pdf_worker.py:37
-msgid "No input file."
-msgstr "无输入文件。"
-
-#: feature/decrypt_pdf/decrypt_pdf_worker.py:44
-msgid "Decrypting……"
-msgstr "正在解密……"
-
-#: feature/decrypt_pdf/decrypt_pdf_worker.py:49
-msgid "Wrong password or password required."
-msgstr "密码错误或缺少密码。"
-
-#: feature/decrypt_pdf/decrypt_pdf_worker.py:91 feature/feature_list.py:50
-msgid "Decrypt PDF"
-msgstr "解密 PDF"
-
-#: feature/decrypt_pdf/decrypt_pdf_worker.py:110
+#: feature/decrypt_pdf/decrypt_pdf_frame.py:120
 msgid "PDF Decrypted"
 msgstr "PDF 已解密"
 
-#: feature/delete_pages/delete_pages_frame.py:43
-msgid "Pages to delete"
-msgstr "要删除的页面："
+#: feature/decrypt_pdf/decrypt_pdf_frame.py:126
+#: feature/delete_pages/delete_pages_frame.py:148
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:219
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:280
+#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:134
+#: feature/split_pdf/split_pdf_frame.py:183
+msgid "Input PDF must be set."
+msgstr "必须指定输入 PDF。"
 
-#: feature/delete_pages/delete_pages_frame.py:53
+#: feature/decrypt_pdf/decrypt_pdf_frame.py:132
+#: feature/images_to_pdf/images_to_pdf_frame.py:111
+#: feature/merge_invoices/merge_invoices_frame.py:103
+#: feature/pdf_to_long_image/pdf_to_long_image_frame.py:140
+msgid "Output path must be set."
+msgstr "必须设置输出路径。"
+
+#: feature/decrypt_pdf/decrypt_pdf_worker.py:34
+msgid "Wrong password or password required."
+msgstr "密码错误或缺少密码。"
+
+#: feature/delete_pages/delete_pages_frame.py:52
+msgid "Pages to delete"
+msgstr "要删除的页面"
+
+#: feature/delete_pages/delete_pages_frame.py:60
 msgid "Help"
 msgstr "帮助"
 
-#: feature/delete_pages/delete_pages_frame.py:59
+#: feature/delete_pages/delete_pages_frame.py:67
 msgid "Example: \"3,7-9,12;:2\". Click Help for for details."
 msgstr "示例：3,7-9,12;:2。点击“帮助”查看详细说明。"
 
-#: feature/delete_pages/delete_pages_frame.py:130
-#: feature/delete_pages/delete_pages_worker.py:52
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:279
-#: feature/split_pdf/split_pdf_frame.py:161
-#: feature/split_pdf/split_pdf_worker.py:114
+#: feature/delete_pages/delete_pages_frame.py:151
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:283
+#: feature/split_pdf/split_pdf_frame.py:186
 msgid "Input PDF does not exist."
 msgstr "输入的 PDF 不存在。"
 
-#: feature/delete_pages/delete_pages_frame.py:137
-#: feature/delete_pages/delete_pages_worker.py:57
+#: feature/delete_pages/delete_pages_frame.py:158
 msgid "Pages to delete must be set."
 msgstr "必须涉资要删除的页面。"
 
-#: feature/delete_pages/delete_pages_frame.py:140
-#: feature/delete_pages/delete_pages_worker.py:60
+#: feature/delete_pages/delete_pages_frame.py:162
 msgid "Enhanced mode (+) is not supported."
 msgstr "不支持增强模式（+）。"
 
-#: feature/delete_pages/delete_pages_worker.py:74
-#: feature/split_pdf/split_pdf_worker.py:66
+#: feature/delete_pages/delete_pages_frame.py:170
+#: feature/split_pdf/split_pdf_frame.py:236
+#: feature/split_pdf/split_pdf_worker.py:63
 msgid "Range expression produced no pages."
 msgstr "范围表示式不包含页面。"
 
-#: feature/delete_pages/delete_pages_worker.py:97
-msgid "Deleting……"
-msgstr "正在删除……"
-
-#: feature/delete_pages/delete_pages_worker.py:115
-#: feature/split_pdf/split_pdf_worker.py:174
+#: feature/delete_pages/delete_pages_worker.py:70
+#: feature/split_pdf/split_pdf_worker.py:156
 msgid "No output files were written."
 msgstr "未写入任何输出文件。"
 
-#: feature/delete_pages/delete_pages_worker.py:118
-#: feature/delete_pages/delete_pages_worker.py:146 feature/feature_list.py:14
+#: feature/delete_pages/delete_pages_worker.py:72 feature/feature_list.py:15
 msgid "Delete Pages"
 msgstr "删除页面"
 
-#: feature/delete_pages/delete_pages_worker.py:120
-#: feature/split_pdf/split_pdf_worker.py:179
+#: feature/delete_pages/delete_pages_worker.py:75
+#: feature/split_pdf/split_pdf_worker.py:163
 msgid "Failed:"
 msgstr "失败："
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:44
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:46
 msgid "Bookmarks"
 msgstr "书签"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:56
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:91
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:61
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:96
 msgid "Level"
 msgstr "层级"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:57
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:95
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:62
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:100
 msgid "Page"
 msgstr "页码"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:58
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:99
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:63
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:104
 msgid "Title"
 msgstr "标题"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:73
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:78
 msgid "Reload"
 msgstr "重新加载"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:74
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:79
 msgid "Import"
 msgstr "导入"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:75
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:80
 msgid "Export"
 msgstr "导出"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:76
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:81
 #: widget/file_list_view.py:83
 msgid "Move Up"
 msgstr "上移"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:77
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:82
 #: widget/file_list_view.py:84
 msgid "Move Down"
 msgstr "下移"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:78 feature/feature_list.py:14
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:83 feature/feature_list.py:15
 msgid "Delete"
 msgstr "删除"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:79
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:84
 msgid "Delete All"
 msgstr "删除全部"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:103
-#: feature/feature_list.py:43
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:108
+#: feature/feature_list.py:42
 msgid "Edit"
 msgstr "编辑"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:106
-#: feature/feature_list.py:41 feature/feature_list.py:42
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:111
+#: feature/feature_list.py:40 feature/feature_list.py:41
 msgid "Add"
 msgstr "添加"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:110
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:116
 msgid "Save"
 msgstr "保存"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:121
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:127
-msgid "TOC"
-msgstr "目录"
-
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:157
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:322
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:166
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:324
 msgid "Bookmark title must not be empty."
 msgstr "标题不能为空。"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:163
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:307
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:172
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:309
 msgid "Level and Page must be integers."
 msgstr "层级和页码必须是整数。"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:166
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:311
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:175
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:313
 msgid "Level must be >= 1."
 msgstr "层级必须大于等于 1。"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:181
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:190
 msgid "Select a bookmark to edit."
 msgstr "请选择要编辑的书签。"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:224
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:241
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:229
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:247
 msgid "CSV files"
 msgstr "CSV 文件"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:224
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:241
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:229
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:247
 msgid "All files"
 msgstr "所有文件"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:232
-#, python-format
-msgid "Failed to import: %s"
-msgstr "导入失败：%s"
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:238
+msgid "Failed to import: {}"
+msgstr "导入失败：{}"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:253
-#, python-format
-msgid "Failed to export: %s"
-msgstr "导出失败：%s"
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:257
+msgid "Failed to export: {}"
+msgstr "导出失败：{}"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:255
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:259
 msgid "Bookmarks exported"
 msgstr "书签已导出"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:287
-#, python-format
-msgid "Cannot open input PDF: %s"
-msgstr "无法打开输入 PDF：%s"
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:286
+msgid "Output PDF must be set."
+msgstr "必须设置输出 PDF。"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:296
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:293
+msgid "Cannot open input PDF: {}"
+msgstr "无法打开输入 PDF：{}"
+
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:298
 msgid "No bookmarks to write."
 msgstr "没有可写入的书签。"
 
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:316
-#, python-format
-msgid "Page %d out of range (1-%d)."
-msgstr "页码超出范围（1-%d）。"
-
-#: feature/edit_bookmarks/edit_bookmarks_frame.py:333
-msgid "Output PDF must be set."
-msgstr "必须设置输出 PDF。"
+#: feature/edit_bookmarks/edit_bookmarks_frame.py:318
+msgid "Page {} out of range (1-{})."
+msgstr "页码超出范围（1-{}）。"
 
 #: feature/edit_bookmarks/edit_bookmarks_frame.py:347
 msgid "Bookmarks updated"
@@ -801,175 +707,163 @@ msgstr "书签已更新"
 msgid "Password must not be empty."
 msgstr "密码不能为空。"
 
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:56
-msgid "Encrypting……"
-msgstr "正在加密……"
-
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:66
+#: feature/encrypt_pdf/encrypt_pdf_worker.py:62
 msgid "Source PDF is already encrypted."
 msgstr "源 PDF 已加密。"
 
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:67 feature/feature_list.py:49
-msgid "Encrypt"
-msgstr "加密"
-
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:83
+#: feature/encrypt_pdf/encrypt_pdf_worker.py:77
 #, python-brace-format
 msgid "{count} file(s) failed:"
 msgstr "{count} 个文件失败："
 
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:124 feature/feature_list.py:49
+#: feature/encrypt_pdf/encrypt_pdf_worker.py:119 feature/feature_list.py:48
 msgid "Encrypt PDF"
 msgstr "加密 PDF"
 
-#: feature/encrypt_pdf/encrypt_pdf_worker.py:143
-msgid "PDF Encrypted"
-msgstr "加密"
-
-#: feature/extract_images/extract_images_frame.py:34
+#: feature/extract_images/extract_images_frame.py:35
 msgid "Ignore small images"
 msgstr "忽略小图像"
 
-#: feature/extract_images/extract_images_frame.py:38
+#: feature/extract_images/extract_images_frame.py:39
 msgid "Min Width"
 msgstr "最小宽度"
 
-#: feature/extract_images/extract_images_frame.py:44
+#: feature/extract_images/extract_images_frame.py:47
 msgid "Min Height"
 msgstr "最小高度"
 
-#: feature/extract_images/extract_images_frame.py:116
+#: feature/extract_images/extract_images_frame.py:123
 msgid "Min width / min height must be integers."
 msgstr "最小宽度 / 最小高度必须是整数。"
 
-#: feature/extract_images/extract_images_frame.py:122
+#: feature/extract_images/extract_images_frame.py:129
 msgid "Min width / min height must be non-negative."
 msgstr "最小宽度 / 最小高度必须为非负数。"
 
-#: feature/extract_images/extract_images_worker.py:63
-msgid "Extracting images……"
-msgstr "正在提取图像..."
+#: feature/extract_images/extract_images_worker.py:108
+msgid "Extracted {} image(s) from {} file(s)."
+msgstr "已从 {} 个文件提取 {} 张图像。"
 
-#: feature/extract_images/extract_images_worker.py:103
-#: feature/extract_text/extract_text_worker.py:76
-#: feature/pdf_to_images/pdf_to_images_worker.py:92
-msgid "Failed"
-msgstr "失败"
+#: feature/extract_images/extract_images_worker.py:113
+#, python-brace-format
+msgid "{} small image(s) skipped."
+msgstr "{} 张小图像已跳过。"
 
-#: feature/extract_images/extract_images_worker.py:106
-#, python-format
-msgid "Extracted %d image(s) from %d file(s)."
-msgstr "已从 %d 个文件提取 %d 张图像。"
-
-#: feature/extract_images/extract_images_worker.py:109
-#, python-format
-msgid "%d small image(s) skipped."
-msgstr "%d 张小图像已跳过。"
-
-#: feature/extract_images/extract_images_worker.py:137
-#: feature/feature_list.py:21
+#: feature/extract_images/extract_images_worker.py:155
+#: feature/feature_list.py:22
 msgid "Extract Images"
 msgstr "提取图像"
 
-#: feature/extract_text/extract_text_worker.py:57
-msgid "Extracting text……"
-msgstr "正在提取文本..."
+#: feature/extract_text/extract_text_worker.py:73
+msgid "Text extracted from {} of {} file(s)."
+msgstr "已从 {} / {} 个文件中提取文本。"
 
-#: feature/extract_text/extract_text_worker.py:79
-#, python-format
-msgid "Text extracted from %d of %d file(s)."
-msgstr "已从 %d / %d 个文件中提取文本。"
-
-#: feature/extract_text/extract_text_worker.py:107 feature/feature_list.py:20
+#: feature/extract_text/extract_text_worker.py:115 feature/feature_list.py:21
 msgid "Extract Text"
 msgstr "提取文本"
 
-#: feature/feature_list.py:8
+#: feature/feature_list.py:9
 msgid "Document Assembly"
 msgstr "文档整理"
 
-#: feature/feature_list.py:10 feature/merge_pdf/merge_pdf_worker.py:116
+#: feature/feature_list.py:11 feature/merge_pdf/merge_pdf_worker.py:119
 msgid "Merge PDF"
 msgstr "合并 PDF"
 
-#: feature/feature_list.py:10 feature/feature_list.py:11
-#: feature/feature_list.py:56 feature/merge_pdf/merge_pdf_frame.py:51
+#: feature/feature_list.py:11 feature/feature_list.py:12
+#: feature/feature_list.py:54
 msgid "Merge"
 msgstr "合并"
 
-#: feature/feature_list.py:11
-#: feature/interleave_merge/interleave_merge_worker.py:101
+#: feature/feature_list.py:12
+#: feature/interleave_merge/interleave_merge_worker.py:105
 msgid "Interleave Merge"
 msgstr "交错合并"
 
-#: feature/feature_list.py:12 feature/split_pdf/split_pdf_worker.py:205
+#: feature/feature_list.py:13 feature/split_pdf/split_pdf_worker.py:202
 msgid "Split PDF"
 msgstr "拆分 PDF"
 
-#: feature/feature_list.py:12
+#: feature/feature_list.py:13
 msgid "Split"
 msgstr "拆分"
 
-#: feature/feature_list.py:13 feature/rotate_pdf/rotate_pdf_worker.py:96
+#: feature/feature_list.py:14 feature/rotate_pdf/rotate_pdf_worker.py:133
 msgid "Rotate PDF"
 msgstr "旋转 PDF"
 
-#: feature/feature_list.py:13 feature/rotate_pdf/rotate_pdf_worker.py:69
+#: feature/feature_list.py:14
 msgid "Rotate"
 msgstr "旋转"
 
-#: feature/feature_list.py:18
+#: feature/feature_list.py:19
 msgid "Content Extraction"
 msgstr "内容提取"
 
-#: feature/feature_list.py:20 feature/feature_list.py:21
+#: feature/feature_list.py:21 feature/feature_list.py:22
 msgid "Extract"
 msgstr "提取"
 
-#: feature/feature_list.py:25
+#: feature/feature_list.py:26
 msgid "Format Conversion"
 msgstr "格式转换"
 
-#: feature/feature_list.py:27 feature/images_to_pdf/images_to_pdf_worker.py:100
+#: feature/feature_list.py:28 feature/images_to_pdf/images_to_pdf_worker.py:101
 msgid "Images to PDF"
 msgstr "图像转 PDF"
 
-#: feature/feature_list.py:27 feature/feature_list.py:28
-#: feature/feature_list.py:29
+#: feature/feature_list.py:28 feature/feature_list.py:29
+#: feature/feature_list.py:30
 msgid "Convert"
 msgstr "转换"
 
-#: feature/feature_list.py:28 feature/pdf_to_images/pdf_to_images_worker.py:124
+#: feature/feature_list.py:29 feature/pdf_to_images/pdf_to_images_worker.py:136
 msgid "PDF to Images"
 msgstr "PDF 转图像"
 
-#: feature/feature_list.py:29
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:155
+#: feature/feature_list.py:30
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:207
 msgid "PDF to Long Image"
 msgstr "PDF 转长图"
 
-#: feature/feature_list.py:33
+#: feature/feature_list.py:34
 msgid "Document Compression"
 msgstr "文档压缩"
 
-#: feature/feature_list.py:39
+#: feature/feature_list.py:35
+msgid "Compress"
+msgstr "压缩"
+
+#: feature/feature_list.py:38
 msgid "Page Annotation"
 msgstr "页面附件"
 
-#: feature/feature_list.py:43
+#: feature/feature_list.py:42
 msgid "Edit Bookmarks"
 msgstr "编辑书签"
 
-#: feature/feature_list.py:47
+#: feature/feature_list.py:46
 msgid "Document Security"
 msgstr "文档安全"
 
-#: feature/feature_list.py:54
+#: feature/feature_list.py:48
+msgid "Encrypt"
+msgstr "加密"
+
+#: feature/feature_list.py:49
+msgid "Decrypt PDF"
+msgstr "解密 PDF"
+
+#: feature/feature_list.py:49
+msgid "Decrypt"
+msgstr "解密"
+
+#: feature/feature_list.py:53
 msgid "Invoice Processing"
 msgstr "发票处理"
 
-#: feature/feature_list.py:56
-#: feature/merge_invoices/merge_invoices_worker.py:158
+#: feature/feature_list.py:54
+#: feature/merge_invoices/merge_invoices_worker.py:171
 msgid "Merge Invoices"
 msgstr "合并发票"
 
@@ -977,66 +871,52 @@ msgstr "合并发票"
 msgid "Image List"
 msgstr "图像列表"
 
-#: feature/images_to_pdf/images_to_pdf_frame.py:103
+#: feature/images_to_pdf/images_to_pdf_frame.py:105
 msgid "Input must have at least 1 image file."
 msgstr "请至少添加一个图像文件。"
 
-#: feature/images_to_pdf/images_to_pdf_worker.py:53
-msgid "Adding..."
-msgstr "正在添加……"
+#: feature/images_to_pdf/images_to_pdf_worker.py:62
+#: feature/interleave_merge/interleave_merge_worker.py:68
+#: feature/merge_invoices/merge_invoices_worker.py:131
+#: feature/merge_pdf/merge_pdf_worker.py:82
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:136
+msgid "Saving..."
+msgstr "正在保存……."
 
-#: feature/images_to_pdf/images_to_pdf_worker.py:79
-#, python-format
-msgid "Converted %d image(s) to PDF: %s"
-msgstr "已将 %d 张图像转换为 PDF：%s"
+#: feature/images_to_pdf/images_to_pdf_worker.py:66
+msgid "Converted {} image(s) to PDF: {}"
+msgstr "已将 {} 张图像转换为 PDF：{}"
 
-#: feature/interleave_merge/interleave_merge_frame.py:50
+#: feature/interleave_merge/interleave_merge_frame.py:62
 msgid "Reverse PDF B"
 msgstr "PDF (B) 反序"
 
-#: feature/interleave_merge/interleave_merge_frame.py:82
-msgid "Interleave"
-msgstr "交错合并"
-
-#: feature/interleave_merge/interleave_merge_frame.py:128
-msgid "Both input PDFs must be set."
+#: feature/interleave_merge/interleave_merge_frame.py:143
+msgid "Both input PDF must be specified."
 msgstr "必须设置两个输入 PDF。"
 
-#: feature/interleave_merge/interleave_merge_worker.py:40
-msgid "Input must have exactly 2 PDF files."
-msgstr "输入必须恰好为 2 个 PDF 文件。"
+#: feature/interleave_merge/interleave_merge_frame.py:146
+#: feature/merge_pdf/merge_pdf_frame.py:114
+msgid "Output PDF must be specified."
+msgstr "必须设置输出 PDF。"
 
-#: feature/interleave_merge/interleave_merge_worker.py:70
-msgid "Interleaving..."
-msgstr "正在交错合并 PDF..."
-
-#: feature/interleave_merge/interleave_merge_worker.py:136
-msgid "PDF Interleaved"
-msgstr "PDF 已交错合并。"
-
-#: feature/merge_invoices/merge_invoices_frame.py:91
-#: feature/merge_pdf/merge_pdf_frame.py:100
+#: feature/merge_invoices/merge_invoices_frame.py:99
 msgid "Input must have at least 2 PDF files."
 msgstr "输入必须至少包含 2 个 PDF 文件。"
 
-#: feature/merge_invoices/merge_invoices_worker.py:114
-#: feature/merge_pdf/merge_pdf_worker.py:58
-msgid "Merging..."
-msgstr "正在合并 PDF..."
-
-#: feature/merge_invoices/merge_invoices_worker.py:194
-msgid "Invoices Merged"
-msgstr "{} 张发票已合并！"
-
-#: feature/merge_pdf/merge_pdf_frame.py:33
+#: feature/merge_pdf/merge_pdf_frame.py:38
 msgid "Generate Bookmarks"
 msgstr "生成书签"
 
-#: feature/merge_pdf/merge_pdf_frame.py:37
+#: feature/merge_pdf/merge_pdf_frame.py:44
 msgid "Support Delux Printting"
 msgstr "支持双面打印"
 
-#: feature/merge_pdf/merge_pdf_worker.py:152
+#: feature/merge_pdf/merge_pdf_frame.py:110
+msgid "Input PDF must have 2 files at least."
+msgstr "必须指定输入 PDF。"
+
+#: feature/merge_pdf/merge_pdf_worker.py:141
 msgid "PDF Merged"
 msgstr "PDF 已合并"
 
@@ -1052,38 +932,33 @@ msgstr "DPI"
 msgid "Format"
 msgstr "格式"
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:57
+#: feature/pdf_to_images/pdf_to_images_frame.py:58
 msgid "Transparent Background"
 msgstr "透明背景"
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:64
+#: feature/pdf_to_images/pdf_to_images_frame.py:65
 msgid "Quality"
 msgstr "质量"
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:142
+#: feature/pdf_to_images/pdf_to_images_frame.py:145
 msgid "DPI must be an integer."
 msgstr "DPI 必须是整数。"
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:145
+#: feature/pdf_to_images/pdf_to_images_frame.py:148
 msgid "DPI must be >= 1."
 msgstr "DPI 必须大于等于 1。"
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:150
+#: feature/pdf_to_images/pdf_to_images_frame.py:153
 msgid "Quality must be an integer."
 msgstr "质量必须是整数。"
 
-#: feature/pdf_to_images/pdf_to_images_frame.py:153
+#: feature/pdf_to_images/pdf_to_images_frame.py:156
 msgid "Quality must be between 1 and 100."
 msgstr "质量必须在 1 到 100 之间。"
 
-#: feature/pdf_to_images/pdf_to_images_worker.py:65
-msgid "Converting..."
-msgstr "正在转换图像..."
-
-#: feature/pdf_to_images/pdf_to_images_worker.py:95
-#, python-format
-msgid "Converted %d page(s) from %d file(s) to images."
-msgstr "已将 %d 个文件的 %d 页转换为图像。"
+#: feature/pdf_to_images/pdf_to_images_worker.py:91
+msgid "Converted {} page(s) from {} file(s) to images."
+msgstr "已将 {} 个文件的 {} 页转换为图像。"
 
 #: feature/pdf_to_long_image/pdf_to_long_image_frame.py:43
 msgid "Output Image"
@@ -1097,16 +972,15 @@ msgstr "页面范围"
 msgid "1-Based, n Page / n-m Range / Empty = All"
 msgstr "基于 1 起始；n 为单页 / n-m 为范围 / 留空表示全部"
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:44
-#, python-format
-msgid "Page number out of range (1-%d)."
-msgstr "页码超出范围（1-%d）。"
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:45
+msgid "Page number out of range (1-{})."
+msgstr "页码超出范围（1-{}）。"
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:46
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:47
 msgid "Start page cannot be greater than end page."
 msgstr "起始页不能大于结束页。"
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:70
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:71
 msgid "Exactly one input PDF is required."
 msgstr "需要且仅需要一个输入 PDF。"
 
@@ -1118,58 +992,40 @@ msgstr "PDF 文件没有页面。"
 msgid "No pages selected."
 msgstr "未选择任何页面。"
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:94
-msgid "Rendering pages..."
-msgstr "正在渲染页面……"
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:124
+msgid "Resulting image height {} px exceeds the JPEG limit of {} px."
+msgstr "生成的图像高度为 {} 像素，超出 JPEG 限制的 {} 像素。"
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:106
-msgid "Rendering..."
-msgstr "正在渲染……"
+#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:140
+msgid "Created long image from {} page(s): {}"
+msgstr "已从 {} 页生成长图：{}"
 
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:118
-#, python-format
-msgid "Resulting image height %d px exceeds the JPEG limit of %d px."
-msgstr "生成的图像高度为 %d 像素，超出 JPEG 限制的 %d 像素。"
-
-#: feature/pdf_to_long_image/pdf_to_long_image_worker.py:131
-#, python-format
-msgid "Created long image from %d page(s): %s"
-msgstr "已从 %d 页生成长图：%s"
-
-#: feature/rotate_pdf/rotate_pdf_frame.py:47
+#: feature/rotate_pdf/rotate_pdf_frame.py:52
 msgid "180°"
 msgstr "180°"
 
-#: feature/rotate_pdf/rotate_pdf_worker.py:57
-msgid "Rotating……"
-msgstr "正在旋转……"
-
-#: feature/rotate_pdf/rotate_pdf_worker.py:129
-msgid "PDF Rotated"
-msgstr "已旋转"
-
-#: feature/split_pdf/split_pdf_frame.py:45
+#: feature/split_pdf/split_pdf_frame.py:55
 msgid "Single Page"
 msgstr "单页"
 
-#: feature/split_pdf/split_pdf_frame.py:49
+#: feature/split_pdf/split_pdf_frame.py:62
 msgid "By Page Count"
 msgstr "按页数"
 
-#: feature/split_pdf/split_pdf_frame.py:53
+#: feature/split_pdf/split_pdf_frame.py:69
 msgid "By Parts"
 msgstr "按份数"
 
-#: feature/split_pdf/split_pdf_frame.py:57
+#: feature/split_pdf/split_pdf_frame.py:76
 msgid "Custom Range"
 msgstr "自定义范围"
 
-#: feature/split_pdf/split_pdf_frame.py:60
-#: feature/split_pdf/split_pdf_frame.py:91
+#: feature/split_pdf/split_pdf_frame.py:81
+#: feature/split_pdf/split_pdf_frame.py:114
 msgid "Pages per chunk"
 msgstr "每块页数"
 
-#: feature/split_pdf/split_pdf_frame.py:77
+#: feature/split_pdf/split_pdf_frame.py:100
 msgid ""
 "By Page Count/By Parts: Int, for example: 5. Custom Range: \"1-5;7-:2\". "
 "Click Help for detail."
@@ -1177,67 +1033,62 @@ msgstr ""
 "按页数/按份数：整数，例如：5。    |    自定义范围：1-5;7-:2。点击“帮助”查看详"
 "细说明。"
 
-#: feature/split_pdf/split_pdf_frame.py:85
+#: feature/split_pdf/split_pdf_frame.py:108
 msgid "No parameter"
 msgstr "无参数"
 
-#: feature/split_pdf/split_pdf_frame.py:93
+#: feature/split_pdf/split_pdf_frame.py:116
 msgid "Number of parts"
 msgstr "份数"
 
-#: feature/split_pdf/split_pdf_frame.py:95
+#: feature/split_pdf/split_pdf_frame.py:118
 msgid "Range expression"
 msgstr "范围表达式"
 
-#: feature/split_pdf/split_pdf_frame.py:170
+#: feature/split_pdf/split_pdf_frame.py:195
 msgid "Pages per chunk must be set."
 msgstr "必须设置每块页数。"
 
-#: feature/split_pdf/split_pdf_frame.py:175
+#: feature/split_pdf/split_pdf_frame.py:201
 msgid "Pages per chunk must be an integer."
 msgstr "每块页数必须是整数。"
 
-#: feature/split_pdf/split_pdf_frame.py:178
-#: feature/split_pdf/split_pdf_worker.py:37
+#: feature/split_pdf/split_pdf_frame.py:206
+#: feature/split_pdf/split_pdf_worker.py:38
 msgid "Pages per chunk must be at least 1."
 msgstr "每块页数必须至少为 1。"
 
-#: feature/split_pdf/split_pdf_frame.py:182
+#: feature/split_pdf/split_pdf_frame.py:211
 msgid "Number of parts must be set."
 msgstr "必须设置份数。"
 
-#: feature/split_pdf/split_pdf_frame.py:187
+#: feature/split_pdf/split_pdf_frame.py:217
 msgid "Number of parts must be an integer."
 msgstr "份数必须是整数。"
 
-#: feature/split_pdf/split_pdf_frame.py:190
-#: feature/split_pdf/split_pdf_worker.py:46
+#: feature/split_pdf/split_pdf_frame.py:222
+#: feature/split_pdf/split_pdf_worker.py:47
 msgid "Number of parts must be at least 1."
 msgstr "份数必须至少为 1。"
 
-#: feature/split_pdf/split_pdf_frame.py:194
-#: feature/split_pdf/split_pdf_worker.py:62
+#: feature/split_pdf/split_pdf_frame.py:227
 msgid "Range expression must be set."
 msgstr "必须设置范围表达式。"
 
-#: feature/split_pdf/split_pdf_worker.py:48
+#: feature/split_pdf/split_pdf_worker.py:49
 msgid "Number of parts cannot exceed total pages."
 msgstr "份数不能大于总页数。"
 
-#: feature/split_pdf/split_pdf_worker.py:69
-#: feature/split_pdf/split_pdf_worker.py:89
+#: feature/split_pdf/split_pdf_worker.py:66
+#: feature/split_pdf/split_pdf_worker.py:86
 msgid "Unknown split mode."
 msgstr "未知的拆分模式。"
 
-#: feature/split_pdf/split_pdf_worker.py:140
+#: feature/split_pdf/split_pdf_worker.py:121
 msgid "Nothing to split."
 msgstr "无可拆分。"
 
-#: feature/split_pdf/split_pdf_worker.py:158
-msgid "Splitting……"
-msgstr "正在拆分……"
-
-#: feature/split_pdf/split_pdf_worker.py:177
+#: feature/split_pdf/split_pdf_worker.py:159
 msgid "PDF Split"
 msgstr "PDF 拆分"
 
@@ -1289,6 +1140,151 @@ msgstr "清除选择"
 #, python-brace-format
 msgid "File Name {icon}"
 msgstr "文件名 {icon}"
+
+#: widget/about_dialog.py:37
+msgid "Version {}"
+msgstr "版本 {}"
+
+#: widget/about_dialog.py:50
+msgid "Copyright © {}-{} {}, all rights reserved."
+msgstr "版权所有 © {}-{} {}，保留所有权利。"
+
+#: widget/about_dialog.py:59
+msgid "------ Third-party software or packages ------"
+msgstr "------ 第三方软件或包 ------"
+#: widget/about_dialog.py:86
+msgid "OK"
+msgstr "确定"
+
+
+
+
+#~ msgid "PageNum"
+#~ msgstr "页码"
+
+#~ msgid "Adding..."
+#~ msgstr "正在添加……"
+
+#~| msgid "Watermark"
+#~ msgid "Watermarking..."
+#~ msgstr "水印"
+
+#~ msgid "Watermark"
+#~ msgstr "水印"
+
+#~| msgid "Compress"
+#~ msgid "Compressing..."
+#~ msgstr "压缩"
+
+#~ msgid "TOC"
+#~ msgstr "目录"
+
+#~| msgid "Encrypt"
+#~ msgid "Encrypting..."
+#~ msgstr "加密"
+
+#~| msgid "Extract"
+#~ msgid "Extracting..."
+#~ msgstr "提取"
+
+#~ msgid "Failed"
+#~ msgstr "失败"
+
+#~ msgid "Converting..."
+#~ msgstr "正在转换图像..."
+
+#~ msgid "Interleave"
+#~ msgstr "交错合并"
+
+#~ msgid "Merging..."
+#~ msgstr "正在合并 PDF..."
+
+#~| msgid "Rotating PDF..."
+#~ msgid "Rotating..."
+#~ msgstr "正在旋转 PDF..."
+
+#~| msgid "Splitting PDF..."
+#~ msgid "Splitting..."
+#~ msgstr "正在拆分 PDF..."
+
+#~ msgid "Style"
+#~ msgstr "字形"
+
+#, python-format
+#~ msgid "%s must be a number."
+#~ msgstr "%s 必须是数字。"
+
+#~ msgid "Adding page numbers..."
+#~ msgstr "正在添加页码……"
+
+#~ msgid "Page Numbers Added"
+#~ msgstr "页码已经添加"
+
+#, python-format
+#~ msgid "Adding watermark…… %s (%d/%d)"
+#~ msgstr "正在添加图像…… %s (%d/%d)"
+
+#~ msgid "Watermark added"
+#~ msgstr "水印已添加"
+
+#~ msgid "Max resolution / jpg quality must be integers."
+#~ msgstr "最大分辨率 / JPG 质量必须是整数。"
+
+#, python-format
+#~ msgid "Compressing images…… %s (%d/%d)"
+#~ msgstr "正在压缩图像…… %s (%d/%d)"
+
+#, python-format
+#~ msgid "Compressing…… %d/%d"
+#~ msgstr "正在压缩图像…… %s (%d/%d)"
+
+#~ msgid "No input file."
+#~ msgstr "无输入文件。"
+
+#~ msgid "Decrypting……"
+#~ msgstr "正在解密……"
+
+#~ msgid "Deleting……"
+#~ msgstr "正在删除……"
+
+#~ msgid "Encrypting……"
+#~ msgstr "正在加密……"
+
+#~ msgid "PDF Encrypted"
+#~ msgstr "加密"
+
+#~ msgid "Extracting images……"
+#~ msgstr "正在提取图像..."
+
+#~ msgid "Extracting text……"
+#~ msgstr "正在提取文本..."
+
+#~ msgid "Input must have exactly 2 PDF files."
+#~ msgstr "输入必须恰好为 2 个 PDF 文件。"
+
+#~ msgid "Interleaving..."
+#~ msgstr "正在交错合并 PDF..."
+
+#~ msgid "PDF Interleaved"
+#~ msgstr "PDF 已交错合并。"
+
+#~ msgid "Invoices Merged"
+#~ msgstr "{} 张发票已合并！"
+
+#~ msgid "Rendering pages..."
+#~ msgstr "正在渲染页面……"
+
+#~ msgid "Rendering..."
+#~ msgstr "正在渲染……"
+
+#~ msgid "Rotating……"
+#~ msgstr "正在旋转……"
+
+#~ msgid "PDF Rotated"
+#~ msgstr "已旋转"
+
+#~ msgid "Splitting……"
+#~ msgstr "正在拆分……"
 
 #~ msgid "Broswer"
 #~ msgstr "浏览"
@@ -1446,9 +1442,6 @@ msgstr "文件名 {icon}"
 #~ msgid "------ The third software or packages -------"
 #~ msgstr "------ 第三方软件或包 -------"
 
-#~ msgid "OK"
-#~ msgstr "确定"
-
 #~ msgid "PDF File"
 #~ msgstr "PDF 文件"
 
@@ -1457,9 +1450,6 @@ msgstr "文件名 {icon}"
 
 #~ msgid "Regular"
 #~ msgstr "常规"
-
-#~ msgid "Bold"
-#~ msgstr "粗体"
 
 #~ msgid "Italic"
 #~ msgstr "斜体"
@@ -1595,17 +1585,11 @@ msgstr "文件名 {icon}"
 #~ msgid "Rotation Angle:"
 #~ msgstr "旋转角度："
 
-#~ msgid "Rotating PDF..."
-#~ msgstr "正在旋转 PDF..."
-
 #~ msgid "Value:"
 #~ msgstr "拆分参数："
 
 #~ msgid "Please specify a value for the split mode."
 #~ msgstr "请为拆分模式指定一个值。"
-
-#~ msgid "Splitting PDF..."
-#~ msgstr "正在拆分 PDF..."
 
 #~ msgid "Internal Error"
 #~ msgstr "内部错误"
@@ -1845,12 +1829,10 @@ msgstr "文件名 {icon}"
 #~ msgid "Duplicates are not allowed"
 #~ msgstr "不允许重复页面"
 
-#, fuzzy
 #~| msgid "Horizontal Margin:"
 #~ msgid "Horizontal Margin (cm):"
 #~ msgstr "水平边距："
 
-#, fuzzy
 #~| msgid ""
 #~| "Page Number Format Rules:\n"
 #~| "\n"
@@ -1933,7 +1915,6 @@ msgstr "文件名 {icon}"
 #~ "   - “1-4:R;5-:”：第1-4页为I-IV，第5-30页为5-30。\n"
 #~ "   - “1-4:R;5-6:r1;7-:1”：第1-4页为I-IV，5-6为i-ii，7-30为1-24。"
 
-#, fuzzy
 #~| msgid "Format: 1-3, 5, 7-9"
 #~ msgid "Format: 1-3, 5, 7-9;4-5,7;+8-10,12"
 #~ msgstr "格式：1-3, 5, 7-9"

@@ -63,7 +63,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             progress_queue.put(('progress', total, total, _('Done')))
             out.save(output_path)
 
-        summary = _('Converted %d image(s) to PDF: %s') % (total, output_path.name)
+        summary = _('Converted {} image(s) to PDF: {}').format(total, output_path.name)
         progress_queue.put(('done', summary))
 
     except Exception as exc:  # surface any unexpected failure

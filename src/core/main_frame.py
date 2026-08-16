@@ -4,6 +4,7 @@ from tkinter import ttk
 from core.not_implemented_frame import NotImplementedFrame
 from feature.feature_list import FEATURE_LIST
 from util.i18n import gettext_text as _
+from widget.about_dialog import AboutDialog
 
 
 class MainFrame(ttk.Frame):
@@ -100,4 +101,4 @@ class MainFrame(ttk.Frame):
         self._loaded_feature_frame.pack(fill='both', expand=True)
 
     def _on_about(self):
-        pass
+        AboutDialog(self.winfo_toplevel())

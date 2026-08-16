@@ -147,7 +147,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                     img_size = im.size
             except Exception as exc:
                 progress_queue.put(
-                    ('error', _('Cannot read watermark image: %s') % exc)
+                    ('error', _('Cannot read watermark image: {}').format(exc))
                 )
                 return
 
@@ -181,13 +181,13 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                     doc.save(out_file)
                     success_count += 1
             except Exception as exc:
-                failed.append((src.name, '%s: %s' % (type(exc).__name__, exc)))
+                failed.append((src.name, '{}: {}'.format(type(exc).__name__, exc)))
 
         progress_queue.put(('progress', total_pages, total_pages, _('Done')))
         if failed:
-            summary = _('%d file(s) failed:') % len(failed)
+            summary = _('{} file(s) failed:').format(len(failed))
             for name, message in failed:
-                summary += '\n- %s: %s' % (name, message)
+                summary += '\n- {}: {}'.format(name, message)
             progress_queue.put(
                 ('partial', str(out_dir), success_count, len(failed), summary)
             )
@@ -195,7 +195,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
             progress_queue.put(('done', str(out_dir)))
 
     except Exception as exc:
-        progress_queue.put(('error', '%s: %s' % (type(exc).__name__, exc)))
+        progress_queue.put(('error', '{}: {}'.format(type(exc).__name__, exc)))
 
 
 def run_add_watermark_with_progress(master, params: dict[str, Any]) -> None:

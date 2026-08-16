@@ -30,11 +30,11 @@ def _parse_phys_range(expr: str, total: int) -> list[int]:
         lo = int(lo_s) if lo_s else 1
         hi = int(hi_s) if hi_s else total
         if lo < 1 or hi > total or lo > hi:
-            raise ValueError('Invalid page range: %r' % expr)
+            raise ValueError('Invalid page range: {!r}'.format(expr))
         return list(range(lo, hi + 1))
     page = int(expr)
     if page < 1 or page > total:
-        raise ValueError('Invalid page number: %r' % expr)
+        raise ValueError('Invalid page number: {!r}'.format(expr))
     return [page]
 
 
@@ -85,7 +85,7 @@ def _format_number(value: int, type_char: str) -> str:
         return _to_letter(value)
     if type_char == 'A':
         return _to_letter(value).upper()
-    raise ValueError('Unknown number type: %r' % type_char)
+    raise ValueError('Unknown number type: {!r}'.format(type_char))
 
 
 def _parse_display_format(fmt: str):
@@ -105,7 +105,7 @@ def _parse_display_format(fmt: str):
     try:
         return (type_char, int(num_part))
     except ValueError:
-        raise ValueError('Invalid start value in format: %r' % fmt) from None
+        raise ValueError('Invalid start value in format: {!r}'.format(fmt)) from None
 
 
 def build_page_number_map(rule: str, total: int) -> dict[int, str]:

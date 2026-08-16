@@ -70,9 +70,9 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                     )
                 )
 
-        summary = _('Text extracted from %d of %d file(s).') % (processed, total)
+        summary = _('Text extracted from {} of {} file(s).').format(processed, total)
         if failed:
-            summary += ' ' + (_('%d file(s) failed.') % failed)
+            summary += ' ' + (_('{} file(s) failed.').format(failed))
         if processed == 0 and total > 0:
             progress_queue.put(('error', summary))
             return

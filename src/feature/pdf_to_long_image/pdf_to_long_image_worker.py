@@ -42,7 +42,7 @@ def _parse_range(rng: str, total: int) -> list[int]:
         start = end = int(rng)
 
     if start < 1 or end < 1 or start > total or end > total:
-        raise ValueError(_('Page number out of range (1-%d).') % total)
+        raise ValueError(_('Page number out of range (1-{}).').format(total))
     if start > end:
         raise ValueError(_('Start page cannot be greater than end page.'))
 
@@ -121,9 +121,9 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                     (
                         'error',
                         _(
-                            'Resulting image height %d px exceeds the JPEG limit of %d px.'
+                            'Resulting image height {} px exceeds the JPEG limit of {} px.'
                         )
-                        % (total_height, MAX_PIXEL),
+.format(total_height, MAX_PIXEL),
                     )
                 )
                 return
@@ -137,7 +137,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
             progress_queue.put(('progress', 3, 3, _('Done')))
             out_pix.save(output_path, jpg_quality=QUALITY)
 
-            summary = _('Created long image from %d page(s): %s') % (
+            summary = _('Created long image from {} page(s): {}').format(
                 len(pages),
                 output_path.name,
             )

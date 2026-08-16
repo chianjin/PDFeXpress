@@ -200,8 +200,9 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                             'progress',
                             page_index,
                             total_pages,
-                            _('Failed: %s (%s: %s)')
-                            % (src.name, type(exc).__name__, exc),
+                            _('Failed: {} ({}: {})').format(
+                                src.name, type(exc).__name__, exc
+                            ),
                         )
                     )
         else:
@@ -237,26 +238,25 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                             'progress',
                             index,
                             total,
-                            _('Failed: %s (%s: %s)')
-                            % (src.name, type(exc).__name__, exc),
+                            _('Failed: {} ({}: {})').format(
+                                src.name, type(exc).__name__, exc
+                            ),
                         )
                     )
 
-        summary = _('Compressed %d file(s).') % files_done
+        summary = _('Compressed {} file(s).').format(files_done)
         if compress_images:
-            summary += ' ' + (_('Downscaled %d image(s).') % ctr['downscaled'])
+            summary += ' ' + (_('Downscaled {} image(s).').format(ctr['downscaled']))
             if ctr['skipped_bigger']:
-                summary += ' ' + (
-                    _('%d image(s) kept (new size not smaller).')
-                    % ctr['skipped_bigger']
+                summary += ' ' + _('{} image(s) kept (new size not smaller).').format(
+                    ctr['skipped_bigger']
                 )
             if ctr['skipped_format']:
-                summary += ' ' + (
-                    _('%d image(s) skipped (unsupported format).')
-                    % ctr['skipped_format']
+                summary += ' ' + _('{} image(s) skipped (unsupported format).').format(
+                    ctr['skipped_format']
                 )
         if files_failed:
-            summary += ' ' + (_('%d file(s) failed.') % files_failed)
+            summary += ' ' + (_('{} file(s) failed.').format(files_failed))
         if files_done == 0 and total > 0:
             progress_queue.put(('error', summary))
             return
@@ -266,7 +266,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         progress_queue.put(('done', summary))
 
     except Exception as exc:
-        progress_queue.put(('error', '%s: %s' % (type(exc).__name__, exc)))
+        progress_queue.put(('error', '{}: {}'.format(type(exc).__name__, exc)))
 
 
 def run_compress_pdf_with_progress(master, params: dict[str, Any]) -> None:

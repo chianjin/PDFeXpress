@@ -235,7 +235,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         try:
             rows = read_csv_bookmarks(Path(path))
         except Exception as exc:
-            showerror(title=_('Error'), message=_('Failed to import: %s') % exc)
+            showerror(title=_('Error'), message=_('Failed to import: {}').format(exc))
             return
         self._delete_all()
         for level, page, title in rows:
@@ -254,7 +254,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         try:
             write_csv_bookmarks(Path(path), rows)
         except Exception as exc:
-            showerror(title=_('Error'), message=_('Failed to export: %s') % exc)
+            showerror(title=_('Error'), message=_('Failed to export: {}').format(exc))
             return
         showinfo(title=_('Done'), message=_('Bookmarks exported'))
 
@@ -290,7 +290,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
             with pymupdf.open(src) as doc:
                 page_count = doc.page_count
         except Exception as exc:
-            showerror(title=_('Error'), message=_('Cannot open input PDF: %s') % exc)
+            showerror(title=_('Error'), message=_('Cannot open input PDF: {}').format(exc))
             return False
 
         items = self.tree.get_children()
@@ -315,7 +315,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
             if page < 1 or page > page_count:
                 showerror(
                     title=_('Error'),
-                    message=_('Page %d out of range (1-%d).') % (page, page_count),
+                    message=_('Page {} out of range (1-{}).').format(page, page_count),
                 )
                 return False
             title = vals[2] if len(vals) > 2 else ''
@@ -342,7 +342,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         try:
             apply_bookmarks(src, out, toc)
         except Exception as exc:
-            showerror(title=_('Error'), message='%s: %s' % (type(exc).__name__, exc))
+            showerror(title=_('Error'), message='{}: {}'.format(type(exc).__name__, exc))
             return
         showinfo(title=_('Done'), message=_('Bookmarks updated'))
 

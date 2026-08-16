@@ -105,14 +105,14 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                     )
                 )
 
-        summary = _('Extracted %d image(s) from %d file(s).') % (
+        summary = _('Extracted {} image(s) from {} file(s).').format(
             images_extracted,
             files_done,
         )
         if images_skipped:
-            summary += ' ' + (_('%d small image(s) skipped.') % images_skipped)
+            summary += ' ' + (_('{} small image(s) skipped.').format(images_skipped))
         if files_failed:
-            summary += ' ' + (_('%d file(s) failed.') % files_failed)
+            summary += ' ' + (_('{} file(s) failed.').format(files_failed))
         if files_done == 0 and total > 0:
             progress_queue.put(('error', summary))
             return
