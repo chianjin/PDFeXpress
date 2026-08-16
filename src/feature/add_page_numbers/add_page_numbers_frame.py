@@ -13,6 +13,7 @@ from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
 from util.page_number_rule import build_page_number_map
 from util.i18n import gettext_text as _
+from util.helpers import enable_pdf_drop
 from widget.help_window import HelpWindow
 
 FONT_FAMILIES = ['Courier', 'Times', 'Helvetica']
@@ -48,6 +49,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         # Single fixed-height input row: collapse the frame instead of letting
         # it stretch (base class defaults expand=True, which suits list views).
         self.input_frame.pack_configure(expand=False, fill='x')
+        enable_pdf_drop(self.input_frame, self.input_path)
 
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))

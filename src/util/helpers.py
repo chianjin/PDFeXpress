@@ -51,6 +51,26 @@ def filter_dropped_files(event: tk.Event, file_types, include_folders: bool = Fa
     return filter_files(file_paths, file_types)
 
 
+def enable_pdf_drop(
+    widget: 'tk.Widget', variable: 'tk.StringVar', file_types=None
+) -> None:
+    """Allow dragging a file onto *widget*; the first matching file path is
+    written into *variable* (a tk.StringVar). Reuses filter_dropped_files so the
+    same file-type rules apply as the Browse button."""
+    from tkinterdnd2 import DND_FILES
+    from util.file_types import FILE_TYPES
+
+    target_types = file_types if file_types is not None else FILE_TYPES['PDF']
+
+    def _on_drop(event):
+        paths = filter_dropped_files(event, target_types, include_folders=False)
+        if paths:
+            variable.set(str(paths[0]))
+
+    widget.drop_target_register(DND_FILES)
+    widget.dnd_bind('<<Drop>>', _on_drop)
+
+
 def filter_dropped_folders(event: tk.Event):
     if not event.data:
         return []

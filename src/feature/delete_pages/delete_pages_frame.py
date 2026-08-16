@@ -11,6 +11,7 @@ from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
 from util.page_range_parser import parse_page_ranges
 from util.i18n import gettext_text as _
+from util.helpers import enable_pdf_drop
 from widget import HelpWindow
 
 
@@ -37,6 +38,7 @@ class DeletePagesFrame(BaseFeatureFrame):
         # Fixed single-input: collapse to natural height (same reasoning as
         # interleave_merge / split_pdf - no list to stretch, avoid a large void).
         self.input_frame.pack_configure(expand=False, fill='x')
+        enable_pdf_drop(self.input_frame, self.input_path)
 
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output Folder'))

@@ -9,6 +9,7 @@ from tkinterdnd2 import TkinterDnD
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
 from util.i18n import gettext_text as _
+from util.helpers import enable_pdf_drop
 
 
 class InterleaveMergeFrame(BaseFeatureFrame):
@@ -45,6 +46,8 @@ class InterleaveMergeFrame(BaseFeatureFrame):
         # (the base class defaults input_frame to expand=True, which suits list views
         # but leaves a large void here between the inputs and the output row).
         self.input_frame.pack_configure(expand=False, fill='x')
+        enable_pdf_drop(row_a, self.pdf_a)
+        enable_pdf_drop(row_b, self.pdf_b)
 
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
