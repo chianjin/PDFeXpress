@@ -1,16 +1,16 @@
 # PDF eXpress Copyright Notice
-Copyright © 2022-2025 chian.jin@gmail.com, All rights reserved.
+Copyright © 2022-2026 chian.jin@gmail.com, All rights reserved.
 
 License: [GNU AFFERO GENERAL PUBLIC LICENSE VERSION 3 (AGPLv3)](https://www.gnu.org/licenses/agpl-3.0.html)
 
 # Third-Party Software Copyright and License Information
 ## Python
-Copyright © 2001-2025 Python Software Foundation
+Copyright © 2001-2026 Python Software Foundation
 
 License: [PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2](https://docs.python.org/3/license.html#python-software-foundation-license-version-2)
 
 ## PyMuPDF
-Copyright © 2006-2025 Artifex Software, Inc.
+Copyright © 2006-2026 Artifex Software, Inc.
 License: [GNU AFFERO GPL 3.0](https://www.gnu.org/licenses/agpl-3.0.html) or [Artifex](https://artifex.com/contact/pymupdf-inquiry.php) Commercial License
 
 ## Pillow
