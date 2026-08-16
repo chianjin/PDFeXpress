@@ -45,7 +45,7 @@ def classify(doc: 'pymupdf.Document') -> str:
 
 
 def _place_regular(
-    out: 'pymupdf.Document', docs: list['pymupdf.Document'], refs: list[tuple[int, int]]
+        out: 'pymupdf.Document', docs: list['pymupdf.Document'], refs: list[tuple[int, int]]
 ) -> None:
     """Place regular invoice pages two-up (top/bottom) onto A4 pages."""
     for i in range(0, len(refs), 2):
@@ -68,7 +68,7 @@ def _place_regular(
 
 
 def _place_other(
-    out: 'pymupdf.Document', docs: list['pymupdf.Document'], refs: list[tuple[int, int]]
+        out: 'pymupdf.Document', docs: list['pymupdf.Document'], refs: list[tuple[int, int]]
 ) -> None:
     """Place other invoice pages one-per-A4, top-left aligned, fit-to-A4."""
     for d_idx, pno in refs:
@@ -84,7 +84,7 @@ def _place_other(
 # ---------------------------------------------------------------------------
 # Subprocess: pure logic, no tkinter dependency.
 # ---------------------------------------------------------------------------
-def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
     """Classify and merge invoice PDFs into one output PDF, report progress.
 
     Messages put on ``progress_queue`` are tuples:
@@ -147,7 +147,7 @@ def run_merge_invoices_with_progress(master, params: dict) -> None:
     """Run the invoice merge in a subprocess and show progress."""
 
     progress_queue: Queue = Queue()
-    cancel_event: Event = Event()
+    cancel_event = Event()
     process = None
     finished = False
 

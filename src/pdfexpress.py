@@ -1,5 +1,6 @@
 import multiprocessing
 import platform
+from tkinter import ttk
 
 from tkinterdnd2 import TkinterDnD
 
@@ -37,10 +38,11 @@ def main():
 
     # Set window's icon
     if system == 'Windows':
-        try:
-            root.iconbitmap(EXECUTABLE_PATH / f'asset/icon/{EXECUTABLE_NAME}.ico')
-        except Exception:
-            pass  # a missing icon must not prevent the app from starting
+        root.iconbitmap(EXECUTABLE_PATH / f'asset/icon/{EXECUTABLE_NAME}.ico')
+    elif system == 'Linux':
+        theme_tcl = EXECUTABLE_PATH / 'asset/theme/breeze.tcl'
+        root.call('source', str(theme_tcl))
+        ttk.Style().theme_use('breeze')
 
     # Create MainFrame
     app = MainFrame(root)

@@ -20,7 +20,7 @@ from util.i18n import gettext_text as _
 # ---------------------------------------------------------------------------
 # Subprocess: pure logic, no tkinter dependency.
 # ---------------------------------------------------------------------------
-def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
     """Merge input PDFs into one output PDF and report progress.
 
     Messages put on ``progress_queue`` are tuples:
@@ -95,7 +95,7 @@ def run_merge_with_progress(master, params: dict) -> None:
     """Run the merge in a subprocess and show progress via ProgressDialog."""
 
     progress_queue: Queue = Queue()
-    cancel_event: Event = Event()
+    cancel_event = Event()
     process = None
     finished = False
 

@@ -44,9 +44,9 @@ FILE_TYPES = RegistryDict(data_module.BASE_FILETYPES)
 # 2. 自动装载所有的 _GROUP
 for var_name, var_value in vars(data_module).items():
     if (
-        var_name.isupper()
-        and var_name.endswith('_GROUP')
-        and isinstance(var_value, tuple)
-        and len(var_value) == 3
+            var_name.isupper()
+            and var_name.endswith('_GROUP')
+            and isinstance(var_value, tuple)
+            and len(var_value) == 3
     ):
         FILE_TYPES.register_group(*var_value)

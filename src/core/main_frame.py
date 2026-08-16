@@ -33,7 +33,7 @@ class MainFrame(ttk.Frame):
             selectmode='browse',
             style='FeatureList.Treeview',
         )
-        self.treeview_menu.column('#0', width=150)
+        # self.treeview_menu.column('#0', width=150)
         self.treeview_menu.pack(side='left', fill='both', expand=1, padx=5, pady=5)
 
         self.treeview_menu.bind('<<TreeviewSelect>>', self._on_select)
@@ -60,7 +60,9 @@ class MainFrame(ttk.Frame):
 
         # Support Button
         ttk.Button(
-            left_frame, text=_('Support Me'), command=lambda: open_donate(self.winfo_toplevel())
+            left_frame,
+            text=_('Support Me'),
+            command=lambda: open_donate(self.winfo_toplevel()),
         ).pack(fill='x', padx=10, pady=(0, 10))
 
         # Set Default Feature Frame

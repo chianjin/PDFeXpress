@@ -6,8 +6,8 @@ from tkinter.messagebox import showerror, showinfo
 
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
-from util.i18n import gettext_text as _
 from util.helpers import enable_pdf_drop
+from util.i18n import gettext_text as _
 
 
 class DecryptPdfFrame(BaseFeatureFrame):
@@ -67,7 +67,7 @@ class DecryptPdfFrame(BaseFeatureFrame):
         init = self._initial_dir(self.input_path.get())
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
-            self.input_path.set(Path(path))
+            self.input_path.set(path)
 
     def _initial_dir(self, current: str) -> Path | str:
         if current:
@@ -90,7 +90,7 @@ class DecryptPdfFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(Path(output_path))
+            self.output_path.set(output_path)
 
     def get_input_paths(self):
         return [Path(self.input_path.get())] if self.input_path.get() else []

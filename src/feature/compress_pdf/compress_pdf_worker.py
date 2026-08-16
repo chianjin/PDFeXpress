@@ -30,7 +30,7 @@ from util.i18n import gettext_text as _
 
 
 def _downscale_page_images(
-    doc, page, max_dpi: int, jpg_quality: int, ctr: dict[str, int]
+        doc, page, max_dpi: int, jpg_quality: int, ctr: dict[str, int]
 ) -> None:
     """Downsample every over-resolution embedded image on ``page`` in place.
 
@@ -121,7 +121,7 @@ def _downscale_page_images(
             ctr['skipped_format'] += 1
 
 
-def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
     """Compress every input PDF into the output folder.
 
     Messages put on ``progress_queue`` are tuples:
@@ -266,14 +266,14 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         progress_queue.put(('done', summary))
 
     except Exception as exc:
-        progress_queue.put(('error', '{}: {}'.format(type(exc).__name__, exc)))
+        progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))
 
 
 def run_compress_pdf_with_progress(master, params: dict[str, Any]) -> None:
     """Run PDF compression in a subprocess and show progress via ProgressDialog."""
 
     progress_queue: Queue = Queue()
-    cancel_event: Event = Event()
+    cancel_event = Event()
     process = None
     finished = False
 

@@ -108,7 +108,7 @@ def _draw_image_watermark(page, image_path: str, img_size) -> None:
     page.insert_image(img_rect, filename=str(image_path), overlay=False)
 
 
-def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
     """Add a watermark to every input PDF and write results into the folder.
 
     Messages put on ``progress_queue`` are tuples:
@@ -132,11 +132,8 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
         # Pre-count total pages for the progress denominator.
         total_pages = 0
         for in_path in inputs:
-            try:
-                with pymupdf.open(in_path) as doc:
-                    total_pages += doc.page_count
-            except Exception:
-                pass
+            with pymupdf.open(in_path) as doc:
+                total_pages += doc.page_count
 
         img_size = None
         if mode == 'image':
@@ -181,13 +178,13 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
                     doc.save(out_file)
                     success_count += 1
             except Exception as exc:
-                failed.append((src.name, '{}: {}'.format(type(exc).__name__, exc)))
+                failed.append((src.name, f'{type(exc).__name__}: {exc}'))
 
         progress_queue.put(('progress', total_pages, total_pages, _('Done')))
         if failed:
             summary = _('{} file(s) failed:').format(len(failed))
             for name, message in failed:
-                summary += '\n- {}: {}'.format(name, message)
+                summary += f'\n- {name}: {message}'
             progress_queue.put(
                 ('partial', str(out_dir), success_count, len(failed), summary)
             )
@@ -195,14 +192,14 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
             progress_queue.put(('done', str(out_dir)))
 
     except Exception as exc:
-        progress_queue.put(('error', '{}: {}'.format(type(exc).__name__, exc)))
+        progress_queue.put(('error', f'{type(exc).__name__}: {exc}'))
 
 
 def run_add_watermark_with_progress(master, params: dict[str, Any]) -> None:
     """Run watermarking in a subprocess and show progress via ProgressDialog."""
 
     progress_queue: Queue = Queue()
-    cancel_event: Event = Event()
+    cancel_event = Event()
     process = None
     finished = False
 

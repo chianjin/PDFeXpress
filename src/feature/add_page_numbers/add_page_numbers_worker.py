@@ -25,16 +25,16 @@ LEFT, CENTER, RIGHT = 0, 1, 2
 
 
 def _geometry(
-    page,
-    vertical,
-    horizontal,
-    page_index,
-    top_cm,
-    bottom_cm,
-    left_cm,
-    right_cm,
-    mirror_cm,
-    font_size,
+        page,
+        vertical,
+        horizontal,
+        page_index,
+        top_cm,
+        bottom_cm,
+        left_cm,
+        right_cm,
+        mirror_cm,
+        font_size,
 ):
     """Return (Rect, align) for the page-number box.
 
@@ -66,7 +66,7 @@ def _geometry(
     return pymupdf.Rect(x0, y0, x1, y1), align
 
 
-def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
     options = params['options']
     try:
         with pymupdf.open(Path(params['inputs'][0])) as doc:
@@ -122,9 +122,8 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event: Event) -
 
 
 def run_add_page_numbers_with_progress(master, params: dict[str, Any]) -> None:
-
     progress_queue: Queue = Queue()
-    cancel_event: Event = Event()
+    cancel_event = Event()
     process = None
     finished = False
 
@@ -159,7 +158,7 @@ def run_add_page_numbers_with_progress(master, params: dict[str, Any]) -> None:
                 msg = progress_queue.get_nowait()
                 kind = msg[0]
                 if kind == 'progress':
-                    _, cur, tot, text = msg
+                    _i, cur, tot, text = msg
                     dialog.set_progress((cur / tot) if tot else 0, text)
                 elif kind == 'done':
                     _finish()

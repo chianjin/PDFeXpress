@@ -8,6 +8,7 @@ from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
 from widget import FileListView
 
+
 # Radiobutton value = normalized rotation angle, clockwise positive
 # (90 = clockwise 90, 270 = counter-clockwise 90, 180 = 180). This matches
 # the PDF /Rotate convention, so the value is used directly as both the
@@ -71,7 +72,7 @@ class RotatePdfFrame(BaseFeatureFrame):
         init_dir = self._get_initial_dir()
         folder = askdirectory(initialdir=init_dir)
         if folder:
-            self.output_path.set(Path(folder))
+            self.output_path.set(folder)
 
     def _get_initial_dir(self):
         # Mirror merge_pdf: anchor the dialog to the already-set output,

@@ -72,6 +72,6 @@ def delete_pages(params: dict) -> str:
         summary = _('Delete Pages') + f' ({produced}/{total_outputs})'
         if failures:
             summary += (
-                '\n' + _('Failed:') + ' ' + '; '.join(f'{n}: {e}' for n, e in failures)
+                    '\n' + _('Failed:') + ' ' + '; '.join(f'{n}: {e}' for n, e in failures)
             )
         return summary

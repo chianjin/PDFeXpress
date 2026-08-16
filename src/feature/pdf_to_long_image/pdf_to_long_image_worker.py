@@ -122,8 +122,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                         'error',
                         _(
                             'Resulting image height {} px exceeds the JPEG limit of {} px.'
-                        )
-.format(total_height, MAX_PIXEL),
+                        ).format(total_height, MAX_PIXEL),
                     )
                 )
                 return

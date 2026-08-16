@@ -20,7 +20,7 @@ from util.i18n import gettext_text as _
 # ---------------------------------------------------------------------------
 # Subprocess: pure logic, no tkinter dependency.
 # ---------------------------------------------------------------------------
-def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
     """Encrypt every input PDF and write results into the output folder.
 
     Messages put on ``progress_queue`` are tuples:
@@ -65,6 +65,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                     doc.save(
                         out_path,
                         encryption=pymupdf.PDF_ENCRYPT_AES_256,
+                        # type: ignore[attr-defined]  # 常量运行时存在(PyMuPDF 1.28.2)，仅 basedpyright 桩缺失
                         user_pw=password,
                         owner_pw=password,
                     )
@@ -94,7 +95,7 @@ def run_encrypt_with_progress(master, params: dict) -> None:
     """Run the encryption in a subprocess and show progress via ProgressDialog."""
 
     progress_queue: Queue = Queue()
-    cancel_event: Event = Event()
+    cancel_event = Event()
     process = None
     finished = False
 

@@ -1,9 +1,8 @@
 import os
 import platform
 import random
-from pathlib import Path
-
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 
 from config import EXECUTABLE_PATH, PROJECT_VERSION
@@ -183,7 +182,7 @@ def open_donate(master) -> None:
 class DonateDialog(tk.Toplevel):
     def __init__(self, master=None):
         super().__init__(master)
-        self.title(_("Buy me a chicken leg"))
+        self.title(_('Buy me a chicken leg'))
         self.resizable(False, False)
         self.transient(master)
 
@@ -192,7 +191,7 @@ class DonateDialog(tk.Toplevel):
 
         self._center_on_master()
         self.grab_set()
-        self.protocol("WM_DELETE_WINDOW", self._on_later)
+        self.protocol('WM_DELETE_WINDOW', self._on_later)
         self.wait_window(self)
 
     def _setup_ui(self):
@@ -203,18 +202,18 @@ class DonateDialog(tk.Toplevel):
 
         ttk.Label(
             container,
-            text=_("Buy me a chicken leg") + " 🍗",
+            text=_('Buy me a chicken leg') + ' 🍗',
             font=title_font,
-            anchor="center",
+            anchor='center',
         ).pack(fill=tk.X, pady=(0, 8))
 
         ttk.Label(
             container,
             text=_(
-                "If this tool has been helpful to you, feel free to "
-                "buy me a chicken leg."
+                'If this tool has been helpful to you, feel free to '
+                'buy me a chicken leg.'
             ),
-            anchor="center",
+            anchor='center',
             wraplength=360,
         ).pack(fill=tk.X, pady=(0, 16))
 
@@ -224,31 +223,31 @@ class DonateDialog(tk.Toplevel):
         button_row.pack(fill=tk.X, pady=(16, 0))
         button_row.columnconfigure((0, 1, 2), weight=1, uniform='btn')
 
-        ttk.Button(
-            button_row, text=_("Supported"), command=self._on_supported
-        ).grid(row=0, column=0, padx=4, sticky="ew")
-        ttk.Button(
-            button_row, text=_("Maybe Later"), command=self._on_later
-        ).grid(row=0, column=1, padx=4, sticky="ew")
+        ttk.Button(button_row, text=_('Supported'), command=self._on_supported).grid(
+            row=0, column=0, padx=4, sticky='ew'
+        )
+        ttk.Button(button_row, text=_('Maybe Later'), command=self._on_later).grid(
+            row=0, column=1, padx=4, sticky='ew'
+        )
         ttk.Button(
             button_row,
             text=_("Don't Show Again"),
             command=self._on_never_again,
-        ).grid(row=0, column=2, padx=4, sticky="ew")
+        ).grid(row=0, column=2, padx=4, sticky='ew')
 
     def _setup_qr_row(self, parent):
         qr_row = ttk.Frame(parent)
         qr_row.pack(fill=tk.X)
         qr_row.columnconfigure((0, 1), weight=1, uniform='qr')
 
-        for column, (name, file_name, label) in enumerate(
-            (
-                ('wechat', 'wechat.png', _("WeChat")),
-                ('alipay', 'alipay.png', _("Alipay")),
-            )
+        for column, (file_name, label) in enumerate(
+                (
+                        ('wechat.png', _('WeChat')),
+                        ('alipay.png', _('Alipay')),
+                )
         ):
             cell = ttk.Frame(qr_row)
-            cell.grid(row=0, column=column, padx=10, sticky="n")
+            cell.grid(row=0, column=column, padx=10, sticky='n')
             self._place_qr(cell, file_name, label)
 
     def _place_qr(self, cell, file_name: str, label: str):
@@ -261,22 +260,22 @@ class DonateDialog(tk.Toplevel):
             else:
                 ttk.Label(
                     cell,
-                    text=_("QR code image not found"),
-                    relief="solid",
+                    text=_('QR code image not found'),
+                    relief='solid',
                     borderwidth=1,
                     width=18,
-                    anchor="center",
+                    anchor='center',
                 ).pack(ipadx=10, ipady=30)
         except tk.TclError:
             ttk.Label(
                 cell,
-                text=_("QR code image not found"),
-                relief="solid",
+                text=_('QR code image not found'),
+                relief='solid',
                 borderwidth=1,
                 width=18,
-                anchor="center",
+                anchor='center',
             ).pack(ipadx=10, ipady=30)
-        ttk.Label(cell, text=label, anchor="center").pack(pady=(6, 0))
+        ttk.Label(cell, text=label, anchor='center').pack(pady=(6, 0))
 
     def _on_supported(self):
         _mark_donated()
@@ -293,8 +292,6 @@ class DonateDialog(tk.Toplevel):
     def _center_on_master(self):
         self.update_idletasks()
         master = self.master
-        if master is None:
-            return
         x = master.winfo_x() + (master.winfo_width() - self.winfo_width()) // 2
         y = master.winfo_y() + (master.winfo_height() - self.winfo_height()) // 2
-        self.geometry(f"+{x}+{y}")
+        self.geometry(f'+{x}+{y}')

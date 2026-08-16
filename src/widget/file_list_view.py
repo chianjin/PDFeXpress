@@ -12,15 +12,15 @@ from util.i18n import gettext_text as _
 
 class FileListView(tk.Frame):
     def __init__(
-        self,
-        master,
-        trace_variable: tk.StringVar | None = None,
-        file_types=FILE_TYPES['PDF'],
-        sortable: bool = True,
-        allow_duplicates: bool = True,
-        **kw,
+            self,
+            master,
+            trace_variable: tk.StringVar | None = None,
+            file_types=FILE_TYPES['PDF'],
+            sortable: bool = True,
+            allow_duplicates: bool = True,
+            **kw,
     ):
-        super().__init__(master)
+        super().__init__(master, **kw)
 
         self._file_types = file_types
         self._sortable = sortable

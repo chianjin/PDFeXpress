@@ -1,19 +1,19 @@
 import os
 import tkinter as tk
 from pathlib import Path
-import pymupdf
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import showerror
 
+import pymupdf
 from tkinterdnd2 import TkinterDnD
 
 from config import EXECUTABLE_PATH
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
-from util.page_number_rule import build_page_number_map
-from util.i18n import gettext_text as _
 from util.helpers import enable_pdf_drop
+from util.i18n import gettext_text as _
+from util.page_number_rule import build_page_number_map
 from widget.help_window import HelpWindow
 
 FONT_FAMILIES = ['Courier', 'Times', 'Helvetica']
@@ -217,9 +217,13 @@ class AddPageNumbersFrame(BaseFeatureFrame):
     def _open_help(self):
         posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
         language = posix_lang.split('.')[0]
-        guide_path = EXECUTABLE_PATH / f'asset/guide/page_number_syntax_guide-{language}.txt'
+        guide_path = (
+                EXECUTABLE_PATH / f'asset/guide/page_number_syntax_guide-{language}.txt'
+        )
         if not guide_path.exists():
-            guide_path = EXECUTABLE_PATH / 'asset/guide/page_number_syntax_guide-en_US.txt'
+            guide_path = (
+                    EXECUTABLE_PATH / 'asset/guide/page_number_syntax_guide-en_US.txt'
+            )
         with open(guide_path, encoding='UTF-8') as f:
             help_content = f.readlines()
         title = help_content[0].strip()
@@ -230,7 +234,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         init = self._initial_dir(self.input_path.get())
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
-            self.input_path.set(Path(path))
+            self.input_path.set(path)
 
     def _initial_dir(self, current: str) -> Path | str:
         if current:
@@ -252,7 +256,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(Path(output_path))
+            self.output_path.set(output_path)
 
     def _get_current_input_path(self):
         current = self.output_path.get()
@@ -314,11 +318,11 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             showerror(title=_('Error'), message=_('Font size must be at least 1.'))
             return False
         for var in (
-            self._top_margin,
-            self._bottom_margin,
-            self._left_margin,
-            self._right_margin,
-            self._mirror_margin,
+                self._top_margin,
+                self._bottom_margin,
+                self._left_margin,
+                self._right_margin,
+                self._mirror_margin,
         ):
             if var.get() < 0:
                 showerror(title=_('Error'), message=_('Margin must be greater than 0.'))

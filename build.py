@@ -45,7 +45,6 @@ DATA_FILES = (
     'COPYRIGHT.md',
 )
 
-
 ARCHIVE_BASENAME = (
     f'{PROJECT_NAME.replace(" ", "")}-Portable-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}'
 )
@@ -64,32 +63,35 @@ def build_executable():
 
     # Path to the main script
     main_script = f'{SOURCE_DIR_NAME}/{EXECUTABLE_NAME}.py'
-    spec_file = f'{EXECUTABLE_NAME}.spec'
 
     command = ['pyinstaller', '--noconfirm', '--clean']
-    if Path(spec_file).exists():
-        command.append(spec_file)
-    else:
-        command.extend(
-            [
-                '--windowed',
-                f'--name={EXECUTABLE_NAME}',
-                f'--distpath={DIST_DIR_NAME}',
-                f'--workpath={BUILD_DIR_NAME}',
-                f'--icon={SOURCE_DIR_NAME}/asset/icon/{EXECUTABLE_NAME}.ico',
-                f'--add-data={SOURCE_DIR_NAME}/asset{sep}asset',
-                f'--add-data={SOURCE_DIR_NAME}/locale{sep}locale',
-                '--collect-submodules',
-                'feature',
-                main_script,
-            ]
-        )
+    command.extend(
+        [
+            '--windowed',
+            f'--name={EXECUTABLE_NAME}',
+            f'--distpath={DIST_DIR_NAME}',
+            f'--workpath={BUILD_DIR_NAME}',
+            f'--icon={SOURCE_DIR_NAME}/asset/icon/{EXECUTABLE_NAME}.ico',
+            f'--add-data={SOURCE_DIR_NAME}/asset{sep}asset',
+            f'--add-data={SOURCE_DIR_NAME}/locale{sep}locale',
+            '--collect-submodules',
+            'feature',
+            main_script,
+        ]
+    )
 
     print(f'Running command: {" ".join(command)}')
 
+    # 让 src 在 PyInstaller 启动时就进入模块搜索路径，否则
+    # --collect-submodules feature 找不到 src/feature，打包后动态加载的
+    # 功能（如“合并 PDF”）会全部显示“未实现”。
+    env = os.environ.copy()
+    src_path = str(PROJECT_DIR / SOURCE_DIR_NAME)
+    env['PYTHONPATH'] = src_path + os.pathsep + env.get('PYTHONPATH', '')
+
     try:
         subprocess.run(
-            command, check=True, capture_output=True, text=True, encoding='utf-8'
+            command, check=True, capture_output=True, text=True, encoding='utf-8', env=env
         )
         print('Copying distribution files...')
         print(
@@ -97,7 +99,7 @@ def build_executable():
         )
 
         for data_file in DATA_FILES:
-             shutil.copy(data_file, f'{DIST_DIR_NAME}/{EXECUTABLE_NAME}')
+            shutil.copy(data_file, f'{DIST_DIR_NAME}/{EXECUTABLE_NAME}')
         print('Executable build process completed.')
     except subprocess.CalledProcessError as e:
         print('PyInstaller build failed.')

@@ -58,7 +58,7 @@ class MergeInvoicesFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(Path(output_path))
+            self.output_path.set(output_path)
 
     def _get_current_input_path(self):
         current_input_path = self.output_path.get()

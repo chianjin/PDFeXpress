@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PDF eXpress 1.9.2-alpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-16 17:04+0800\n"
-"PO-Revision-Date: 2026-08-16 17:42+0800\n"
+"PO-Revision-Date: 2026-08-17 00:00+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -28,7 +28,7 @@ msgstr "关于 PDF eXpress"
 
 #: src/core/main_frame.py:63
 msgid "Support Me"
-msgstr "支持我的劳动"
+msgstr "支  持  我"
 
 #: src/core/not_implemented_frame.py:14
 msgid "Not implemented"

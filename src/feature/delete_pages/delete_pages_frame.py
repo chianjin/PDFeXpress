@@ -1,17 +1,18 @@
 import os
 import tkinter as tk
 from pathlib import Path
-import pymupdf
 from tkinter import ttk
 from tkinter.filedialog import askdirectory, askopenfilename
 from tkinter.messagebox import showerror, showinfo
 
+import pymupdf
+
 from config import EXECUTABLE_PATH
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
-from util.page_range_parser import parse_page_ranges
-from util.i18n import gettext_text as _
 from util.helpers import enable_pdf_drop
+from util.i18n import gettext_text as _
+from util.page_range_parser import parse_page_ranges
 from widget import HelpWindow
 
 
@@ -80,14 +81,18 @@ class DeletePagesFrame(BaseFeatureFrame):
         init = self._initial_dir(self.input_path.get())
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
-            self.input_path.set(Path(path))
+            self.input_path.set(path)
 
     def _open_help(self):
         posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
         language = posix_lang.split('.')[0]
-        guide_path = EXECUTABLE_PATH / f'asset/guide/page_range_syntax_guide-{language}.txt'
+        guide_path = (
+                EXECUTABLE_PATH / f'asset/guide/page_range_syntax_guide-{language}.txt'
+        )
         if not guide_path.exists():
-            guide_path = EXECUTABLE_PATH / 'asset/guide/page_range_syntax_guide-en_US.txt'
+            guide_path = (
+                    EXECUTABLE_PATH / 'asset/guide/page_range_syntax_guide-en_US.txt'
+            )
         with open(guide_path, encoding='UTF-8') as f:
             help_content = f.readlines()
         title = help_content[0].strip()
@@ -109,7 +114,7 @@ class DeletePagesFrame(BaseFeatureFrame):
             init_dir = Path(self.input_path.get()).parent
         folder = askdirectory(initialdir=init_dir)
         if folder:
-            self.output_path.set(Path(folder))
+            self.output_path.set(folder)
 
     def get_input_paths(self):
         return [Path(self.input_path.get())]

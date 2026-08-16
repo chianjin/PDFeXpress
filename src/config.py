@@ -1,7 +1,6 @@
 import sys
 from pathlib import Path
 
-
 PROJECT_NAME = 'PDF eXpress'
 PROJECT_VERSION = '2.0'
 PROJECT_AUTHOR = 'chian.jin@gmail.com'
@@ -19,4 +18,3 @@ PAGE_RANGE_SYNTAX = 'page_range_syntax_guide-{}.txt'
 PAGE_NUMBER_SYNTAX = 'page_number_syntax_guide-{}.txt'
 
 HEADER_FONT_SIZE = 20
-

@@ -8,8 +8,8 @@ from tkinterdnd2 import TkinterDnD
 
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
-from util.i18n import gettext_text as _
 from util.helpers import enable_pdf_drop
+from util.i18n import gettext_text as _
 
 
 class InterleaveMergeFrame(BaseFeatureFrame):
@@ -76,13 +76,13 @@ class InterleaveMergeFrame(BaseFeatureFrame):
         init = self._initial_dir(self.pdf_b.get() or self.pdf_a.get())
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
-            self.pdf_a.set(Path(path))
+            self.pdf_a.set(path)
 
     def _browse_b(self):
         init = self._initial_dir(self.pdf_a.get() or self.pdf_b.get())
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
-            self.pdf_b.set(Path(path))
+            self.pdf_b.set(path)
 
     @staticmethod
     def _initial_dir(current: str) -> Path | str:
@@ -105,7 +105,7 @@ class InterleaveMergeFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(Path(output_path))
+            self.output_path.set(output_path)
 
     def _get_current_input_path(self):
         current = self.output_path.get()
@@ -143,7 +143,9 @@ class InterleaveMergeFrame(BaseFeatureFrame):
 
     def _validate_execute_params(self):
         if not self.pdf_a.get() or not self.pdf_b.get():
-            showerror(title=_('Error'), message=_('Both input PDF files must be specified.'))
+            showerror(
+                title=_('Error'), message=_('Both input PDF files must be specified.')
+            )
             return False
         if not self.output_path.get():
             showerror(title=_('Error'), message=_('Output PDF must be specified.'))

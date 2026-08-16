@@ -8,8 +8,8 @@ import pymupdf
 
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
-from util.i18n import gettext_text as _
 from util.helpers import enable_pdf_drop
+from util.i18n import gettext_text as _
 
 
 class EditBookmarksFrame(BaseFeatureFrame):
@@ -77,13 +77,13 @@ class EditBookmarksFrame(BaseFeatureFrame):
         button_col = ttk.Frame(area)
         button_col.grid(row=0, column=2, sticky='ns', padx=(5, 0))
         for text, command in (
-            (_('Reload'), self._reload),
-            (_('Import'), self._import_csv),
-            (_('Export'), self._export_csv),
-            (_('Move Up'), lambda: self._move(-1)),
-            (_('Move Down'), lambda: self._move(1)),
-            (_('Delete'), self._delete_selected),
-            (_('Delete All'), self._delete_all),
+                (_('Reload'), self._reload),
+                (_('Import'), self._import_csv),
+                (_('Export'), self._export_csv),
+                (_('Move Up'), lambda: self._move(-1)),
+                (_('Move Down'), lambda: self._move(1)),
+                (_('Delete'), self._delete_selected),
+                (_('Delete All'), self._delete_all),
         ):
             ttk.Button(button_col, text=text, command=command).pack(
                 fill='x', pady=(0, 4)
@@ -124,8 +124,8 @@ class EditBookmarksFrame(BaseFeatureFrame):
         init = self._initial_dir(self._input_path.get())
         path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
         if path:
+            self._input_path.set(path)
             src = Path(path)
-            self._input_path.set(src)
             if not self.output_path.get():
                 self.output_path.set(src.with_suffix(f'.{_("TOC")}.pdf'))
 
@@ -140,7 +140,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
             initialfile=default,
         )
         if path:
-            self.output_path.set(Path(path))
+            self.output_path.set(path)
 
     @staticmethod
     def _initial_dir(current: str) -> Path | str:
@@ -203,7 +203,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         if not sel:
             return
         idx = self.tree.index(sel[0])
-        if (delta < 0 and idx == 0) or (delta > 0 and idx == self.tree.count() - 1):
+        if (delta < 0 and idx == 0) or (delta > 0 and idx == len(self.tree.get_children()) - 1):
             return
         self.tree.move(sel[0], '', idx + delta)
 
@@ -292,7 +292,9 @@ class EditBookmarksFrame(BaseFeatureFrame):
             with pymupdf.open(src) as doc:
                 page_count = doc.page_count
         except Exception as exc:
-            showerror(title=_('Error'), message=_('Cannot open input PDF: {}').format(exc))
+            showerror(
+                title=_('Error'), message=_('Cannot open input PDF: {}').format(exc)
+            )
             return False
 
         items = self.tree.get_children()
@@ -344,7 +346,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         try:
             apply_bookmarks(src, out, toc)
         except Exception as exc:
-            showerror(title=_('Error'), message='{}: {}'.format(type(exc).__name__, exc))
+            showerror(title=_('Error'), message=f'{type(exc).__name__}: {exc}')
             return
         showinfo(title=_('Done'), message=_('Bookmarks updated'))
 

@@ -79,7 +79,7 @@ class PdfToImagesFrame(BaseFeatureFrame):
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
-    def _on_fmt_change(self, *args):
+    def _on_fmt_change(self, *_args):
         png = self._fmt.get() == 'png'
         self._transparent_cb.configure(state='normal' if png else 'disabled')
         self._quality_entry.configure(state='disabled' if png else 'normal')
@@ -88,7 +88,7 @@ class PdfToImagesFrame(BaseFeatureFrame):
         init_dir = self._get_initial_dir()
         folder = askdirectory(initialdir=init_dir)
         if folder:
-            self.output_path.set(Path(folder))
+            self.output_path.set(folder)
 
     def _get_initial_dir(self):
         current = self.output_path.get()

@@ -22,7 +22,7 @@ from util.i18n import gettext_text as _
 # ---------------------------------------------------------------------------
 # Subprocess: pure logic, no tkinter dependency.
 # ---------------------------------------------------------------------------
-def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
+def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
     """Render each input PDF's pages to image files.
 
     Messages put on ``progress_queue`` are tuples:
@@ -112,7 +112,7 @@ def run_pdf_to_images_with_progress(master, params: dict) -> None:
     """Run the rendering in a subprocess and show progress via ProgressDialog."""
 
     progress_queue: Queue = Queue()
-    cancel_event: Event = Event()
+    cancel_event = Event()
     process = None
     finished = False
 
