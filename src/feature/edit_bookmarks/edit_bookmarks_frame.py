@@ -18,28 +18,28 @@ class EditBookmarksFrame(BaseFeatureFrame):
 
     def _setup_input_frame(self):
         self.input_frame.configure(text=_('Input PDF'))
-        self._input_path = tk.StringVar()
+        self.input_path = tk.StringVar()
         row = ttk.Frame(self.input_frame)
         row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Entry(row, textvariable=self._input_path).pack(
+        ttk.Entry(row, textvariable=self.input_path, state='readonly').pack(
             side='left', fill='x', expand=True
         )
-        ttk.Button(row, text=_('Browser'), command=self._browse_input).pack(
+        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(
             side='left', padx=(5, 0)
         )
         # Fixed single-input: collapse to natural height.
         self.input_frame.pack_configure(expand=False, fill='x')
-        enable_pdf_drop(self.input_frame, self._input_path)
+        enable_pdf_drop(self.input_frame, self.input_path)
 
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
         row = ttk.Frame(self.output_frame)
         row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Entry(row, textvariable=self.output_path).pack(
+        ttk.Entry(row, textvariable=self.output_path, state='readonly').pack(
             side='left', fill='x', expand=True
         )
-        ttk.Button(row, text=_('Browser'), command=self._set_output).pack(
+        ttk.Button(row, text=_('Browser'), command=self._set_output_path).pack(
             side='left', padx=(5, 0)
         )
         self.output_frame.pack_configure(expand=False, fill='x')
@@ -120,24 +120,23 @@ class EditBookmarksFrame(BaseFeatureFrame):
         ).pack(side='right', padx=(5, 0))
 
     # ---- file browsing ----
-    def _browse_input(self):
-        init = self._initial_dir(self._input_path.get())
-        path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
+    def _set_input_path(self):
+        path = askopenfilename(filetypes=FILE_TYPES['PDF'])
         if path:
-            self._input_path.set(path)
-            src = Path(path)
-            if not self.output_path.get():
-                self.output_path.set(src.with_suffix(f'.{_("TOC")}.pdf'))
+            path = Path(path)
+            self.input_path.set(path)
+            self.output_path.set(path.with_suffix(f'.{_("TOC")}.pdf'))
 
-    def _set_output(self):
-        init = self._initial_dir(self.output_path.get())
-        default = ''
-        if self._input_path.get():
-            default = Path(self._input_path.get()).with_suffix(f'.{_("TOC")}.pdf').name
+    def _set_output_path(self):
+        output_path = self.output_path.get()
+        init_folder = Path(output_path).parent if output_path else ''
+        init_file = Path(output_path).name if output_path else ''
         path = asksaveasfilename(
             filetypes=FILE_TYPES['PDF'],
-            initialdir=init,
-            initialfile=default,
+            defaultextension='.pdf',
+            initialdir=init_folder,
+            initialfile=init_file,
+            confirmoverwrite=True,
         )
         if path:
             self.output_path.set(path)
@@ -203,7 +202,9 @@ class EditBookmarksFrame(BaseFeatureFrame):
         if not sel:
             return
         idx = self.tree.index(sel[0])
-        if (delta < 0 and idx == 0) or (delta > 0 and idx == len(self.tree.get_children()) - 1):
+        if (delta < 0 and idx == 0) or (
+                delta > 0 and idx == len(self.tree.get_children()) - 1
+        ):
             return
         self.tree.move(sel[0], '', idx + delta)
 
@@ -216,7 +217,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
             self.tree.delete(item)
 
     def _reload(self):
-        src = self._input_path.get().strip()
+        src = self.input_path.get().strip()
         if not src or not Path(src).is_file():
             showerror(title=_('Error'), message=_('Input PDF must be set.'))
             return
@@ -262,7 +263,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
 
     # ---- abstract overrides ----
     def get_input_paths(self):
-        return [Path(self._input_path.get())]
+        return [Path(self.input_path.get())]
 
     def get_output_path(self):
         return Path(self.output_path.get())
@@ -277,7 +278,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         dialog and returns False. Runs synchronously (single-shot operation,
         no multiprocessing).
         """
-        src = self._input_path.get().strip()
+        src = self.input_path.get().strip()
         if not src:
             showerror(title=_('Error'), message=_('Input PDF must be set.'))
             return False
@@ -333,7 +334,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
     def _execute_handler(self):
         if not self._validate_execute_params():
             return
-        src = self._input_path.get().strip()
+        src = self.input_path.get().strip()
         out = self.output_path.get().strip()
 
         toc = []

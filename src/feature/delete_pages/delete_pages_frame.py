@@ -29,10 +29,10 @@ class DeletePagesFrame(BaseFeatureFrame):
 
         row = ttk.Frame(self.input_frame)
         row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Entry(row, textvariable=self.input_path).pack(
+        ttk.Entry(row, textvariable=self.input_path, state='readonly').pack(
             side='left', expand=True, fill='x'
         )
-        ttk.Button(row, text=_('Browser'), command=self._browse_input).pack(
+        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(
             side='left', padx=(5, 0)
         )
 
@@ -44,9 +44,9 @@ class DeletePagesFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output Folder'))
         self.output_path = tk.StringVar()
-        ttk.Entry(self.output_frame, textvariable=self.output_path).pack(
-            side='left', fill='x', expand=True
-        )
+        ttk.Entry(
+            self.output_frame, textvariable=self.output_path, state='readonly'
+        ).pack(side='left', fill='x', expand=True)
         ttk.Button(
             self.output_frame, text=_('Browser'), command=self._set_output_folder
         ).pack(side='left', padx=(5, 0))
@@ -77,11 +77,10 @@ class DeletePagesFrame(BaseFeatureFrame):
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
-    def _browse_input(self):
-        init = self._initial_dir(self.input_path.get())
-        path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
+    def _set_input_path(self):
+        path = askopenfilename(filetypes=FILE_TYPES['PDF'])
         if path:
-            self.input_path.set(path)
+            self.input_path.set(Path(path))
 
     def _open_help(self):
         posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
@@ -99,28 +98,19 @@ class DeletePagesFrame(BaseFeatureFrame):
         content = ''.join(help_content)
         HelpWindow(self, title=title, content=content).focus()
 
-    @staticmethod
-    def _initial_dir(current: str) -> Path | str:
-        if current:
-            return Path(current).parent
-        return ''
-
     def _set_output_folder(self):
-        init_dir = ''
-        current = self.output_path.get()
-        if current:
-            init_dir = Path(current)
-        elif self.input_path.get():
-            init_dir = Path(self.input_path.get()).parent
-        folder = askdirectory(initialdir=init_dir)
+        folder = askdirectory(mustexist=True)
         if folder:
-            self.output_path.set(folder)
+            self.output_path.set(Path(folder))
 
     def get_input_paths(self):
-        return [Path(self.input_path.get())]
+        return [Path(self.input_path.get())] if self.input_path.get() else []
 
     def get_output_path(self):
-        return Path(self.output_path.get())
+        output_path = self.output_path.get()
+        if output_path:
+            return Path(self.output_path.get())
+        return None
 
     def get_options(self) -> dict:
         return {

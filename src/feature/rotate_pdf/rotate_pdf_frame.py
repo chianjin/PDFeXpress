@@ -27,9 +27,9 @@ class RotatePdfFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output Folder'))
         self.output_path = tk.StringVar()
-        ttk.Entry(self.output_frame, textvariable=self.output_path).pack(
-            side='left', fill='x', expand=True
-        )
+        ttk.Entry(
+            self.output_frame, textvariable=self.output_path, state='readonly'
+        ).pack(side='left', fill='x', expand=True)
         ttk.Button(
             self.output_frame, text=_('Browser'), command=self._set_output_folder
         ).pack(side='left', padx=(5, 0))
@@ -69,21 +69,9 @@ class RotatePdfFrame(BaseFeatureFrame):
         return Path(self.output_path.get())
 
     def _set_output_folder(self):
-        init_dir = self._get_initial_dir()
-        folder = askdirectory(initialdir=init_dir)
+        folder = askdirectory(mustexist=True)
         if folder:
-            self.output_path.set(folder)
-
-    def _get_initial_dir(self):
-        # Mirror merge_pdf: anchor the dialog to the already-set output,
-        # otherwise to the first input file's directory.
-        current = self.output_path.get()
-        if current:
-            return Path(current)
-        inputs = self.get_input_paths()
-        if inputs:
-            return inputs[0].parent
-        return None
+            self.output_path.set(Path(folder))
 
     def get_options(self) -> dict:
         return {'delta': self._rotation.get()}

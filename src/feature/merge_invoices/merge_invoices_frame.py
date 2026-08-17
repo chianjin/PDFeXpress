@@ -25,9 +25,9 @@ class MergeInvoicesFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
-        ttk.Entry(self.output_frame, textvariable=self.output_path).pack(
-            side='left', expand=True, fill='x'
-        )
+        ttk.Entry(
+            self.output_frame, textvariable=self.output_path, state='readonly'
+        ).pack(side='left', expand=True, fill='x')
         ttk.Button(
             self.output_frame, text=_('Browser'), command=self._set_output_path
         ).pack(side='left', padx=(5, 0))
@@ -44,12 +44,9 @@ class MergeInvoicesFrame(BaseFeatureFrame):
         ).pack(side='right', padx=(5, 0))
 
     def _set_output_path(self):
-        init_folder = ''
-        init_file = ''
-        current_input_path = self._get_current_input_path()
-        if current_input_path:
-            init_folder = current_input_path.parent
-            init_file = f'发票合并-{datetime.now().strftime("%Y%m%d")}.pdf'
+        input_paths = self.get_input_paths()
+        init_folder = input_paths[0].parent if input_paths else ''
+        init_file = f'{_("MergedInvoice")}-{datetime.now().strftime("%Y%m%d")}.pdf'
         output_path = asksaveasfilename(
             filetypes=FILE_TYPES['PDF'],
             defaultextension='pdf',
@@ -58,7 +55,7 @@ class MergeInvoicesFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(output_path)
+            self.output_path.set(Path(output_path))
 
     def _get_current_input_path(self):
         current_input_path = self.output_path.get()

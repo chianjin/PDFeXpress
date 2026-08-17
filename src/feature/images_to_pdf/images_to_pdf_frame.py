@@ -32,9 +32,9 @@ class ImagesToPdfFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
-        ttk.Entry(self.output_frame, textvariable=self.output_path).pack(
-            side='left', expand=True, fill='x'
-        )
+        ttk.Entry(
+            self.output_frame, textvariable=self.output_path, state='readonly'
+        ).pack(side='left', expand=True, fill='x')
         ttk.Button(
             self.output_frame, text=_('Browser'), command=self._set_output_path
         ).pack(side='left', padx=(5, 0))
@@ -53,10 +53,11 @@ class ImagesToPdfFrame(BaseFeatureFrame):
     def _set_output_path(self):
         init_folder = ''
         init_file = ''
-        current_input_path = self._get_current_input_path()
-        if current_input_path:
-            init_folder = current_input_path.parent
-            init_file = current_input_path.with_suffix('.pdf').name
+        input_paths = self.get_input_paths()
+        if input_paths:
+            input_path = Path(input_paths[0])
+            init_folder = Path(input_path).parent
+            init_file = Path(input_path).with_suffix('.pdf')
         output_path = asksaveasfilename(
             filetypes=FILE_TYPES['PDF'],
             defaultextension='pdf',
@@ -66,15 +67,6 @@ class ImagesToPdfFrame(BaseFeatureFrame):
         )
         if output_path:
             self.output_path.set(output_path)
-
-    def _get_current_input_path(self):
-        current = self.output_path.get()
-        if current:
-            return Path(current)
-        inputs = self.get_input_paths()
-        if len(inputs) > 0:
-            return Path(inputs[0])
-        return None
 
     def get_input_paths(self):
         return self.file_list_view.get_file_paths()

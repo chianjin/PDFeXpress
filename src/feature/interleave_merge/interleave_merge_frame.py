@@ -19,26 +19,26 @@ class InterleaveMergeFrame(BaseFeatureFrame):
     def _setup_input_frame(self):
         self.input_frame.configure(text=_('Input PDF'))
 
-        self.pdf_a = tk.StringVar()
-        self.pdf_b = tk.StringVar()
+        self.input_path_a = tk.StringVar()
+        self.input_path_b = tk.StringVar()
 
         row_a = ttk.Frame(self.input_frame)
         row_a.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
         ttk.Label(row_a, text='PDF A').pack(side='left', padx=(0, 5))
-        ttk.Entry(row_a, textvariable=self.pdf_a).pack(
+        ttk.Entry(row_a, textvariable=self.input_path_a, state='readonly').pack(
             side='left', expand=True, fill='x'
         )
-        ttk.Button(row_a, text=_('Browser'), command=self._browse_a).pack(
+        ttk.Button(row_a, text=_('Browser'), command=self._set_input_path_a).pack(
             side='left', padx=(5, 0)
         )
 
         row_b = ttk.Frame(self.input_frame)
         row_b.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
         ttk.Label(row_b, text='PDF B').pack(side='left', padx=(0, 5))
-        ttk.Entry(row_b, textvariable=self.pdf_b).pack(
+        ttk.Entry(row_b, textvariable=self.input_path_b, state='readonly').pack(
             side='left', expand=True, fill='x'
         )
-        ttk.Button(row_b, text=_('Browser'), command=self._browse_b).pack(
+        ttk.Button(row_b, text=_('Browser'), command=self._set_input_path_b).pack(
             side='left', padx=(5, 0)
         )
 
@@ -46,15 +46,15 @@ class InterleaveMergeFrame(BaseFeatureFrame):
         # (the base class defaults input_frame to expand=True, which suits list views
         # but leaves a large void here between the inputs and the output row).
         self.input_frame.pack_configure(expand=False, fill='x')
-        enable_pdf_drop(row_a, self.pdf_a)
-        enable_pdf_drop(row_b, self.pdf_b)
+        enable_pdf_drop(row_a, self.input_path_a)
+        enable_pdf_drop(row_b, self.input_path_b)
 
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
-        ttk.Entry(self.output_frame, textvariable=self.output_path).pack(
-            side='left', expand=True, fill='x'
-        )
+        ttk.Entry(
+            self.output_frame, textvariable=self.output_path, state='readonly'
+        ).pack(side='left', expand=True, fill='x')
         ttk.Button(
             self.output_frame, text=_('Browser'), command=self._set_output_path
         ).pack(side='left', padx=(5, 0))
@@ -72,31 +72,26 @@ class InterleaveMergeFrame(BaseFeatureFrame):
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
-    def _browse_a(self):
-        init = self._initial_dir(self.pdf_b.get() or self.pdf_a.get())
-        path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
+    def _set_input_path_a(self):
+        path = askopenfilename(filetypes=FILE_TYPES['PDF'])
         if path:
-            self.pdf_a.set(path)
+            self.input_path_a.set(Path(path))
 
-    def _browse_b(self):
-        init = self._initial_dir(self.pdf_a.get() or self.pdf_b.get())
-        path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
+    def _set_input_path_b(self):
+        path = askopenfilename(filetypes=FILE_TYPES['PDF'])
         if path:
-            self.pdf_b.set(path)
-
-    @staticmethod
-    def _initial_dir(current: str) -> Path | str:
-        if current:
-            return Path(current).parent
-        return ''
+            self.input_path_b.set(Path(path))
 
     def _set_output_path(self):
-        init_folder = ''
-        init_file = ''
-        current_input_path = self._get_current_input_path()
-        if current_input_path:
-            init_folder = current_input_path.parent
-            init_file = current_input_path.with_suffix(f'.{_("Interleave")}.pdf').name
+        input_path_a = self.input_path_a.get()
+        input_path_b = self.input_path_b.get()
+        input_path = input_path_a or input_path_b
+        init_folder = Path(input_path) if input_path else ''
+        init_file = (
+            Path(input_path).with_suffix(f'.{_("Interleave")}.pdf').name
+            if input_path
+            else ''
+        )
         output_path = asksaveasfilename(
             filetypes=FILE_TYPES['PDF'],
             defaultextension='pdf',
@@ -105,19 +100,10 @@ class InterleaveMergeFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(output_path)
-
-    def _get_current_input_path(self):
-        current = self.output_path.get()
-        if current:
-            return Path(current)
-        for value in (self.pdf_a.get(), self.pdf_b.get()):
-            if value:
-                return Path(value)
-        return None
+            self.output_path.set(Path(output_path))
 
     def get_input_paths(self):
-        return [Path(self.pdf_a.get()), Path(self.pdf_b.get())]
+        return [Path(self.input_path_a.get()), Path(self.input_path_b.get())]
 
     def get_output_path(self):
         return Path(self.output_path.get())
@@ -142,7 +128,7 @@ class InterleaveMergeFrame(BaseFeatureFrame):
             run_interleave_with_progress(self.winfo_toplevel(), params)
 
     def _validate_execute_params(self):
-        if not self.pdf_a.get() or not self.pdf_b.get():
+        if not self.input_path_a.get() or not self.input_path_b.get():
             showerror(
                 title=_('Error'), message=_('Both input PDF files must be specified.')
             )

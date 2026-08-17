@@ -22,9 +22,9 @@ class AddWatermarkFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output Folder'))
         self.output_path = tk.StringVar()
-        ttk.Entry(self.output_frame, textvariable=self.output_path).pack(
-            side='left', fill='x', expand=True
-        )
+        ttk.Entry(
+            self.output_frame, textvariable=self.output_path, state='readonly'
+        ).pack(side='left', fill='x', expand=True)
         ttk.Button(
             self.output_frame, text=_('Browser'), command=self._set_output_folder
         ).pack(side='left', padx=(5, 0))
@@ -65,11 +65,11 @@ class AddWatermarkFrame(BaseFeatureFrame):
             side='left', padx=(0, 5)
         )
         self._image_path = tk.StringVar()
-        ttk.Entry(self._image_frame, textvariable=self._image_path).pack(
-            side='left', fill='x', expand=True
-        )
+        ttk.Entry(
+            self._image_frame, textvariable=self._image_path, state='readonly'
+        ).pack(side='left', fill='x', expand=True)
         ttk.Button(
-            self._image_frame, text=_('Browser'), command=self._browse_image
+            self._image_frame, text=_('Browser'), command=self._set_watermark_image
         ).pack(side='left', padx=(5, 0))
 
         self._on_mode_change()
@@ -89,12 +89,15 @@ class AddWatermarkFrame(BaseFeatureFrame):
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
-    def _browse_image(self):
-        current = self._image_path.get()
-        init = Path(current).parent if current else (self._get_initial_dir() or '')
-        path = askopenfilename(filetypes=FILE_TYPES['IMAGES'], initialdir=init)
+    def _set_watermark_image(self):
+        init_folder = ''
+        current_path = self._image_path.get()
+        if current_path:
+            current_path = Path(current_path)
+            init_folder = current_path.parent
+        path = askopenfilename(filetypes=FILE_TYPES['IMAGES'], initialdir=init_folder)
         if path:
-            self._image_path.set(path)
+            self._image_path.set(Path(path))
 
     def get_input_paths(self):
         return self.file_list_view.get_file_paths()
@@ -110,19 +113,9 @@ class AddWatermarkFrame(BaseFeatureFrame):
         }
 
     def _set_output_folder(self):
-        init_dir = self._get_initial_dir()
-        folder = askdirectory(initialdir=init_dir)
+        folder = askdirectory(mustexist=True)
         if folder:
-            self.output_path.set(folder)
-
-    def _get_initial_dir(self):
-        current = self.output_path.get()
-        if current:
-            return Path(current)
-        inputs = self.get_input_paths()
-        if inputs:
-            return inputs[0].parent
-        return None
+            self.output_path.set(Path(folder))
 
     def _execute_handler(self):
         params = {

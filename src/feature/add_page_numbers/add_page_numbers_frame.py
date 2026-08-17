@@ -39,10 +39,10 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         self.input_path = tk.StringVar()
         row = ttk.Frame(self.input_frame)
         row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Entry(row, textvariable=self.input_path).pack(
+        ttk.Entry(row, textvariable=self.input_path, state='readonly').pack(
             side='left', expand=True, fill='x'
         )
-        ttk.Button(row, text=_('Browser'), command=self._browse).pack(
+        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(
             side='left', padx=(5, 0)
         )
 
@@ -54,9 +54,9 @@ class AddPageNumbersFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
-        ttk.Entry(self.output_frame, textvariable=self.output_path).pack(
-            side='left', expand=True, fill='x'
-        )
+        ttk.Entry(
+            self.output_frame, textvariable=self.output_path, state='readonly'
+        ).pack(side='left', expand=True, fill='x')
         ttk.Button(
             self.output_frame, text=_('Browser'), command=self._set_output_path
         ).pack(side='left', padx=(5, 0))
@@ -230,24 +230,19 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         content = ''.join(help_content)
         HelpWindow(self, title=title, content=content).focus()
 
-    def _browse(self):
-        init = self._initial_dir(self.input_path.get())
-        path = askopenfilename(filetypes=FILE_TYPES['PDF'], initialdir=init)
+    def _set_input_path(self):
+        path = askopenfilename(
+            filetypes=FILE_TYPES['PDF'],
+            defaultextension='.pdf',
+        )
         if path:
-            self.input_path.set(path)
-
-    def _initial_dir(self, current: str) -> Path | str:
-        if current:
-            return Path(current).parent
-        return ''
+            self.input_path.set(Path(path))
+            self.output_path.set(Path(path).with_suffix(f'.{_("PageNum")}.pdf'))
 
     def _set_output_path(self):
-        init_folder = ''
-        init_file = ''
-        current_input_path = self._get_current_input_path()
-        if current_input_path:
-            init_folder = current_input_path.parent
-            init_file = current_input_path.with_suffix(f'.{_("PageNum")}.pdf').name
+        output_path = self.output_path.get()
+        init_folder = Path(output_path).parent if output_path else ''
+        init_file = Path(output_path).name if output_path else ''
         output_path = asksaveasfilename(
             filetypes=FILE_TYPES['PDF'],
             defaultextension='pdf',
@@ -256,21 +251,13 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(output_path)
-
-    def _get_current_input_path(self):
-        current = self.output_path.get()
-        if current:
-            return Path(current)
-        if self.input_path.get():
-            return Path(self.input_path.get())
-        return None
+            self.output_path.set(Path(output_path))
 
     def get_input_paths(self):
         return [Path(self.input_path.get())] if self.input_path.get() else []
 
     def get_output_path(self):
-        return Path(self.output_path.get())
+        return Path(self.output_path.get()) if self.output_path.get() else None
 
     def get_options(self) -> dict:
         # Variables are typed (IntVar/DoubleVar/BooleanVar/StringVar), so

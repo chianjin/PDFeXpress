@@ -40,9 +40,9 @@ def main():
     if system == 'Windows':
         root.iconbitmap(EXECUTABLE_PATH / f'asset/icon/{EXECUTABLE_NAME}.ico')
     elif system == 'Linux':
-        theme_tcl = EXECUTABLE_PATH / 'asset/theme/breeze.tcl'
-        root.call('source', str(theme_tcl))
-        ttk.Style().theme_use('breeze')
+        # theme_tcl = EXECUTABLE_PATH / 'asset/theme/breeze.tcl'
+        # root.call('source', str(theme_tcl))
+        ttk.Style().theme_use('clam')
 
     # Create MainFrame
     app = MainFrame(root)
