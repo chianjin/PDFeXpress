@@ -1,9 +1,7 @@
-# .ruff.toml
-
 target-version = "py313"
+
 include = [
     "build.py",
-    "pyproject.toml",
     "src/**/*.py",
     "src/**/*.pyi",
 ]
@@ -31,7 +29,6 @@ exclude = [
     "src/data",
     "src/locale",
 ]
-
 
 [format]
 quote-style = "single"

@@ -72,9 +72,7 @@
 
 ### 准备工作
 
-本项目支持国际化，需要 xgettext 工具编译 `po`文件。
-
-Windows平台上需要下载 [GUN gettext](https://mlocati.github.io/articles/gettext-iconv-windows.html) 。
+本项目支持国际化，翻译目录由 [Babel](https://babel.pocoo.org/)（位于 `requirements-dev`）管理，`i18n.py` 脚本封装了 pybabel 命令（`-e` 抽取 / `-u` 更新 / `-c` 编译 / `-a` 全部），构建步骤会把 `.po` 编译为 `.mo`。
 
 ### 操作流程
 
@@ -82,9 +80,11 @@ Windows平台上需要下载 [GUN gettext](https://mlocati.github.io/articles/ge
 > git clone https://github.com/chianjin/PDFeXpress.git
 > cd PDFeXpress
 > pip install -r requirements-dev
-> <Path to>\msgfmt src\locale\zh_CN\LC_MESSAGES\PDFeXpress.po
+> python i18n.py -c
 > python build.py
 ```
+
+> 注意：`python i18n.py -c`（即 `pybabel compile`）会跳过头部带 `#, fuzzy` 标记的目录。若中文目录未被编译，请先移除 `src/locale/zh_CN/LC_MESSAGES/pdfexpress.po` 头部的该标记。
 
 预编译包、安装程序保存在`release`目录中。
 

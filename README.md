@@ -70,9 +70,7 @@ If you want to build the application yourself, follow these steps:
 
 ### Prerequisites
 
-This project supports internationalization and requires the xgettext tool to compile `.po` files.
-
-On Windows, you need to download [GUN gettext](https://mlocati.github.io/articles/gettext-iconv-windows.html).
+This project supports internationalization. Translation catalogs are managed with [Babel](https://babel.pocoo.org/) (listed in `requirements-dev`). The `i18n.py` script wraps the pybabel commands (`-e` extract / `-u` update / `-c` compile / `-a` all); running the build compiles the `.po` files to `.mo`.
 
 ### Procedure
 
@@ -80,9 +78,11 @@ On Windows, you need to download [GUN gettext](https://mlocati.github.io/article
 > git clone https://github.com/chianjin/PDFeXpress.git
 > cd PDFeXpress
 > pip install -r requirements-dev
-> <Path to>\msgfmt src\locale\zh_CN\LC_MESSAGES\PDFeXpress.po
+> python i18n.py -c
 > python build.py
 ```
+
+> Note: `python i18n.py -c` (i.e. `pybabel compile`) skips a catalog whose header carries the `#, fuzzy` flag. If the Chinese catalog is not compiled, remove that flag from `src/locale/zh_CN/LC_MESSAGES/pdfexpress.po` first.
 
 Precompiled package and installer are saved in the `release` directory.
 
