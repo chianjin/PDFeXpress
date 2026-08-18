@@ -31,6 +31,8 @@ class EditBookmarksFrame(BaseFeatureFrame):
         # Fixed single-input: collapse to natural height.
         self.input_frame.pack_configure(expand=False, fill='x')
         enable_pdf_drop(self.input_frame, self.input_path)
+        # Auto-load the PDF's TOC whenever the input path changes (Browse / drop).
+        self.input_path.trace_add('write', lambda *_: self._load_toc())
 
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
@@ -128,6 +130,37 @@ class EditBookmarksFrame(BaseFeatureFrame):
             self.input_path.set(path)
             self.output_path.set(path.with_suffix(f'.{_("TOC")}.pdf'))
 
+    def _load_toc(self) -> bool:
+        """Load the input PDF's TOC into the tree. Returns False when unusable."""
+        src = self.input_path.get().strip()
+        if not src or not Path(src).is_file():
+            return False
+        try:
+            with pymupdf.open(src) as doc:
+                toc = doc.get_toc()  # [[level, title, page], ...], page 1-based
+        except Exception:
+            return False
+        self._delete_all()
+        for level, title, page in toc:
+            self.tree.insert('', tk.END, values=(level, page, title))
+        return True
+
+    def _resort(self):
+        """Re-order rows by (page, level); stable so equal keys keep their order."""
+        items = self.tree.get_children()
+        entries = [
+            (
+                int(self.tree.item(it, 'values')[1]),  # page
+                int(self.tree.item(it, 'values')[0]),  # level
+                list(self.tree.item(it, 'values')),
+            )
+            for it in items
+        ]
+        entries.sort(key=lambda e: (e[0], e[1]))
+        self.tree.delete(*items)
+        for _, _, vals in entries:
+            self.tree.insert('', tk.END, values=vals)
+
     def _set_output_path(self):
         output_path = self.output_path.get()
         init_folder = Path(output_path).parent if output_path else ''
@@ -184,6 +217,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
             return
         level, page, title = form
         self.tree.insert('', tk.END, values=(level, page, title))
+        self._resort()
         self._title_var.set('')
 
     def _edit_selected(self):
@@ -196,6 +230,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
             return
         level, page, title = form
         self.tree.item(sel[0], values=(level, page, title))
+        self._resort()
 
     def _move(self, delta: int):
         """Move selected bookmark up (-1) / down (+1); single-select only."""
@@ -218,15 +253,8 @@ class EditBookmarksFrame(BaseFeatureFrame):
             self.tree.delete(item)
 
     def _reload(self):
-        src = self.input_path.get().strip()
-        if not src or not Path(src).is_file():
+        if not self._load_toc():
             showerror(title=_('Error'), message=_('Input PDF must be set.'))
-            return
-        with pymupdf.open(src) as doc:
-            toc = doc.get_toc()  # [[level, title, page], ...], page 1-based
-        self._delete_all()
-        for level, title, page in toc:
-            self.tree.insert('', tk.END, values=(level, page, title))
 
     def _import_csv(self):
         path = askopenfilename(

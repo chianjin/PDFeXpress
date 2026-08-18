@@ -2,16 +2,18 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
-from tkinter.messagebox import askyesno, showerror
+from tkinter.messagebox import showerror
 
 from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
 from widget import FileListView
 
 
-class CompressPdfFrame(BaseFeatureFrame):
+class QuickCompressFrame(BaseFeatureFrame):
+    """Quick compression: multi-in -> multi-out, one file at a time."""
+
     def __init__(self, master, **kw):
-        super().__init__(master, feature_id='compress_pdf', **kw)
+        super().__init__(master, feature_id='quick_compress', **kw)
 
     def _setup_input_frame(self):
         self.input_frame.configure(text=_('PDF List'))
@@ -29,30 +31,7 @@ class CompressPdfFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
-        self._compress_var = tk.BooleanVar(value=False)
-        ttk.Checkbutton(
-            self.options_frame,
-            text=_('Compress Embedded Images'),
-            variable=self._compress_var,
-        ).pack(side='left', padx=(0, 10))
-
-        ttk.Label(self.options_frame, text=_('Max Resolution')).pack(side='left')
-        self._max_dpi = tk.IntVar(value=150)
-        ttk.Entry(
-            self.options_frame, textvariable=self._max_dpi, width=6, justify='center'
-        ).pack(side='left', padx=(3, 0))
-        ttk.Label(self.options_frame, text='dpi').pack(side='left', padx=(3, 0))
-
-        ttk.Label(self.options_frame, text=_('JPG Quality')).pack(
-            side='left', padx=(10, 0)
-        )
-        self._jpg_quality = tk.IntVar(value=75)
-        ttk.Entry(
-            self.options_frame,
-            textvariable=self._jpg_quality,
-            width=6,
-            justify='center',
-        ).pack(side='left', padx=(3, 0))
+        pass  # no options: built-in cleanup + deflate pipeline only
 
     def _setup_execute_frame(self):
         ttk.Button(
@@ -68,11 +47,7 @@ class CompressPdfFrame(BaseFeatureFrame):
         return Path(self.output_path.get())
 
     def get_options(self) -> dict:
-        return {
-            'compress_images': self._compress_var.get(),
-            'max_dpi': self._max_dpi.get(),
-            'jpg_quality': self._jpg_quality.get(),
-        }
+        return {}
 
     def _set_output_folder(self):
         folder = askdirectory(mustexist=True)
@@ -87,19 +62,11 @@ class CompressPdfFrame(BaseFeatureFrame):
         }
         if not self._validate_execute_params():
             return
-        # Time-consuming operation: warn before running.
-        if params['options']['compress_images']:
-            ans = askyesno(
-                title=_('Confirm'),
-                message=_('Compressing embedded images is time-consuming. Continue?'),
-            )
-            if not ans:
-                return
-        from feature.compress_pdf.compress_pdf_worker import (
-            run_compress_pdf_with_progress,
+        from feature.quick_compress.quick_compress_worker import (
+            run_quick_compress_with_progress,
         )
 
-        run_compress_pdf_with_progress(self.winfo_toplevel(), params)
+        run_quick_compress_with_progress(self.winfo_toplevel(), params)
 
     def _validate_execute_params(self):
         if len(self.get_input_paths()) < 1:
@@ -114,18 +81,6 @@ class CompressPdfFrame(BaseFeatureFrame):
                 message=_('Output folder must be set.'),
             )
             return False
-        if self._max_dpi.get() <= 0:
-            showerror(
-                title=_('Error'),
-                message=_('Max resolution must be greater than 0.'),
-            )
-            return False
-        if self._jpg_quality.get() <= 0 or self._jpg_quality.get() > 100:
-            showerror(
-                title=_('Error'),
-                message=_('JPG quality must be between 1 and 100.'),
-            )
-            return False
         return True
 
 
@@ -133,5 +88,5 @@ if __name__ == '__main__':
     from tkinterdnd2 import TkinterDnD
 
     root = TkinterDnD.Tk()
-    CompressPdfFrame(root).pack(fill='both', expand=True)
+    QuickCompressFrame(root).pack(fill='both', expand=True)
     root.mainloop()

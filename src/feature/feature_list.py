@@ -32,7 +32,10 @@ FEATURE_LIST = (
     ),
     (
         ('document_compression', _('Document Compression')),
-        (feature('compress_pdf', _('Compress PDF'), _('Compress')),),
+        (
+            feature('quick_compress', _('Quick Compress'), _('Compress')),
+            feature('deep_compress', _('Deep Compress'), _('Compress')),
+        ),
     ),
     (
         ('page_annotation', _('Page Annotation')),

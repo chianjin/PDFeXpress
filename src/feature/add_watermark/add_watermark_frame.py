@@ -1,11 +1,10 @@
 import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
-from tkinter.filedialog import askdirectory, askopenfilename
+from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror
 
 from feature.base_feature_frame import BaseFeatureFrame
-from util.file_types import FILE_TYPES
 from util.i18n import gettext_text as _
 from widget import FileListView
 
@@ -30,26 +29,6 @@ class AddWatermarkFrame(BaseFeatureFrame):
         ).pack(side='left', padx=(5, 0))
 
     def _setup_options_frame(self):
-        self._mode = tk.StringVar(value='text')
-
-        radio_frame = ttk.Frame(self.options_frame)
-        ttk.Radiobutton(
-            radio_frame,
-            text=_('Text Watermark'),
-            variable=self._mode,
-            value='text',
-            command=self._on_mode_change,
-        ).pack(side='left')
-        ttk.Radiobutton(
-            radio_frame,
-            text=_('Image Watermark'),
-            variable=self._mode,
-            value='image',
-            command=self._on_mode_change,
-        ).pack(side='left', padx=(10, 0))
-        radio_frame.pack(fill='x', expand=True)
-
-        # Text sub-controls (shown when "text" is selected).
         self._text_frame = ttk.Frame(self.options_frame)
         ttk.Label(self._text_frame, text=_('Watermark Text')).pack(
             side='left', padx=(0, 5)
@@ -58,29 +37,7 @@ class AddWatermarkFrame(BaseFeatureFrame):
         ttk.Entry(self._text_frame, textvariable=self._text_entry, width=30).pack(
             side='left', fill='x', expand=True
         )
-
-        # Image sub-controls (shown when "image" is selected).
-        self._image_frame = ttk.Frame(self.options_frame)
-        ttk.Label(self._image_frame, text=_('Watermark Image')).pack(
-            side='left', padx=(0, 5)
-        )
-        self._image_path = tk.StringVar()
-        ttk.Entry(
-            self._image_frame, textvariable=self._image_path, state='readonly'
-        ).pack(side='left', fill='x', expand=True)
-        ttk.Button(
-            self._image_frame, text=_('Browser'), command=self._set_watermark_image
-        ).pack(side='left', padx=(5, 0))
-
-        self._on_mode_change()
-
-    def _on_mode_change(self):
-        if self._mode.get() == 'text':
-            self._image_frame.pack_forget()
-            self._text_frame.pack(side='top', fill='x', pady=(5, 0))
-        else:
-            self._text_frame.pack_forget()
-            self._image_frame.pack(side='top', fill='x', pady=(5, 0))
+        self._text_frame.pack(side='top', fill='x')
 
     def _setup_execute_frame(self):
         ttk.Button(
@@ -89,16 +46,6 @@ class AddWatermarkFrame(BaseFeatureFrame):
             command=self._execute_handler,
         ).pack(side='right', padx=(5, 0))
 
-    def _set_watermark_image(self):
-        init_folder = ''
-        current_path = self._image_path.get()
-        if current_path:
-            current_path = Path(current_path)
-            init_folder = current_path.parent
-        path = askopenfilename(filetypes=FILE_TYPES['IMAGES'], initialdir=init_folder)
-        if path:
-            self._image_path.set(Path(path))
-
     def get_input_paths(self):
         return self.file_list_view.get_file_paths()
 
@@ -106,11 +53,7 @@ class AddWatermarkFrame(BaseFeatureFrame):
         return Path(self.output_path.get())
 
     def get_options(self) -> dict:
-        return {
-            'mode': self._mode.get(),
-            'text': self._text_entry.get(),
-            'image_path': self._image_path.get(),
-        }
+        return {'text': self._text_entry.get()}
 
     def _set_output_folder(self):
         folder = askdirectory(mustexist=True)
@@ -143,27 +86,12 @@ class AddWatermarkFrame(BaseFeatureFrame):
                 message=_('Output folder must be set.'),
             )
             return False
-        if self._mode.get() == 'text':
-            if not self._text_entry.get().strip():
-                showerror(
-                    title=_('Error'),
-                    message=_('Watermark text must be set.'),
-                )
-                return False
-        else:
-            image_path = self._image_path.get().strip()
-            if not image_path:
-                showerror(
-                    title=_('Error'),
-                    message=_('Watermark image must be set.'),
-                )
-                return False
-            if not Path(image_path).is_file():
-                showerror(
-                    title=_('Error'),
-                    message=_('Watermark image does not exist.'),
-                )
-                return False
+        if not self._text_entry.get().strip():
+            showerror(
+                title=_('Error'),
+                message=_('Watermark text must be set.'),
+            )
+            return False
         return True
 
 

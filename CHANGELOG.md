@@ -6,7 +6,7 @@
 
 ### Feature Groups
 
-Four new features added (Encrypt, Decrypt, Compress, Add Watermark), bringing the total to 17 features across 7 groups.
+Four new features added (Encrypt, Decrypt, Compress, Add Watermark), bringing the total to 18 features across 7 groups.
 
 - **Document Assembly**
     - **Merge PDF**: No change.
@@ -25,11 +25,12 @@ Four new features added (Encrypt, Decrypt, Compress, Add Watermark), bringing th
     - **PDF to Long Image**: No change.
 
 - **Document Compression**
-    - **Compress PDF** (new): Compress a PDF by enabling the built-in compression option, with further compression via re-encoding embedded images.
+    - **Quick Compress** (new): Compress multiple PDFs one-to-one using the built-in cleanup pipeline (no embedded-image re-encoding).
+    - **Deep Compress** (new): Compress a single PDF page by page, re-encoding embedded images for maximum reduction.
 
 - **Page Annotation**
     - **Add Page Numbers**: No change.
-    - **Add Watermark** (new): Overlay text or image watermarks on PDF pages.
+    - **Add Watermark** (new): Overlay a text watermark on PDF pages.
     - **Edit Bookmark**: No change.
 
 - **Document Security**

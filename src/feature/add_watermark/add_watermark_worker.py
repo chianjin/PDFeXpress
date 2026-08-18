@@ -1,14 +1,11 @@
 """Add watermark worker.
 
 Multi-input PDF -> output folder, one ``{stem}.{_('Watermark')}.pdf`` per input.
-Two mutually exclusive watermark kinds (chosen in the frame):
 
-  * text  : a tiled, 36-degree skewed, light-gray (5%) diagonal pattern drawn
-            on the bottom layer (overlay=False). CJK text uses the built-in
-            ``china-s`` font; western text uses base-14 ``Times-Roman``.
-  * image : a single centered image scaled with "contain" fit (no cropping),
-            embedded without re-encoding (insert_image(filename=...)), also on
-            the bottom layer.
+Text watermark: a tiled, 36-degree skewed diagonal pattern drawn on the **top**
+layer (overlay=True) with black fill + low fill_opacity so it stays legible on
+both light and dark content. CJK text uses the built-in ``china-s`` font;
+western text uses base-14 ``Times-Roman``.
 
 Progress is counted per page (denominator = total pages across all inputs).
 A single failed file is skipped and listed in the final summary.
@@ -28,7 +25,10 @@ from core.progress_dialog import ProgressDialog
 from util.i18n import gettext_text as _
 
 DEFAULT_FONT_SIZE = 36
-GRAY_5PERCENT = (0.95, 0.95, 0.95)
+# Pure black + low fill_opacity: shows up as a faint gray on white pages and
+# stays visible on darker content; tune WATERMARK_FILL_OPACITY to taste.
+WATERMARK_TEXT_COLOR = (0.0, 0.0, 0.0)
+WATERMARK_FILL_OPACITY = 0.15
 MARGIN_CM = 2.0
 MARGIN_PT = MARGIN_CM * 72.0 / 2.54
 TILT_DEGREES = 36
@@ -42,12 +42,13 @@ def _choose_font(text: str) -> str:
 
 
 def _draw_text_watermark(page, text: str, font_size: int) -> None:
-    """Tile ``text`` across the page as a 36-degree skewed light-gray pattern.
+    """Tile ``text`` across the page as a 36-degree skewed diagonal pattern.
 
     Uses ``insert_text`` (not ``insert_textbox``) so the text is always drawn
     even when the measured width is large (e.g. mixed CJK+Latin under the
     ``china-s`` font, which renders Latin full-width) — ``insert_textbox`` would
-    silently refuse on overflow.
+    silently refuse on overflow. Drawn on the top layer with a low fill_opacity
+    so the underlying content (including text backgrounds) remains readable.
     """
     fontname = _choose_font(text)
     text_w = pymupdf.get_text_length(text, fontname=fontname, fontsize=font_size)
@@ -81,36 +82,17 @@ def _draw_text_watermark(page, text: str, font_size: int) -> None:
                 text,
                 fontname=fontname,
                 fontsize=font_size,
-                color=GRAY_5PERCENT,
-                overlay=False,
+                color=WATERMARK_TEXT_COLOR,
+                fill_opacity=WATERMARK_FILL_OPACITY,
+                overlay=True,
                 morph=(pymupdf.Point(cx, cy), rot),
             )
             x += cell_w
         y += cell_h
 
 
-def _draw_image_watermark(page, image_path: str, img_size) -> None:
-    """Center ``image_path`` with contain fit on the bottom layer (no re-encode)."""
-    area = pymupdf.Rect(
-        MARGIN_PT,
-        MARGIN_PT,
-        page.rect.width - MARGIN_PT,
-        page.rect.height - MARGIN_PT,
-    )
-    iw, ih = img_size
-    if iw <= 0 or ih <= 0:
-        return
-    scale = min(area.width / iw, area.height / ih)
-    dw = iw * scale
-    dh = ih * scale
-    dx = area.x0 + (area.width - dw) / 2.0
-    dy = area.y0 + (area.height - dh) / 2.0
-    img_rect = pymupdf.Rect(dx, dy, dx + dw, dy + dh)
-    page.insert_image(img_rect, filename=str(image_path), overlay=False)
-
-
 def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
-    """Add a watermark to every input PDF and write results into the folder.
+    """Add a text watermark to every input PDF and write results into the folder.
 
     Messages put on ``progress_queue`` are tuples:
         ('progress', current, total, message)
@@ -122,9 +104,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
     inputs = params['inputs']
     output = params['output']
     options = params['options']
-    mode = options['mode']
     text = options['text']
-    image_path = options['image_path']
 
     try:
         out_dir = Path(output)
@@ -135,19 +115,6 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
         for in_path in inputs:
             with pymupdf.open(in_path) as doc:
                 total_pages += doc.page_count
-
-        img_size = None
-        if mode == 'image':
-            from PIL import Image
-
-            try:
-                with Image.open(image_path) as im:
-                    img_size = im.size
-            except Exception as exc:
-                progress_queue.put(
-                    ('error', _('Cannot read watermark image: {}').format(exc))
-                )
-                return
 
         page_index = 0
         failed: list[tuple[str, str]] = []
@@ -171,10 +138,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
                             )
                         )
                         page = doc[p_idx]
-                        if mode == 'text':
-                            _draw_text_watermark(page, text, DEFAULT_FONT_SIZE)
-                        else:
-                            _draw_image_watermark(page, image_path, img_size)
+                        _draw_text_watermark(page, text, DEFAULT_FONT_SIZE)
                     out_file = out_dir / f'{src.stem}.{_("Watermark")}.pdf'
                     doc.save(out_file)
                     success_count += 1

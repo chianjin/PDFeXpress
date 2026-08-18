@@ -39,7 +39,8 @@ The current version is 2.0, which has been tested on Windows 11 AMD64 and Ubuntu
 
 **Document Compression**
 
-* **Compress PDF**: Compress a PDF by re-encoding embedded images
+* **Quick Compress**: Compress multiple PDFs one-to-one with the built-in cleanup pipeline
+* **Deep Compress**: Compress a single PDF page by page, re-encoding embedded images for maximum reduction
 
 **Page Annotation**
 
