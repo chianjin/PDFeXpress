@@ -65,7 +65,7 @@
 有两种形式的预编译包，安装包和绿色包，[下载](https://github.com/chianjin/PDFeXpress/releases) 、安装或解压，运行
 `PDFeXpress.exe`。
 
-也可以从这里下载：[夸克网盘](https://pan.quark.cn/s/abc772612ee5?pwd=97sh)
+也可以从这里下载：[夸克网盘](https://pan.quark.cn/s/abc772612ee5?pwd=97sh)  [百度网盘](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
 
 ## 构建
 

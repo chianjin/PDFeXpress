@@ -31,7 +31,7 @@ Four new features added (Encrypt, Decrypt, Compress, Add Watermark), bringing th
 - **Page Annotation**
     - **Add Page Numbers**: No change.
     - **Add Watermark** (new): Overlay a text watermark on PDF pages.
-    - **Edit Bookmark**: No change.
+    - **Edit Bookmarks**: No change.
 
 - **Document Security**
     - **Encrypt PDF** (new): Encrypt a PDF with a password.
@@ -55,7 +55,7 @@ Four new features added (Encrypt, Decrypt, Compress, Add Watermark), bringing th
 This software release includes a complete refactoring of the underlying logic and adds some common features.
 
 - **Delete Pages**: Delete specified pages from a PDF file.
-- **Edit Bookmark**: Edit the bookmark of a PDF file.
+- **Edit Bookmarks**: Edit the bookmarks of a PDF file.
 - **Extract Images**: Extract images from PDF files.
 - **Extract Text**: Extract text from PDF files.
 - **Images to PDF**: Convert multiple images into a single PDF file.
@@ -114,7 +114,7 @@ This software release includes a complete refactoring of the underlying logic an
 
 - fix few bugs
 - `Nuitka` upgrade to 1.0.6
-- `PyMuPDF`upgrade to 1.20.2
+- `PyMuPDF` upgrade to 1.20.2
 
 ## 0.3.3-BETA
 
@@ -149,7 +149,7 @@ This software release includes a complete refactoring of the underlying logic an
 2022-01-23
 
 - Improved verification of the values of the options.
-- `Nuitka` upgraded to 0.7.5, added `-clang -mingw64` compilation option, and compiled with `clang`.
+- `Nuitka` upgraded to 0.19.4, added `-clang -mingw64` compilation option, and compiled with `clang`.
 
 ## 0.2.1-BETA
 

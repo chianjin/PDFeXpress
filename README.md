@@ -46,7 +46,7 @@ The current version is 2.0, which has been tested on Windows 11 AMD64 and Ubuntu
 
 * **Add Page Numbers**: Add page numbers to a PDF file with various formatting options
 * **Add Watermark**: Add a watermark to PDF pages
-* **Edit Bookmark**: Edit the bookmark of PDF
+* **Edit Bookmarks**: Edit the bookmarks of a PDF file
 
 **Document Security**
 
@@ -63,7 +63,8 @@ The current version is 2.0, which has been tested on Windows 11 AMD64 and Ubuntu
 
 There are two types of pre-compiled packages, installers and portable packages. [Download](https://github.com/chianjin/PDFeXpress/releases) and install or unzip it, run `PDFeXpress.exe`.
 
-You can also download from: [Quark Cloud Drive](https://pan.quark.cn/s/abc772612ee5?pwd=97sh)
+You can also download from: [Quark Cloud Drive](https://pan.quark.cn/s/abc772612ee5?pwd=97sh) [Baidu Cloud Drive](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
+
 
 ## Build
 
