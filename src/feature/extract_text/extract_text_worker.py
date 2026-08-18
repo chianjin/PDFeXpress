@@ -35,46 +35,63 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
     output = params['output']
 
     try:
-        total = len(inputs)
+        total_files = len(inputs)
+        # Granularity: per page across all input documents.
+        total = 0
+        for in_path in inputs:
+            with pymupdf.open(Path(in_path)) as doc:
+                total += doc.page_count
+        if total == 0:
+            progress_queue.put(('error', _('No pages to extract.')))
+            return
+
         out_dir = Path(output)
         out_dir.mkdir(parents=True, exist_ok=True)
 
         processed = 0
         failed = 0
+        done = 0
 
-        for index, in_path in enumerate(inputs, start=1):
+        for in_path in inputs:
             if cancel_event.is_set():
                 progress_queue.put(('cancelled', None))
                 return
 
             src = Path(in_path)
-            progress_queue.put(
-                ('progress', index - 1, total, f'{_("Extracting...")} {index}/{total}')
-            )
-
             try:
                 with pymupdf.open(src) as doc:
-                    text = ''.join(page.get_text() for page in doc)
+                    text_parts = []
+                    for page in doc:
+                        text_parts.append(page.get_text())
+                        done += 1
+                        progress_queue.put(
+                            (
+                                'progress',
+                                done,
+                                total,
+                                f'{_("Extracting...")} {done}/{total}',
+                            )
+                        )
 
                 out_name = src.with_suffix('.txt').name
                 out_path = out_dir / out_name
-                out_path.write_text(text, encoding='utf-8')  # plain UTF-8, no BOM
+                out_path.write_text(''.join(text_parts), encoding='utf-8')  # plain UTF-8, no BOM
                 processed += 1
             except Exception as exc:
                 failed += 1
                 progress_queue.put(
                     (
                         'progress',
-                        index - 1,
+                        done,
                         total,
                         f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})',
                     )
                 )
 
-        summary = _('Text extracted from {} of {} file(s).').format(processed, total)
+        summary = _('Text extracted from {} of {} file(s).').format(processed, total_files)
         if failed:
             summary += ' ' + (_('{} file(s) failed.').format(failed))
-        if processed == 0 and total > 0:
+        if processed == 0 and total_files > 0:
             progress_queue.put(('error', summary))
             return
 

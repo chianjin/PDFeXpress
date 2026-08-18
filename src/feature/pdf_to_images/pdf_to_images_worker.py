@@ -41,26 +41,31 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
     quality = options['quality']
 
     try:
-        total = len(inputs)
+        total_files = len(inputs)
+        # Granularity: per page across all input documents.
+        total = 0
+        for in_path in inputs:
+            with pymupdf.open(Path(in_path)) as doc:
+                total += doc.page_count
+        if total == 0:
+            progress_queue.put(('error', _('No pages to convert.')))
+            return
+
         out_dir = Path(output)
         out_dir.mkdir(parents=True, exist_ok=True)
 
         files_done = 0
         files_failed = 0
-        pages_done = 0
         # JPEG cannot carry an alpha channel; transparency only applies to PNG.
         alpha = (fmt == 'png') and transparent
+        done = 0
 
-        for index, in_path in enumerate(inputs, start=1):
+        for in_path in inputs:
             if cancel_event.is_set():
                 progress_queue.put(('cancelled', None))
                 return
 
             src = Path(in_path)
-            progress_queue.put(
-                ('progress', index - 1, total, f'{_("Converting...")} {index}/{total}')
-            )
-
             try:
                 with pymupdf.open(src) as doc:
                     stem = src.stem
@@ -77,26 +82,34 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                             )
                         else:
                             pix.save(sub / f'{stem}.P{p_idx:0{width}d}.png')
-                        pages_done += 1
+                        done += 1
+                        progress_queue.put(
+                            (
+                                'progress',
+                                done,
+                                total,
+                                f'{_("Converting...")} {done}/{total}',
+                            )
+                        )
                 files_done += 1
             except Exception as exc:
                 files_failed += 1
                 progress_queue.put(
                     (
                         'progress',
-                        index - 1,
+                        done,
                         total,
                         f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})',
                     )
                 )
 
         summary = _('Converted {} page(s) from {} file(s) to images.').format(
-            pages_done,
+            done,
             files_done,
         )
         if files_failed:
             summary += ' ' + (_('{} file(s) failed.').format(files_failed))
-        if files_done == 0 and total > 0:
+        if files_done == 0 and total_files > 0:
             progress_queue.put(('error', summary))
             return
 

@@ -4,7 +4,6 @@ from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askdirectory, askopenfilename
 from tkinter.messagebox import showerror
-from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -128,17 +127,9 @@ class DeletePagesFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        from feature.delete_pages.delete_pages_worker import delete_pages
+        from feature.delete_pages.delete_pages_worker import run_delete_pages_with_progress
 
-        try:
-            summary = delete_pages(params)
-        except ValueError as exc:
-            showerror(title=_('Error'), message=str(exc))
-            return
-        except Exception as exc:
-            showerror(title=_('Error'), message=f'{type(exc).__name__}: {exc}')
-            return
-        prompt_open_output(self, params['output'])
+        run_delete_pages_with_progress(self.winfo_toplevel(), params)
 
     def _validate_execute_params(self):
         src = self.input_path.get()

@@ -41,7 +41,16 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
     min_h = options['min_h']
 
     try:
-        total = len(inputs)
+        total_files = len(inputs)
+        # Granularity: per page across all input documents.
+        total = 0
+        for in_path in inputs:
+            with pymupdf.open(Path(in_path)) as doc:
+                total += doc.page_count
+        if total == 0:
+            progress_queue.put(('error', _('No pages to extract.')))
+            return
+
         out_dir = Path(output)
         out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -49,22 +58,14 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
         files_failed = 0
         images_extracted = 0
         images_skipped = 0
+        done = 0
 
-        for index, in_path in enumerate(inputs, start=1):
+        for in_path in inputs:
             if cancel_event.is_set():
                 progress_queue.put(('cancelled', None))
                 return
 
             src = Path(in_path)
-            progress_queue.put(
-                (
-                    'progress',
-                    index - 1,
-                    total,
-                    f'{_("Extracting...")} {index}/{total}',
-                )
-            )
-
             try:
                 with pymupdf.open(src) as doc:
                     stem = src.stem
@@ -95,13 +96,22 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                             fname = f'{stem}.P{p_idx:0{width}d}-{xref}.{ext}'
                             (sub / fname).write_bytes(data)
                             images_extracted += 1
+                        done += 1
+                        progress_queue.put(
+                            (
+                                'progress',
+                                done,
+                                total,
+                                f'{_("Extracting...")} {done}/{total}',
+                            )
+                        )
                 files_done += 1
             except Exception as exc:
                 files_failed += 1
                 progress_queue.put(
                     (
                         'progress',
-                        index - 1,
+                        done,
                         total,
                         f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})',
                     )
@@ -115,7 +125,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
             summary += ' ' + (_('{} small image(s) skipped.').format(images_skipped))
         if files_failed:
             summary += ' ' + (_('{} file(s) failed.').format(files_failed))
-        if files_done == 0 and total > 0:
+        if files_done == 0 and total_files > 0:
             progress_queue.put(('error', summary))
             return
 

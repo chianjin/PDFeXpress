@@ -40,20 +40,25 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
     delta = options['delta']
 
     try:
-        total = len(inputs)
+        # Granularity: per page across all input documents.
+        total = 0
+        for in_path in inputs:
+            with pymupdf.open(Path(in_path)) as doc:
+                total += doc.page_count
+        if total == 0:
+            progress_queue.put(('error', _('No pages to rotate.')))
+            return
+
         out_dir = Path(output)
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        for index, in_path in enumerate(inputs, start=1):
+        done = 0
+        for in_path in inputs:
             if cancel_event.is_set():
                 progress_queue.put(('cancelled', None))
                 return
 
             src = Path(in_path)
-            progress_queue.put(
-                ('progress', index - 1, total, f'{_("Rotating...")} {index}/{total}')
-            )
-
             with pymupdf.open(src) as doc:
                 # Relative, per-page rotation. PDF /Rotate (and page.rotation)
                 # is clockwise-positive, matching the option value, so we add
@@ -61,6 +66,10 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                 for page in doc:
                     new_rotation = (page.rotation + delta) % 360
                     page.set_rotation(new_rotation)
+                    done += 1
+                    progress_queue.put(
+                        ('progress', done, total, f'{_("Rotating...")} {done}/{total}')
+                    )
 
                 out_name = src.with_suffix(f'.{_("Rotate")}{delta}.pdf').name
                 out_path = out_dir / out_name
