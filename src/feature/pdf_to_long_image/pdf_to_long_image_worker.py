@@ -10,7 +10,8 @@ JPEG limit (65500 px) the job stops with an error instead of scaling down.
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -104,7 +105,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                 progress_queue.put(
                     (
                         'progress',
-                        1 + i,
+                        i,
                         1 + len(pages),
                         f'{_("Converting...")} {i}/{len(pages)}',
                     )
@@ -186,7 +187,7 @@ def run_pdf_to_long_image_with_progress(master, params: dict) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=msg[1])
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'error':
                     _finish()

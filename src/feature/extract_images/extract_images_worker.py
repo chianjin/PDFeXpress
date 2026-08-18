@@ -12,7 +12,8 @@ scaffolding; a single failed file is skipped and counted into the summary.
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -58,7 +59,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
             progress_queue.put(
                 (
                     'progress',
-                    index,
+                    index - 1,
                     total,
                     f'{_("Extracting...")} {index}/{total}',
                 )
@@ -70,6 +71,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                     sub = out_dir / stem
                     sub.mkdir(parents=True, exist_ok=True)
 
+                    width = len(str(doc.page_count))
                     for p_idx, page in enumerate(doc, start=1):
                         seen = set()
                         for img_info in page.get_images(full=True):
@@ -90,7 +92,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                             if not data:
                                 continue
 
-                            fname = f'{stem}.P{p_idx}-{xref}.{ext}'
+                            fname = f'{stem}.P{p_idx:0{width}d}-{xref}.{ext}'
                             (sub / fname).write_bytes(data)
                             images_extracted += 1
                 files_done += 1
@@ -99,7 +101,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                 progress_queue.put(
                     (
                         'progress',
-                        index,
+                        index - 1,
                         total,
                         f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})',
                     )
@@ -172,7 +174,7 @@ def run_extract_images_with_progress(master, params: dict) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=msg[1])
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'error':
                     _finish()

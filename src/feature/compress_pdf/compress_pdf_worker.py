@@ -20,7 +20,8 @@ import io
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 from typing import Any
 
 import pymupdf
@@ -177,7 +178,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
                             progress_queue.put(
                                 (
                                     'progress',
-                                    page_index,
+                                    page_index - 1,
                                     total_pages,
                                     f'{_("Compressing...")} {page_index}/{total_pages}',
                                 )
@@ -214,11 +215,12 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
                 progress_queue.put(
                     (
                         'progress',
-                        index,
+                        index - 1,
                         total,
                         f'{_("Compressing...")} {index}/{total}',
                     )
                 )
+
                 try:
                     with pymupdf.open(src) as doc:
                         out_file = out_dir / f'{src.stem}.{_("Compress")}.pdf'
@@ -236,7 +238,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
                     progress_queue.put(
                         (
                             'progress',
-                            index,
+                            index - 1,
                             total,
                             _('Failed: {} ({}: {})').format(
                                 src.name, type(exc).__name__, exc
@@ -307,7 +309,7 @@ def run_compress_pdf_with_progress(master, params: dict[str, Any]) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=msg[1])
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'error':
                     _finish()

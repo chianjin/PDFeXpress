@@ -13,7 +13,8 @@ the user-chosen delta is added, normalized to 0..359.
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -50,7 +51,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total, f'{_("Rotating...")} {index}/{total}')
+                ('progress', index - 1, total, f'{_("Rotating...")} {index}/{total}')
             )
 
             with pymupdf.open(src) as doc:
@@ -112,7 +113,7 @@ def run_rotate_with_progress(master, params: dict) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=msg[1])
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'error':
                     err = msg[1]

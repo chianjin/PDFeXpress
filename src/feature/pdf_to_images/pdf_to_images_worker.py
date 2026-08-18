@@ -11,7 +11,8 @@ counted into the summary.
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -57,7 +58,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total, f'{_("Converting...")} {index}/{total}')
+                ('progress', index - 1, total, f'{_("Converting...")} {index}/{total}')
             )
 
             try:
@@ -66,15 +67,16 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                     sub = out_dir / stem
                     sub.mkdir(parents=True, exist_ok=True)
 
+                    width = len(str(doc.page_count))
                     for p_idx, page in enumerate(doc, start=1):
                         pix = page.get_pixmap(dpi=dpi, alpha=alpha)
                         if fmt == 'jpg':
                             pix.save(
-                                sub / f'{stem}.P{p_idx}.jpg',
+                                sub / f'{stem}.P{p_idx:0{width}d}.jpg',
                                 jpg_quality=quality,
                             )
                         else:
-                            pix.save(sub / f'{stem}.P{p_idx}.png')
+                            pix.save(sub / f'{stem}.P{p_idx:0{width}d}.png')
                         pages_done += 1
                 files_done += 1
             except Exception as exc:
@@ -82,7 +84,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                 progress_queue.put(
                     (
                         'progress',
-                        index,
+                        index - 1,
                         total,
                         f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})',
                     )
@@ -153,7 +155,7 @@ def run_pdf_to_images_with_progress(master, params: dict) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=msg[1])
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'error':
                     _finish()

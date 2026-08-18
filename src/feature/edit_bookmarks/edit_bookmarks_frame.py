@@ -2,7 +2,8 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -259,7 +260,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         except Exception as exc:
             showerror(title=_('Error'), message=_('Failed to export: {}').format(exc))
             return
-        showinfo(title=_('Done'), message=_('Bookmarks exported'))
+        prompt_open_output(self, path)
 
     # ---- abstract overrides ----
     def get_input_paths(self):
@@ -349,7 +350,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         except Exception as exc:
             showerror(title=_('Error'), message=f'{type(exc).__name__}: {exc}')
             return
-        showinfo(title=_('Done'), message=_('Bookmarks updated'))
+        prompt_open_output(self, out)
 
 
 if __name__ == '__main__':

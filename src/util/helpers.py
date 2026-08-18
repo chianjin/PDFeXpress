@@ -1,9 +1,13 @@
+import platform
+import subprocess
 import time
 import tkinter as tk
 from pathlib import Path
+from tkinter.messagebox import askyesno
 
 from config import HEADER_FONT_SIZE
 from feature.feature_list import FEATURE_LIST
+from util.i18n import gettext_text as _
 
 
 def get_feature_info(feature_id: str) -> tuple[str, str]:
@@ -119,3 +123,35 @@ def get_multiple_files_properties(file_paths: list[Path]) -> dict:
         '文件数': len(file_paths),
         '总大小': sum(file.stat().st_size for file in file_paths),
     }
+
+
+def reveal_in_explorer(output_path):
+    """用系统文件管理器打开文件夹，或定位到已生成的文件。
+    Windows: 文件夹 -> `explorer "<folder>"`；文件 -> `explorer /select, "<file>"`。"""
+    if not output_path:
+        return
+    path = Path(output_path)
+    system = platform.system()
+    if system == 'Windows':
+        if path.is_file():
+            subprocess.call(f'explorer /select, "{output_path}"', shell=False)
+        elif path.is_dir():
+            subprocess.call(f'explorer "{output_path}"', shell=False)
+    elif system == 'Darwin':
+        if path.is_file():
+            subprocess.call(['open', '-R', str(path)], shell=False)
+        else:
+            subprocess.call(['open', str(path)], shell=False)
+    else:
+        target = path if path.exists() else path.parent
+        subprocess.call(['xdg-open', str(target)], shell=False)
+
+
+def prompt_open_output(master, output_path):
+    """任务完成后询问是否查看生成的输出；选"是"则定位/打开该输出。"""
+    if askyesno(
+        parent=master,
+        title=_('Done'),
+        message=_('Task completed. View the generated file(s) now?'),
+    ):
+        reveal_in_explorer(output_path)

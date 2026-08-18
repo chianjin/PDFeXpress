@@ -9,7 +9,8 @@ responsive. Progress is reported back to the main thread through a
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -50,7 +51,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
 
                 src_path = Path(in_path)
                 progress_queue.put(
-                    ('progress', index, total, f'{_("Merging...")} {index}/{total}')
+                    ('progress', index - 1, total, f'{_("Merging...")} {index}/{total}')
                 )
 
                 with pymupdf.open(src_path) as src:
@@ -136,10 +137,7 @@ def run_merge_with_progress(master, params: dict) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(
-                        title=_('Done'),
-                        message=_('PDF Merged'),
-                    )
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'error':
                     err = msg[1]

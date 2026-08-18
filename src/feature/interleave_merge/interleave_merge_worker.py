@@ -11,7 +11,8 @@ progress is reported back through a multiprocessing.Queue and shown via
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -122,10 +123,7 @@ def run_interleave_with_progress(master, params: dict) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(
-                        title=_('Done'),
-                        message=msg[1],
-                    )
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'error':
                     err = msg[1]

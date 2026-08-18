@@ -3,7 +3,8 @@
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 from typing import Any
 
 import pymupdf
@@ -85,7 +86,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
                 progress_queue.put(
                     (
                         'progress',
-                        index,
+                        index - 1,
                         total,
                         f'{_("Adding...")} {index}/{total}',
                     )
@@ -162,7 +163,7 @@ def run_add_page_numbers_with_progress(master, params: dict[str, Any]) -> None:
                     dialog.set_progress((cur / tot) if tot else 0, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=msg[1])
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'error':
                     _finish()

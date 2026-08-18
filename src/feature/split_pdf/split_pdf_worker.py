@@ -16,7 +16,8 @@ in the frame, so the worker receives already-resolved ``list[list[int]]`` of
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -137,7 +138,7 @@ def worker(params, progress_queue, cancel_event):
                 progress_queue.put(
                     (
                         'progress',
-                        idx,
+                        idx - 1,
                         total_outputs,
                         f'{_("Splitting...")} {idx}/{total_outputs}',
                     )
@@ -219,7 +220,7 @@ def run_split_with_progress(master, params):
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=msg[1])
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'error':
                     _finish()

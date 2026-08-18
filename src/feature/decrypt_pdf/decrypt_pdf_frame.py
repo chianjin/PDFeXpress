@@ -2,7 +2,8 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
@@ -111,7 +112,7 @@ class DecryptPdfFrame(BaseFeatureFrame):
         except Exception as exc:
             showerror(title=_('Error'), message=f'{type(exc).__name__}: {exc}')
             return
-        showinfo(title=_('Done'), message=_('PDF Decrypted'))
+        prompt_open_output(self, params['output'])
 
     def _validate_execute_params(self):
         if not self.input_path.get():

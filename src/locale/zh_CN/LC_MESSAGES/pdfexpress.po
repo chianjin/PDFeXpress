@@ -502,6 +502,9 @@ msgstr "正在添加……"
 msgid "Done"
 msgstr "完成"
 
+msgid "Task completed. View the generated file(s) now?"
+msgstr "任务已完成。现在查看所生成的文件吗？"
+
 #: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:148
 #: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:224
 #: F:/project/PDFeXpress/src/feature/compress_pdf/compress_pdf_worker.py:328

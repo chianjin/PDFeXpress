@@ -18,7 +18,8 @@ import math
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo, showwarning
+from tkinter.messagebox import showerror, showwarning
+from util.helpers import prompt_open_output
 from typing import Any
 
 import pymupdf
@@ -160,16 +161,16 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
                         if cancel_event.is_set():
                             progress_queue.put(('cancelled', None))
                             return
-                        page = doc[p_idx]
                         page_index += 1
                         progress_queue.put(
                             (
                                 'progress',
-                                page_index,
+                                page_index - 1,
                                 total_pages,
                                 f'{_("Watermarking...")} {page_index}/{total_pages}',
                             )
                         )
+                        page = doc[p_idx]
                         if mode == 'text':
                             _draw_text_watermark(page, text, DEFAULT_FONT_SIZE)
                         else:
@@ -239,7 +240,7 @@ def run_add_watermark_with_progress(master, params: dict[str, Any]) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=msg[1])
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'partial':
                     _out_dir, _ok, _fail, summary = msg[1], msg[2], msg[3], msg[4]

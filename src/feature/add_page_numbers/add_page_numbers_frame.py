@@ -279,17 +279,18 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         }
 
     def _execute_handler(self):
+        if not self._validate_execute_params():
+            return
         params = {
             'inputs': self.get_input_paths(),
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if self._validate_execute_params():
-            from feature.add_page_numbers.add_page_numbers_worker import (
-                run_add_page_numbers_with_progress,
-            )
+        from feature.add_page_numbers.add_page_numbers_worker import (
+            run_add_page_numbers_with_progress,
+        )
 
-            run_add_page_numbers_with_progress(self.winfo_toplevel(), params)
+        run_add_page_numbers_with_progress(self.winfo_toplevel(), params)
 
     def _validate_execute_params(self):
         if not self.input_path.get():

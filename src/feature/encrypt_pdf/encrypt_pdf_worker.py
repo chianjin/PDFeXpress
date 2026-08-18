@@ -9,7 +9,8 @@ reported in the final summary rather than aborting the whole run.
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo, showwarning
+from tkinter.messagebox import showerror, showwarning
+from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -50,7 +51,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total, f'{_("Encrypting...")} {index}/{total}')
+                ('progress', index - 1, total, f'{_("Encrypting...")} {index}/{total}')
             )
 
             try:
@@ -137,7 +138,7 @@ def run_encrypt_with_progress(master, params: dict) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=msg[1])
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'partial':
                     _out_dir, _ok, _fail, summary = msg[1], msg[2], msg[3], msg[4]

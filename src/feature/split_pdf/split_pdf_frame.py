@@ -179,15 +179,16 @@ class SplitPdfFrame(BaseFeatureFrame):
         return opts
 
     def _execute_handler(self):
+        if not self._validate_execute_params():
+            return
         params = {
             'inputs': self.get_input_paths(),
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        if self._validate_execute_params():
-            from feature.split_pdf.split_pdf_worker import run_split_with_progress
+        from feature.split_pdf.split_pdf_worker import run_split_with_progress
 
-            run_split_with_progress(self.winfo_toplevel(), params)
+        run_split_with_progress(self.winfo_toplevel(), params)
 
     def _validate_execute_params(self):
         src = self.input_path.get()

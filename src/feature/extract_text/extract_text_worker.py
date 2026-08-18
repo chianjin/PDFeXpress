@@ -10,7 +10,8 @@ counted into the summary (B-type "skip + summarize" convention).
 from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
-from tkinter.messagebox import showerror, showinfo
+from tkinter.messagebox import showerror
+from util.helpers import prompt_open_output
 
 import pymupdf
 
@@ -48,7 +49,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
 
             src = Path(in_path)
             progress_queue.put(
-                ('progress', index, total, f'{_("Extracting...")} {index}/{total}')
+                ('progress', index - 1, total, f'{_("Extracting...")} {index}/{total}')
             )
 
             try:
@@ -64,7 +65,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                 progress_queue.put(
                     (
                         'progress',
-                        index,
+                        index - 1,
                         total,
                         f'{_("Failed")}: {src.name} ({type(exc).__name__}: {exc})',
                     )
@@ -132,7 +133,7 @@ def run_extract_text_with_progress(master, params: dict) -> None:
                     dialog.set_progress(fraction, text)
                 elif kind == 'done':
                     _finish()
-                    showinfo(title=_('Done'), message=msg[1])
+                    prompt_open_output(master, params['output'])
                     return
                 elif kind == 'error':
                     _finish()

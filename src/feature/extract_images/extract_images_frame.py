@@ -77,7 +77,7 @@ class ExtractImagesFrame(BaseFeatureFrame):
     def _set_output_folder(self):
         folder = askdirectory(mustexist=True)
         if folder:
-            self.output_path.set(folder)
+            self.output_path.set(Path(folder))
 
     def _execute_handler(self):
         params = {
