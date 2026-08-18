@@ -4,12 +4,12 @@ from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror
-from util.helpers import prompt_open_output
 from typing import Any
 
 import pymupdf
 
 from core.progress_dialog import ProgressDialog
+from util.helpers import prompt_open_output
 from util.i18n import gettext_text as _
 
 CM_TO_PT = 72.0 / 2.54

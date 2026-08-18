@@ -127,7 +127,9 @@ class DeletePagesFrame(BaseFeatureFrame):
             'output': self.get_output_path(),
             'options': self.get_options(),
         }
-        from feature.delete_pages.delete_pages_worker import run_delete_pages_with_progress
+        from feature.delete_pages.delete_pages_worker import (
+            run_delete_pages_with_progress,
+        )
 
         run_delete_pages_with_progress(self.winfo_toplevel(), params)
 

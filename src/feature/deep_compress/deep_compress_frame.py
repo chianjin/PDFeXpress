@@ -77,7 +77,7 @@ class DeepCompressFrame(BaseFeatureFrame):
         path = askopenfilename(filetypes=FILE_TYPES['PDF'])
         if path:
             self.input_path.set(Path(path))
-            self.output_path.set(Path(path).with_suffix(f'.{_('Compress')}.pdf'))
+            self.output_path.set(Path(path).with_suffix(f'.{_("Compress")}.pdf'))
 
     def _set_output_path(self):
         output_path = self.output_path.get()

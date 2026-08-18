@@ -13,11 +13,11 @@ from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror
-from util.helpers import prompt_open_output
 
 import pymupdf
 
 from core.progress_dialog import ProgressDialog
+from util.helpers import prompt_open_output
 from util.i18n import gettext_text as _
 
 
@@ -73,8 +73,10 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                     sub.mkdir(parents=True, exist_ok=True)
 
                     width = len(str(doc.page_count))
+                    # One xref points to the same image object across pages, so
+                    # dedupe at document level: extract each xref only once.
+                    seen = set()
                     for p_idx, page in enumerate(doc, start=1):
-                        seen = set()
                         for img_info in page.get_images(full=True):
                             xref = img_info[0]
                             if xref in seen:

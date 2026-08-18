@@ -150,8 +150,8 @@ def reveal_in_explorer(output_path):
 def prompt_open_output(master, output_path):
     """任务完成后询问是否查看生成的输出；选"是"则定位/打开该输出。"""
     if askyesno(
-        parent=master,
-        title=_('Done'),
-        message=_('Task completed. View the generated file(s) now?'),
+            parent=master,
+            title=_('Done'),
+            message=_('Task completed. View the generated file(s) now?'),
     ):
         reveal_in_explorer(output_path)

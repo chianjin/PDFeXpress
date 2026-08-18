@@ -3,13 +3,12 @@ from pathlib import Path
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import showerror
-from util.helpers import prompt_open_output
 
 import pymupdf
 
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
-from util.helpers import enable_pdf_drop
+from util.helpers import enable_pdf_drop, prompt_open_output
 from util.i18n import gettext_text as _
 
 

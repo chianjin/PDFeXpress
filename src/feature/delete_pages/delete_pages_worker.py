@@ -19,11 +19,11 @@ from multiprocessing import Event, Process, Queue
 from pathlib import Path
 from queue import Empty
 from tkinter.messagebox import showerror
-from util.helpers import prompt_open_output
 
 import pymupdf
 
 from core.progress_dialog import ProgressDialog
+from util.helpers import prompt_open_output
 from util.i18n import gettext_text as _
 
 
@@ -91,7 +91,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
         summary = _('Delete Pages') + f' ({produced}/{total_outputs})'
         if failures:
             summary += (
-                '\n' + _('Failed:') + ' ' + '; '.join(f'{n}: {e}' for n, e in failures)
+                    '\n' + _('Failed:') + ' ' + '; '.join(f'{n}: {e}' for n, e in failures)
             )
         progress_queue.put(('progress', total_outputs, total_outputs, _('Done')))
         progress_queue.put(('done', summary))
