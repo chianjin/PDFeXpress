@@ -24,6 +24,8 @@ ASSETS_DIR_NAME = 'asset'
 
 RELEASE_DIR = Path(RELEASE_DIR_NAME) / PROJECT_VERSION
 
+LATEST_VERSION_FILE = PROJECT_DIR / 'LATEST-VERSION'
+
 PLATFORM = platform.system()
 if PLATFORM == 'Darwin':
     PLATFORM = 'macOS'
@@ -232,6 +234,20 @@ def create_installer():
         raise
 
 
+def write_latest_version():
+    """Write the current version to LATEST-VERSION in the project root.
+
+    The file lets the update-check mechanism learn the latest published
+    version; its content is the bare PROJECT_VERSION string (with a
+    trailing newline).
+    """
+    try:
+        LATEST_VERSION_FILE.write_text(PROJECT_VERSION + '\n', encoding='utf-8')
+        print(f'Updated {LATEST_VERSION_FILE.name}: {PROJECT_VERSION}')
+    except OSError as e:
+        print(f'Warning: failed to write {LATEST_VERSION_FILE.name}: {e}')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Build script for {PROJECT_NAME}.')
     parser.add_argument(
@@ -266,4 +282,5 @@ if __name__ == '__main__':
         if args.installer:
             create_installer()
 
+    write_latest_version()
     print('\nBuild script finished.')

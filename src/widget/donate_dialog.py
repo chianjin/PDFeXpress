@@ -51,6 +51,15 @@ def _is_donated() -> bool:
         return False
 
 
+def _numeric_version(version: str) -> str:
+    """Return the bare numeric part of a version string.
+
+    Strips any pre-release/build suffix after a '-', so '2.0-BETA' and
+    '2.0' are treated as the same version for detection purposes.
+    """
+    return version.split('-', 1)[0].strip()
+
+
 def _disabled_version() -> str | None:
     """Return the app version stored when 'don't show again' was chosen.
 
@@ -85,17 +94,18 @@ def _clear_dismiss_modes() -> None:
 
 
 def _mark_disabled() -> None:
-    """Record 'don't show again' with the current app version.
+    """Record 'don't show again' with the current numeric app version.
 
-    While the version stays the same the dialog stays hidden. On a later
-    upgrade (different PROJECT_VERSION) a one-time 20% chance reopens it.
-    Best-effort.
+    Only the numeric part (before any '-' suffix) is stored, so
+    '2.0-BETA' and '2.0' count as the same version. While that version
+    stays the same the dialog stays hidden. On a later upgrade (different
+    numeric version) a one-time 20% chance reopens it. Best-effort.
     """
     try:
         _clear_dismiss_modes()
         path = _disabled_path()
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(str(PROJECT_VERSION), encoding='utf-8')
+        path.write_text(_numeric_version(PROJECT_VERSION), encoding='utf-8')
     except OSError:
         pass
 
@@ -158,7 +168,8 @@ def maybe_show_donate(master) -> None:
         return
     disabled = _disabled_path()
     if disabled.exists():
-        if _disabled_version() != PROJECT_VERSION:
+        stored = _disabled_version()
+        if stored is None or _numeric_version(stored) != _numeric_version(PROJECT_VERSION):
             # Version changed: one-time 20% chance, then consume the trigger
             # so it does not re-roll on every launch in the new version.
             _mark_disabled()
