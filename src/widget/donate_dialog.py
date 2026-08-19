@@ -1,192 +1,53 @@
-import os
-import platform
 import random
 import tkinter as tk
-from pathlib import Path
 from tkinter import ttk
 
 from config import EXECUTABLE_PATH, PROJECT_VERSION
 from util.helpers import get_title_font
 from util.i18n import gettext_text as _
+from util import settings
+
 
 QR_DIR = EXECUTABLE_PATH / 'asset' / 'qrcode'
 
 
-def _flag_dir() -> Path:
-    """User-writable dir for donate flags, following platform conventions.
-
-    - Windows: %APPDATA%/PDFeXpress
-    - macOS:   ~/Library/Application Support/PDFeXpress
-    - Linux:   $XDG_DATA_HOME/PDFeXpress, else ~/.local/share/PDFeXpress
-    """
-    system = platform.system()
-    if system == 'Windows':
-        base = os.environ.get('APPDATA')
-        root = Path(base) if base else Path.home() / 'AppData' / 'Roaming'
-    elif system == 'Darwin':
-        root = Path.home() / 'Library' / 'Application Support'
-    else:  # Linux and other POSIX
-        base = os.environ.get('XDG_DATA_HOME')
-        root = Path(base) if base else Path.home() / '.local' / 'share'
-    return root / 'PDFeXpress'
-
-
-def _donated_path() -> Path:
-    return _flag_dir() / 'donate.donated'
-
-
-def _disabled_path() -> Path:
-    return _flag_dir() / 'donate.disabled'
-
-
-def _is_donated() -> bool:
-    """True once the user has donated — permanently suppressed.
-
-    The donated flag survives reinstall and upgrade, so the dialog stays
-    hidden even after a fresh install.
-    """
-    try:
-        return _donated_path().exists()
-    except OSError:
-        return False
-
-
 def _numeric_version(version: str) -> str:
-    """Return the bare numeric part of a version string.
+    """返回版本号的数字部分（去掉 '-' 后的预发布/构建后缀）。
 
-    Strips any pre-release/build suffix after a '-', so '2.0-BETA' and
-    '2.0' are treated as the same version for detection purposes.
+    如 '2.0-BETA' 与 '2.0' 视为同一版本，用于捐赠弹窗的「不再提示」判定。
     """
     return version.split('-', 1)[0].strip()
 
 
-def _disabled_version() -> str | None:
-    """Return the app version stored when 'don't show again' was chosen.
-
-    None if the flag file is missing or unreadable.
-    """
-    try:
-        return _disabled_path().read_text(encoding='utf-8').strip()
-    except (OSError, ValueError):
-        return None
-
-
-def _mark_donated() -> None:
-    """Record donation. Best-effort: never raises."""
-    try:
-        _donated_path().parent.mkdir(parents=True, exist_ok=True)
-        _donated_path().touch()
-    except OSError:
-        pass
-
-
-def _clear_dismiss_modes() -> None:
-    """Remove any 'don't show again' / 'maybe later' flag files.
-
-    Only one dismissal mode is active at a time, so switching modes must
-    clear the previous one. The donated flag is left untouched (permanent).
-    """
-    for path in (_disabled_path(), _maybelater_path()):
-        try:
-            path.unlink()
-        except OSError:
-            pass
-
-
-def _mark_disabled() -> None:
-    """Record 'don't show again' with the current numeric app version.
-
-    Only the numeric part (before any '-' suffix) is stored, so
-    '2.0-BETA' and '2.0' count as the same version. While that version
-    stays the same the dialog stays hidden. On a later upgrade (different
-    numeric version) a one-time 20% chance reopens it. Best-effort.
-    """
-    try:
-        _clear_dismiss_modes()
-        path = _disabled_path()
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(_numeric_version(PROJECT_VERSION), encoding='utf-8')
-    except OSError:
-        pass
-
-
-def _mark_maybelater() -> None:
-    """Record 'maybe later' so the dialog reopens at 10% per launch."""
-    try:
-        _clear_dismiss_modes()
-        path = _maybelater_path()
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.touch()
-    except OSError:
-        pass
-
-
-def _is_maybelater() -> bool:
-    try:
-        return _maybelater_path().exists()
-    except OSError:
-        return False
-
-
-def _maybelater_path() -> Path:
-    return _flag_dir() / 'donate.maybelater'
-
-
-def _usage_path() -> Path:
-    return _flag_dir() / 'donate.usage'
-
-
-def _increment_usage() -> int:
-    """Increment and persist the launch counter; return the new count.
-
-    Only consulted on first install, before any dismissal choice is made.
-    """
-    try:
-        path = _usage_path()
-        path.parent.mkdir(parents=True, exist_ok=True)
-        try:
-            n = int(path.read_text(encoding='utf-8').strip() or '0')
-        except (OSError, ValueError):
-            n = 0
-        n += 1
-        path.write_text(str(n), encoding='utf-8')
-        return n
-    except OSError:
-        return 1
-
-
 def maybe_show_donate(master) -> None:
-    """Auto-prompt logic for the donate dialog.
+    """自动提示逻辑（状态集中存于 settings.json）。
 
-    - Donated: never show again.
-    - 'Don't show again': hidden until the app version changes, then a
-      one-time 20% chance per version bump.
-    - 'Maybe later': 10% chance on each launch.
-    - First install (no choice yet): show on the 3rd launch.
+    - 已捐赠：永久隐藏。
+    - 选过「不再提示」：版本号不变则隐藏；版本升级后一次性 20% 概率再弹。
+    - 选过「以后再说」：每次启动 10% 概率再弹。
+    - 首次安装（未做任何选择）：第 3 次启动弹出。
     """
-    if _is_donated():
+    if settings.is_donated():
         return
-    disabled = _disabled_path()
-    if disabled.exists():
-        stored = _disabled_version()
-        if stored is None or _numeric_version(stored) != _numeric_version(PROJECT_VERSION):
-            # Version changed: one-time 20% chance, then consume the trigger
-            # so it does not re-roll on every launch in the new version.
-            _mark_disabled()
+    disabled_version = settings.donate_disabled_version()
+    if disabled_version:
+        if _numeric_version(disabled_version) != _numeric_version(PROJECT_VERSION):
+            # 版本升级：记录新版本号，一次性触发 20% 概率，之后不再重复掷骰。
+            settings.mark_donate_disabled(_numeric_version(PROJECT_VERSION))
             if random.random() < 0.20:
                 DonateDialog(master)
         return
-    if _is_maybelater():
+    if settings.is_donate_maybelater():
         if random.random() < 0.10:
             DonateDialog(master)
         return
-    # First install: pop on the 3rd use.
-    if _increment_usage() >= 3:
+    # 首次安装：第 3 次使用弹出。
+    if settings.increment_usage() >= 3:
         DonateDialog(master)
 
 
 def open_donate(master) -> None:
-    """Open the donate dialog on demand (e.g. the main 'Support' button)."""
+    """主动打开捐赠弹窗（如主界面「Support Me」按钮）。"""
     DonateDialog(master)
 
 
@@ -289,15 +150,15 @@ class DonateDialog(tk.Toplevel):
         ttk.Label(cell, text=label, anchor='center').pack(pady=(6, 0))
 
     def _on_supported(self):
-        _mark_donated()
+        settings.mark_donated()
         self.destroy()
 
     def _on_never_again(self):
-        _mark_disabled()
+        settings.mark_donate_disabled(_numeric_version(PROJECT_VERSION))
         self.destroy()
 
     def _on_later(self):
-        _mark_maybelater()
+        settings.mark_donate_maybelater()
         self.destroy()
 
     def _center_on_master(self):

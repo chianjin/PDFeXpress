@@ -7,6 +7,7 @@ from tkinterdnd2 import TkinterDnD
 from config import EXECUTABLE_NAME, EXECUTABLE_PATH, PROJECT_NAME, PROJECT_VERSION
 from core.main_frame import MainFrame
 from widget.donate_dialog import maybe_show_donate
+from widget.update_dialog import check_for_update
 
 # Multiprocessing with freeze support
 multiprocessing.freeze_support()
@@ -66,6 +67,10 @@ def main():
 
     # Occasionally (≈10%) invite a donation; never blocks startup.
     root.after(1000, lambda: maybe_show_donate(root))
+
+    # Background version check on launch; shows the update dialog only when a
+    # newer version exists and the user has not skipped it. Never blocks startup.
+    root.after(1500, lambda: check_for_update(root))
 
     root.mainloop()
 

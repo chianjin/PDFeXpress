@@ -6,6 +6,7 @@ from feature.feature_list import FEATURE_LIST
 from util.i18n import gettext_text as _
 from widget.about_dialog import AboutDialog
 from widget.donate_dialog import open_donate
+from widget.update_dialog import open_update_check
 
 
 class MainFrame(ttk.Frame):
@@ -63,6 +64,13 @@ class MainFrame(ttk.Frame):
             left_frame,
             text=_('Support Me'),
             command=lambda: open_donate(self.winfo_toplevel()),
+        ).pack(fill='x', padx=10, pady=(0, 10))
+
+        # Check for Updates Button
+        ttk.Button(
+            left_frame,
+            text=_('Check for Updates'),
+            command=lambda: open_update_check(self.winfo_toplevel()),
         ).pack(fill='x', padx=10, pady=(0, 10))
 
         # Set Default Feature Frame
