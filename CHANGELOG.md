@@ -2,16 +2,17 @@
 
 ## 2.0
 
-2026-08-16
+2026-08-19
 
 ### Feature Groups
 
-Four new features added (Encrypt, Decrypt, Compress, Add Watermark), bringing the total to 18 features across 7 groups.
+Five new features added (Encrypt, Decrypt, Compress, Add Watermark, Divide Pages), bringing the total to 19 features across 7 groups.
 
 - **Document Assembly**
     - **Merge PDF**: No change.
     - **Interleave PDF**: No change.
     - **Split PDF**: No change.
+    - **Divide Pages** (new): Divide PDF pages into multiple parts by direction (vertical/horizontal) and count.
     - **Rotate PDF**: No change.
     - **Delete Pages**: No change.
 

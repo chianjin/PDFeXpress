@@ -32,9 +32,7 @@ class PdfToLongImageFrame(BaseFeatureFrame):
         ttk.Entry(row, textvariable=self.input_path, state='readonly').pack(
             side='left', expand=True, fill='x'
         )
-        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(side='left', padx=(5, 0))
 
         # Single fixed-height input row: collapse the frame instead of letting
         # it stretch (base class defaults expand=True, which suits list views).
@@ -44,17 +42,15 @@ class PdfToLongImageFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output Image'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', expand=True, fill='x')
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_path
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', expand=True, fill='x'
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_path).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
-        ttk.Label(self.options_frame, text=_('Page Range')).pack(
-            side='left', padx=(0, 5)
-        )
+        ttk.Label(self.options_frame, text=_('Page Range')).pack(side='left', padx=(0, 5))
         self._range = tk.StringVar()
         ttk.Entry(self.options_frame, textvariable=self._range, width=18).pack(
             side='left', fill='x', expand=True, padx=(0, 5)

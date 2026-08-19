@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PDF eXpress 2.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-08-19 02:00+0800\n"
+"POT-Creation-Date: 2026-08-19 17:58+0800\n"
 "PO-Revision-Date: 2026-08-17 00:00+0800\n"
 "Last-Translator: \n"
 "Language: zh_CN\n"
@@ -19,17 +19,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: F:/project/PDFeXpress/src/core/main_frame.py:24
+#: F:/project/PDFeXpress/src/core/main_frame.py:25
 msgid "Feature List"
 msgstr "功能列表"
 
-#: F:/project/PDFeXpress/src/core/main_frame.py:58
+#: F:/project/PDFeXpress/src/core/main_frame.py:59
 msgid "About PDF eXpress"
 msgstr "关于 PDF eXpress"
 
-#: F:/project/PDFeXpress/src/core/main_frame.py:64
+#: F:/project/PDFeXpress/src/core/main_frame.py:65
 msgid "Support Me"
 msgstr "支  持  我"
+
+#: F:/project/PDFeXpress/src/core/main_frame.py:72
+msgid "Check for Updates"
+msgstr "检查更新"
 
 #: F:/project/PDFeXpress/src/core/not_implemented_frame.py:12
 #: F:/project/PDFeXpress/src/core/not_implemented_frame.py:14
@@ -45,6 +49,7 @@ msgstr "取消"
 #: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:24
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:20
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:27
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:26
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:20
 #: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:20
 #: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:27
@@ -56,6 +61,7 @@ msgstr "输入 PDF"
 #: F:/project/PDFeXpress/src/feature/base_feature_frame.py:25
 #: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:42
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:37
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:43
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:37
 #: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:33
 #: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:53
@@ -83,7 +89,7 @@ msgstr "合并 PDF"
 
 #: F:/project/PDFeXpress/src/feature/feature_list.py:11
 #: F:/project/PDFeXpress/src/feature/feature_list.py:12
-#: F:/project/PDFeXpress/src/feature/feature_list.py:57
+#: F:/project/PDFeXpress/src/feature/feature_list.py:58
 msgid "Merge"
 msgstr "合并"
 
@@ -101,149 +107,159 @@ msgstr "拆分 PDF"
 msgid "Split"
 msgstr "拆分"
 
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_worker.py:114
 #: F:/project/PDFeXpress/src/feature/feature_list.py:14
+msgid "Divide Pages"
+msgstr "分割页面"
+
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:87
+#: F:/project/PDFeXpress/src/feature/feature_list.py:14
+msgid "Divide"
+msgstr "分割"
+
+#: F:/project/PDFeXpress/src/feature/feature_list.py:15
 #: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:143
 msgid "Rotate PDF"
 msgstr "旋转 PDF"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:14
+#: F:/project/PDFeXpress/src/feature/feature_list.py:15
 #: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:74
 msgid "Rotate"
 msgstr "旋转"
 
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:91
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:154
-#: F:/project/PDFeXpress/src/feature/feature_list.py:15
+#: F:/project/PDFeXpress/src/feature/feature_list.py:16
 msgid "Delete Pages"
 msgstr "删除页面"
 
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:87
-#: F:/project/PDFeXpress/src/feature/feature_list.py:15
+#: F:/project/PDFeXpress/src/feature/feature_list.py:16
 msgid "Delete"
 msgstr "删除"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:19
+#: F:/project/PDFeXpress/src/feature/feature_list.py:20
 msgid "Content Extraction"
 msgstr "内容提取"
 
 #: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:137
-#: F:/project/PDFeXpress/src/feature/feature_list.py:21
+#: F:/project/PDFeXpress/src/feature/feature_list.py:22
 msgid "Extract Text"
 msgstr "提取文本"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:21
 #: F:/project/PDFeXpress/src/feature/feature_list.py:22
+#: F:/project/PDFeXpress/src/feature/feature_list.py:23
 msgid "Extract"
 msgstr "提取"
 
 #: F:/project/PDFeXpress/src/feature/extract_images/extract_images_worker.py:169
-#: F:/project/PDFeXpress/src/feature/feature_list.py:22
+#: F:/project/PDFeXpress/src/feature/feature_list.py:23
 msgid "Extract Images"
 msgstr "提取图片"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:26
+#: F:/project/PDFeXpress/src/feature/feature_list.py:27
 msgid "Format Conversion"
 msgstr "格式转换"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:28
+#: F:/project/PDFeXpress/src/feature/feature_list.py:29
 #: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:107
 msgid "Images to PDF"
 msgstr "图片转 PDF"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:28
 #: F:/project/PDFeXpress/src/feature/feature_list.py:29
 #: F:/project/PDFeXpress/src/feature/feature_list.py:30
+#: F:/project/PDFeXpress/src/feature/feature_list.py:31
 msgid "Convert"
 msgstr "转换"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:29
+#: F:/project/PDFeXpress/src/feature/feature_list.py:30
 #: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_worker.py:151
 msgid "PDF to Images"
 msgstr "PDF 转图片"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:30
+#: F:/project/PDFeXpress/src/feature/feature_list.py:31
 #: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:206
 msgid "PDF to Long Image"
 msgstr "PDF 转长图"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:34
+#: F:/project/PDFeXpress/src/feature/feature_list.py:35
 msgid "Document Compression"
 msgstr "文档压缩"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:36
+#: F:/project/PDFeXpress/src/feature/feature_list.py:37
 #: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:157
 msgid "Quick Compress"
 msgstr "快速压缩"
 
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:80
-#: F:/project/PDFeXpress/src/feature/feature_list.py:36
 #: F:/project/PDFeXpress/src/feature/feature_list.py:37
+#: F:/project/PDFeXpress/src/feature/feature_list.py:38
 #: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:63
 msgid "Compress"
 msgstr "压缩"
 
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:249
-#: F:/project/PDFeXpress/src/feature/feature_list.py:37
+#: F:/project/PDFeXpress/src/feature/feature_list.py:38
 msgid "Deep Compress"
 msgstr "深度压缩"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:41
+#: F:/project/PDFeXpress/src/feature/feature_list.py:42
 msgid "Page Annotation"
 msgstr "页面标注"
 
 #: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:148
-#: F:/project/PDFeXpress/src/feature/feature_list.py:43
+#: F:/project/PDFeXpress/src/feature/feature_list.py:44
 msgid "Add Page Numbers"
 msgstr "添加页码"
 
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:115
-#: F:/project/PDFeXpress/src/feature/feature_list.py:43
 #: F:/project/PDFeXpress/src/feature/feature_list.py:44
+#: F:/project/PDFeXpress/src/feature/feature_list.py:45
 msgid "Add"
 msgstr "添加"
 
 #: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:188
-#: F:/project/PDFeXpress/src/feature/feature_list.py:44
+#: F:/project/PDFeXpress/src/feature/feature_list.py:45
 msgid "Add Watermark"
 msgstr "添加水印"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:45
+#: F:/project/PDFeXpress/src/feature/feature_list.py:46
 msgid "Edit Bookmarks"
 msgstr "编辑书签"
 
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:112
-#: F:/project/PDFeXpress/src/feature/feature_list.py:45
+#: F:/project/PDFeXpress/src/feature/feature_list.py:46
 msgid "Edit"
 msgstr "编辑"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:49
+#: F:/project/PDFeXpress/src/feature/feature_list.py:50
 msgid "Document Security"
 msgstr "文档安全"
 
 #: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:121
-#: F:/project/PDFeXpress/src/feature/feature_list.py:51
+#: F:/project/PDFeXpress/src/feature/feature_list.py:52
 msgid "Encrypt PDF"
 msgstr "加密 PDF"
 
 #: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:64
-#: F:/project/PDFeXpress/src/feature/feature_list.py:51
+#: F:/project/PDFeXpress/src/feature/feature_list.py:52
 msgid "Encrypt"
 msgstr "加密"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:52
+#: F:/project/PDFeXpress/src/feature/feature_list.py:53
 msgid "Decrypt PDF"
 msgstr "解密 PDF"
 
 #: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:71
-#: F:/project/PDFeXpress/src/feature/feature_list.py:52
+#: F:/project/PDFeXpress/src/feature/feature_list.py:53
 msgid "Decrypt"
 msgstr "解密"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:56
+#: F:/project/PDFeXpress/src/feature/feature_list.py:57
 msgid "Invoice Processing"
 msgstr "发票处理"
 
-#: F:/project/PDFeXpress/src/feature/feature_list.py:57
+#: F:/project/PDFeXpress/src/feature/feature_list.py:58
 #: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:172
 msgid "Merge Invoices"
 msgstr "合并发票"
@@ -257,6 +273,8 @@ msgstr "合并发票"
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:45
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:35
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:51
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:34
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:49
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:27
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:44
 #: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:35
@@ -382,6 +400,10 @@ msgstr "页码"
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:153
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:169
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:141
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:132
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:138
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:144
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_worker.py:136
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:200
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:206
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:209
@@ -482,6 +504,7 @@ msgstr "正在添加……"
 #: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:148
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:185
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:96
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_worker.py:85
 #: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:77
 #: F:/project/PDFeXpress/src/feature/extract_images/extract_images_worker.py:134
 #: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:102
@@ -502,6 +525,7 @@ msgstr "完成"
 #: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:189
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:250
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:155
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_worker.py:115
 #: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:122
 #: F:/project/PDFeXpress/src/feature/extract_images/extract_images_worker.py:170
 #: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:138
@@ -597,6 +621,7 @@ msgstr "密码"
 #: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:120
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:131
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:139
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:133
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:256
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:311
 #: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:128
@@ -605,6 +630,7 @@ msgid "Input PDF must be set."
 msgstr "必须设置输入 PDF。"
 
 #: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:126
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:139
 #: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:103
 #: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:100
 #: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:134
@@ -724,6 +750,30 @@ msgstr "未写入任何输出文件。"
 #: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:164
 msgid "Failed:"
 msgstr "失败："
+
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:55
+msgid "Direction"
+msgstr "方向"
+
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:60
+msgid "Vertical (left/right)"
+msgstr "纵向（左右）"
+
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:61
+msgid "Horizontal (top/bottom)"
+msgstr "横向（上下）"
+
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:69
+msgid "Parts"
+msgstr "份数"
+
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:145
+msgid "Divide into at least 2 parts."
+msgstr "至少分成 2 份。"
+
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_worker.py:70
+msgid "Dividing..."
+msgstr "正在分割……"
 
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:50
 msgid "Bookmarks"
@@ -1203,37 +1253,38 @@ msgstr "------ 第三方软件或包 ------"
 msgid "OK"
 msgstr "确定"
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:185
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:205
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:57
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:77
 msgid "Buy me a chicken leg"
 msgstr "请我吃个鸡腿"
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:213
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:85
 msgid "If this tool has been helpful to you, feel free to buy me a chicken leg."
 msgstr "如果这个工具对你有帮助，那么请我吃个鸡腿吧。"
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:226
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:98
 msgid "Supported"
 msgstr "已经支持"
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:229
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:101
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:103
 msgid "Maybe Later"
-msgstr "稍后再说"
+msgstr "以后再说"
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:234
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:106
 msgid "Don't Show Again"
 msgstr "不再显示"
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:245
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:117
 msgid "WeChat"
 msgstr "微信"
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:246
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:118
 msgid "Alipay"
 msgstr "支付宝"
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:263
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:272
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:135
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:144
 msgid "QR code image not found"
 msgstr "未找到二维码图片"
 
@@ -1286,6 +1337,54 @@ msgstr "清除选择"
 msgid "File Name {icon}"
 msgstr "文件名 {icon}"
 
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:29
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:51
+msgid "Update available"
+msgstr "发现新版本"
+
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:58
+#, python-brace-format
+msgid "A new version of {} is available."
+msgstr "{} 有新版本可用。"
+
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:64
+#, python-brace-format
+msgid "Current: {}    Latest: {}"
+msgstr "当前：{}    最新：{}"
+
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:72
+msgid "Download the latest version from one of the cloud drives below:"
+msgstr "请从以下网盘下载最新版本："
+
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:83
+msgid "Quark Netdisk"
+msgstr "夸克网盘"
+
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:88
+msgid "Baidu Netdisk"
+msgstr "百度网盘"
+
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:98
+msgid "Skip this version"
+msgstr "跳过此版本"
+
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:152
+msgid "Up to date"
+msgstr "已是最新"
+
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:153
+#, python-brace-format
+msgid "Already the latest {} version."
+msgstr "已是最新版本（{}）"
+
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:160
+msgid "Check failed"
+msgstr "检查失败"
+
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:161
+msgid "Could not check for updates. Please try again later."
+msgstr "无法检查更新，请稍后重试。"
+
 #~ msgid "Compress PDF"
 #~ msgstr "压缩 PDF"
 
@@ -1321,4 +1420,7 @@ msgstr "文件名 {icon}"
 
 #~ msgid "PDF Merged"
 #~ msgstr "PDF 已合并"
+
+#~ msgid "Later"
+#~ msgstr "稍后再说"
 

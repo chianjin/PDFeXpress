@@ -26,9 +26,7 @@ from util.helpers import prompt_open_output
 from util.i18n import gettext_text as _
 
 
-def _downscale_page_images(
-        doc, page, max_dpi: int, jpg_quality: int, ctr: dict[str, int]
-) -> None:
+def _downscale_page_images(doc, page, max_dpi: int, jpg_quality: int, ctr: dict[str, int]) -> None:
     """Downsample every over-resolution embedded image on ``page`` in place.
 
     ``ctr`` accumulates: downscaled / skipped_bigger / skipped_format.
@@ -175,13 +173,9 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
         summary = _('Compressed {} page(s) to: {}').format(total, output_path.name)
         summary += ' ' + (_('Downscaled {} image(s).').format(ctr['downscaled']))
         if ctr['skipped_bigger']:
-            summary += ' ' + _('{} image(s) kept (new size not smaller).').format(
-                ctr['skipped_bigger']
-            )
+            summary += ' ' + _('{} image(s) kept (new size not smaller).').format(ctr['skipped_bigger'])
         if ctr['skipped_format']:
-            summary += ' ' + _('{} image(s) skipped (unsupported format).').format(
-                ctr['skipped_format']
-            )
+            summary += ' ' + _('{} image(s) skipped (unsupported format).').format(ctr['skipped_format'])
         progress_queue.put(('progress', total, total, _('Done')))
         progress_queue.put(('done', summary))
 

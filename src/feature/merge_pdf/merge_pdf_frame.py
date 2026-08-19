@@ -24,12 +24,12 @@ class MergePdfFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', expand=True, fill='x')
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_path
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', expand=True, fill='x'
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_path).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
         self._generate_bookmarks = tk.BooleanVar(value=True)
@@ -55,11 +55,7 @@ class MergePdfFrame(BaseFeatureFrame):
     def _set_output_path(self):
         input_paths = self.get_input_paths()
         init_folder = Path(input_paths[0]).parent if input_paths else ''
-        init_file = (
-            Path(input_paths[0]).with_suffix(f'.{_("Merged")}.pdf')
-            if input_paths
-            else ''
-        )
+        init_file = Path(input_paths[0]).with_suffix(f'.{_("Merged")}.pdf') if input_paths else ''
         output_path = asksaveasfilename(
             filetypes=FILE_TYPES['PDF'],
             defaultextension='pdf',
@@ -98,9 +94,7 @@ class MergePdfFrame(BaseFeatureFrame):
     def _validate_execute_params(self):
         current_input_paths = self.get_input_paths()
         if len(current_input_paths) < 2:
-            showerror(
-                title=_('Error'), message=_('Input PDF must have 2 files at least.')
-            )
+            showerror(title=_('Error'), message=_('Input PDF must have 2 files at least.'))
             return False
         if not self.output_path.get():
             showerror(title=_('Error'), message=_('Output PDF must be specified.'))

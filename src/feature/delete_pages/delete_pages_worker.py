@@ -90,9 +90,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
 
         summary = _('Delete Pages') + f' ({produced}/{total_outputs})'
         if failures:
-            summary += (
-                    '\n' + _('Failed:') + ' ' + '; '.join(f'{n}: {e}' for n, e in failures)
-            )
+            summary += '\n' + _('Failed:') + ' ' + '; '.join(f'{n}: {e}' for n, e in failures)
         progress_queue.put(('progress', total_outputs, total_outputs, _('Done')))
         progress_queue.put(('done', summary))
 

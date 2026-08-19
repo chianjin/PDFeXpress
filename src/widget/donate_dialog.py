@@ -3,10 +3,9 @@ import tkinter as tk
 from tkinter import ttk
 
 from config import EXECUTABLE_PATH, PROJECT_VERSION
+from util import settings
 from util.helpers import get_title_font
 from util.i18n import gettext_text as _
-from util import settings
-
 
 QR_DIR = EXECUTABLE_PATH / 'asset' / 'qrcode'
 
@@ -81,10 +80,7 @@ class DonateDialog(tk.Toplevel):
 
         ttk.Label(
             container,
-            text=_(
-                'If this tool has been helpful to you, feel free to '
-                'buy me a chicken leg.'
-            ),
+            text=_('If this tool has been helpful to you, feel free to buy me a chicken leg.'),
             anchor='center',
             wraplength=360,
         ).pack(fill=tk.X, pady=(0, 16))
@@ -113,10 +109,10 @@ class DonateDialog(tk.Toplevel):
         qr_row.columnconfigure((0, 1), weight=1, uniform='qr')
 
         for column, (file_name, label) in enumerate(
-                (
-                        ('wechat.png', _('WeChat')),
-                        ('alipay.png', _('Alipay')),
-                )
+            (
+                ('wechat.png', _('WeChat')),
+                ('alipay.png', _('Alipay')),
+            )
         ):
             cell = ttk.Frame(qr_row)
             cell.grid(row=0, column=column, padx=10, sticky='n')

@@ -23,6 +23,7 @@ The current version is 2.0, which has been tested on Windows 11 AMD64 and Ubuntu
 * **Merge PDF**: Merge multiple PDF files into one
 * **Interleave PDF**: Interleave pages from two PDF files
 * **Split PDF**: Split one PDF to several, supporting single-page splitting, by page count, by copy count, and by range
+* **Divide Pages**: Divide PDF pages into multiple parts by direction (vertical/horizontal) and count
 * **Rotate PDF**: Rotate each page by 90°, 180°, and 270° clockwise
 * **Delete Pages**: Delete specified pages from a PDF file
 

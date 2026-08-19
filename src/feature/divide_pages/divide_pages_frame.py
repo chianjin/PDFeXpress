@@ -6,19 +6,21 @@ from tkinter.messagebox import showerror
 
 from feature.base_feature_frame import BaseFeatureFrame
 from util.file_types import FILE_TYPES
-from util.helpers import enable_pdf_drop, prompt_open_output
+from util.helpers import enable_pdf_drop
 from util.i18n import gettext_text as _
 
 
-class DecryptPdfFrame(BaseFeatureFrame):
-    """Decrypt a single PDF and write a plain (unencrypted) copy.
+class DividePagesFrame(BaseFeatureFrame):
+    """Split every page of a single PDF into N equal strips.
 
-    Single input mirrored from ``pdf_to_long_image``; output defaults to
-    ``{stem}.{_('Decrypt')}.pdf`` next to the input.
+    Direction (vertical/horizontal) and part count are configurable;
+    a landscape A3 divided vertically into 2 gives two portrait A4 pages.
+    Mirrors the single-input/output layout of ``decrypt_pdf``; output
+    defaults to ``{stem}.{_('Divide')}.pdf`` next to the input.
     """
 
     def __init__(self, master, **kw):
-        super().__init__(master, feature_id='decrypt_pdf', **kw)
+        super().__init__(master, feature_id='divide_pages', **kw)
 
     def _setup_input_frame(self):
         self.input_frame.configure(text=_('Input PDF'))
@@ -31,8 +33,7 @@ class DecryptPdfFrame(BaseFeatureFrame):
         )
         ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(side='left', padx=(5, 0))
 
-        # Single fixed-height input row: collapse the frame instead of letting
-        # it stretch (base class defaults expand=True, which suits list views).
+        # Single fixed-height input row (same collapse as decrypt_pdf).
         self.input_frame.pack_configure(expand=False, fill='x')
         enable_pdf_drop(self.input_frame, self.input_path)
 
@@ -47,10 +48,23 @@ class DecryptPdfFrame(BaseFeatureFrame):
         )
 
     def _setup_options_frame(self):
-        ttk.Label(self.options_frame, text=_('Password')).pack(side='left', padx=(0, 5))
-        self._password = tk.StringVar()
-        # Local tool: no mask on the password field.
-        ttk.Entry(self.options_frame, textvariable=self._password).pack(side='left', fill='x', expand=True)
+        direction_row = ttk.Frame(self.options_frame)
+        direction_row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
+        ttk.Label(direction_row, text=_('Direction')).pack(side='left', padx=(0, 5))
+        self._direction = tk.StringVar(value='vertical')
+        for value, text in (
+            ('vertical', _('Vertical (left/right)')),
+            ('horizontal', _('Horizontal (top/bottom)')),
+        ):
+            ttk.Radiobutton(direction_row, text=text, value=value, variable=self._direction).pack(
+                side='left', padx=(0, 10)
+            )
+
+        parts_row = ttk.Frame(self.options_frame)
+        parts_row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
+        ttk.Label(parts_row, text=_('Parts')).pack(side='left', padx=(0, 5))
+        self._parts = tk.IntVar(value=2)
+        ttk.Spinbox(parts_row, from_=2, to=10, textvariable=self._parts, width=4).pack(side='left')
 
     def _setup_execute_frame(self):
         ttk.Button(
@@ -64,7 +78,7 @@ class DecryptPdfFrame(BaseFeatureFrame):
         if path:
             path = Path(path)
             self.input_path.set(path)
-            self.output_path.set(path.with_suffix(f'.{_("Decrypt")}.pdf'))
+            self.output_path.set(path.with_suffix(f'.{_("Divide")}.pdf'))
 
     def _set_output_path(self):
         output_path = self.output_path.get()
@@ -87,7 +101,10 @@ class DecryptPdfFrame(BaseFeatureFrame):
         return Path(self.output_path.get())
 
     def get_options(self) -> dict:
-        return {'password': self._password.get()}
+        return {
+            'direction': self._direction.get(),
+            'parts': int(self._parts.get()),
+        }
 
     def _execute_handler(self):
         params = {
@@ -97,17 +114,11 @@ class DecryptPdfFrame(BaseFeatureFrame):
         }
         if not self._validate_execute_params():
             return
-        from feature.decrypt_pdf.decrypt_pdf_worker import decrypt
+        from feature.divide_pages.divide_pages_worker import (
+            run_divide_pages_with_progress,
+        )
 
-        try:
-            decrypt(params)
-        except ValueError as exc:
-            showerror(title=_('Error'), message=str(exc))
-            return
-        except Exception as exc:
-            showerror(title=_('Error'), message=f'{type(exc).__name__}: {exc}')
-            return
-        prompt_open_output(self, params['output'])
+        run_divide_pages_with_progress(self.winfo_toplevel(), params)
 
     def _validate_execute_params(self):
         if not self.input_path.get():
@@ -122,6 +133,12 @@ class DecryptPdfFrame(BaseFeatureFrame):
                 message=_('Output path must be set.'),
             )
             return False
+        if int(self._parts.get()) < 2:
+            showerror(
+                title=_('Error'),
+                message=_('Divide into at least 2 parts.'),
+            )
+            return False
         return True
 
 
@@ -129,5 +146,5 @@ if __name__ == '__main__':
     from tkinterdnd2 import TkinterDnD
 
     root = TkinterDnD.Tk()
-    DecryptPdfFrame(root).pack(fill='both', expand=True)
+    DividePagesFrame(root).pack(fill='both', expand=True)
     root.mainloop()

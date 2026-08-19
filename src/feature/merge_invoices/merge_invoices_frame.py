@@ -25,12 +25,12 @@ class MergeInvoicesFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', expand=True, fill='x')
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_path
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', expand=True, fill='x'
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_path).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
         self.options_frame.pack_forget()
@@ -92,9 +92,7 @@ class MergeInvoicesFrame(BaseFeatureFrame):
     def _validate_execute_params(self):
         current_input_paths = self.get_input_paths()
         if len(current_input_paths) < 2:
-            showerror(
-                title=_('Error'), message=_('Input must have at least 2 PDF files.')
-            )
+            showerror(title=_('Error'), message=_('Input must have at least 2 PDF files.'))
             return False
         if not self.output_path.get():
             showerror(title=_('Error'), message=_('Output path must be set.'))

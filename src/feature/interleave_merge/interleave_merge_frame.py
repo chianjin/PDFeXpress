@@ -28,9 +28,7 @@ class InterleaveMergeFrame(BaseFeatureFrame):
         ttk.Entry(row_a, textvariable=self.input_path_a, state='readonly').pack(
             side='left', expand=True, fill='x'
         )
-        ttk.Button(row_a, text=_('Browser'), command=self._set_input_path_a).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Button(row_a, text=_('Browser'), command=self._set_input_path_a).pack(side='left', padx=(5, 0))
 
         row_b = ttk.Frame(self.input_frame)
         row_b.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
@@ -38,9 +36,7 @@ class InterleaveMergeFrame(BaseFeatureFrame):
         ttk.Entry(row_b, textvariable=self.input_path_b, state='readonly').pack(
             side='left', expand=True, fill='x'
         )
-        ttk.Button(row_b, text=_('Browser'), command=self._set_input_path_b).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Button(row_b, text=_('Browser'), command=self._set_input_path_b).pack(side='left', padx=(5, 0))
 
         # Fixed two-row input: collapse to natural height, don't stretch the frame
         # (the base class defaults input_frame to expand=True, which suits list views
@@ -52,18 +48,18 @@ class InterleaveMergeFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', expand=True, fill='x')
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_path
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', expand=True, fill='x'
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_path).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
         self._reverse_b = tk.BooleanVar(value=False)
-        ttk.Checkbutton(
-            self.options_frame, text=_('Reverse PDF B'), variable=self._reverse_b
-        ).pack(side='left', padx=(5, 20))
+        ttk.Checkbutton(self.options_frame, text=_('Reverse PDF B'), variable=self._reverse_b).pack(
+            side='left', padx=(5, 20)
+        )
 
     def _setup_execute_frame(self):
         ttk.Button(
@@ -87,11 +83,7 @@ class InterleaveMergeFrame(BaseFeatureFrame):
         input_path_b = self.input_path_b.get()
         input_path = input_path_a or input_path_b
         init_folder = Path(input_path) if input_path else ''
-        init_file = (
-            Path(input_path).with_suffix(f'.{_("Interleave")}.pdf').name
-            if input_path
-            else ''
-        )
+        init_file = Path(input_path).with_suffix(f'.{_("Interleave")}.pdf').name if input_path else ''
         output_path = asksaveasfilename(
             filetypes=FILE_TYPES['PDF'],
             defaultextension='pdf',
@@ -129,9 +121,7 @@ class InterleaveMergeFrame(BaseFeatureFrame):
 
     def _validate_execute_params(self):
         if not self.input_path_a.get() or not self.input_path_b.get():
-            showerror(
-                title=_('Error'), message=_('Both input PDF files must be specified.')
-            )
+            showerror(title=_('Error'), message=_('Both input PDF files must be specified.'))
             return False
         if not self.output_path.get():
             showerror(title=_('Error'), message=_('Output PDF must be specified.'))

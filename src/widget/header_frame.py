@@ -10,9 +10,7 @@ class HeaderFrame(ttk.Frame):
 
         # self._icon = self._load_function_icon(feature_id)
 
-        ttk.Label(self, text=title, font=get_title_font()).pack(
-            side=tk.RIGHT, padx=20, pady=(10, 0)
-        )
+        ttk.Label(self, text=title, font=get_title_font()).pack(side=tk.RIGHT, padx=20, pady=(10, 0))
         # ttk.Label(self, image=self._icon).pack(side=tk.RIGHT, pady=(10, 0))
 
     # def _load_function_icon(self, feature_id: str | None) -> tk.PhotoImage | None:

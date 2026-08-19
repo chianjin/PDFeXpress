@@ -45,9 +45,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
             len_a = a.page_count
             len_b = b.page_count
             # B page order: reversed when requested, else forward.
-            b_order = (
-                list(range(len_b - 1, -1, -1)) if reverse_b else list(range(len_b))
-            )
+            b_order = list(range(len_b - 1, -1, -1)) if reverse_b else list(range(len_b))
             total = len_a + len_b
 
             with pymupdf.open() as out:
@@ -62,9 +60,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                     if i < len_b:
                         out.insert_pdf(b, from_page=b_order[i], to_page=b_order[i])
                     done += (1 if i < len_a else 0) + (1 if i < len_b else 0)
-                    progress_queue.put(
-                        ('progress', done, total, f'{_("Merging...")} {done}/{total}')
-                    )
+                    progress_queue.put(('progress', done, total, f'{_("Merging...")} {done}/{total}'))
 
                 progress_queue.put(('progress', total, total, _('Saving...')))
                 progress_queue.put(('progress', total, total, _('Done')))

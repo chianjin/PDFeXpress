@@ -32,9 +32,7 @@ class SplitPdfFrame(BaseFeatureFrame):
         ttk.Entry(row, textvariable=self.input_path, state='readonly').pack(
             side='left', expand=True, fill='x'
         )
-        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(side='left', padx=(5, 0))
 
         # Fixed single-input: collapse to natural height (same reasoning as
         # interleave_merge - no list to stretch, avoid a large void).
@@ -44,12 +42,12 @@ class SplitPdfFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output Folder'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', fill='x', expand=True)
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_folder
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', fill='x', expand=True
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_folder).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
         radio_frame = ttk.Frame(self.options_frame)
@@ -93,9 +91,7 @@ class SplitPdfFrame(BaseFeatureFrame):
             command=self._open_help,
         ).pack(side='left')
         self._param_entry = tk.StringVar()
-        self._param_entry_widget = ttk.Entry(
-            radio_frame, textvariable=self._param_entry, width=30
-        )
+        self._param_entry_widget = ttk.Entry(radio_frame, textvariable=self._param_entry, width=30)
         self._param_entry_widget.pack(side='left', padx=(0, 5))
         radio_frame.pack(fill='x')
 
@@ -128,13 +124,9 @@ class SplitPdfFrame(BaseFeatureFrame):
     def _open_help(self):
         posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
         language = posix_lang.split('.')[0]
-        guide_path = (
-                EXECUTABLE_PATH / f'asset/guide/page_range_syntax_guide-{language}.txt'
-        )
+        guide_path = EXECUTABLE_PATH / f'asset/guide/page_range_syntax_guide-{language}.txt'
         if not guide_path.exists():
-            guide_path = (
-                    EXECUTABLE_PATH / 'asset/guide/page_range_syntax_guide-en_US.txt'
-            )
+            guide_path = EXECUTABLE_PATH / 'asset/guide/page_range_syntax_guide-en_US.txt'
         with open(guide_path, encoding='UTF-8') as f:
             help_content = f.readlines()
         title = help_content[0].strip()
@@ -210,14 +202,10 @@ class SplitPdfFrame(BaseFeatureFrame):
             try:
                 n = int(entry)
             except ValueError:
-                showerror(
-                    title=_('Error'), message=_('Pages per chunk must be an integer.')
-                )
+                showerror(title=_('Error'), message=_('Pages per chunk must be an integer.'))
                 return False
             if n < 1:
-                showerror(
-                    title=_('Error'), message=_('Pages per chunk must be at least 1.')
-                )
+                showerror(title=_('Error'), message=_('Pages per chunk must be at least 1.'))
                 return False
         elif mode == 'by_parts':
             if not entry:
@@ -226,14 +214,10 @@ class SplitPdfFrame(BaseFeatureFrame):
             try:
                 n = int(entry)
             except ValueError:
-                showerror(
-                    title=_('Error'), message=_('Number of parts must be an integer.')
-                )
+                showerror(title=_('Error'), message=_('Number of parts must be an integer.'))
                 return False
             if n < 1:
-                showerror(
-                    title=_('Error'), message=_('Number of parts must be at least 1.')
-                )
+                showerror(title=_('Error'), message=_('Number of parts must be at least 1.'))
                 return False
         elif mode == 'custom':
             if not entry:

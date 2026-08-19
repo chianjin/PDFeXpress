@@ -23,9 +23,7 @@ class ProgressDialog(tk.Toplevel):
         self.label = ttk.Label(self, text=label_text)
         self.label.pack(padx=20, pady=(20, 15))
 
-        self.progressbar = ttk.Progressbar(
-            self, orient='horizontal', length=450, mode=mode
-        )
+        self.progressbar = ttk.Progressbar(self, orient='horizontal', length=450, mode=mode)
         self.progressbar.pack(padx=20, expand=True, fill='x')
         if mode == 'indeterminate':
             self.progressbar.start(10)

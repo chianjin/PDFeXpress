@@ -26,16 +26,16 @@ LEFT, CENTER, RIGHT = 0, 1, 2
 
 
 def _geometry(
-        page,
-        vertical,
-        horizontal,
-        page_index,
-        top_cm,
-        bottom_cm,
-        left_cm,
-        right_cm,
-        mirror_cm,
-        font_size,
+    page,
+    vertical,
+    horizontal,
+    page_index,
+    top_cm,
+    bottom_cm,
+    left_cm,
+    right_cm,
+    mirror_cm,
+    font_size,
 ):
     """Return (Rect, align) for the page-number box.
 
@@ -73,9 +73,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
         with pymupdf.open(Path(params['inputs'][0])) as doc:
             total = options['total_pages']
             page_map = options['page_map']
-            base_font = FONT_BASE[options['font_family']][
-                'bold' if options['font_bold'] else 'regular'
-            ]
+            base_font = FONT_BASE[options['font_family']]['bold' if options['font_bold'] else 'regular']
             fs = options['font_size']
 
             cancelled = False
@@ -106,9 +104,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
                     options['mirror_margin_cm'],
                     fs,
                 )
-                page.insert_textbox(
-                    rect, page_map[index], fontname=base_font, fontsize=fs, align=align
-                )
+                page.insert_textbox(rect, page_map[index], fontname=base_font, fontsize=fs, align=align)
 
             if cancelled:
                 progress_queue.put(('cancelled', None))

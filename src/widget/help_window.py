@@ -5,12 +5,12 @@ from tkinter import ttk
 
 class HelpWindow(tk.Toplevel):
     def __init__(
-            self,
-            master,
-            title: str,
-            content: str,
-            width: int = 650,
-            height: int = 550,
+        self,
+        master,
+        title: str,
+        content: str,
+        width: int = 650,
+        height: int = 550,
     ):
         super().__init__(master)
         self.title(title)

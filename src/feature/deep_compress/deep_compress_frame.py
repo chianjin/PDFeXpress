@@ -25,9 +25,7 @@ class DeepCompressFrame(BaseFeatureFrame):
         ttk.Entry(row, textvariable=self.input_path, state='readonly').pack(
             side='left', fill='x', expand=True
         )
-        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(side='left', padx=(5, 0))
 
         # Fixed single-input: collapse to natural height.
         self.input_frame.pack_configure(expand=False, fill='x')
@@ -42,22 +40,18 @@ class DeepCompressFrame(BaseFeatureFrame):
         ttk.Entry(row, textvariable=self.output_path, state='readonly').pack(
             side='left', fill='x', expand=True
         )
-        ttk.Button(row, text=_('Browser'), command=self._set_output_path).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Button(row, text=_('Browser'), command=self._set_output_path).pack(side='left', padx=(5, 0))
         self.output_frame.pack_configure(expand=False, fill='x')
 
     def _setup_options_frame(self):
         ttk.Label(self.options_frame, text=_('Max Resolution')).pack(side='left')
         self._max_dpi = tk.IntVar(value=150)
-        ttk.Entry(
-            self.options_frame, textvariable=self._max_dpi, width=6, justify='center'
-        ).pack(side='left', padx=(3, 0))
+        ttk.Entry(self.options_frame, textvariable=self._max_dpi, width=6, justify='center').pack(
+            side='left', padx=(3, 0)
+        )
         ttk.Label(self.options_frame, text='dpi').pack(side='left', padx=(3, 0))
 
-        ttk.Label(self.options_frame, text=_('JPG Quality')).pack(
-            side='left', padx=(10, 0)
-        )
+        ttk.Label(self.options_frame, text=_('JPG Quality')).pack(side='left', padx=(10, 0))
         self._jpg_quality = tk.IntVar(value=75)
         ttk.Entry(
             self.options_frame,

@@ -47,12 +47,8 @@ DATA_FILES = (
     'COPYRIGHT.md',
 )
 
-ARCHIVE_BASENAME = (
-    f'{PROJECT_NAME.replace(" ", "")}-Portable-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}'
-)
-INSTALLER_BASENAME = (
-    f'{PROJECT_NAME.replace(" ", "")}-Setup-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}'
-)
+ARCHIVE_BASENAME = f'{PROJECT_NAME.replace(" ", "")}-Portable-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}'
+INSTALLER_BASENAME = f'{PROJECT_NAME.replace(" ", "")}-Setup-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}'
 
 ISS_TEMPLATE = f'{ASSETS_DIR_NAME}/{EXECUTABLE_NAME}.iss'
 sep = ';' if PLATFORM == 'Windows' else ':'
@@ -93,12 +89,15 @@ def build_executable():
 
     try:
         subprocess.run(
-            command, check=True, capture_output=True, text=True, encoding='utf-8', env=env
+            command,
+            check=True,
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            env=env,
         )
         print('Copying distribution files...')
-        print(
-            f'PyInstaller build successful: {PROJECT_DIR / DIST_DIR_NAME / EXECUTABLE_NAME}'
-        )
+        print(f'PyInstaller build successful: {PROJECT_DIR / DIST_DIR_NAME / EXECUTABLE_NAME}')
 
         for data_file in DATA_FILES:
             shutil.copy(data_file, f'{DIST_DIR_NAME}/{EXECUTABLE_NAME}')
@@ -217,11 +216,10 @@ def create_installer():
     print(f'Running Inno Setup compiler: {" ".join(command)}')
 
     try:
-        subprocess.run(
-            command, check=True, capture_output=True, text=True, encoding='utf-8'
-        )
+        subprocess.run(command, check=True, capture_output=True, text=True, encoding='utf-8')
         print(
-            f'Inno Setup build successful: {PROJECT_DIR / RELEASE_DIR_NAME / PROJECT_VERSION / INSTALLER_BASENAME}.exe'
+            f'Inno Setup build successful: '
+            f'{PROJECT_DIR / RELEASE_DIR_NAME / PROJECT_VERSION / INSTALLER_BASENAME}.exe'
         )
         print('Installer creation process completed.')
     except subprocess.CalledProcessError as e:
@@ -256,9 +254,7 @@ if __name__ == '__main__':
         action='store_true',
         help='Build the executable using PyInstaller.',
     )
-    parser.add_argument(
-        '-p', '--portable', action='store_true', help='Create a portable zip archive.'
-    )
+    parser.add_argument('-p', '--portable', action='store_true', help='Create a portable zip archive.')
     parser.add_argument(
         '-i',
         '--installer',

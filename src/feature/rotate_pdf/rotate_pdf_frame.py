@@ -8,7 +8,6 @@ from feature.base_feature_frame import BaseFeatureFrame
 from util.i18n import gettext_text as _
 from widget import FileListView
 
-
 # Radiobutton value = normalized rotation angle, clockwise positive
 # (90 = clockwise 90, 270 = counter-clockwise 90, 180 = 180). This matches
 # the PDF /Rotate convention, so the value is used directly as both the
@@ -27,12 +26,12 @@ class RotatePdfFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output Folder'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', fill='x', expand=True)
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_folder
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', fill='x', expand=True
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_folder).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
         self._rotation = tk.IntVar(value=90)

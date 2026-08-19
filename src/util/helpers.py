@@ -55,9 +55,7 @@ def filter_dropped_files(event: tk.Event, file_types, include_folders: bool = Fa
     return filter_files(file_paths, file_types)
 
 
-def enable_pdf_drop(
-        widget: 'tk.Widget', variable: 'tk.StringVar', file_types=None
-) -> None:
+def enable_pdf_drop(widget: 'tk.Widget', variable: 'tk.StringVar', file_types=None) -> None:
     """Allow dragging a file onto *widget*; the first matching file path is
     written into *variable* (a tk.StringVar). Reuses filter_dropped_files so the
     same file-type rules apply as the Browse button."""
@@ -150,8 +148,8 @@ def reveal_in_explorer(output_path):
 def prompt_open_output(master, output_path):
     """任务完成后询问是否查看生成的输出；选"是"则定位/打开该输出。"""
     if askyesno(
-            parent=master,
-            title=_('Done'),
-            message=_('Task completed. View the generated file(s) now?'),
+        parent=master,
+        title=_('Done'),
+        message=_('Task completed. View the generated file(s) now?'),
     ):
         reveal_in_explorer(output_path)

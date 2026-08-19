@@ -67,9 +67,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                     new_rotation = (page.rotation + delta) % 360
                     page.set_rotation(new_rotation)
                     done += 1
-                    progress_queue.put(
-                        ('progress', done, total, f'{_("Rotating...")} {done}/{total}')
-                    )
+                    progress_queue.put(('progress', done, total, f'{_("Rotating...")} {done}/{total}'))
 
                 out_name = src.with_suffix(f'.{_("Rotate")}{delta}.pdf').name
                 out_path = out_dir / out_name

@@ -2,14 +2,13 @@
 
 逻辑层（UI 无关），可被启动自检或手动「检查更新」复用。
 """
+
 import re
 import urllib.request
 
 from config import (
-    BAIDU_DOWNLOAD_URL,
     LATEST_VERSION_URL,
     PROJECT_VERSION,
-    QUARK_DOWNLOAD_URL,
 )
 
 DEFAULT_TIMEOUT = 5.0
@@ -77,9 +76,7 @@ def fetch_latest_version(timeout: float = DEFAULT_TIMEOUT) -> str | None:
     - 远程返回 HTML 错误页（不匹配版本格式）-> None
     """
     try:
-        request = urllib.request.Request(
-            LATEST_VERSION_URL, headers={'User-Agent': 'PDFeXpress'}
-        )
+        request = urllib.request.Request(LATEST_VERSION_URL, headers={'User-Agent': 'PDFeXpress'})
         with urllib.request.urlopen(request, timeout=timeout) as response:
             raw_text = response.read().decode('utf-8', errors='ignore')
     except (urllib.error.URLError, urllib.error.HTTPError, OSError, ValueError):
@@ -93,8 +90,8 @@ def fetch_latest_version(timeout: float = DEFAULT_TIMEOUT) -> str | None:
 
 
 def check_update(
-        current_version: str = PROJECT_VERSION,
-        timeout: float = DEFAULT_TIMEOUT,
+    current_version: str = PROJECT_VERSION,
+    timeout: float = DEFAULT_TIMEOUT,
 ) -> dict:
     """执行一次检测，返回结构化结果。
 

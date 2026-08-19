@@ -13,6 +13,7 @@
   update_skip_version     str    选「跳过此版本」时记录的版本号，为空表示未跳过
   update_later_at        float  选「以后再说」时记录的时间戳（秒）；在窗口期内自检不弹窗
 """
+
 import json
 import os
 import platform
@@ -60,9 +61,7 @@ def _save(data: dict) -> None:
     try:
         path = settings_path()
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(
-            json.dumps(data, indent=2, ensure_ascii=False), encoding='utf-8'
-        )
+        path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding='utf-8')
     except OSError:
         pass
 

@@ -60,9 +60,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                         with pymupdf.open(stream=pdf_bytes, filetype='pdf') as pdf_doc:
                             out.insert_pdf(pdf_doc)
                 except Exception as exc:
-                    progress_queue.put(
-                        ('error', f'{src.name}: {type(exc).__name__}: {exc}')
-                    )
+                    progress_queue.put(('error', f'{src.name}: {type(exc).__name__}: {exc}'))
                     return
 
             progress_queue.put(('progress', total, total, _('Saving...')))

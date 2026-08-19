@@ -12,13 +12,13 @@ from util.i18n import gettext_text as _
 
 class FileListView(tk.Frame):
     def __init__(
-            self,
-            master,
-            trace_variable: tk.StringVar | None = None,
-            file_types=FILE_TYPES['PDF'],
-            sortable: bool = True,
-            allow_duplicates: bool = True,
-            **kw,
+        self,
+        master,
+        trace_variable: tk.StringVar | None = None,
+        file_types=FILE_TYPES['PDF'],
+        sortable: bool = True,
+        allow_duplicates: bool = True,
+        **kw,
     ):
         super().__init__(master, **kw)
 
@@ -60,9 +60,7 @@ class FileListView(tk.Frame):
 
         self.filelist_treeview.grid(row=0, column=0, sticky='nsew')
 
-        scrollbar = ttk.Scrollbar(
-            self, orient='vertical', command=self.filelist_treeview.yview
-        )
+        scrollbar = ttk.Scrollbar(self, orient='vertical', command=self.filelist_treeview.yview)
         self.filelist_treeview.configure(yscrollcommand=scrollbar.set)
         scrollbar.grid(row=0, column=1, sticky='ns')
 
@@ -89,13 +87,9 @@ class FileListView(tk.Frame):
         button_frame = tk.Frame(self)
         for text, command in buttons:
             if text == 'separator':
-                ttk.Separator(button_frame, orient=tk.HORIZONTAL).pack(
-                    fill=tk.X, pady=(2, 7)
-                )
+                ttk.Separator(button_frame, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=(2, 7))
             else:
-                ttk.Button(button_frame, text=text, command=command).pack(
-                    fill=tk.X, pady=(0, 5)
-                )
+                ttk.Button(button_frame, text=text, command=command).pack(fill=tk.X, pady=(0, 5))
         button_frame.grid(row=0, column=2, sticky='nsew', padx=(5, 0))
 
     def _show_context_menu(self, event) -> None:
@@ -104,12 +98,8 @@ class FileListView(tk.Frame):
     def _create_context_menu(self) -> None:
         self._context_menu = tk.Menu(self.filelist_treeview, tearoff=0)
         self._context_menu.add_command(label=_('Select All'), command=self._select_all)
-        self._context_menu.add_command(
-            label=_('Invert Selection'), command=self._invert_selection
-        )
-        self._context_menu.add_command(
-            label=_('Clear Selection'), command=self._clear_selection
-        )
+        self._context_menu.add_command(label=_('Invert Selection'), command=self._invert_selection)
+        self._context_menu.add_command(label=_('Clear Selection'), command=self._clear_selection)
 
         self.filelist_treeview.bind('<Button-3>', self._show_context_menu)
 
@@ -150,9 +140,7 @@ class FileListView(tk.Frame):
             'descending': '⬇️',
         }
         icon = state_icons.get(self._sort_state, '❓')
-        self.filelist_treeview.heading(
-            'filename', text=_('File Name {icon}').format(icon=icon)
-        )
+        self.filelist_treeview.heading('filename', text=_('File Name {icon}').format(icon=icon))
 
     def _sort_filelist(self):
         if not self._sortable:
@@ -205,9 +193,7 @@ class FileListView(tk.Frame):
             if not self._allow_duplicates and str(file_path) in existing_paths:
                 continue
 
-            self.filelist_treeview.insert(
-                '', tk.END, values=(str(file_path), file_path.name)
-            )
+            self.filelist_treeview.insert('', tk.END, values=(str(file_path), file_path.name))
             _changed = True
 
             if not self._allow_duplicates:

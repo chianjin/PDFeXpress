@@ -42,9 +42,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
         ttk.Entry(row, textvariable=self.input_path, state='readonly').pack(
             side='left', expand=True, fill='x'
         )
-        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(side='left', padx=(5, 0))
 
         # Single fixed-height input row: collapse the frame instead of letting
         # it stretch (base class defaults expand=True, which suits list views).
@@ -54,25 +52,23 @@ class AddPageNumbersFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', expand=True, fill='x')
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_path
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', expand=True, fill='x'
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_path).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
         # Page number rule + help button.
         rule_row = ttk.Frame(self.options_frame)
         ttk.Label(rule_row, text=_('Page Number Rule')).pack(side='left')
         self._rule = tk.StringVar(value='1-')
-        ttk.Entry(rule_row, textvariable=self._rule, width=30).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Entry(rule_row, textvariable=self._rule, width=30).pack(side='left', padx=(5, 0))
         self.help_icon = tk.PhotoImage(file=EXECUTABLE_PATH / 'asset/icon/help.png')
-        ttk.Button(
-            rule_row, image=self.help_icon, style='Toolbutton', command=self._open_help
-        ).pack(side='left')
+        ttk.Button(rule_row, image=self.help_icon, style='Toolbutton', command=self._open_help).pack(
+            side='left'
+        )
         ttk.Label(
             rule_row,
             text=_('Default: continuous numbering from 1. Click Help for details.'),
@@ -91,9 +87,7 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             width=10,
         ).pack(side='left', padx=(5, 0))
         self._font_bold = tk.BooleanVar(value=False)
-        ttk.Checkbutton(font_row, text=_('Bold'), variable=self._font_bold).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Checkbutton(font_row, text=_('Bold'), variable=self._font_bold).pack(side='left', padx=(5, 0))
         ttk.Label(font_row, text=_('Size')).pack(side='left', padx=(10, 0))
         self._font_size = tk.IntVar(value=11)
         ttk.Spinbox(
@@ -217,13 +211,9 @@ class AddPageNumbersFrame(BaseFeatureFrame):
     def _open_help(self):
         posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
         language = posix_lang.split('.')[0]
-        guide_path = (
-                EXECUTABLE_PATH / f'asset/guide/page_number_syntax_guide-{language}.txt'
-        )
+        guide_path = EXECUTABLE_PATH / f'asset/guide/page_number_syntax_guide-{language}.txt'
         if not guide_path.exists():
-            guide_path = (
-                    EXECUTABLE_PATH / 'asset/guide/page_number_syntax_guide-en_US.txt'
-            )
+            guide_path = EXECUTABLE_PATH / 'asset/guide/page_number_syntax_guide-en_US.txt'
         with open(guide_path, encoding='UTF-8') as f:
             help_content = f.readlines()
         title = help_content[0].strip()
@@ -306,11 +296,11 @@ class AddPageNumbersFrame(BaseFeatureFrame):
             showerror(title=_('Error'), message=_('Font size must be at least 1.'))
             return False
         for var in (
-                self._top_margin,
-                self._bottom_margin,
-                self._left_margin,
-                self._right_margin,
-                self._mirror_margin,
+            self._top_margin,
+            self._bottom_margin,
+            self._left_margin,
+            self._right_margin,
+            self._mirror_margin,
         ):
             if var.get() < 0:
                 showerror(title=_('Error'), message=_('Margin must be greater than 0.'))

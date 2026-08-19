@@ -46,7 +46,7 @@ def classify(doc: 'pymupdf.Document') -> str:
 
 
 def _place_regular(
-        out: 'pymupdf.Document', docs: list['pymupdf.Document'], refs: list[tuple[int, int]]
+    out: 'pymupdf.Document', docs: list['pymupdf.Document'], refs: list[tuple[int, int]]
 ) -> None:
     """Place regular invoice pages two-up (top/bottom) onto A4 pages."""
     for i in range(0, len(refs), 2):
@@ -69,7 +69,7 @@ def _place_regular(
 
 
 def _place_other(
-        out: 'pymupdf.Document', docs: list['pymupdf.Document'], refs: list[tuple[int, int]]
+    out: 'pymupdf.Document', docs: list['pymupdf.Document'], refs: list[tuple[int, int]]
 ) -> None:
     """Place other invoice pages one-per-A4, top-left aligned, fit-to-A4."""
     for d_idx, pno in refs:
@@ -112,9 +112,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                 return
 
             src_path = Path(in_path)
-            progress_queue.put(
-                ('progress', index - 1, total, f'{_("Merging...")} {index}/{total}')
-            )
+            progress_queue.put(('progress', index - 1, total, f'{_("Merging...")} {index}/{total}'))
 
             src = pymupdf.open(src_path)
             src.bake()  # flatten form fields / annotations in place

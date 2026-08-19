@@ -24,9 +24,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         ttk.Entry(row, textvariable=self.input_path, state='readonly').pack(
             side='left', fill='x', expand=True
         )
-        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(side='left', padx=(5, 0))
         # Fixed single-input: collapse to natural height.
         self.input_frame.pack_configure(expand=False, fill='x')
         enable_pdf_drop(self.input_frame, self.input_path)
@@ -41,9 +39,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         ttk.Entry(row, textvariable=self.output_path, state='readonly').pack(
             side='left', fill='x', expand=True
         )
-        ttk.Button(row, text=_('Browser'), command=self._set_output_path).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Button(row, text=_('Browser'), command=self._set_output_path).pack(side='left', padx=(5, 0))
         self.output_frame.pack_configure(expand=False, fill='x')
 
     def _setup_options_frame(self):
@@ -79,17 +75,15 @@ class EditBookmarksFrame(BaseFeatureFrame):
         button_col = ttk.Frame(area)
         button_col.grid(row=0, column=2, sticky='ns', padx=(5, 0))
         for text, command in (
-                (_('Reload'), self._reload),
-                (_('Import'), self._import_csv),
-                (_('Export'), self._export_csv),
-                (_('Move Up'), lambda: self._move(-1)),
-                (_('Move Down'), lambda: self._move(1)),
-                (_('Delete'), self._delete_selected),
-                (_('Delete All'), self._delete_all),
+            (_('Reload'), self._reload),
+            (_('Import'), self._import_csv),
+            (_('Export'), self._export_csv),
+            (_('Move Up'), lambda: self._move(-1)),
+            (_('Move Down'), lambda: self._move(1)),
+            (_('Delete'), self._delete_selected),
+            (_('Delete All'), self._delete_all),
         ):
-            ttk.Button(button_col, text=text, command=command).pack(
-                fill='x', pady=(0, 4)
-            )
+            ttk.Button(button_col, text=text, command=command).pack(fill='x', pady=(0, 4))
 
         # Bottom item form: level / page / title + Edit / Add.
         self._level_var = tk.StringVar()
@@ -98,20 +92,12 @@ class EditBookmarksFrame(BaseFeatureFrame):
         form = ttk.Frame(area)
         form.grid(row=1, column=0, columnspan=3, sticky='ew', pady=(6, 0))
         ttk.Label(form, text=_('Level')).pack(side='left', padx=(0, 3))
-        ttk.Entry(form, textvariable=self._level_var, width=6).pack(
-            side='left', padx=(0, 8)
-        )
+        ttk.Entry(form, textvariable=self._level_var, width=6).pack(side='left', padx=(0, 8))
         ttk.Label(form, text=_('Page')).pack(side='left', padx=(0, 3))
-        ttk.Entry(form, textvariable=self._page_var, width=6).pack(
-            side='left', padx=(0, 8)
-        )
+        ttk.Entry(form, textvariable=self._page_var, width=6).pack(side='left', padx=(0, 8))
         ttk.Label(form, text=_('Title')).pack(side='left', padx=(0, 3))
-        ttk.Entry(form, textvariable=self._title_var).pack(
-            side='left', fill='x', expand=True, padx=(0, 8)
-        )
-        ttk.Button(form, text=_('Edit'), command=self._edit_selected).pack(
-            side='left', padx=(2, 2)
-        )
+        ttk.Entry(form, textvariable=self._title_var).pack(side='left', fill='x', expand=True, padx=(0, 8))
+        ttk.Button(form, text=_('Edit'), command=self._edit_selected).pack(side='left', padx=(2, 2))
         ttk.Button(form, text=_('Add'), command=self._add_bookmark).pack(side='left')
 
     def _setup_execute_frame(self):
@@ -157,7 +143,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         ]
         entries.sort(key=lambda e: (e[0], e[1]))
         self.tree.delete(*items)
-        for _, _, vals in entries:
+        for _page, _level, vals in entries:
             self.tree.insert('', tk.END, values=vals)
 
     def _set_output_path(self):
@@ -237,9 +223,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
         if not sel:
             return
         idx = self.tree.index(sel[0])
-        if (delta < 0 and idx == 0) or (
-                delta > 0 and idx == len(self.tree.get_children()) - 1
-        ):
+        if (delta < 0 and idx == 0) or (delta > 0 and idx == len(self.tree.get_children()) - 1):
             return
         self.tree.move(sel[0], '', idx + delta)
 
@@ -256,9 +240,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
             showerror(title=_('Error'), message=_('Input PDF must be set.'))
 
     def _import_csv(self):
-        path = askopenfilename(
-            filetypes=[(_('CSV files'), '*.csv'), (_('All files'), '*.*')]
-        )
+        path = askopenfilename(filetypes=[(_('CSV files'), '*.csv'), (_('All files'), '*.*')])
         if not path:
             return
         from feature.edit_bookmarks.edit_bookmarks_worker import read_csv_bookmarks
@@ -321,9 +303,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
             with pymupdf.open(src) as doc:
                 page_count = doc.page_count
         except Exception as exc:
-            showerror(
-                title=_('Error'), message=_('Cannot open input PDF: {}').format(exc)
-            )
+            showerror(title=_('Error'), message=_('Cannot open input PDF: {}').format(exc))
             return False
 
         items = self.tree.get_children()
@@ -353,9 +333,7 @@ class EditBookmarksFrame(BaseFeatureFrame):
                 return False
             title = vals[2] if len(vals) > 2 else ''
             if not title.strip():
-                showerror(
-                    title=_('Error'), message=_('Bookmark title must not be empty.')
-                )
+                showerror(title=_('Error'), message=_('Bookmark title must not be empty.'))
                 return False
         return True
 

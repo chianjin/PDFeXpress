@@ -159,12 +159,7 @@ def worker(params, progress_queue, cancel_event):
 
             summary = _('PDF Split') + f' ({produced}/{total_outputs})'
             if failures:
-                summary += (
-                        '\n'
-                        + _('Failed:')
-                        + ' '
-                        + '; '.join(f'{n}: {e}' for n, e in failures)
-                )
+                summary += '\n' + _('Failed:') + ' ' + '; '.join(f'{n}: {e}' for n, e in failures)
             progress_queue.put(('progress', total_outputs, total_outputs, _('Done')))
             progress_queue.put(('done', summary))
 

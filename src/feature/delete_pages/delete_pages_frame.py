@@ -32,9 +32,7 @@ class DeletePagesFrame(BaseFeatureFrame):
         ttk.Entry(row, textvariable=self.input_path, state='readonly').pack(
             side='left', expand=True, fill='x'
         )
-        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(
-            side='left', padx=(5, 0)
-        )
+        ttk.Button(row, text=_('Browser'), command=self._set_input_path).pack(side='left', padx=(5, 0))
 
         # Fixed single-input: collapse to natural height (same reasoning as
         # interleave_merge / split_pdf - no list to stretch, avoid a large void).
@@ -44,12 +42,12 @@ class DeletePagesFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output Folder'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', fill='x', expand=True)
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_folder
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', fill='x', expand=True
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_folder).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
         ttk.Label(self.options_frame, text=_('Pages to delete')).pack(side='left')
@@ -85,13 +83,9 @@ class DeletePagesFrame(BaseFeatureFrame):
     def _open_help(self):
         posix_lang = os.environ.get('LANG', 'en_US.UTF-8')
         language = posix_lang.split('.')[0]
-        guide_path = (
-                EXECUTABLE_PATH / f'asset/guide/page_range_syntax_guide-{language}.txt'
-        )
+        guide_path = EXECUTABLE_PATH / f'asset/guide/page_range_syntax_guide-{language}.txt'
         if not guide_path.exists():
-            guide_path = (
-                    EXECUTABLE_PATH / 'asset/guide/page_range_syntax_guide-en_US.txt'
-            )
+            guide_path = EXECUTABLE_PATH / 'asset/guide/page_range_syntax_guide-en_US.txt'
         with open(guide_path, encoding='UTF-8') as f:
             help_content = f.readlines()
         title = help_content[0].strip()
@@ -149,9 +143,7 @@ class DeletePagesFrame(BaseFeatureFrame):
             showerror(title=_('Error'), message=_('Pages to delete must be set.'))
             return False
         if expr.startswith('+'):
-            showerror(
-                title=_('Error'), message=_('Enhanced mode (+) is not supported.')
-            )
+            showerror(title=_('Error'), message=_('Enhanced mode (+) is not supported.'))
             return False
         try:
             with pymupdf.open(Path(self.input_path.get())) as doc:

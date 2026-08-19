@@ -5,6 +5,7 @@
 
 「跳过此版本」的持久化状态存于 util.settings（settings.json）。
 """
+
 import threading
 import tkinter as tk
 import webbrowser
@@ -17,9 +18,9 @@ from config import (
     QUARK_DOWNLOAD_URL,
     UPDATE_RECHECK_DAYS,
 )
+from util import settings
 from util.helpers import get_title_font
 from util.i18n import gettext_text as _
-from util import settings
 from util.version_check import check_update
 
 
@@ -61,9 +62,7 @@ class UpdateDialog(tk.Toplevel):
 
         ttk.Label(
             container,
-            text=_('Current: {}    Latest: {}').format(
-                PROJECT_VERSION, self._latest_version
-            ),
+            text=_('Current: {}    Latest: {}').format(PROJECT_VERSION, self._latest_version),
             anchor='center',
         ).pack(fill=tk.X, pady=(4, 14))
 
@@ -100,7 +99,7 @@ class UpdateDialog(tk.Toplevel):
         ).grid(row=0, column=0, padx=6, sticky='ew')
         ttk.Button(
             button_row,
-            text=_('Later'),
+            text=_('Maybe Later'),
             command=self._on_later,
         ).grid(row=0, column=1, padx=6, sticky='ew')
 
@@ -126,6 +125,7 @@ def check_for_update(master) -> None:
     自检弹窗为非模态（modal=False），不抢占焦点，不打断进行中的任务。
     「以后再说」后 UPDATE_RECHECK_DAYS 天内不再弹（仍照常检测，只是不打扰）。
     """
+
     def _run():
         result = check_update()
         if (
@@ -140,6 +140,7 @@ def check_for_update(master) -> None:
 
 def open_update_check(master) -> None:
     """手动「检查更新」：后台请求，结果（含已是最新/失败）均反馈给用户。"""
+
     def _run():
         result = check_update()
         status = result['status']

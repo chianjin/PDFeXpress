@@ -57,9 +57,7 @@ class AboutDialog(tk.Toplevel):
 
         ttk.Label(
             container,
-            text=_('Copyright © {}-{} {}, all rights reserved.').format(
-                '2022', '2026', PROJECT_AUTHOR
-            ),
+            text=_('Copyright © {}-{} {}, all rights reserved.').format('2022', '2026', PROJECT_AUTHOR),
             anchor='center',
         ).pack(fill=tk.X, pady=(0, 18))
 
@@ -98,9 +96,7 @@ class AboutDialog(tk.Toplevel):
                 font=(title_font[0], 9, 'underline'),
             )
             name_label.grid(row=row, column=0, sticky='e', padx=(0, 15), pady=3)
-            name_label.bind(
-                '<Button-1>', lambda _event, u=url: webbrowser.open(u, new=2)
-            )
+            name_label.bind('<Button-1>', lambda _event, u=url: webbrowser.open(u, new=2))
             ttk.Label(
                 third_party_frame,
                 text=license_text,

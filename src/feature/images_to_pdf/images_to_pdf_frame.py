@@ -24,20 +24,18 @@ class ImagesToPdfFrame(BaseFeatureFrame):
 
     def _setup_input_frame(self):
         self.input_frame.configure(text=_('Image List'))
-        self.file_list_view = FileListView(
-            self.input_frame, file_types=FILE_TYPES['IMAGES'], sortable=True
-        )
+        self.file_list_view = FileListView(self.input_frame, file_types=FILE_TYPES['IMAGES'], sortable=True)
         self.file_list_view.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output PDF'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', expand=True, fill='x')
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_path
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', expand=True, fill='x'
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_path).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
         # This feature has no options; hide the empty Options frame.

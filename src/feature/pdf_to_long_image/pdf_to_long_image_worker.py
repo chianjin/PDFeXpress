@@ -120,17 +120,15 @@ def worker(params: dict, progress_queue: Queue, cancel_event: Event) -> None:
                 progress_queue.put(
                     (
                         'error',
-                        _(
-                            'Resulting image height {} px exceeds the JPEG limit of {} px.'
-                        ).format(total_height, MAX_PIXEL),
+                        _('Resulting image height {} px exceeds the JPEG limit of {} px.').format(
+                            total_height, MAX_PIXEL
+                        ),
                     )
                 )
                 return
 
             out_samples = b''.join(samples)
-            out_pix = pymupdf.Pixmap(
-                pymupdf.csRGB, target_width, total_height, out_samples, False
-            )
+            out_pix = pymupdf.Pixmap(pymupdf.csRGB, target_width, total_height, out_samples, False)
 
             progress_queue.put(('progress', len(pages), len(pages), _('Saving...')))
             progress_queue.put(('progress', len(pages), len(pages), _('Done')))

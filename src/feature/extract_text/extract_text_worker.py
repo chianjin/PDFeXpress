@@ -75,9 +75,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
 
                 out_name = src.with_suffix('.txt').name
                 out_path = out_dir / out_name
-                out_path.write_text(
-                    ''.join(text_parts), encoding='utf-8'
-                )  # plain UTF-8, no BOM
+                out_path.write_text(''.join(text_parts), encoding='utf-8')  # plain UTF-8, no BOM
                 processed += 1
             except Exception as exc:
                 failed += 1
@@ -90,9 +88,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                     )
                 )
 
-        summary = _('Text extracted from {} of {} file(s).').format(
-            processed, total_files
-        )
+        summary = _('Text extracted from {} of {} file(s).').format(processed, total_files)
         if failed:
             summary += ' ' + (_('{} file(s) failed.').format(failed))
         if processed == 0 and total_files > 0:

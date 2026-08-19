@@ -24,34 +24,32 @@ class PdfToImagesFrame(BaseFeatureFrame):
 
     def _setup_input_frame(self):
         self.input_frame.configure(text=_('PDF List'))
-        self.file_list_view = FileListView(
-            self.input_frame, file_types=FILE_TYPES['PDF'], sortable=False
-        )
+        self.file_list_view = FileListView(self.input_frame, file_types=FILE_TYPES['PDF'], sortable=False)
         self.file_list_view.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output Folder'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', fill='x', expand=True)
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_folder
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', fill='x', expand=True
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_folder).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
         ttk.Label(self.options_frame, text=_('Resolution')).pack(side='left')
         self._dpi = tk.IntVar(value=200)
-        ttk.Entry(
-            self.options_frame, textvariable=self._dpi, width=5, justify='center'
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.options_frame, textvariable=self._dpi, width=5, justify='center').pack(
+            side='left', padx=(5, 0)
+        )
         ttk.Label(self.options_frame, text=_('DPI')).pack(side='left')
 
         ttk.Label(self.options_frame, text=_('Format')).pack(side='left', padx=(10, 0))
         self._fmt = tk.StringVar(value='png')
-        ttk.Radiobutton(
-            self.options_frame, text='PNG', variable=self._fmt, value='png'
-        ).pack(side='left', padx=(5, 0))
+        ttk.Radiobutton(self.options_frame, text='PNG', variable=self._fmt, value='png').pack(
+            side='left', padx=(5, 0)
+        )
         self._transparent = tk.BooleanVar(value=True)
         self._transparent_cb = ttk.Checkbutton(
             self.options_frame,
@@ -59,14 +57,12 @@ class PdfToImagesFrame(BaseFeatureFrame):
             variable=self._transparent,
         )
         self._transparent_cb.pack(side='left', padx=(5, 0))
-        ttk.Radiobutton(
-            self.options_frame, text='JPG', variable=self._fmt, value='jpg'
-        ).pack(side='left', padx=(10, 0))
+        ttk.Radiobutton(self.options_frame, text='JPG', variable=self._fmt, value='jpg').pack(
+            side='left', padx=(10, 0)
+        )
         ttk.Label(self.options_frame, text=_('Quality')).pack(side='left', padx=(0, 3))
         self._quality = tk.IntVar(value=85)
-        self._quality_entry = ttk.Entry(
-            self.options_frame, textvariable=self._quality, width=6
-        )
+        self._quality_entry = ttk.Entry(self.options_frame, textvariable=self._quality, width=6)
         self._quality_entry.pack(side='left', padx=(5, 0))
 
         self._fmt.trace_add('write', self._on_fmt_change)

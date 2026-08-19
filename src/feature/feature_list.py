@@ -11,6 +11,7 @@ FEATURE_LIST = (
             feature('merge_pdf', _('Merge PDF'), _('Merge')),
             feature('interleave_merge', _('Interleave Merge'), _('Merge')),
             feature('split_pdf', _('Split PDF'), _('Split')),
+            feature('divide_pages', _('Divide Pages'), _('Divide')),
             feature('rotate_pdf', _('Rotate PDF'), _('Rotate')),
             feature('delete_pages', _('Delete Pages'), _('Delete')),
         ),

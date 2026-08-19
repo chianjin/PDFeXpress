@@ -50,9 +50,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                     return
 
                 src_path = Path(in_path)
-                progress_queue.put(
-                    ('progress', index - 1, total, f'{_("Merging...")} {index}/{total}')
-                )
+                progress_queue.put(('progress', index - 1, total, f'{_("Merging...")} {index}/{total}'))
 
                 with pymupdf.open(src_path) as src:
                     # Deluxe (double-sided) print: every source PDF's first

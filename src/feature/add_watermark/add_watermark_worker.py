@@ -150,9 +150,7 @@ def worker(params: dict[str, Any], progress_queue: Queue, cancel_event) -> None:
             summary = _('{} file(s) failed:').format(len(failed))
             for name, message in failed:
                 summary += f'\n- {name}: {message}'
-            progress_queue.put(
-                ('partial', str(out_dir), success_count, len(failed), summary)
-            )
+            progress_queue.put(('partial', str(out_dir), success_count, len(failed), summary))
         else:
             progress_queue.put(('done', str(out_dir)))
 

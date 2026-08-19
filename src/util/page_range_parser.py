@@ -73,7 +73,7 @@ def _parse_atom(atom_str, total_pages, plus_mode):
 
 
 def _parse_range(range_str, total_pages, plus_mode):
-    if range_str == '-' or range_str == '':
+    if range_str in {'-', ''}:
         return 1, total_pages
 
     try:

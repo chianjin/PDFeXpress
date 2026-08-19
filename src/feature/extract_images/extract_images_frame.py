@@ -21,12 +21,12 @@ class ExtractImagesFrame(BaseFeatureFrame):
     def _setup_output_frame(self):
         self.output_frame.configure(text=_('Output Folder'))
         self.output_path = tk.StringVar()
-        ttk.Entry(
-            self.output_frame, textvariable=self.output_path, state='readonly'
-        ).pack(side='left', fill='x', expand=True)
-        ttk.Button(
-            self.output_frame, text=_('Browser'), command=self._set_output_folder
-        ).pack(side='left', padx=(5, 0))
+        ttk.Entry(self.output_frame, textvariable=self.output_path, state='readonly').pack(
+            side='left', fill='x', expand=True
+        )
+        ttk.Button(self.output_frame, text=_('Browser'), command=self._set_output_folder).pack(
+            side='left', padx=(5, 0)
+        )
 
     def _setup_options_frame(self):
         self._ignore_small = tk.BooleanVar(value=False)
@@ -36,19 +36,17 @@ class ExtractImagesFrame(BaseFeatureFrame):
             variable=self._ignore_small,
         ).pack(side='left')
 
-        ttk.Label(self.options_frame, text=_('Min Width')).pack(
-            side='left', padx=(10, 0)
-        )
+        ttk.Label(self.options_frame, text=_('Min Width')).pack(side='left', padx=(10, 0))
         self._min_w = tk.IntVar(value=50)
-        ttk.Entry(
-            self.options_frame, textvariable=self._min_w, width=6, justify='center'
-        ).pack(side='left', padx=(3, 0))
+        ttk.Entry(self.options_frame, textvariable=self._min_w, width=6, justify='center').pack(
+            side='left', padx=(3, 0)
+        )
         ttk.Label(self.options_frame, text='x').pack(side='left', padx=(3, 0))
         ttk.Label(self.options_frame, text=_('Min Height')).pack(side='left')
         self._min_h = tk.IntVar(value=50)
-        ttk.Entry(
-            self.options_frame, textvariable=self._min_h, width=6, justify='center'
-        ).pack(side='left', padx=(3, 0))
+        ttk.Entry(self.options_frame, textvariable=self._min_h, width=6, justify='center').pack(
+            side='left', padx=(3, 0)
+        )
 
     def _setup_execute_frame(self):
         ttk.Button(

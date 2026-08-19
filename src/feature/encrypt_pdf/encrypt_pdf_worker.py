@@ -50,9 +50,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
                 return
 
             src = Path(in_path)
-            progress_queue.put(
-                ('progress', index - 1, total, f'{_("Encrypting...")} {index}/{total}')
-            )
+            progress_queue.put(('progress', index - 1, total, f'{_("Encrypting...")} {index}/{total}'))
 
             try:
                 with pymupdf.open(src) as doc:
@@ -79,9 +77,7 @@ def worker(params: dict, progress_queue: Queue, cancel_event) -> None:
             summary = _('{count} file(s) failed:').format(count=len(failed))
             for name, message in failed:
                 summary += f'\n- {name}: {message}'
-            progress_queue.put(
-                ('partial', str(out_dir), success_count, len(failed), summary)
-            )
+            progress_queue.put(('partial', str(out_dir), success_count, len(failed), summary))
         else:
             progress_queue.put(('done', str(out_dir)))
 
