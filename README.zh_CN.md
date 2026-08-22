@@ -11,8 +11,7 @@
 - pillow==12.3.0
 - tkinterdnd2==0.6.2
 - pyinstaller==6.22.1
-
-> **注意**：`setup_remotes.py` 仅用于本仓库，用于把改动同时推送到 Gitee 与 GitHub（双 push 地址）。**Fork 仓库请勿运行此脚本**，否则推送地址会被指向本项目的远端仓库。
+- babel==2.18.0
 
 ## 当前版本
 
@@ -87,7 +86,9 @@
 > python build.py
 ```
 
-> 注意：`python i18n.py -c`（即 `pybabel compile`）会跳过头部带 `#, fuzzy` 标记的目录。若中文目录未被编译，请先移除 `src/locale/zh_CN/LC_MESSAGES/pdfexpress.po` 头部的该标记。
+> **注意**：`python i18n.py -c`（即 `pybabel compile`）会跳过头部带 `#, fuzzy` 标记的目录。若中文目录未被编译，请先移除 `src/locale/zh_CN/LC_MESSAGES/pdfexpress.po` 头部的该标记。
+>
+> **注意**：`setup_remotes.py` 仅用于本仓库，用于把改动同时推送到 Gitee 与 GitHub（双 push 地址）。**Fork 仓库请勿运行此脚本**，否则推送地址会被指向本项目的远端仓库。
 
 预编译包、安装程序保存在`release`目录中。
 
@@ -104,7 +105,7 @@ Copyright (c) 2026 chian.jin@gmail.com.
 
 本项目使用了一些第三方库。以下是这些库及其各自的许可协议和主页/源代码。
 
-| 库           | 许可协议                                                                                                  | 主页/源代码                                                                |
+| 库          | 许可协议                                                                                              | 主页/源代码                                                           |
 | ----------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | Python      | [Python Software Foundation License](https://docs.python.org/3/license.html)                          | [python.org](https://www.python.org/)                                 |
 | PyMuPDF     | [GNU AGPLv3](https://www.gnu.org/licenses/agpl-3.0.zh-cn.html)                                        | [PyMuPdf - GitHub](https://github.com/pymupdf/PyMuPDF)                |

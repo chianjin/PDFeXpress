@@ -11,8 +11,7 @@
 - pillow==12.3.0
 - tkinterdnd2==0.6.2
 - pyinstaller==6.22.1
-
-> **Note**: `setup_remotes.py` is for this repository only — it configures dual push to both Gitee and GitHub. **Do not run it on a fork**, otherwise your push URLs will point to this project's remotes.
+- babel==2.18.0
 
 ## Current Version
 
@@ -68,7 +67,6 @@ There are two types of pre-compiled packages, installers and portable packages. 
 
 You can also download from: [Quark Cloud Drive](https://pan.quark.cn/s/abc772612ee5?pwd=97sh) [Baidu Cloud Drive](https://pan.baidu.com/s/14I_0RdbfVqpWORXfgYlEjQ?pwd=i4xb)
 
-
 ## Build
 
 If you want to build the application yourself, follow these steps:
@@ -87,7 +85,9 @@ This project supports internationalization. Translation catalogs are managed wit
 > python build.py
 ```
 
-> Note: `python i18n.py -c` (i.e. `pybabel compile`) skips a catalog whose header carries the `#, fuzzy` flag. If the Chinese catalog is not compiled, remove that flag from `src/locale/zh_CN/LC_MESSAGES/pdfexpress.po` first.
+> **Note**: `python i18n.py -c` (i.e. `pybabel compile`) skips a catalog whose header carries the `#, fuzzy` flag. If the Chinese catalog is not compiled, remove that flag from `src/locale/zh_CN/LC_MESSAGES/pdfexpress.po` first.
+>
+> **Note**: `setup_remotes.py` is for this repository only — it configures dual push to both Gitee and GitHub. **Do not run it on a fork**, otherwise your push URLs will point to this project's remotes.
 
 Precompiled package and installer are saved in the `release` directory.
 
