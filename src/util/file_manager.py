@@ -28,13 +28,13 @@ class _BaseFileManager:
     def open(self, folder_path: PathType):
         normalized = self._normalize_path(folder_path)
         if not os.path.isdir(normalized):
-            raise NotADirectoryError(_(f"Folder not exist: {normalized}"))
+            raise NotADirectoryError(_("Folder not exist: {}").format(normalized))
         self._open_impl(normalized)
 
     def select(self, target_path: PathType):
         normalized = self._normalize_path(target_path)
         if not os.path.exists(normalized):
-            raise FileNotFoundError(_(f"Path not exist: {normalized}"))
+            raise FileNotFoundError(_("Path not exist: {}").format(normalized))
         self._select_impl(normalized)
 
     def _open_impl(self, folder_path: str):
@@ -158,7 +158,15 @@ class _WindowsFileManager(_BaseFileManager):
             prev_hwnds = self._get_explorer_hwnds()
             pidl = ILCreateFromPathW(target_path)
             if pidl:
-                shell32.SHOpenFolderAndSelectItems(pidl, 0, None, 0)
+                SHOpenFolderAndSelectItems = shell32.SHOpenFolderAndSelectItems
+                SHOpenFolderAndSelectItems.argtypes = [
+                    self._ctypes.c_void_p,   # PCIDLIST_ABSOLUTE pidlFolder
+                    self._ctypes.c_uint,     # UINT cidl
+                    self._ctypes.c_void_p,   # PCUITEMID_CHILD_ARRAY apidl (NULL)
+                    self._ctypes.c_uint,     # DWORD dwFlags
+                ]
+                SHOpenFolderAndSelectItems.restype = self._ctypes.HRESULT
+                SHOpenFolderAndSelectItems(pidl, 0, None, 0)
                 ILFree(pidl)
 
             for _i in range(15):
