@@ -49,13 +49,9 @@ class ImagesToPdfFrame(BaseFeatureFrame):
         ).pack(side='right', padx=(5, 0))
 
     def _set_output_path(self):
-        init_folder = ''
-        init_file = ''
         input_paths = self.get_input_paths()
-        if input_paths:
-            input_path = Path(input_paths[0])
-            init_folder = Path(input_path).parent
-            init_file = Path(input_path).with_suffix('.pdf')
+        init_folder = Path(input_path[0]).parent if input_paths else ''
+        init_file = Path(input_path[0]).with_suffix('.pdf') if input_paths else ''
         output_path = asksaveasfilename(
             filetypes=FILE_TYPES['PDF'],
             defaultextension='pdf',
@@ -64,7 +60,7 @@ class ImagesToPdfFrame(BaseFeatureFrame):
             confirmoverwrite=True,
         )
         if output_path:
-            self.output_path.set(output_path)
+            self.output_path.set(Path(output_path))
 
     def get_input_paths(self):
         return self.file_list_view.get_file_paths()

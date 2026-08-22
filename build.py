@@ -49,6 +49,7 @@ DATA_FILES = (
 
 ARCHIVE_BASENAME = f'{PROJECT_NAME.replace(" ", "")}-Portable-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}'
 INSTALLER_BASENAME = f'{PROJECT_NAME.replace(" ", "")}-Setup-{PLATFORM}-{MACHINE}-{PROJECT_VERSION}'
+SOURCE_BASENAME = f'{PROJECT_NAME.replace(" ", "")}-Source-{PROJECT_VERSION}'
 
 ISS_TEMPLATE = f'{ASSETS_DIR_NAME}/{EXECUTABLE_NAME}.iss'
 sep = ';' if PLATFORM == 'Windows' else ':'
@@ -140,6 +141,37 @@ def create_portable():
         print('Portable archive creation completed.')
     except Exception as e:
         print(f'Failed to create portable archive: {e}')
+        raise
+
+
+def create_source_archive():
+    """Package the committed source via ``git archive`` into a zip.
+
+    Only files already committed at HEAD are included; untracked and
+    ignored files (build artifacts, caches, release packages) stay out.
+    """
+    print('\n--- Creating Source Archive ---')
+    RELEASE_DIR.mkdir(parents=True, exist_ok=True)
+
+    archive_path = RELEASE_DIR / f'{SOURCE_BASENAME}.zip'
+    command = ['git', 'archive', '--format=zip', '-o', str(archive_path), 'HEAD']
+    print(f'Running: {" ".join(command)}')
+    try:
+        subprocess.run(
+            command,
+            check=True,
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            cwd=PROJECT_DIR,
+        )
+        print(f'Source archive created: {archive_path}')
+        print('Source archive creation completed.')
+    except subprocess.CalledProcessError as e:
+        print(f'git archive failed: {e.stderr or e.stdout}')
+        raise
+    except FileNotFoundError:
+        print("Error: 'git' command not found.")
         raise
 
 
@@ -256,6 +288,12 @@ if __name__ == '__main__':
     )
     parser.add_argument('-p', '--portable', action='store_true', help='Create a portable zip archive.')
     parser.add_argument(
+        '-s',
+        '--source',
+        action='store_true',
+        help='Package the buildable source code into a zip archive.',
+    )
+    parser.add_argument(
         '-i',
         '--installer',
         action='store_true',
@@ -264,11 +302,13 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if not any([args.executable, args.portable, args.installer]):
+    if not any([args.executable, args.portable, args.installer, args.source]):
         print(f'\n--- Starting Full Build Process for {PROJECT_NAME} ---')
+        create_source_archive()
         build_executable()
         create_portable()
         create_installer()
+        write_latest_version()
         print(f'\n--- Full Build Process for {PROJECT_NAME} Completed ---')
     else:
         if args.executable:
@@ -277,6 +317,7 @@ if __name__ == '__main__':
             create_portable()
         if args.installer:
             create_installer()
+        if args.source:
+            create_source_archive()
 
-    write_latest_version()
-    print('\nBuild script finished.')
+    print('\nBuild finished.')
