@@ -12,6 +12,7 @@
 - tkinterdnd2==0.6.2
 - pyinstaller==6.22.1
 
+> **注意**：`setup_remotes.py` 仅用于本仓库，用于把改动同时推送到 Gitee 与 GitHub（双 push 地址）。**Fork 仓库请勿运行此脚本**，否则推送地址会被指向本项目的远端仓库。
 
 ## 当前版本
 

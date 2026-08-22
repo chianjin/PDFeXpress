@@ -12,6 +12,8 @@
 - tkinterdnd2==0.6.2
 - pyinstaller==6.22.1
 
+> **Note**: `setup_remotes.py` is for this repository only — it configures dual push to both Gitee and GitHub. **Do not run it on a fork**, otherwise your push URLs will point to this project's remotes.
+
 ## Current Version
 
 The current version is 2.0, which has been tested on Windows 11 AMD64 and Ubuntu 25.10 x86_64.
