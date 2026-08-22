@@ -48,23 +48,18 @@ class DividePagesFrame(BaseFeatureFrame):
         )
 
     def _setup_options_frame(self):
-        direction_row = ttk.Frame(self.options_frame)
-        direction_row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Label(direction_row, text=_('Direction')).pack(side='left', padx=(0, 5))
+        ttk.Label(self.options_frame, text=_('Direction')).pack(side='left', padx=(0, 5))
         self._direction = tk.StringVar(value='vertical')
         for value, text in (
             ('vertical', _('Vertical (left/right)')),
             ('horizontal', _('Horizontal (top/bottom)')),
         ):
-            ttk.Radiobutton(direction_row, text=text, value=value, variable=self._direction).pack(
+            ttk.Radiobutton(self.options_frame, text=text, value=value, variable=self._direction).pack(
                 side='left', padx=(0, 10)
             )
-
-        parts_row = ttk.Frame(self.options_frame)
-        parts_row.pack(side=tk.TOP, fill=tk.X, pady=(2, 2))
-        ttk.Label(parts_row, text=_('Parts')).pack(side='left', padx=(0, 5))
+        ttk.Label(self.options_frame, text=_('Parts')).pack(side='left', padx=(20, 5))
         self._parts = tk.IntVar(value=2)
-        ttk.Spinbox(parts_row, from_=2, to=10, textvariable=self._parts, width=4).pack(side='left')
+        ttk.Spinbox(self.options_frame, from_=2, to=10, textvariable=self._parts, width=4, justify='center').pack(side='left')
 
     def _setup_execute_frame(self):
         ttk.Button(
