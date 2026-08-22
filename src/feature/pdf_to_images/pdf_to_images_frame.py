@@ -43,7 +43,7 @@ class PdfToImagesFrame(BaseFeatureFrame):
         ttk.Entry(self.options_frame, textvariable=self._dpi, width=5, justify='center').pack(
             side='left', padx=(5, 0)
         )
-        ttk.Label(self.options_frame, text=_('DPI')).pack(side='left')
+        ttk.Label(self.options_frame, text='DPI').pack(side='left')
 
         ttk.Label(self.options_frame, text=_('Format')).pack(side='left', padx=(10, 0))
         self._fmt = tk.StringVar(value='png')

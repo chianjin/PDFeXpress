@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PDF eXpress 2.0-BETA\n"
 "Report-Msgid-Bugs-To: chian.jin@gmail.com\n"
-"POT-Creation-Date: 2026-08-19 17:58+0800\n"
+"POT-Creation-Date: 2026-08-22 15:30+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +22,15 @@ msgstr ""
 msgid "Feature List"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/core/main_frame.py:59
+#: F:/project/PDFeXpress/src/core/main_frame.py:56
 msgid "About PDF eXpress"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/core/main_frame.py:65
+#: F:/project/PDFeXpress/src/core/main_frame.py:63
 msgid "Support Me"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/core/main_frame.py:72
+#: F:/project/PDFeXpress/src/core/main_frame.py:70
 msgid "Check for Updates"
 msgstr ""
 
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Not implemented"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/core/progress_dialog.py:36
+#: F:/project/PDFeXpress/src/core/progress_dialog.py:34
 msgid "Cancel"
 msgstr ""
 
@@ -56,14 +56,14 @@ msgstr ""
 msgid "Input PDF"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:55
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:53
 #: F:/project/PDFeXpress/src/feature/base_feature_frame.py:25
-#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:42
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:37
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:43
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:37
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:33
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:53
+#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:40
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:35
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:41
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:35
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:31
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:49
 #: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:26
 #: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:25
 msgid "Output PDF"
@@ -82,7 +82,7 @@ msgid "Document Assembly"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/feature_list.py:11
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:120
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:118
 msgid "Merge PDF"
 msgstr ""
 
@@ -93,12 +93,12 @@ msgid "Merge"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/feature_list.py:12
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:106
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:102
 msgid "Interleave Merge"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/feature_list.py:13
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:203
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:198
 msgid "Split PDF"
 msgstr ""
 
@@ -111,28 +111,28 @@ msgstr ""
 msgid "Divide Pages"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:87
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:81
 #: F:/project/PDFeXpress/src/feature/feature_list.py:14
 msgid "Divide"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/feature_list.py:15
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:143
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:141
 msgid "Rotate PDF"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/feature_list.py:15
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:74
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:72
 msgid "Rotate"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:91
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:154
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:152
 #: F:/project/PDFeXpress/src/feature/feature_list.py:16
 msgid "Delete Pages"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:87
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:83
 #: F:/project/PDFeXpress/src/feature/feature_list.py:16
 msgid "Delete"
 msgstr ""
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Content Extraction"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:137
+#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:133
 #: F:/project/PDFeXpress/src/feature/feature_list.py:22
 msgid "Extract Text"
 msgstr ""
@@ -161,7 +161,7 @@ msgid "Format Conversion"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/feature_list.py:29
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:107
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:105
 msgid "Images to PDF"
 msgstr ""
 
@@ -177,7 +177,7 @@ msgid "PDF to Images"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/feature_list.py:31
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:206
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:204
 msgid "PDF to Long Image"
 msgstr ""
 
@@ -186,18 +186,18 @@ msgid "Document Compression"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/feature_list.py:37
-#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:157
+#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:153
 msgid "Quick Compress"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:80
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:74
 #: F:/project/PDFeXpress/src/feature/feature_list.py:37
 #: F:/project/PDFeXpress/src/feature/feature_list.py:38
-#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:63
+#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:61
 msgid "Compress"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:249
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:243
 #: F:/project/PDFeXpress/src/feature/feature_list.py:38
 msgid "Deep Compress"
 msgstr ""
@@ -206,18 +206,18 @@ msgstr ""
 msgid "Page Annotation"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:148
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:144
 #: F:/project/PDFeXpress/src/feature/feature_list.py:44
 msgid "Add Page Numbers"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:115
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:101
 #: F:/project/PDFeXpress/src/feature/feature_list.py:44
 #: F:/project/PDFeXpress/src/feature/feature_list.py:45
 msgid "Add"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:188
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:186
 #: F:/project/PDFeXpress/src/feature/feature_list.py:45
 msgid "Add Watermark"
 msgstr ""
@@ -226,7 +226,7 @@ msgstr ""
 msgid "Edit Bookmarks"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:112
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:100
 #: F:/project/PDFeXpress/src/feature/feature_list.py:46
 msgid "Edit"
 msgstr ""
@@ -235,12 +235,12 @@ msgstr ""
 msgid "Document Security"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:121
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:117
 #: F:/project/PDFeXpress/src/feature/feature_list.py:52
 msgid "Encrypt PDF"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:64
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:62
 #: F:/project/PDFeXpress/src/feature/feature_list.py:52
 msgid "Encrypt"
 msgstr ""
@@ -249,7 +249,7 @@ msgstr ""
 msgid "Decrypt PDF"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:71
+#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:67
 #: F:/project/PDFeXpress/src/feature/feature_list.py:53
 msgid "Decrypt"
 msgstr ""
@@ -259,284 +259,284 @@ msgid "Invoice Processing"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/feature_list.py:58
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:172
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:170
 msgid "Merge Invoices"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:45
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:61
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:28
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:58
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:27
 #: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:32
-#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:48
+#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:45
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:28
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:45
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:43
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:35
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:51
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:48
 #: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:34
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:49
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:46
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:27
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:44
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:35
-#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:28
-#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_frame.py:28
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:39
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:42
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:34
+#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:27
+#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_frame.py:27
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:36
 #: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:31
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:41
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:59
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:32
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:31
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:39
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:39
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:54
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:31
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:30
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:36
 #: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:35
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:51
-#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_frame.py:30
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:34
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:48
+#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_frame.py:29
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:32
 #: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:35
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:51
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:48
 msgid "Browser"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:67
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:65
 msgid "Page Number Rule"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:78
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:74
 msgid "Default: continuous numbering from 1. Click Help for details."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:84
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:80
 msgid "Font"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:94
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:90
 msgid "Bold"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:97
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:91
 msgid "Size"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:114
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:108
 msgid "Position"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:117
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:111
 msgid "Header"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:124
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:118
 msgid "Footer"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:132
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:126
 msgid "Left"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:139
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:133
 msgid "Center"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:146
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:140
 msgid "Right"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:154
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:148
 msgid "Outside"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:161
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:155
 msgid "Inside"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:184
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:178
 msgid "Top Margin"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:186
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:180
 msgid "Bottom Margin"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:188
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:182
 msgid "Left Margin"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:190
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:184
 msgid "Right Margin"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:192
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:186
 msgid "Margin"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:240
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:230
 msgid "PageNum"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:297
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:300
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:303
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:287
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:290
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:293
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:296
 #: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:306
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:316
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:324
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:170
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:79
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:85
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:91
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:217
-#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:109
-#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:112
-#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:119
-#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:125
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:314
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:166
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:77
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:83
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:89
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:215
+#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:105
+#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:108
+#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:115
+#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:121
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:125
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:128
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:131
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:134
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:137
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:135
 #: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:141
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:147
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:236
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:230
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:133
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:136
 #: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:139
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:142
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:145
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:149
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:153
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:169
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:141
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:143
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:146
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:161
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:139
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:126
 #: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:132
 #: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:138
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:144
 #: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_worker.py:136
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:200
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:206
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:209
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:225
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:256
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:269
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:288
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:186
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:192
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:195
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:211
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:240
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:251
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:270
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:293
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:296
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:299
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:306
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:311
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:314
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:317
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:325
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:331
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:341
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:346
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:350
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:357
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:378
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:88
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:94
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:100
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:151
-#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:98
-#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:104
-#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:112
-#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:118
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:321
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:326
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:330
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:336
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:356
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:86
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:92
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:98
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:147
+#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:96
+#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:102
+#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:110
+#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:116
 #: F:/project/PDFeXpress/src/feature/extract_images/extract_images_worker.py:193
 #: F:/project/PDFeXpress/src/feature/extract_text/extract_text_frame.py:72
 #: F:/project/PDFeXpress/src/feature/extract_text/extract_text_frame.py:78
-#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:161
+#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:157
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:90
 #: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:96
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:102
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:131
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:133
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:137
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:131
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:96
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:100
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:197
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:102
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:106
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:145
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:122
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:128
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:135
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:138
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:143
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:146
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:129
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:124
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:127
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:127
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:95
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:98
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:195
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:97
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:100
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:143
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:118
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:124
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:131
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:134
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:139
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:142
 #: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_worker.py:175
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:127
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:133
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:193
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:123
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:129
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:191
 #: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_frame.py:74
 #: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_frame.py:80
-#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:144
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:93
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:99
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:130
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:196
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:199
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:202
+#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:140
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:92
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:98
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:128
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:188
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:191
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:194
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:200
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:205
 #: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:208
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:214
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:219
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:212
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:217
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:220
 #: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:224
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:230
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:235
 #: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:240
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:256
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:227
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:222
 msgid "Error"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:297
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:287
 msgid "Input PDF cannot be empty."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:300
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:290
 msgid "Output PDF cannot be empty."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:303
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:293
 msgid "Page number rule must be set."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:306
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:296
 msgid "Font size must be at least 1."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:316
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_frame.py:306
 msgid "Margin must be greater than 0."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:91
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:89
 msgid "Adding..."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:119
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:115
 #: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:148
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:185
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:96
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:179
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:94
 #: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_worker.py:85
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:77
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:75
 #: F:/project/PDFeXpress/src/feature/extract_images/extract_images_worker.py:134
-#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:102
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:69
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:70
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:133
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:84
+#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:98
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:67
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:66
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:131
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:82
 #: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_worker.py:116
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:136
-#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:93
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:78
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:168
-#: F:/project/PDFeXpress/src/util/helpers.py:154
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:134
+#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:89
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:76
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:163
+#: F:/project/PDFeXpress/src/util/helpers.py:144
 msgid "Done"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:149
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:189
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:250
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:155
+#: F:/project/PDFeXpress/src/feature/add_page_numbers/add_page_numbers_worker.py:145
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:187
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:244
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:153
 #: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_worker.py:115
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:122
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:118
 #: F:/project/PDFeXpress/src/feature/extract_images/extract_images_worker.py:170
-#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:138
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:108
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:107
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:173
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:121
+#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:134
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:106
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:103
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:171
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:119
 #: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_worker.py:152
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:207
-#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:158
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:144
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:204
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:205
+#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:154
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:142
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:199
 msgid "Preparing..."
 msgstr ""
 
@@ -548,19 +548,19 @@ msgstr ""
 #: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:20
 #: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:26
 #: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_frame.py:19
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:23
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:22
 msgid "PDF List"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:22
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:45
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:43
 #: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:29
 #: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:22
 #: F:/project/PDFeXpress/src/feature/extract_text/extract_text_frame.py:22
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:33
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:31
 #: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_frame.py:24
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:28
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:45
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:27
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:43
 msgid "Output Folder"
 msgstr ""
 
@@ -568,29 +568,29 @@ msgstr ""
 msgid "Watermark Text"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:80
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:89
-#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:99
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:78
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:87
+#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:97
 #: F:/project/PDFeXpress/src/feature/extract_text/extract_text_frame.py:73
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:123
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:119
 #: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_frame.py:75
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:94
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:93
 msgid "Input must have at least 1 PDF file."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:86
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:145
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:95
-#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:105
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:84
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:139
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:93
+#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:103
 #: F:/project/PDFeXpress/src/feature/extract_text/extract_text_frame.py:79
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:129
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:125
 #: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_frame.py:81
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:100
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:202
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:99
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:194
 msgid "Output folder must be set."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:92
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_frame.py:90
 msgid "Watermark text must be set."
 msgstr ""
 
@@ -607,32 +607,32 @@ msgstr ""
 msgid "{} file(s) failed:"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:212
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:146
+#: F:/project/PDFeXpress/src/feature/add_watermark/add_watermark_worker.py:210
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:142
 msgid "Done with errors"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:52
+#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:50
 #: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:39
 msgid "Password"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:120
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:131
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:139
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:133
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:256
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:311
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:128
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:196
+#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:116
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:125
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:133
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:127
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:240
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:293
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:124
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:188
 msgid "Input PDF must be set."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:126
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:139
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:103
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:100
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:134
+#: F:/project/PDFeXpress/src/feature/decrypt_pdf/decrypt_pdf_frame.py:122
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:133
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:97
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:98
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:130
 msgid "Output path must be set."
 msgstr ""
 
@@ -640,94 +640,94 @@ msgstr ""
 msgid "Wrong password or password required."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:51
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:47
 msgid "Max Resolution"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:58
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:54
 msgid "JPG Quality"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:118
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:112
 msgid "Confirm"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:119
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:113
 msgid "Compressing embedded images is time-consuming. Continue?"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:134
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:142
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:314
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:199
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:128
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:136
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:296
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:191
 msgid "Input PDF does not exist."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:137
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:317
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:131
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:299
 msgid "Output PDF must be set."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:142
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:136
 msgid "Max resolution must be greater than 0."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:148
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_frame.py:142
 msgid "JPG quality must be between 1 and 100."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:141
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:139
 #: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:72
 msgid "Exactly one input PDF is required."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:161
-#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:58
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:159
+#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:57
 msgid "Compressing..."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:175
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:173
 #, python-brace-format
 msgid "Compressed {} page(s) to: {}"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:176
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:174
 #, python-brace-format
 msgid "Downscaled {} image(s)."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:178
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:176
 #, python-brace-format
 msgid "{} image(s) kept (new size not smaller)."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:182
+#: F:/project/PDFeXpress/src/feature/deep_compress/deep_compress_worker.py:178
 #, python-brace-format
 msgid "{} image(s) skipped (unsupported format)."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:55
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:53
 msgid "Pages to delete"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:63
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:61
 msgid "Help"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:70
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:68
 msgid "Example: \"3,7-9,12;:2\". Click Help for details."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:149
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:143
 msgid "Pages to delete must be set."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:153
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:146
 msgid "Enhanced mode (+) is not supported."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:161
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:249
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_frame.py:153
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:233
 #: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:64
 msgid "Range expression produced no pages."
 msgstr ""
@@ -745,28 +745,28 @@ msgstr ""
 msgid "No output files were written."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:94
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:164
+#: F:/project/PDFeXpress/src/feature/delete_pages/delete_pages_worker.py:93
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:162
 msgid "Failed:"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:55
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:53
 msgid "Direction"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:60
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:56
 msgid "Vertical (left/right)"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:61
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:57
 msgid "Horizontal (top/bottom)"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:69
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:65
 msgid "Parts"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:145
+#: F:/project/PDFeXpress/src/feature/divide_pages/divide_pages_frame.py:139
 msgid "Divide into at least 2 parts."
 msgstr ""
 
@@ -774,125 +774,125 @@ msgstr ""
 msgid "Dividing..."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:50
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:46
 msgid "Bookmarks"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:65
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:100
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:61
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:94
 msgid "Level"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:66
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:104
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:62
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:96
 msgid "Page"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:67
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:108
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:63
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:98
 msgid "Title"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:82
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:78
 msgid "Reload"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:83
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:79
 msgid "Import"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:84
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:80
 msgid "Export"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:85
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:83
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:81
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:81
 msgid "Move Up"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:86
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:84
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:82
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:82
 msgid "Move Down"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:88
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:84
 msgid "Delete All"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:120
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:106
 msgid "Save"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:130
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:116
 msgid "TOC"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:200
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:357
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:186
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:336
 msgid "Bookmark title must not be empty."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:206
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:342
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:192
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:322
 msgid "Level and Page must be integers."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:209
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:346
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:195
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:326
 msgid "Level must be >= 1."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:225
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:211
 msgid "Select a bookmark to edit."
 msgstr ""
 
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:243
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:260
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:278
 msgid "CSV files"
 msgstr ""
 
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:243
 #: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:260
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:278
 msgid "All files"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:269
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:251
 #, python-brace-format
 msgid "Failed to import: {}"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:288
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:270
 #, python-brace-format
 msgid "Failed to export: {}"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:325
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:306
 #, python-brace-format
 msgid "Cannot open input PDF: {}"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:331
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:311
 msgid "No bookmarks to write."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:351
+#: F:/project/PDFeXpress/src/feature/edit_bookmarks/edit_bookmarks_frame.py:331
 #, python-brace-format
 msgid "Page {} out of range (1-{})."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:101
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_frame.py:99
 msgid "Password must not be empty."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:54
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:53
 msgid "Encrypting..."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:63
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:61
 msgid "Source PDF is already encrypted."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:79
+#: F:/project/PDFeXpress/src/feature/encrypt_pdf/encrypt_pdf_worker.py:77
 #, python-brace-format
 msgid "{count} file(s) failed:"
 msgstr ""
@@ -905,15 +905,15 @@ msgstr ""
 msgid "Min Width"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:47
+#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:45
 msgid "Min Height"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:113
+#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:111
 msgid "Min width / min height must be integers."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:119
+#: F:/project/PDFeXpress/src/feature/extract_images/extract_images_frame.py:117
 msgid "Min width / min height must be non-negative."
 msgstr ""
 
@@ -928,7 +928,7 @@ msgid "Extracting..."
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/extract_images/extract_images_worker.py:118
-#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:89
+#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:87
 #: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_worker.py:102
 msgid "Failed"
 msgstr ""
@@ -944,14 +944,14 @@ msgid "{} small image(s) skipped."
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/extract_images/extract_images_worker.py:129
-#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:97
+#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:93
 #: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_worker.py:111
-#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:88
+#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:84
 #, python-brace-format
 msgid "{} file(s) failed."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:93
+#: F:/project/PDFeXpress/src/feature/extract_text/extract_text_worker.py:91
 #, python-brace-format
 msgid "Text extracted from {} of {} file(s)."
 msgstr ""
@@ -960,7 +960,7 @@ msgstr ""
 msgid "Image List"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:97
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_frame.py:91
 msgid "Input must have at least 1 image file."
 msgstr ""
 
@@ -970,39 +970,39 @@ msgstr ""
 msgid "Converting..."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:68
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:69
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:132
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:83
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:135
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:66
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:65
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:130
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:81
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:133
 msgid "Saving..."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:72
+#: F:/project/PDFeXpress/src/feature/images_to_pdf/images_to_pdf_worker.py:70
 #, python-brace-format
 msgid "Converted {} image(s) to PDF: {}"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:65
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:60
 msgid "Reverse PDF B"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:91
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:86
 msgid "Interleave"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:133
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:124
 msgid "Both input PDF files must be specified."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:137
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:106
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_frame.py:127
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:100
 msgid "Output PDF must be specified."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:66
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:116
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:54
+#: F:/project/PDFeXpress/src/feature/interleave_merge/interleave_merge_worker.py:63
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_worker.py:115
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_worker.py:53
 msgid "Merging..."
 msgstr ""
 
@@ -1010,7 +1010,7 @@ msgstr ""
 msgid "MergedInvoice"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:96
+#: F:/project/PDFeXpress/src/feature/merge_invoices/merge_invoices_frame.py:95
 msgid "Input must have at least 2 PDF files."
 msgstr ""
 
@@ -1022,47 +1022,43 @@ msgstr ""
 msgid "Support Delux Printing"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:59
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:58
 msgid "Merged"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:102
+#: F:/project/PDFeXpress/src/feature/merge_pdf/merge_pdf_frame.py:97
 msgid "Input PDF must have 2 files at least."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:43
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:41
 msgid "Resolution"
 msgstr ""
 
 #: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:48
-msgid "DPI"
-msgstr ""
-
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:50
 msgid "Format"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:58
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:56
 msgid "Transparent Background"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:65
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:63
 msgid "Quality"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:135
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:131
 msgid "DPI must be an integer."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:138
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:134
 msgid "DPI must be >= 1."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:143
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:139
 msgid "Quality must be an integer."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:146
+#: F:/project/PDFeXpress/src/feature/pdf_to_images/pdf_to_images_frame.py:142
 msgid "Quality must be between 1 and 100."
 msgstr ""
 
@@ -1075,15 +1071,15 @@ msgstr ""
 msgid "Converted {} page(s) from {} file(s) to images."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:45
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:43
 msgid "Output Image"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:55
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:53
 msgid "Page Range"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:64
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_frame.py:60
 msgid "1-Based, n Page / n-m Range / Empty = All"
 msgstr ""
 
@@ -1104,12 +1100,12 @@ msgstr ""
 msgid "No pages selected."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:124
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:123
 #, python-brace-format
 msgid "Resulting image height {} px exceeds the JPEG limit of {} px."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:139
+#: F:/project/PDFeXpress/src/feature/pdf_to_long_image/pdf_to_long_image_worker.py:137
 #, python-brace-format
 msgid "Created long image from {} page(s): {}"
 msgstr ""
@@ -1118,17 +1114,17 @@ msgstr ""
 msgid "No input files."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:80
+#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:78
 #, python-brace-format
 msgid "Failed: {} ({}: {})"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:86
+#: F:/project/PDFeXpress/src/feature/quick_compress/quick_compress_worker.py:82
 #, python-brace-format
 msgid "Compressed {} file(s)."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:53
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_frame.py:52
 msgid "180°"
 msgstr ""
 
@@ -1136,76 +1132,76 @@ msgstr ""
 msgid "No pages to rotate."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:71
+#: F:/project/PDFeXpress/src/feature/rotate_pdf/rotate_pdf_worker.py:70
 msgid "Rotating..."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:60
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:58
 msgid "Single Page"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:67
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:65
 msgid "By Page Count"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:74
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:72
 msgid "By Parts"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:81
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:79
 msgid "Custom Range"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:86
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:122
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:84
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:118
 msgid "Pages per chunk"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:108
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:104
 msgid ""
 "By Page Count/By Parts: Int, for example: 5. Custom Range: \"1-5;7-:2\". "
 "Click Help for details."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:116
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:112
 msgid "No parameter"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:124
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:120
 msgid "Number of parts"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:126
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:122
 msgid "Range expression"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:208
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:200
 msgid "Pages per chunk must be set."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:214
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:205
 msgid "Pages per chunk must be an integer."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:219
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:208
 #: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:39
 msgid "Pages per chunk must be at least 1."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:224
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:212
 msgid "Number of parts must be set."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:230
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:217
 msgid "Number of parts must be an integer."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:235
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:220
 #: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_worker.py:48
 msgid "Number of parts must be at least 1."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:240
+#: F:/project/PDFeXpress/src/feature/split_pdf/split_pdf_frame.py:224
 msgid "Range expression must be set."
 msgstr ""
 
@@ -1230,7 +1226,17 @@ msgstr ""
 msgid "PDF Split"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/util/helpers.py:155
+#: F:/project/PDFeXpress/src/util/file_manager.py:31
+#, python-brace-format
+msgid "Folder not exist: {}"
+msgstr ""
+
+#: F:/project/PDFeXpress/src/util/file_manager.py:37
+#, python-brace-format
+msgid "Path not exist: {}"
+msgstr ""
+
+#: F:/project/PDFeXpress/src/util/helpers.py:145
 msgid "Task completed. View the generated file(s) now?"
 msgstr ""
 
@@ -1244,46 +1250,46 @@ msgstr ""
 msgid "Copyright © {}-{} {}, all rights reserved."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/about_dialog.py:68
+#: F:/project/PDFeXpress/src/widget/about_dialog.py:66
 msgid "------ Third-party software or packages ------"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/about_dialog.py:112
+#: F:/project/PDFeXpress/src/widget/about_dialog.py:108
 msgid "OK"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:57
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:77
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:56
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:76
 msgid "Buy me a chicken leg"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:85
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:83
 msgid "If this tool has been helpful to you, feel free to buy me a chicken leg."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:98
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:94
 msgid "Supported"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:101
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:103
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:97
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:102
 msgid "Maybe Later"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:106
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:102
 msgid "Don't Show Again"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:117
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:113
 msgid "WeChat"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:118
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:114
 msgid "Alipay"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:135
-#: F:/project/PDFeXpress/src/widget/donate_dialog.py:144
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:131
+#: F:/project/PDFeXpress/src/widget/donate_dialog.py:140
 msgid "QR code image not found"
 msgstr ""
 
@@ -1295,92 +1301,92 @@ msgstr ""
 msgid "File Name ❓"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:72
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:70
 msgid "Add Files"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:73
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:71
 msgid "Add Folder"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:74
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:72
 msgid "Remove Selected"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:75
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:73
 msgid "Remove All"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:82
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:80
 msgid "Move to Top"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:85
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:83
 msgid "Move to Last"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:106
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:100
 msgid "Select All"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:108
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:101
 msgid "Invert Selection"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:111
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:102
 msgid "Clear Selection"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/file_list_view.py:154
+#: F:/project/PDFeXpress/src/widget/file_list_view.py:143
 #, python-brace-format
 msgid "File Name {icon}"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:29
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:51
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:30
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:52
 msgid "Update available"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:58
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:59
 #, python-brace-format
 msgid "A new version of {} is available."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:64
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:65
 #, python-brace-format
 msgid "Current: {}    Latest: {}"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:72
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:71
 msgid "Download the latest version from one of the cloud drives below:"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:83
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:82
 msgid "Quark Netdisk"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:88
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:87
 msgid "Baidu Netdisk"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:98
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:97
 msgid "Skip this version"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:152
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:153
 msgid "Up to date"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:153
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:154
 #, python-brace-format
 msgid "Already the latest {} version."
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:160
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:161
 msgid "Check failed"
 msgstr ""
 
-#: F:/project/PDFeXpress/src/widget/update_dialog.py:161
+#: F:/project/PDFeXpress/src/widget/update_dialog.py:162
 msgid "Could not check for updates. Please try again later."
 msgstr ""
 
