@@ -59,7 +59,9 @@ class DividePagesFrame(BaseFeatureFrame):
             )
         ttk.Label(self.options_frame, text=_('Parts')).pack(side='left', padx=(20, 5))
         self._parts = tk.IntVar(value=2)
-        ttk.Spinbox(self.options_frame, from_=2, to=10, textvariable=self._parts, width=4, justify='center').pack(side='left')
+        ttk.Spinbox(
+            self.options_frame, from_=2, to=10, textvariable=self._parts, width=4, justify='center'
+        ).pack(side='left')
 
     def _setup_execute_frame(self):
         ttk.Button(
