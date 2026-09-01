@@ -15,12 +15,20 @@ from urllib.parse import quote
 
 from util.i18n import gettext_text as _
 
+# Windows 专用：以无窗口方式启动子进程，
+# 避免 GUI 打包（PyInstaller --windowed）后闪现 powershell 控制台窗口。
+try:
+    _CREATE_NO_WINDOW = subprocess.CREATE_NO_WINDOW
+except AttributeError:  # 非 Windows 平台没有该常量
+    _CREATE_NO_WINDOW = 0x08000000
+
 # 路径类型提示
 PathType = str | Path | os.PathLike
 
 
 class _BaseFileManager:
     """平台基类：统一预处理路径类型与校验"""
+
     def _normalize_path(self, path: PathType) -> str:
         """统一将 str / Path / PathLike 转换为绝对路径字符串"""
         return os.path.abspath(os.fspath(path))
@@ -28,13 +36,13 @@ class _BaseFileManager:
     def open(self, folder_path: PathType):
         normalized = self._normalize_path(folder_path)
         if not os.path.isdir(normalized):
-            raise NotADirectoryError(_("Folder not exist: {}").format(normalized))
+            raise NotADirectoryError(_('Folder not exist: {}').format(normalized))
         self._open_impl(normalized)
 
     def select(self, target_path: PathType):
         normalized = self._normalize_path(target_path)
         if not os.path.exists(normalized):
-            raise FileNotFoundError(_("Path not exist: {}").format(normalized))
+            raise FileNotFoundError(_('Path not exist: {}').format(normalized))
         self._select_impl(normalized)
 
     def _open_impl(self, folder_path: str):
@@ -79,13 +87,22 @@ class _WindowsFileManager(_BaseFileManager):
 
     def _get_explorer_hwnds(self):
         cmd = [
-            "powershell", "-NoProfile", "-Command",
-            "(New-Object -ComObject Shell.Application).Windows() | "
+            'powershell',
+            '-NoProfile',
+            '-Command',
+            '(New-Object -ComObject Shell.Application).Windows() | '
             "Where-Object { $_.FullName -like '*explorer.exe' } | "
-            "ForEach-Object { $_.HWND }"
+            'ForEach-Object { $_.HWND }',
         ]
         try:
-            res = subprocess.run(cmd, capture_output=True, text=True, timeout=2, check=False)
+            res = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=2,
+                check=False,
+                creationflags=_CREATE_NO_WINDOW,
+            )
             if res.returncode == 0 and res.stdout.strip():
                 return set(int(h) for h in res.stdout.strip().splitlines() if h.strip().isdigit())
         except Exception:
@@ -102,8 +119,10 @@ class _WindowsFileManager(_BaseFileManager):
             if ($target) {{ $target.Navigate2('{escaped_path}') }}
             """
             subprocess.run(
-                ["powershell", "-NoProfile", "-Command", ps_script],
-                capture_output=True, check=False,
+                ['powershell', '-NoProfile', '-Command', ps_script],
+                capture_output=True,
+                check=False,
+                creationflags=_CREATE_NO_WINDOW,
             )
             self._activate_window(self._hwnd)
             return
@@ -113,7 +132,12 @@ class _WindowsFileManager(_BaseFileManager):
         $shell = New-Object -ComObject Shell.Application
         $shell.Open('{escaped_path}')
         """
-        subprocess.run(["powershell", "-NoProfile", "-Command", ps_open], capture_output=True, check=False)
+        subprocess.run(
+            ['powershell', '-NoProfile', '-Command', ps_open],
+            capture_output=True,
+            check=False,
+            creationflags=_CREATE_NO_WINDOW,
+        )
 
         for _i in range(15):
             time.sleep(0.1)
@@ -143,8 +167,10 @@ class _WindowsFileManager(_BaseFileManager):
             }}
             """
             subprocess.run(
-                ["powershell", "-NoProfile", "-Command", ps_script],
-                capture_output=True, check=False,
+                ['powershell', '-NoProfile', '-Command', ps_script],
+                capture_output=True,
+                check=False,
+                creationflags=_CREATE_NO_WINDOW,
             )
             self._activate_window(self._hwnd)
         else:
@@ -160,10 +186,10 @@ class _WindowsFileManager(_BaseFileManager):
             if pidl:
                 SHOpenFolderAndSelectItems = shell32.SHOpenFolderAndSelectItems
                 SHOpenFolderAndSelectItems.argtypes = [
-                    self._ctypes.c_void_p,   # PCIDLIST_ABSOLUTE pidlFolder
-                    self._ctypes.c_uint,     # UINT cidl
-                    self._ctypes.c_void_p,   # PCUITEMID_CHILD_ARRAY apidl (NULL)
-                    self._ctypes.c_uint,     # DWORD dwFlags
+                    self._ctypes.c_void_p,  # PCIDLIST_ABSOLUTE pidlFolder
+                    self._ctypes.c_uint,  # UINT cidl
+                    self._ctypes.c_void_p,  # PCUITEMID_CHILD_ARRAY apidl (NULL)
+                    self._ctypes.c_uint,  # DWORD dwFlags
                 ]
                 SHOpenFolderAndSelectItems.restype = self._ctypes.HRESULT
                 SHOpenFolderAndSelectItems(pidl, 0, None, 0)
@@ -186,7 +212,7 @@ class _MacOSFileManager(_BaseFileManager):
         self.window_id = None
 
     def _run_applescript(self, script: str) -> str:
-        proc = subprocess.run(["osascript", "-e", script], capture_output=True, text=True, check=False)
+        proc = subprocess.run(['osascript', '-e', script], capture_output=True, text=True, check=False)
         return proc.stdout.strip()
 
     def _open_impl(self, folder_path: str):
@@ -243,41 +269,53 @@ class _MacOSFileManager(_BaseFileManager):
 # =======================================================
 class _LinuxFileManager(_BaseFileManager):
     def _path_to_uri(self, path: str) -> str:
-        return f"file://{quote(path)}"
+        return f'file://{quote(path)}'
 
     def _open_impl(self, folder_path: str):
         uri = self._path_to_uri(folder_path)
         cmd = [
-            "gdbus", "call", "--session",
-            "--dest", "org.freedesktop.FileManager1",
-            "--object-path", "/org/freedesktop/FileManager1",
-            "--method", "org.freedesktop.FileManager1.ShowFolders",
-            f"['{uri}']", '""'
+            'gdbus',
+            'call',
+            '--session',
+            '--dest',
+            'org.freedesktop.FileManager1',
+            '--object-path',
+            '/org/freedesktop/FileManager1',
+            '--method',
+            'org.freedesktop.FileManager1.ShowFolders',
+            f"['{uri}']",
+            '""',
         ]
         try:
             res = subprocess.run(cmd, capture_output=True, timeout=2, check=False)
             if res.returncode != 0:
-                subprocess.Popen(["xdg-open", folder_path])
+                subprocess.Popen(['xdg-open', folder_path])
         except Exception:
-            subprocess.Popen(["xdg-open", folder_path])
+            subprocess.Popen(['xdg-open', folder_path])
 
     def _select_impl(self, target_path: str):
         uri = self._path_to_uri(target_path)
         cmd = [
-            "gdbus", "call", "--session",
-            "--dest", "org.freedesktop.FileManager1",
-            "--object-path", "/org/freedesktop/FileManager1",
-            "--method", "org.freedesktop.FileManager1.ShowItems",
-            f"['{uri}']", '""'
+            'gdbus',
+            'call',
+            '--session',
+            '--dest',
+            'org.freedesktop.FileManager1',
+            '--object-path',
+            '/org/freedesktop/FileManager1',
+            '--method',
+            'org.freedesktop.FileManager1.ShowItems',
+            f"['{uri}']",
+            '""',
         ]
         try:
             res = subprocess.run(cmd, capture_output=True, timeout=2, check=False)
             if res.returncode != 0:
                 parent_dir = os.path.dirname(target_path)
-                subprocess.Popen(["xdg-open", parent_dir])
+                subprocess.Popen(['xdg-open', parent_dir])
         except Exception:
             parent_dir = os.path.dirname(target_path)
-            subprocess.Popen(["xdg-open", parent_dir])
+            subprocess.Popen(['xdg-open', parent_dir])
 
 
 # =======================================================
@@ -285,23 +323,25 @@ class _LinuxFileManager(_BaseFileManager):
 # =======================================================
 def get_file_manager() -> _BaseFileManager:
     """自动获取当前操作系统对应的文件管理器实例"""
-    if sys.platform.startswith("win"):
+    if sys.platform.startswith('win'):
         return _WindowsFileManager()
-    elif sys.platform == "darwin":
+    elif sys.platform == 'darwin':
         return _MacOSFileManager()
-    elif sys.platform.startswith("linux"):
+    elif sys.platform.startswith('linux'):
         return _LinuxFileManager()
     else:
-        raise OSError(f"暂不支持的系统: {sys.platform}")
+        raise OSError(f'暂不支持的系统: {sys.platform}')
 
 
 @lru_cache(maxsize=1)
 def _get_mgr():
     return get_file_manager()
 
+
 def open_folder(folder_path: PathType):
     """跨平台打开目录（支持 str 与 pathlib.Path，自动复用窗口）"""
     _get_mgr().open(folder_path)
+
 
 def select_file(target_path: PathType):
     """跨平台定位并高亮选中文件/目录（支持 str 与 pathlib.Path，自动复用窗口）"""
@@ -309,27 +349,27 @@ def select_file(target_path: PathType):
 
 
 # --------------------- 混合入参测试 ---------------------
-if __name__ == "__main__":
-    if sys.platform.startswith("win"):
-        path_str = r"C:\Windows"
-        path_obj = Path(r"C:\Windows\System32")
-        file_obj = Path(r"C:\Windows\System32\cmd.exe")
-    elif sys.platform == "darwin":
-        path_str = "/Applications"
-        path_obj = Path("/System/Library")
-        file_obj = Path("/etc/hosts")
+if __name__ == '__main__':
+    if sys.platform.startswith('win'):
+        path_str = r'C:\Windows'
+        path_obj = Path(r'C:\Windows\System32')
+        file_obj = Path(r'C:\Windows\System32\cmd.exe')
+    elif sys.platform == 'darwin':
+        path_str = '/Applications'
+        path_obj = Path('/System/Library')
+        file_obj = Path('/etc/hosts')
     else:
-        path_str = os.path.expanduser("~")
-        path_obj = Path("/usr/share")
-        file_obj = Path("/etc/passwd")
+        path_str = os.path.expanduser('~')
+        path_obj = Path('/usr/share')
+        file_obj = Path('/etc/passwd')
 
-    print("1. 使用 str 字符串路径打开...")
+    print('1. 使用 str 字符串路径打开...')
     open_folder(path_str)
     time.sleep(2)
 
-    print("2. 使用 pathlib.Path 对象跳转目录（复用同一窗口）...")
+    print('2. 使用 pathlib.Path 对象跳转目录（复用同一窗口）...')
     open_folder(path_obj)
     time.sleep(2)
 
-    print("3. 使用 pathlib.Path 对象高亮定位文件（复用同一窗口）...")
+    print('3. 使用 pathlib.Path 对象高亮定位文件（复用同一窗口）...')
     select_file(file_obj)

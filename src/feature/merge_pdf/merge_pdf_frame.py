@@ -55,7 +55,7 @@ class MergePdfFrame(BaseFeatureFrame):
     def _set_output_path(self):
         input_paths = self.get_input_paths()
         init_folder = Path(input_paths[0]).parent if input_paths else ''
-        init_file = Path(input_paths[0]).with_suffix(f'.{_("Merged")}.pdf') if input_paths else ''
+        init_file = Path(input_paths[0]).with_suffix(f'.{_("Merged")}.pdf').name if input_paths else ''
         output_path = asksaveasfilename(
             filetypes=FILE_TYPES['PDF'],
             defaultextension='pdf',
