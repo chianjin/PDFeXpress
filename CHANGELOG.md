@@ -1,5 +1,23 @@
 # ChangeLog
 
+## 2.0.3
+
+2026-10-16
+
+- Fix packaged build showing "Not Implemented" for **Quick Compress** and **Deep Compress**. These two feature packages lacked `__init__.py`, so they were namespace packages that PyInstaller's `--collect-submodules` does not bundle; adding `__init__.py` restores the frozen UI.
+
+## 2.0.2
+
+2026-09-01
+
+- Fix output filename initialization and hide the PowerShell window when running frozen.
+
+## 2.0.1
+
+2026-08-26
+
+- Fix undefined `input_path` in the `Images to PDF` output path.
+
 ## 2.0
 
 2026-08-19
